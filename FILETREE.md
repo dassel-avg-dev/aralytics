@@ -23,29 +23,15 @@ aralytics/
 │   └── icons.svg
 ├── screens/                         # Reference design package (input material, NOT runtime code) — git-ignored
 │   ├── warm_editorial_edtech/
-│   │   └── DESIGN.md                # Design system: tokens, colors, type, components
-│   ├── aralytics_teacher_dashboard/
-│   │   └── code.html                # ⚠️ duplicate of mastery roster; real dashboard missing
-│   ├── aralytics_students_mastery_roster/
-│   │   ├── code.html
-│   │   └── screen.png
-│   ├── aralytics_activities_quiz_management/
-│   │   ├── code.html
-│   │   └── screen.png
-│   ├── aralytics_class_reports_learning_analytics/
-│   │   ├── code.html
-│   │   └── screen.png
-│   ├── aralytics_teacher_classroom_settings/
-│   │   ├── code.html
-│   │   └── screen.png
+│   │   └── DESIGN.md                # Design system source of truth: tokens, colors, type, components
 │   └── stitch/                        # Fresh Stitch MCP export (2026-10-27), project 17585807675120887156
 │       ├── students_mastery_roster/           # 11487fb0… (roster) code + full-res screenshot
-│       ├── student_desktop_portal/            # 1cddafa2… (learner portal; NEW — not in app yet)
+│       ├── student_desktop_portal/            # 1cddafa2… (learner portal — live at /home)
 │       ├── landing_page/                      # 77d817e2… (updated landing design)
 │       ├── teacher_classroom_settings/        # 7893867e…
 │       ├── class_reports_learning_analytics/  # 97a29eb9…
 │       ├── activities_quiz_management/        # a703a15b…
-│       └── teacher_desktop_dashboard/         # faeb2f3b… (real dashboard design — replaces duplicate)
+│       └── teacher_desktop_dashboard/         # faeb2f3b… (real dashboard design — live at /dashboard)
 └── src/                             # Application source code
     ├── App.jsx                      # Router shell: Sidebar + TopBar + Routes
     ├── main.jsx                     # React bootstrap (renders App, imports index.css)

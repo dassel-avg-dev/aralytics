@@ -6,7 +6,7 @@ Working state of the **Aralytics** project. Update this file whenever the projec
 
 ## Project Overview
 
-Aralytics — an AI learning-analytics platform for Filipino classrooms. **All 7 screens are now converted 1:1 from the Stitch exports in `screens/stitch/*/code.html`** and verified via Playwright at desktop (1440px) + mobile (390px): public landing, learner home, and 5 teacher screens. The original `screens/aralytics_*` + `screens/` mockup dirs remain as reference history only — the app no longer derives from them.
+Aralytics — an AI learning-analytics platform for Filipino classrooms. **All 7 screens are now converted 1:1 from the Stitch exports in `screens/stitch/*/code.html`** and verified via Playwright at desktop (1440px) + mobile (390px): public landing, learner home, and 5 teacher screens. The original mockup dirs (`screens/aralytics_*`, `screens/home screen/`, `screens/landing page/`, `screens/aralytics_teacher_dashboard/`) were deleted 2026-10-27 — only `screens/stitch/` and `screens/warm_editorial_edtech/DESIGN.md` remain.
 
 ⚠️ **If the UI looks unstyled/broken next session, check these two known root-cause bugs FIRST** (both happened once, both would silently recur):
 1. `src/index.css` — never let a CSS comment contain a literal `*/` sequence (it was in a `screens/*/code.html` path string; it terminates the comment early and corrupts the `@theme` block → every custom utility vanishes).
@@ -29,7 +29,7 @@ Symptom of either: page renders but cards/colors/paddings/grid missing. Fix, the
 
 Source of truth: `screens/warm_editorial_edtech/DESIGN.md` ("Warm Editorial EdTech"). Same design system exists in the Stitch project (`Warm Editorial EdTech` asset) — generated screens under `screens/stitch/` use it.
 
-⚠️ **Reference package generations (historical note):** `screens/aralytics_*` + `screens/` mockup dirs were used for the first build; **`screens/stitch/` (added 2026-10-27) is now the sole conversion source** — every screen in `src/screens/` was re-implemented from its `code.html`. Differences that came out of the re-conversion:
+⚠️ **Reference package history:** the first build derived from `screens/aralytics_*` + `screens/` mockup dirs — **those were deleted 2026-10-27** (only `stitch/` + `warm_editorial_edtech/DESIGN.md` kept). `screens/stitch/` is now the sole screen-design source — every screen in `src/screens/` was re-implemented from its `code.html`. Differences that came out of the re-conversion:
 - `teacher_desktop_dashboard/code.html` is the **real dashboard design** (KPI cards, SVG trend chart + donut, AI insights, Needs-Attention triage, student directory table) — now live at `/dashboard`, replacing the old hand-built variant (and its `StatCard`/`MasteryRing` components, now deleted).
 - `student_desktop_portal/code.html` replaced the old `/home` design: simplified restyle (calmer streak banner, compact AI Coach card, inline metadata pills; no "Warm-up preview" filler — the new hero card ends at its metadata pills, so the left bento card has intentional empty space).
 - `landing_page/code.html` replaced the old landing: flatter bordered cards, plain "Warm Editorial" styling, same section inventory (hero → pillars → tabs → DepEd → testimonials → metrics → pilot).
