@@ -1,10 +1,20 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 export default function ActivitiesQuizManagement() {
   const [drawerOpen, setDrawerOpen] = useState(false)
   const [activeStatus, setActiveStatus] = useState('active')
-  const [activeSubject, setActiveSubject] = useState('All Subjects')
+  const [activeTopic, setActiveTopic] = useState('All Topics')
   const [format, setFormat] = useState('Diagnostic')
+  const [toast, setToast] = useState(null)
+  const toastTimer = useRef(null)
+
+  useEffect(() => () => clearTimeout(toastTimer.current), [])
+
+  function showToast(message) {
+    setToast(message)
+    clearTimeout(toastTimer.current)
+    toastTimer.current = setTimeout(() => setToast(null), 3000)
+  }
 
   return (
     <>
@@ -14,14 +24,14 @@ export default function ActivitiesQuizManagement() {
           <div className="flex flex-col gap-space-xs max-w-xl">
             <div className="flex items-center gap-space-xs">
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-high text-primary font-label-sm text-label-sm">
-                <span className="material-symbols-outlined text-[15px]" style={{ fontVariationSettings: "'FILL' 1" }}>school</span>
-                DepEd K to 12 MATATAG Aligned
+                <span className="material-symbols-outlined text-[15px]" style={{ fontVariationSettings: "'FILL' 1" }}>code</span>
+                Computer Science 101
               </span>
-              <span className="font-label-sm text-label-sm text-on-surface-variant">• Q2 Academic Cycle</span>
+              <span className="font-label-sm text-label-sm text-on-surface-variant">• Fall 2024 Cycle</span>
             </div>
-            <h1 className="font-headline-lg text-headline-lg text-on-surface tracking-tight">Learning Activities &amp; Quizzes</h1>
+            <h1 className="font-headline-lg text-headline-lg text-on-surface tracking-tight">Coding Activities &amp; Quizzes</h1>
             <p className="font-body-md text-body-md text-on-surface-variant">
-              Manage, assign, and review AI feedback parameters for quizzes, diagnostic checks, and targeted remedial drills.
+              Create, assign, and inspect AI diagnostic feedback for coding quizzes, situational debugging scenarios, and remedial drills.
             </p>
           </div>
           {/* Action Buttons */}
@@ -34,7 +44,7 @@ export default function ActivitiesQuizManagement() {
               <span className="material-symbols-outlined text-[18px]">bookmark_manager</span>
               <span>Templates</span>
             </button>
-            <button className="flex items-center gap-2 px-space-lg py-2.5 rounded-[14px] bg-primary-container text-on-primary font-label-lg text-label-lg shadow-md hover:bg-primary transition-all" id="createActivityBtn" type="button" onClick={() => setDrawerOpen(true)}>
+            <button className="flex items-center gap-2 px-space-lg py-2.5 rounded-[14px] bg-primary-container text-on-primary font-label-lg text-label-lg shadow-md hover:bg-primary transition-all" type="button" onClick={() => setDrawerOpen(true)}>
               <span className="material-symbols-outlined text-[18px] text-tertiary-fixed-dim" style={{ fontVariationSettings: "'FILL' 1" }}>auto_awesome</span>
               <span>+ Create Activity</span>
             </button>
@@ -45,22 +55,22 @@ export default function ActivitiesQuizManagement() {
           <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-space-md">
             <div className="flex items-start gap-space-md max-w-2xl">
               <div className="w-12 h-12 rounded-[16px] bg-primary-container text-on-primary flex items-center justify-center shrink-0 shadow-sm">
-                <span className="material-symbols-outlined text-[26px]" style={{ fontVariationSettings: "'FILL' 1" }}>psychology_alt</span>
+                <span className="material-symbols-outlined text-[26px]" style={{ fontVariationSettings: "'FILL' 1" }}>terminal</span>
               </div>
               <div className="flex flex-col">
                 <div className="flex items-center gap-2">
-                  <span className="font-headline-sm text-headline-sm text-on-surface">Quick AI Quiz Generator</span>
+                  <span className="font-headline-sm text-headline-sm text-on-surface">AI Coding Quiz &amp; Scenario Generator</span>
                   <span className="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-bold">New</span>
                 </div>
                 <p className="font-body-md text-body-md text-on-surface-variant mt-0.5">
-                  Generate an encouraging 5-question mastery drill from DepEd competencies in 30 seconds with automatic bilingual Filipino/English cues.
+                  Generate an interactive 5-question coding diagnostic or situational debugging challenge in Python or JavaScript in 30 seconds.
                 </p>
               </div>
             </div>
             <div className="flex items-center gap-space-sm w-full lg:w-auto justify-end">
-              <button className="flex items-center gap-2 px-space-md py-2.5 rounded-[14px] bg-tertiary-fixed-dim text-on-surface font-label-lg text-label-lg hover:brightness-105 shadow-sm transition-all" type="button">
+              <button className="flex items-center gap-2 px-space-md py-2.5 rounded-[14px] bg-tertiary-fixed-dim text-on-surface font-label-lg text-label-lg hover:brightness-105 shadow-sm transition-all" type="button" onClick={() => showToast('Generating a 5-question coding drill for Python • Loops & Lists ✨')}>
                 <span className="material-symbols-outlined text-[18px]">bolt</span>
-                <span>Generate Drill Now</span>
+                <span>Create Coding Drill</span>
               </button>
             </div>
           </div>
@@ -91,35 +101,35 @@ export default function ActivitiesQuizManagement() {
               </button>
             ))}
           </div>
-          {/* Subject Filtering Chips */}
+          {/* Topic Filtering Chips */}
           <div className="flex items-center gap-2 overflow-x-auto max-w-full py-1">
-            <span className="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider pl-1">Subject:</span>
-            {['All Subjects', 'Mathematics', 'Science', 'Filipino', 'English'].map((subject) => (
+            <span className="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider pl-1">Topic:</span>
+            {['All Topics', 'Python Fundamentals', 'Control Flow & Loops', 'Data Structures', 'Functions & Scope', 'Debugging & Logic'].map((topic) => (
               <button
-                key={subject}
+                key={topic}
                 className={`px-3 py-1 rounded-full font-label-sm text-label-sm transition-colors ${
-                  activeSubject === subject
+                  activeTopic === topic
                     ? 'bg-primary-container text-on-primary shadow-xs'
                     : 'bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container-high'
                 }`}
                 type="button"
-                onClick={() => setActiveSubject(subject)}
+                onClick={() => setActiveTopic(topic)}
               >
-                {subject}
+                {topic}
               </button>
             ))}
           </div>
         </div>
         {/* Activity Cards Grid (Primary Presentation) */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-space-lg mb-space-xl">
-          {/* Card 1: Diagnostic Math Fractions */}
+          {/* Card 1: Python Loops & Lists Diagnostic */}
           <div className="flex flex-col justify-between rounded-[20px] bg-surface-container-lowest p-space-lg shadow-sm hover:shadow-md transition-all relative overflow-hidden group">
             <div className="flex flex-col gap-space-sm">
               {/* Top Tagging & Status */}
               <div className="flex items-center justify-between gap-space-xs">
                 <div className="flex items-center gap-2">
                   <span className="px-2.5 py-1 rounded-full bg-surface-container text-primary font-label-sm text-label-sm">
-                    Mathematics • Grade 8
+                    Python • Loops &amp; Lists
                   </span>
                   <span className="px-2.5 py-1 rounded-full bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm">
                     Diagnostic
@@ -127,16 +137,16 @@ export default function ActivitiesQuizManagement() {
                 </div>
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary-container/30 text-secondary font-label-sm text-label-sm font-semibold">
                   <span className="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
-                  Active • Ends Fri 5:00 PM
+                  Active • Ends Friday 5:00 PM
                 </span>
               </div>
               {/* Main Info */}
               <div>
                 <h3 className="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors">
-                  Quarter 2 Diagnostic: Fractions &amp; Mixed Numbers
+                  Python Loops &amp; List Comprehension Diagnostic
                 </h3>
                 <p className="font-body-sm text-body-sm text-on-surface-variant mt-1">
-                  Assigned to <span className="font-medium text-on-surface">Grade 8 - Sampaguita</span> • 10 Questions (~8 mins)
+                  Assigned to <span className="font-medium text-on-surface">Section A (42 students)</span> • 10 Questions (~8 mins)
                 </p>
               </div>
               {/* Metric & Progress Module */}
@@ -155,11 +165,11 @@ export default function ActivitiesQuizManagement() {
                   <span className="font-headline-sm text-headline-sm text-primary">78.4%</span>
                 </div>
               </div>
-              {/* Aral Owl Feedback Pill Notice */}
+              {/* AI Feedback Notice */}
               <div className="flex items-center gap-2 p-2.5 rounded-xl bg-surface-container font-body-sm text-body-sm text-on-surface">
                 <span className="material-symbols-outlined text-[18px] text-primary" style={{ fontVariationSettings: "'FILL' 1" }}>smart_toy</span>
                 <span className="text-on-surface-variant text-[13px] leading-tight">
-                  <strong className="font-semibold text-primary">AI Feedback Active:</strong> Generating empathetic feedback &amp; remedial tips in Tagalog/English.
+                  <strong className="font-semibold text-primary">AI Feedback Active:</strong> Analyzing syntax patterns &amp; off-by-one boundary misconceptions.
                 </span>
               </div>
             </div>
@@ -174,22 +184,22 @@ export default function ActivitiesQuizManagement() {
                 </button>
               </div>
               <button className="flex items-center gap-1.5 px-space-md py-2 rounded-[14px] bg-primary-container text-on-primary font-label-md text-label-md hover:bg-primary transition-all shadow-xs" type="button">
-                <span>View Submissions &amp; AI Logs</span>
+                <span>View Submissions &amp; AI Feedback</span>
                 <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
               </button>
             </div>
           </div>
-          {/* Card 2: Science Cellular Respiration Quiz */}
+          {/* Card 2: Functions & Scope Scenario */}
           <div className="flex flex-col justify-between rounded-[20px] bg-surface-container-lowest p-space-lg shadow-sm hover:shadow-md transition-all relative overflow-hidden group">
             <div className="flex flex-col gap-space-sm">
               {/* Top Tagging & Status */}
               <div className="flex items-center justify-between gap-space-xs">
                 <div className="flex items-center gap-2">
                   <span className="px-2.5 py-1 rounded-full bg-surface-container text-secondary font-label-sm text-label-sm">
-                    Science • Grade 8
+                    Functions &amp; Scope
                   </span>
                   <span className="px-2.5 py-1 rounded-full bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm">
-                    Unit Quiz
+                    Scenario-based
                   </span>
                 </div>
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary-fixed/40 text-on-secondary-container font-label-sm text-label-sm font-semibold">
@@ -200,10 +210,10 @@ export default function ActivitiesQuizManagement() {
               {/* Main Info */}
               <div>
                 <h3 className="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors">
-                  Photosynthesis &amp; Cellular Respiration Unit Quiz
+                  Functions &amp; Return Values: Situational Debugging
                 </h3>
                 <p className="font-body-sm text-body-sm text-on-surface-variant mt-1">
-                  Assigned to <span className="font-medium text-on-surface">Grade 8 - Sampaguita</span> • 12 Questions (~10 mins)
+                  Assigned to <span className="font-medium text-on-surface">Section A (42 students)</span> • 8 Questions (~10 mins)
                 </p>
               </div>
               {/* Metric & Progress Module */}
@@ -217,14 +227,14 @@ export default function ActivitiesQuizManagement() {
                 </div>
                 <div className="flex items-center justify-between pt-1">
                   <span className="font-body-sm text-body-sm text-on-surface-variant">Average Class Score</span>
-                  <span className="font-headline-sm text-headline-sm text-secondary">88.2%</span>
+                  <span className="font-headline-sm text-headline-sm text-secondary">86.2%</span>
                 </div>
               </div>
-              {/* Aral Owl Insight Note */}
+              {/* Bug Insight Note */}
               <div className="flex items-center gap-2 p-2.5 rounded-xl bg-surface-container-low font-body-sm text-body-sm text-on-surface">
-                <span className="material-symbols-outlined text-[18px] text-secondary">verified</span>
+                <span className="material-symbols-outlined text-[18px] text-secondary">bug_report</span>
                 <span className="text-on-surface-variant text-[13px] leading-tight">
-                  41/42 summaries synchronized. Ready to release report card updates.
+                  Common error identified: returning None inside loop instead of accumulating values.
                 </span>
               </div>
             </div>
@@ -238,58 +248,58 @@ export default function ActivitiesQuizManagement() {
                   <span className="material-symbols-outlined text-[20px]">equalizer</span>
                 </button>
               </div>
-              <button className="flex items-center gap-1.5 px-space-md py-2 rounded-[14px] bg-secondary text-on-secondary font-label-md text-label-md hover:opacity-90 transition-all shadow-xs" type="button">
-                <span>Publish AI Scores</span>
+              <button className="flex items-center gap-1.5 px-space-md py-2 rounded-[14px] bg-secondary text-on-secondary font-label-md text-label-md hover:opacity-90 transition-all shadow-xs" type="button" onClick={() => showToast('Scores & insights published for Functions & Return Values ✅')}>
+                <span>Publish Scores &amp; Insights</span>
                 <span className="material-symbols-outlined text-[16px]">send</span>
               </button>
             </div>
           </div>
-          {/* Card 3: Ibong Adarna Filipino Reading */}
+          {/* Card 3: Conditional Statements & Boolean Logic */}
           <div className="flex flex-col justify-between rounded-[20px] bg-surface-container-lowest p-space-lg shadow-sm hover:shadow-md transition-all relative overflow-hidden group">
             <div className="flex flex-col gap-space-sm">
               {/* Top Tagging & Status */}
               <div className="flex items-center justify-between gap-space-xs">
                 <div className="flex items-center gap-2">
                   <span className="px-2.5 py-1 rounded-full bg-surface-container text-tertiary font-label-sm text-label-sm">
-                    Filipino • Grade 8
+                    Python • Logic &amp; Conditions
                   </span>
                   <span className="px-2.5 py-1 rounded-full bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm">
-                    Panitikan
+                    MCQ &amp; Logic Tracing
                   </span>
                 </div>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary-container/30 text-secondary font-label-sm text-label-sm font-semibold">
-                  <span className="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
-                  Active
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm font-semibold">
+                  <span className="material-symbols-outlined text-[15px] text-secondary">task_alt</span>
+                  Completed
                 </span>
               </div>
               {/* Main Info */}
               <div>
                 <h3 className="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors">
-                  Pagbasa at Pag-unawa: Ibong Adarna (Kabanata 1-5)
+                  Conditional Statements &amp; Boolean Logic
                 </h3>
                 <p className="font-body-sm text-body-sm text-on-surface-variant mt-1">
-                  Assigned to <span className="font-medium text-on-surface">Grade 8 - Sampaguita</span> • 15 Questions (~12 mins)
+                  Assigned to <span className="font-medium text-on-surface">Section A (42 students)</span> • 12 Questions (~10 mins)
                 </p>
               </div>
               {/* Metric & Progress Module */}
               <div className="p-space-md rounded-[16px] bg-surface-container-low/60 flex flex-col gap-space-xs my-space-xs">
                 <div className="flex items-center justify-between font-label-sm text-label-sm">
-                  <span className="text-on-surface-variant">Class Turnout: 40 / 42 Students</span>
-                  <span className="font-bold text-on-surface">95.2%</span>
+                  <span className="text-on-surface-variant">Class Turnout: 42 / 42 Students</span>
+                  <span className="font-bold text-on-surface">100%</span>
                 </div>
                 <div className="w-full h-2 rounded-full bg-surface-container-high overflow-hidden">
-                  <div className="h-full rounded-full bg-primary" style={{ width: '95.2%' }}></div>
+                  <div className="h-full rounded-full bg-primary" style={{ width: '100%' }}></div>
                 </div>
                 <div className="flex items-center justify-between pt-1">
                   <span className="font-body-sm text-body-sm text-on-surface-variant">Average Class Score</span>
-                  <span className="font-headline-sm text-headline-sm text-secondary">91.0%</span>
+                  <span className="font-headline-sm text-headline-sm text-secondary">91.5%</span>
                 </div>
               </div>
               {/* Highlight */}
               <div className="flex items-center gap-2 p-2.5 rounded-xl bg-surface-container font-body-sm text-body-sm text-on-surface">
                 <span className="material-symbols-outlined text-[18px] text-tertiary-fixed-dim" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
                 <span className="text-on-surface-variant text-[13px] leading-tight">
-                  Top-scoring module: 28 students mastered figurative symbolism questions.
+                  Mastery module: 36 students achieved perfect scores on short-circuit evaluation.
                 </span>
               </div>
             </div>
@@ -309,7 +319,7 @@ export default function ActivitiesQuizManagement() {
               </button>
             </div>
           </div>
-          {/* Card 4: Targeted Remedial Intervention */}
+          {/* Card 4: Targeted Loop Remediation */}
           <div className="flex flex-col justify-between rounded-[20px] bg-surface-container-lowest p-space-lg shadow-sm hover:shadow-md transition-all relative overflow-hidden group">
             <div className="flex flex-col gap-space-sm">
               {/* Top Tagging & Status */}
@@ -319,21 +329,21 @@ export default function ActivitiesQuizManagement() {
                     Remedial Drill
                   </span>
                   <span className="px-2.5 py-1 rounded-full bg-surface-container text-primary font-label-sm text-label-sm">
-                    Math Support
+                    Loop Remediation
                   </span>
                 </div>
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-tertiary-fixed/60 text-tertiary font-label-sm text-label-sm font-semibold">
                   <span className="w-2 h-2 rounded-full bg-tertiary animate-pulse"></span>
-                  In Progress (2/4)
+                  In Progress (3/4)
                 </span>
               </div>
               {/* Main Info */}
               <div>
                 <h3 className="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors">
-                  Targeted Remedial: Denominator Common Factoring Drill
+                  Targeted Remedial: While Loop Counter &amp; Boundary Practice
                 </h3>
                 <p className="font-body-sm text-body-sm text-on-surface-variant mt-1">
-                  5 Micro-Questions • Adaptive Hints Enabled
+                  5 Micro-Questions • Adaptive Socratic hints enabled
                 </p>
               </div>
               {/* Flagged Students Chips Module */}
@@ -342,19 +352,19 @@ export default function ActivitiesQuizManagement() {
                 <div className="flex flex-wrap gap-1.5">
                   <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container text-on-surface font-label-sm text-label-sm">
                     <span className="material-symbols-outlined text-[14px] text-secondary">check</span>
-                    Maria S. (Done - 80%)
+                    Miguel S. (Done - 80%)
                   </span>
                   <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container text-on-surface font-label-sm text-label-sm">
                     <span className="material-symbols-outlined text-[14px] text-secondary">check</span>
-                    Juan D. (Done - 100%)
+                    Carlos R. (Done - 100%)
+                  </span>
+                  <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container text-on-surface font-label-sm text-label-sm">
+                    <span className="material-symbols-outlined text-[14px] text-secondary">check</span>
+                    Jasmine T. (Done - 85%)
                   </span>
                   <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container-highest text-on-surface-variant font-label-sm text-label-sm">
                     <span className="w-1.5 h-1.5 rounded-full bg-tertiary-fixed-dim"></span>
-                    Paolo R. (Pending)
-                  </span>
-                  <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container-highest text-on-surface-variant font-label-sm text-label-sm">
-                    <span className="w-1.5 h-1.5 rounded-full bg-tertiary-fixed-dim"></span>
-                    Elijah M. (Pending)
+                    Paolo G. (Pending)
                   </span>
                 </div>
               </div>
@@ -362,9 +372,9 @@ export default function ActivitiesQuizManagement() {
               <div className="flex items-center justify-between p-2.5 rounded-xl bg-surface-container font-body-sm text-body-sm text-on-surface">
                 <div className="flex items-center gap-2">
                   <span className="material-symbols-outlined text-[18px] text-primary">schedule_send</span>
-                  <span className="text-on-surface-variant text-[13px]">Send quick Aral Owl reminder nudge?</span>
+                  <span className="text-on-surface-variant text-[13px]">Send quick diagnostic practice reminder?</span>
                 </div>
-                <button className="px-2.5 py-1 rounded-full bg-surface-container-lowest text-primary font-label-sm text-label-sm shadow-xs hover:bg-surface-container-high transition-colors" type="button">
+                <button className="px-2.5 py-1 rounded-full bg-surface-container-lowest text-primary font-label-sm text-label-sm shadow-xs hover:bg-surface-container-high transition-colors" type="button" onClick={() => showToast('Practice reminder sent to Paolo G. ✉️')}>
                   Nudge Now
                 </button>
               </div>
@@ -383,22 +393,22 @@ export default function ActivitiesQuizManagement() {
             </div>
           </div>
         </div>
-        {/* Supplementary DepEd Competency Mapping Footer Widget */}
+        {/* Supplementary CS Curriculum Mapping Footer Widget */}
         <div className="p-space-lg rounded-[20px] bg-surface-container-lowest shadow-sm flex flex-col md:flex-row items-center justify-between gap-space-md">
           <div className="flex items-center gap-space-md">
             <div className="w-10 h-10 rounded-xl bg-surface-container flex items-center justify-center text-primary shrink-0">
               <span className="material-symbols-outlined text-[22px]">account_tree</span>
             </div>
             <div className="flex flex-col">
-              <span className="font-label-lg text-label-lg text-on-surface">DepEd Competency Coverage Indicator</span>
+              <span className="font-label-lg text-label-lg text-on-surface">Python 101 Curriculum Coverage Indicator</span>
               <span className="font-body-sm text-body-sm text-on-surface-variant">
-                Grade 8 Mathematics &amp; Science Q2 competencies are <strong>84% assessed</strong> via current activities.
+                Python 101 Curriculum Coverage: <strong>82% assessed</strong> across core coding competencies.
               </span>
             </div>
           </div>
           <div className="flex items-center gap-space-sm shrink-0">
             <button className="px-space-md py-2 rounded-[14px] bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md transition-colors" type="button">
-              View Detailed Curriculum Matrix
+              View Learning Matrix
             </button>
           </div>
         </div>
@@ -406,14 +416,12 @@ export default function ActivitiesQuizManagement() {
       {/* Interactive Slide-Over Drawer for Quick Activity Creation */}
       <div
         className={`fixed inset-0 bg-inverse-surface/40 backdrop-blur-xs z-50 ${drawerOpen ? 'opacity-100' : 'hidden opacity-0'} transition-opacity duration-300`}
-        id="createDrawerBackdrop"
         onClick={(e) => {
           if (e.target === e.currentTarget) setDrawerOpen(false)
         }}
       >
         <div
           className={`absolute right-0 top-0 h-full w-full max-w-lg bg-surface-container-lowest shadow-2xl p-space-xl flex flex-col justify-between overflow-y-auto transform ${drawerOpen ? 'translate-x-0' : 'translate-x-full'} transition-transform duration-300`}
-          id="createDrawer"
         >
           <div className="flex flex-col gap-space-lg">
             {/* Drawer Header */}
@@ -424,7 +432,7 @@ export default function ActivitiesQuizManagement() {
                 </span>
                 <h2 className="font-headline-sm text-headline-sm text-on-surface">Create New Learning Activity</h2>
               </div>
-              <button className="p-2 rounded-xl text-on-surface-variant hover:bg-surface-container transition-colors" id="closeDrawerBtn" type="button" onClick={() => setDrawerOpen(false)}>
+              <button className="p-2 rounded-xl text-on-surface-variant hover:bg-surface-container transition-colors" type="button" onClick={() => setDrawerOpen(false)}>
                 <span className="material-symbols-outlined text-[20px]">close</span>
               </button>
             </div>
@@ -436,20 +444,20 @@ export default function ActivitiesQuizManagement() {
               </div>
               <div className="grid grid-cols-2 gap-space-sm">
                 <div className="flex flex-col gap-1.5">
-                  <label className="font-label-md text-label-md text-on-surface">Subject</label>
-                  <select className="w-full bg-surface-container-low text-on-surface font-body-md text-body-md px-4 py-3 rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-primary-container">
-                    <option>Mathematics</option>
-                    <option>Science</option>
-                    <option>Filipino</option>
-                    <option>English</option>
+                  <label className="font-label-md text-label-md text-on-surface">Topic / Module</label>
+                  <select className="w-full bg-surface-container-low text-on-surface font-body-md text-body-md px-4 py-3 rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-primary-container" defaultValue="Python Fundamentals">
+                    <option>Python Fundamentals</option>
+                    <option>Control Flow &amp; Loops</option>
+                    <option>Functions &amp; Return Values</option>
+                    <option>Data Structures</option>
                   </select>
                 </div>
                 <div className="flex flex-col gap-1.5">
                   <label className="font-label-md text-label-md text-on-surface">Class / Section</label>
-                  <select className="w-full bg-surface-container-low text-on-surface font-body-md text-body-md px-4 py-3 rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-primary-container">
-                    <option>Grade 8 - Sampaguita (42)</option>
-                    <option>Grade 8 - Rosal (38)</option>
-                    <option>Specific Students Only</option>
+                  <select className="w-full bg-surface-container-low text-on-surface font-body-md text-body-md px-4 py-3 rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-primary-container" defaultValue="Section A - Intro to Python (42)">
+                    <option>Section A - Intro to Python (42)</option>
+                    <option>Section B - CS 101 (38)</option>
+                    <option>Specific Flagged Students Only</option>
                   </select>
                 </div>
               </div>
@@ -491,15 +499,24 @@ export default function ActivitiesQuizManagement() {
           </div>
           {/* Drawer Footer Actions */}
           <div className="pt-space-lg flex items-center justify-end gap-space-sm">
-            <button className="px-space-md py-2.5 rounded-[14px] bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-container-high transition-colors" id="cancelDrawerBtn" type="button" onClick={() => setDrawerOpen(false)}>
+            <button className="px-space-md py-2.5 rounded-[14px] bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-container-high transition-colors" type="button" onClick={() => setDrawerOpen(false)}>
               Cancel
             </button>
-            <button className="px-space-lg py-2.5 rounded-[14px] bg-primary-container text-on-primary font-label-md text-label-md hover:bg-primary transition-all shadow-md" type="button">
+            <button className="px-space-lg py-2.5 rounded-[14px] bg-primary-container text-on-primary font-label-md text-label-md hover:bg-primary transition-all shadow-md" type="button" onClick={() => { setDrawerOpen(false); showToast(`Activity "${format}" draft created — add your questions next 🎉`) }}>
               Save &amp; Add Questions
             </button>
           </div>
         </div>
       </div>
+      {/* Notification Toast (for quick interactions) */}
+      {toast && (
+        <div className="fixed bottom-6 right-6 z-50 transform translate-y-0 opacity-100 transition-all duration-300 pointer-events-none">
+          <div className="bg-inverse-surface text-inverse-on-surface px-space-md py-3 rounded-xl shadow-xl flex items-center gap-2">
+            <span className="material-symbols-outlined text-[#71F8E4] text-[20px]">check_circle</span>
+            <span className="font-label-md text-label-md">{toast}</span>
+          </div>
+        </div>
+      )}
     </>
   )
 }

@@ -5,6 +5,18 @@ const FILTER_TAB_ACTIVE =
 const FILTER_TAB_IDLE =
   'px-3 py-1 rounded-lg text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm transition-all'
 
+const MASTERY_PILL_ACTIVE =
+  'px-2.5 py-1 rounded-full bg-primary-container text-on-primary font-label-sm text-label-sm font-bold'
+const MASTERY_PILL_IDLE =
+  'px-2.5 py-1 rounded-full bg-surface-container text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm'
+
+const MASTERY_FILTERS = [
+  { value: 'All', label: 'All' },
+  { value: 'Syntax', label: 'Syntax' },
+  { value: 'Logic', label: 'Logic' },
+  { value: 'Functions', label: 'Functions' },
+]
+
 const ROSTER_FILTERS = [
   { value: 'all', label: 'All (42)' },
   { value: 'on-track', label: 'On Track (29)' },
@@ -12,230 +24,265 @@ const ROSTER_FILTERS = [
   { value: 'needs-help', label: 'Needs Help (4)' },
 ]
 
-const NEEDS_ATTENTION_STUDENTS = [
+const BENCHMARK_TABLE = [
+  { week: 'Week 1', assessment: 'Variables & Data Types (int, float, str)', score: '72.0%', delta: '-8.0%', deltaClass: 'text-error' },
+  { week: 'Week 2', assessment: 'Conditionals (if, elif, else) & Booleans', score: '75.0%', delta: '-5.0%', deltaClass: 'text-error' },
+  { week: 'Week 3', assessment: 'Loops: While Loops & Loop Conditions', score: '79.0%', delta: '-1.0%', deltaClass: 'text-on-surface-variant' },
+  { week: 'Week 4', assessment: 'Loops: For Loops & range() Indexing', score: '78.0%', delta: '-2.0%', deltaClass: 'text-on-surface-variant' },
+  { week: 'Week 5', assessment: 'Functions, Parameters & Return Values', score: '82.0%', delta: '+2.0%', deltaClass: 'text-[#22A06B] font-bold' },
+]
+
+const CONCEPT_SCORES = [
   {
-    initials: 'MS',
-    name: 'Maria Santos',
-    scoreLabel: '58% · Fractions',
-    scoreColor: 'text-error',
-    detail: 'Struggled with common denominators on Q4 & Q7',
-    mailTitle: 'Send Tip',
-    status: 'Needs Help',
+    emoji: '🔀',
+    emojiColor: 'text-primary',
+    name: 'Conditional Logic (if / elif / else)',
+    category: 'Logic',
+    pct: 91,
+    pctColor: 'text-[#22A06B]',
+    barColor: 'bg-[#22A06B]',
+  },
+  {
+    emoji: '⚙️',
+    emojiColor: 'text-secondary',
+    name: 'Functions & Return Values',
+    category: 'Functions',
+    pct: 88,
+    pctColor: 'text-[#22A06B]',
+    barColor: 'bg-[#22A06B]',
+  },
+  {
+    emoji: '🔁',
+    emojiColor: 'text-primary',
+    name: 'Python Loops (For & While)',
+    category: 'Logic',
+    pct: 78,
+    pctColor: 'text-primary',
+    barColor: 'bg-primary-container',
+  },
+  {
+    emoji: '🐛',
+    emojiColor: 'text-tertiary',
+    name: 'Syntax Errors & Debugging',
+    category: 'Syntax',
+    pct: 68,
+    pctColor: 'text-tertiary',
+    barColor: 'bg-tertiary-fixed-dim',
+  },
+]
+
+const FLAGGED_STUDENTS = [
+  {
+    initials: 'MR',
+    id: 'CS-2024-001',
+    name: 'Miguel Ramos',
     score: '58%',
-    observation:
-      'Struggled with common denominators on questions 4 & 7. Missed 2 practice check-ins.',
-  },
-  {
-    initials: 'JD',
-    name: 'Juan Dela Cruz',
-    scoreLabel: '62% · Grammar',
+    scoreLabel: '58% · Off-by-one',
     scoreColor: 'text-error',
-    detail: 'Missed 2 consecutive quizzes; submitted late',
-    mailTitle: 'Send Nudge',
+    detail: 'Infinite while loop on Lab 4; range indexing boundary mismatch',
     status: 'Needs Help',
-    score: '62%',
     observation:
-      'Late submissions on verb tenses. Shows high offline participation.',
+      'Frequent off-by-one errors in while loops and array bounds. Recommend visualizer step-through.',
+    observationFil:
+      'Magandang pagkaunawa ni Miguel sa conditional branches at boolean operators. Ang tunay na hadlang ay nasa loops at sequence slicing — lalo na ang off-by-one errors kung saan hindi kasama ang upper bound ng range().',
   },
   {
-    initials: 'AR',
-    name: 'Angel Reyes',
-    scoreLabel: '71% · Science',
-    scoreColor: 'text-tertiary',
-    detail: 'Confidence low on terms; hesitant on timer',
-    mailTitle: 'Send Tip',
-    status: 'Needs a Nudge',
-    score: '71%',
+    initials: 'CD',
+    id: 'CS-2024-002',
+    name: 'Carlos Diaz',
+    score: '62%',
+    scoreLabel: '62% · Scope Error',
+    scoreColor: 'text-error',
+    detail: 'Variable scope confusion: modified global var inside local def',
+    status: 'Needs Help',
     observation:
-      'Hesitant on vocabulary matching. Suggest visual diagram practice.',
+      'UnboundLocalError in 3 function submissions. Needs review on local vs global scope.',
+    observationFil:
+      'May UnboundLocalError si Carlos sa 3 function submissions. Kailangan ng pagsusuri sa local vs global scope dahil binabago ang global accumulator sa loob ng local def.',
+  },
+  {
+    initials: 'JC',
+    id: 'CS-2024-003',
+    name: 'Jasmine Cruz',
+    score: '68%',
+    scoreLabel: '68% · Return vs Print',
+    scoreColor: 'text-tertiary',
+    detail: 'Confuses print() with return; automated test assertions failing',
+    status: 'Needs a Nudge',
+    observation:
+      'Returns None from functions because of print statements. Review test case assertions.',
+    observationFil:
+      'Nagpapabalik ng None si Jasmine sa mga functions dahil sa print statements. Suriin natin ang mga test case assertions.',
   },
   {
     initials: 'PG',
+    id: 'CS-2024-004',
     name: 'Paolo Garcia',
-    scoreLabel: '73% · Fractions',
+    score: '69%',
+    scoreLabel: '69% · Indentation',
     scoreColor: 'text-tertiary',
-    detail: 'Completion time was fast (<3 min), rushed guesses',
-    mailTitle: 'Send Encouragement',
+    detail: 'Tab/Space IndentationError in nested conditional blocks',
     status: 'Needs a Nudge',
-    score: '73%',
     observation:
-      'Speed was abnormally quick. Remind to utilize scratchpad.',
+      'Rushed syntax submissions leading to recurring IndentationError and colon omissions.',
+    observationFil:
+      'Mga mabilisang syntax submission ni Paolo na may paulit-ulit na IndentationError at nawawalang colon sa nested blocks.',
   },
 ]
 
 const ROSTER_STUDENTS = [
   {
-    initials: 'MS',
-    id: '109283-001',
-    name: 'Maria Santos',
+    initials: 'MR',
+    id: 'CS-2024-001',
+    name: 'Miguel Ramos',
+    section: 'Section A',
     score: 58,
     scoreColor: 'text-error',
     barColor: 'bg-error',
     trend: '-6%',
     trendColor: 'text-error',
     statusValue: 'needs-help',
-    statusLabel: 'Needs Help',
+    statusLabel: 'Needs Help (<70%)',
     statusColor: 'text-error',
     statusDot: 'bg-error',
     lastActive: '15 mins ago',
+    mailTitle: 'Send Hint',
     modalStatus: 'Needs Help',
     observation:
-      'Struggled with common denominators on questions 4 & 7. Missed 2 practice check-ins.',
+      'Off-by-one errors in while loops & index out of range exceptions.',
+    observationFil:
+      'Nakakitaan si Miguel Ramos ng magandang pagkaunawa sa conditional branches. Ang hamon ay nasa off-by-one errors sa while loops at index out of range exceptions.',
   },
   {
-    initials: 'JD',
-    id: '109283-002',
-    name: 'Juan Dela Cruz',
+    initials: 'CD',
+    id: 'CS-2024-002',
+    name: 'Carlos Diaz',
+    section: 'Section A',
     score: 62,
     scoreColor: 'text-error',
     barColor: 'bg-error',
     trend: '-4%',
     trendColor: 'text-error',
     statusValue: 'needs-help',
-    statusLabel: 'Needs Help',
+    statusLabel: 'Needs Help (<70%)',
     statusColor: 'text-error',
     statusDot: 'bg-error',
     lastActive: '1 hour ago',
+    mailTitle: 'Send Hint',
     modalStatus: 'Needs Help',
     observation:
-      'Late submissions on verb tenses. Shows high offline participation.',
+      'Variable scope confusion: attempting to modify global accumulator in local def.',
+    observationFil:
+      'May kalabuan si Carlos Diaz sa variable scope: binabago ang global accumulator sa loob ng local def. Kailangan ng pagsusuri sa local vs global scope.',
   },
   {
-    initials: 'AR',
-    id: '109283-003',
-    name: 'Angel Reyes',
-    score: 71,
+    initials: 'JC',
+    id: 'CS-2024-003',
+    name: 'Jasmine Cruz',
+    section: 'Section A',
+    score: 68,
     scoreColor: 'text-tertiary',
     barColor: 'bg-tertiary-fixed-dim',
     trend: '+2%',
     trendColor: 'text-[#22A06B]',
     statusValue: 'needs-nudge',
-    statusLabel: 'Needs Nudge',
+    statusLabel: 'Needs Nudge (<70%)',
     statusColor: 'text-tertiary',
     statusDot: 'bg-[#F4BF32]',
     lastActive: '3 hours ago',
+    mailTitle: 'Send Hint',
     modalStatus: 'Needs a Nudge',
     observation:
-      'Hesitant on vocabulary matching. Suggest visual diagram practice.',
+      'Return vs Print distinction tripping up automated pytest runs.',
+    observationFil:
+      'Nalilito si Jasmine Cruz sa pagitan ng return at print, kaya bumibigo ang mga automated pytest runs.',
   },
   {
     initials: 'PG',
-    id: '109283-004',
+    id: 'CS-2024-004',
     name: 'Paolo Garcia',
-    score: 73,
+    section: 'Section A',
+    score: 69,
     scoreColor: 'text-tertiary',
     barColor: 'bg-tertiary-fixed-dim',
     trend: '+3%',
     trendColor: 'text-[#22A06B]',
     statusValue: 'needs-nudge',
-    statusLabel: 'Needs Nudge',
+    statusLabel: 'Needs Nudge (<70%)',
     statusColor: 'text-tertiary',
     statusDot: 'bg-[#F4BF32]',
     lastActive: 'Yesterday',
+    mailTitle: 'Send Hint',
     modalStatus: 'Needs a Nudge',
     observation:
-      'Speed was abnormally quick. Remind to utilize scratchpad.',
+      'Indentation and formatting errors on nested blocks.',
+    observationFil:
+      'Mga indentation at formatting error ni Paolo Garcia sa nested blocks.',
   },
   {
     initials: 'BM',
-    id: '109283-005',
+    id: 'CS-2024-005',
     name: 'Bea Mendoza',
+    section: 'Section A',
     score: 96,
     scoreColor: 'text-[#22A06B]',
     barColor: 'bg-[#22A06B]',
     trend: '+4%',
     trendColor: 'text-[#22A06B]',
     statusValue: 'on-track',
-    statusLabel: 'On Track',
+    statusLabel: 'On Track (≥70%)',
     statusColor: 'text-[#22A06B]',
     statusDot: 'bg-[#22A06B]',
     lastActive: 'Today, 8:15 AM',
+    mailTitle: 'Send Praise',
     modalStatus: 'On Track',
     observation:
-      'Consistently excellent comprehension. Star learner on photosynthesis.',
+      'Flawless recursion and algorithmic decomposition.',
+    observationFil:
+      'Perpekto ang recursion at algorithmic decomposition ni Bea Mendoza.',
   },
   {
     initials: 'LF',
-    id: '109283-006',
+    id: 'CS-2024-006',
     name: 'Luis Fernando',
+    section: 'Section A',
     score: 92,
     scoreColor: 'text-[#22A06B]',
     barColor: 'bg-[#22A06B]',
     trend: '+5%',
     trendColor: 'text-[#22A06B]',
     statusValue: 'on-track',
-    statusLabel: 'On Track',
+    statusLabel: 'On Track (≥70%)',
     statusColor: 'text-[#22A06B]',
     statusDot: 'bg-[#22A06B]',
     lastActive: 'Today, 9:00 AM',
+    mailTitle: 'Send Praise',
     modalStatus: 'On Track',
     observation:
-      'Strong analytical work in math problem solving.',
-  },
-  {
-    initials: 'JC',
-    id: '109283-007',
-    name: 'Jasmine Catacutan',
-    score: 88,
-    scoreColor: 'text-[#22A06B]',
-    barColor: 'bg-[#22A06B]',
-    trend: '0%',
-    trendColor: 'text-on-surface-variant',
-    statusValue: 'on-track',
-    statusLabel: 'On Track',
-    statusColor: 'text-[#22A06B]',
-    statusDot: 'bg-[#22A06B]',
-    lastActive: 'Yesterday',
-    modalStatus: 'On Track',
-    observation:
-      'Steady progress across all subjects.',
-  },
-]
-
-const TOPIC_SCORES = [
-  {
-    emoji: '📖',
-    emojiColor: 'text-primary',
-    name: 'Pagbasa at Panitikan (Ibong Adarna)',
-    pct: 91,
-    pctColor: 'text-[#22A06B]',
-    barColor: 'bg-[#22A06B]',
-  },
-  {
-    emoji: '🌱',
-    emojiColor: 'text-secondary',
-    name: 'Photosynthesis & Plant Cells',
-    pct: 88,
-    pctColor: 'text-[#22A06B]',
-    barColor: 'bg-[#22A06B]',
-  },
-  {
-    emoji: '📐',
-    emojiColor: 'text-primary',
-    name: 'Fractions: Unlike Denominators',
-    pct: 78,
-    pctColor: 'text-primary',
-    barColor: 'bg-primary-container',
-  },
-  {
-    emoji: '✍️',
-    emojiColor: 'text-tertiary',
-    name: 'English Grammar: Verb Tenses',
-    pct: 74,
-    pctColor: 'text-tertiary',
-    barColor: 'bg-tertiary-fixed-dim',
+      'Clean function abstraction and good variable naming conventions.',
+    observationFil:
+      'Malinis ang function abstraction ni Luis Fernando at maganda ang variable naming conventions.',
   },
 ]
 
 export default function TeacherDashboard() {
   const [chartMode, setChartMode] = useState('chart')
+  const [masteryFilter, setMasteryFilter] = useState('All')
   const [rosterFilter, setRosterFilter] = useState('all')
   const [studentSearch, setStudentSearch] = useState('')
   const [modalStudent, setModalStudent] = useState(null)
+  const [exporting, setExporting] = useState(false)
   const [toast, setToast] = useState(null)
   const toastTimer = useRef(null)
+  const exportTimer = useRef(null)
 
-  useEffect(() => () => clearTimeout(toastTimer.current), [])
+  useEffect(
+    () => () => {
+      clearTimeout(toastTimer.current)
+      clearTimeout(exportTimer.current)
+    },
+    []
+  )
 
   function showToast(message) {
     setToast(message)
@@ -257,9 +304,26 @@ export default function TeacherDashboard() {
     showToast(`Encouragement sent to ${name} & parents portal! 🚀`)
   }
 
+  function sendCodeHint(name) {
+    showToast(`Code hint sent to ${name} ✉️`)
+  }
+
+  function exportLabCsv() {
+    if (exporting) return
+    setExporting(true)
+    exportTimer.current = setTimeout(() => {
+      setExporting(false)
+      showToast('Lab CSV exported for CS 101 - Intro to Python (Section A) ✅')
+    }, 900)
+  }
+
   function toggleModalLang(lang) {
     setModalStudent((s) => ({ ...s, lang }))
   }
+
+  const visibleConcepts = CONCEPT_SCORES.filter(
+    (c) => masteryFilter === 'All' || c.category === masteryFilter
+  )
 
   const visibleStudents = ROSTER_STUDENTS.filter(
     (s) =>
@@ -274,39 +338,44 @@ export default function TeacherDashboard() {
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-space-md mb-space-lg">
           <div className="flex flex-col">
             <div className="flex items-center gap-space-xs mb-1">
-              <span className="font-headline-lg text-headline-lg text-on-surface">Magandang araw, Bb. Santos!</span>
-              <span className="text-2xl animate-bounce">👋</span>
+              <span className="font-headline-lg text-headline-lg text-on-surface">Welcome back, Mr. Reyes!</span>
+              <span className="text-2xl animate-bounce">💻</span>
             </div>
-            <p className="font-body-md text-body-md text-on-surface-variant">Here is your class performance overview for <span className="font-semibold text-on-surface">Grade 8 - Sampaguita</span>. <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-error-container/50 text-error font-label-sm text-label-sm font-medium">4 students need attention</span></p>
+            <p className="font-body-md text-body-md text-on-surface-variant">Here is your coding cohort analytics for <span className="font-semibold text-on-surface">CS 101 - Intro to Python (Section A)</span>. <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-error-container/50 text-error font-label-sm text-label-sm font-medium">4 students flagged (&lt;70% threshold)</span></p>
           </div>
           {/* Quick Controls */}
           <div className="flex flex-wrap items-center gap-space-xs">
             <div className="relative inline-flex items-center bg-surface-container-lowest px-space-md py-2 rounded-xl shadow-sm text-on-surface cursor-pointer hover:bg-surface-container-low transition-colors">
               <span className="material-symbols-outlined text-primary text-[18px] mr-1.5">calendar_today</span>
-              <span className="font-label-md text-label-md">Q2, Week 6 (Oct 14 - 20)</span>
+              <span className="font-label-md text-label-md">Unit 4: Loops &amp; Functions (Week 6)</span>
               <span className="material-symbols-outlined text-[18px] ml-1 text-on-surface-variant">expand_more</span>
             </div>
-            <button className="inline-flex items-center gap-1.5 bg-surface-container-lowest px-space-md py-2 rounded-xl shadow-sm text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors" type="button">
+            <button
+              className="inline-flex items-center gap-1.5 bg-surface-container-lowest px-space-md py-2 rounded-xl shadow-sm text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors disabled:opacity-60"
+              disabled={exporting}
+              onClick={exportLabCsv}
+              type="button"
+            >
               <span className="material-symbols-outlined text-[18px]">download</span>
-              <span className="font-label-md text-label-md">Export CSV</span>
+              <span className="font-label-md text-label-md">{exporting ? 'Exporting…' : 'Export Lab CSV'}</span>
             </button>
             <button
               className="inline-flex items-center gap-1.5 bg-primary-container text-on-primary px-space-md py-2 rounded-xl shadow-md hover:bg-primary transition-all"
-              onClick={() => showToast('Generating AI Class Summary report for Grade 8 - Sampaguita ✨')}
+              onClick={() => showToast('Generating AI code diagnostics for CS 101 - Intro to Python (Section A) ✨')}
               type="button"
             >
               <span className="material-symbols-outlined text-[18px]">auto_awesome</span>
-              <span className="font-label-md text-label-md">Run AI Summary</span>
+              <span className="font-label-md text-label-md">Run AI Code Diagnostics</span>
             </button>
           </div>
         </div>
         {/* ROW 1: 4 Key Metric Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md mb-space-lg">{/* Stat 1: Class Average */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md mb-space-lg">{/* Stat 1: Cohort Test Pass Rate */}
           <div className="bg-surface-container-lowest rounded-2xl p-space-md shadow-xs flex flex-col justify-between hover:shadow-sm transition-shadow">
             <div className="flex items-center justify-between mb-space-xs">
-              <span className="font-label-md text-label-md text-on-surface-variant">Class Average</span>
+              <span className="font-label-md text-label-md text-on-surface-variant">Cohort Test Pass Rate</span>
               <div className="w-7 h-7 rounded-full bg-surface-container-low flex items-center justify-center text-primary">
-                <span className="material-symbols-outlined text-[16px]">analytics</span>
+                <span className="material-symbols-outlined text-[16px]">terminal</span>
               </div>
             </div>
             <div className="flex items-baseline gap-space-xs mb-space-xs">
@@ -316,15 +385,15 @@ export default function TeacherDashboard() {
               <span className="inline-flex items-center font-label-sm text-[#22A06B] font-semibold">
                 <span className="material-symbols-outlined text-[14px] mr-0.5">trending_up</span>+3.2%
               </span>
-              <span className="text-on-surface-variant font-body-sm">vs last week</span>
+              <span className="text-on-surface-variant font-body-sm">vs Lab 5</span>
             </div>
           </div>
-          {/* Stat 2: Quiz Completion Rate */}
+          {/* Stat 2: Lab Submissions */}
           <div className="bg-surface-container-lowest rounded-2xl p-space-md shadow-xs flex flex-col justify-between hover:shadow-sm transition-shadow">
             <div className="flex items-center justify-between mb-space-xs">
-              <span className="font-label-md text-label-md text-on-surface-variant">Quiz Completion</span>
+              <span className="font-label-md text-label-md text-on-surface-variant">Lab Submissions</span>
               <div className="w-7 h-7 rounded-full bg-surface-container-low flex items-center justify-center text-secondary">
-                <span className="material-symbols-outlined text-[16px]">task_alt</span>
+                <span className="material-symbols-outlined text-[16px]">code</span>
               </div>
             </div>
             <div className="flex items-baseline gap-space-xs mb-space-xs">
@@ -335,15 +404,15 @@ export default function TeacherDashboard() {
               <span className="inline-flex items-center font-label-sm text-[#22A06B] font-semibold">
                 <span className="material-symbols-outlined text-[14px] mr-0.5">trending_up</span>+5.0%
               </span>
-              <span className="text-on-surface-variant font-body-sm truncate">Fractions &amp; Photosynthesis</span>
+              <span className="text-on-surface-variant font-body-sm truncate">While Loops &amp; Conditionals</span>
             </div>
           </div>
-          {/* Stat 3: Students Needing Help */}
+          {/* Stat 3: Flagged for Intervention */}
           <div className="bg-surface-container-lowest rounded-2xl p-space-md shadow-xs flex flex-col justify-between hover:shadow-sm transition-shadow">
             <div className="flex items-center justify-between mb-space-xs">
-              <span className="font-label-md text-label-md text-on-surface-variant">Needs Immediate Help</span>
+              <span className="font-label-md text-label-md text-on-surface-variant">Flagged for Intervention</span>
               <div className="w-7 h-7 rounded-full bg-surface-container-low flex items-center justify-center text-error">
-                <span className="material-symbols-outlined text-[16px]">flag</span>
+                <span className="material-symbols-outlined text-[16px]">bug_report</span>
               </div>
             </div>
             <div className="flex items-baseline gap-space-xs mb-space-xs">
@@ -351,18 +420,18 @@ export default function TeacherDashboard() {
               <span className="font-body-md text-body-md text-on-surface-variant">students</span>
             </div>
             <div className="flex items-center justify-between text-body-sm">
-              <span className="text-on-surface-variant">Scoring &lt;65%</span>
+              <span className="text-on-surface-variant">Scored &lt;70% threshold</span>
               <a className="font-label-sm text-label-sm text-primary font-semibold hover:underline inline-flex items-center gap-0.5" href="#needs-attention-section">
-                Triage <span className="material-symbols-outlined text-[14px]">arrow_forward</span>
+                Review Bugs <span className="material-symbols-outlined text-[14px]">arrow_forward</span>
               </a>
             </div>
           </div>
-          {/* Stat 4: Active Learners & Streak */}
+          {/* Stat 4: Active Coding Time & Streak */}
           <div className="bg-surface-container-lowest rounded-2xl p-space-md shadow-xs flex flex-col justify-between hover:shadow-sm transition-shadow">
             <div className="flex items-center justify-between mb-space-xs">
-              <span className="font-label-md text-label-md text-on-surface-variant">Weekly Engagement</span>
+              <span className="font-label-md text-label-md text-on-surface-variant">Active Coding Time</span>
               <div className="w-7 h-7 rounded-full bg-surface-container-low flex items-center justify-center text-tertiary">
-                <span className="material-symbols-outlined text-[16px]">local_fire_department</span>
+                <span className="material-symbols-outlined text-[16px]">timer</span>
               </div>
             </div>
             <div className="flex items-baseline gap-space-xs mb-space-xs">
@@ -370,7 +439,7 @@ export default function TeacherDashboard() {
               <span className="font-body-sm text-body-sm text-on-surface-variant">/ 42 active</span>
             </div>
             <div className="flex items-center justify-between text-body-sm text-on-surface-variant">
-              <span className="truncate max-w-[130px]">Top streak: Juan D.</span>
+              <span className="truncate max-w-[130px]">Top streak: Miguel R.</span>
               <span className="font-label-sm text-label-sm text-tertiary font-semibold">7d streak</span>
             </div>
           </div>
@@ -382,8 +451,8 @@ export default function TeacherDashboard() {
             <div>
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm mb-space-md">
                 <div>
-                  <h3 className="font-headline-sm text-headline-sm text-on-surface">Class Average Score Over Time</h3>
-                  <p className="font-body-sm text-body-sm text-on-surface-variant">Weekly performance trajectory across Q2 curriculum</p>
+                  <h3 className="font-headline-sm text-headline-sm text-on-surface">Coding Benchmark Scores Over Time</h3>
+                  <p className="font-body-sm text-body-sm text-on-surface-variant">Weekly test suite pass rates across CS 101 curriculum</p>
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="inline-flex p-1 bg-surface-container rounded-xl">
@@ -455,39 +524,17 @@ export default function TeacherDashboard() {
                     </tr>
                   </thead>
                   <tbody className="divide-y-0 text-on-surface">
-                    <tr className="hover:bg-surface-container-low transition-colors">
-                      <td className="py-2.5 px-3 font-semibold">Week 1</td>
-                      <td className="py-2.5 px-3">Diagnostics &amp; Scientific Method</td>
-                      <td className="py-2.5 px-3 font-bold">72.0%</td>
-                      <td className="py-2.5 px-3 text-error">-8.0%</td>
-                    </tr>
-                    <tr className="hover:bg-surface-container-low transition-colors">
-                      <td className="py-2.5 px-3 font-semibold">Week 2</td>
-                      <td className="py-2.5 px-3">Fractions: Addition &amp; Subtraction</td>
-                      <td className="py-2.5 px-3 font-bold">75.0%</td>
-                      <td className="py-2.5 px-3 text-error">-5.0%</td>
-                    </tr>
-                    <tr className="hover:bg-surface-container-low transition-colors">
-                      <td className="py-2.5 px-3 font-semibold">Week 3</td>
-                      <td className="py-2.5 px-3">Photosynthesis Basics</td>
-                      <td className="py-2.5 px-3 font-bold">79.0%</td>
-                      <td className="py-2.5 px-3 text-on-surface-variant">-1.0%</td>
-                    </tr>
-                    <tr className="hover:bg-surface-container-low transition-colors">
-                      <td className="py-2.5 px-3 font-semibold">Week 4</td>
-                      <td className="py-2.5 px-3">Pagbasa: Ibong Adarna Ch. 1</td>
-                      <td className="py-2.5 px-3 font-bold">78.0%</td>
-                      <td className="py-2.5 px-3 text-on-surface-variant">-2.0%</td>
-                    </tr>
-                    <tr className="hover:bg-surface-container-low transition-colors">
-                      <td className="py-2.5 px-3 font-semibold">Week 5</td>
-                      <td className="py-2.5 px-3">Grammar &amp; Verb Tenses</td>
-                      <td className="py-2.5 px-3 font-bold">82.0%</td>
-                      <td className="py-2.5 px-3 text-[#22A06B] font-bold">+2.0%</td>
-                    </tr>
+                    {BENCHMARK_TABLE.map((row) => (
+                      <tr className="hover:bg-surface-container-low transition-colors" key={row.week}>
+                        <td className="py-2.5 px-3 font-semibold">{row.week}</td>
+                        <td className="py-2.5 px-3">{row.assessment}</td>
+                        <td className="py-2.5 px-3 font-bold">{row.score}</td>
+                        <td className={`py-2.5 px-3 ${row.deltaClass}`}>{row.delta}</td>
+                      </tr>
+                    ))}
                     <tr className="bg-primary-fixed/30 hover:bg-primary-fixed/50 transition-colors">
                       <td className="py-2.5 px-3 font-bold text-primary">Week 6 (Current)</td>
-                      <td className="py-2.5 px-3">Fractions Review &amp; Photosynthesis II</td>
+                      <td className="py-2.5 px-3">Debugging: Scope &amp; Off-by-One Errors</td>
                       <td className="py-2.5 px-3 font-bold text-primary">84.6%</td>
                       <td className="py-2.5 px-3 text-[#22A06B] font-bold">+4.6%</td>
                     </tr>
@@ -573,31 +620,37 @@ export default function TeacherDashboard() {
             <div className="mt-space-md p-3 rounded-xl bg-primary-fixed/30 flex items-start gap-2">
               <span className="material-symbols-outlined text-primary text-[18px] shrink-0 mt-0.5">lightbulb</span>
               <p className="font-body-sm text-body-sm text-on-surface">
-                <span className="font-bold text-primary">AI Insight:</span> Denominator factoring was the common tripping point for 3 of the 4 struggling students.
+                <span className="font-bold text-primary">AI Code Insight:</span> Off-by-one errors in nested <code className="bg-primary-fixed/50 px-1 py-0.5 rounded text-xs">range(len(...))</code> and variable shadowing were the common root causes for 3 of the 4 flagged students.
               </p>
             </div>
           </div>
         </div>
         {/* ROW 3: Topic Mastery & Needs Attention Grid (6 cols + 6 cols) */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-space-lg mb-space-lg" id="needs-attention-section">
-          {/* Left: Topic Mastery (6 cols) */}
+          {/* Left: CS Concept Mastery (6 cols) */}
           <div className="lg:col-span-6 bg-surface-container-lowest rounded-[20px] p-space-lg shadow-[0_4px_16px_rgba(91,75,219,0.08)] flex flex-col justify-between">
             <div>
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-space-md">
                 <div>
-                  <h3 className="font-headline-sm text-headline-sm text-on-surface">Average Score by Topic</h3>
-                  <p className="font-body-sm text-body-sm text-on-surface-variant">Class comprehension across Quarter 2 units</p>
+                  <h3 className="font-headline-sm text-headline-sm text-on-surface">Mastery by CS Concept</h3>
+                  <p className="font-body-sm text-body-sm text-on-surface-variant">Class pass rate across Python fundamentals</p>
                 </div>
                 <div className="flex items-center gap-1 overflow-x-auto pb-1">
-                  <button className="px-2.5 py-1 rounded-full bg-primary-container text-on-primary font-label-sm text-label-sm font-bold" type="button">All</button>
-                  <button className="px-2.5 py-1 rounded-full bg-surface-container text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm" type="button">Math</button>
-                  <button className="px-2.5 py-1 rounded-full bg-surface-container text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm" type="button">Science</button>
-                  <button className="px-2.5 py-1 rounded-full bg-surface-container text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm" type="button">Filipino</button>
+                  {MASTERY_FILTERS.map((f) => (
+                    <button
+                      className={masteryFilter === f.value ? MASTERY_PILL_ACTIVE : MASTERY_PILL_IDLE}
+                      key={f.value}
+                      onClick={() => setMasteryFilter(f.value)}
+                      type="button"
+                    >
+                      {f.label}
+                    </button>
+                  ))}
                 </div>
               </div>
-              {/* Topic Mastery Progress Bars */}
+              {/* CS Concept Mastery Progress Bars */}
               <div className="flex flex-col gap-space-md mt-space-sm">
-                {TOPIC_SCORES.map((topic) => (
+                {visibleConcepts.map((topic) => (
                   <div key={topic.name}>
                     <div className="flex items-center justify-between mb-1.5">
                       <div className="flex items-center gap-2">
@@ -614,26 +667,26 @@ export default function TeacherDashboard() {
               </div>
             </div>
             <div className="mt-space-lg pt-space-sm flex items-center justify-between bg-surface-container-low p-3 rounded-xl">
-              <span className="font-body-sm text-body-sm text-on-surface-variant">Recommended next module:</span>
+              <span className="font-body-sm text-body-sm text-on-surface-variant">Recommended practice assignment:</span>
               <button className="inline-flex items-center gap-1 font-label-sm text-label-sm text-primary font-bold hover:underline" type="button">
-                <span className="material-symbols-outlined text-[16px]">add_circle</span> Assign 10m Denominator Drill
+                <span className="material-symbols-outlined text-[16px]">add_circle</span> Assign 15m Loop &amp; Indexing Drill
               </button>
             </div>
           </div>
-          {/* Right: Needs Attention (4 Flagged Students) (6 cols) */}
+          {/* Right: Flagged for Coding Support (4 Flagged Students) (6 cols) */}
           <div className="lg:col-span-6 bg-surface-container-lowest rounded-[20px] p-space-lg shadow-[0_4px_16px_rgba(91,75,219,0.08)] flex flex-col justify-between">
             <div>
               <div className="flex items-center justify-between mb-space-xs">
                 <div className="flex items-center gap-2">
                   <span className="flex h-2.5 w-2.5 rounded-full bg-error animate-ping" />
-                  <h3 className="font-headline-sm text-headline-sm text-on-surface">Needs Attention</h3>
+                  <h3 className="font-headline-sm text-headline-sm text-on-surface">Flagged for Coding Support</h3>
                 </div>
-                <span className="font-label-sm text-label-sm text-on-error-container bg-error-container px-2.5 py-0.5 rounded-full font-bold">4 Flagged</span>
+                <span className="font-label-sm text-label-sm text-on-error-container bg-error-container px-2.5 py-0.5 rounded-full font-bold">4 Flagged (&lt;70%)</span>
               </div>
-              <p className="font-body-sm text-body-sm text-on-surface-variant mb-space-md">AI-identified learning barriers from latest submissions</p>
+              <p className="font-body-sm text-body-sm text-on-surface-variant mb-space-md">AI-identified syntax &amp; logic misconceptions in latest lab submissions</p>
               {/* 4 Student Alert Cards */}
               <div className="flex flex-col gap-space-sm">
-                {NEEDS_ATTENTION_STUDENTS.map((student) => (
+                {FLAGGED_STUDENTS.map((student) => (
                   <div className="p-space-sm rounded-xl bg-surface-container-low/60 hover:bg-surface-container-low transition-colors flex items-center justify-between gap-2" key={student.name}>
                     <div className="flex items-center gap-3 min-w-0">
                       <div className="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center font-bold text-on-surface text-xs shrink-0">{student.initials}</div>
@@ -650,8 +703,8 @@ export default function TeacherDashboard() {
                     <div className="flex items-center gap-1.5 shrink-0">
                       <button
                         className="p-1.5 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container-lowest transition-colors"
-                        onClick={() => showToast(`Nudge sent to ${student.name} ✉️`)}
-                        title={student.mailTitle}
+                        onClick={() => sendCodeHint(student.name)}
+                        title="Send Code Hint"
                         type="button"
                       >
                         <span className="material-symbols-outlined text-[18px]">mail</span>
@@ -679,7 +732,7 @@ export default function TeacherDashboard() {
                 <h3 className="font-headline-sm text-headline-sm text-on-surface">Student Directory &amp; Progress</h3>
                 <span className="font-label-sm text-label-sm bg-surface-container px-2 py-0.5 rounded-full text-on-surface-variant">42 learners</span>
               </div>
-              <p className="font-body-sm text-body-sm text-on-surface-variant">Quarter 2 continuous assessment records</p>
+              <p className="font-body-sm text-body-sm text-on-surface-variant">CS 101 Intro to Python · Continuous Automated Lab Evaluations</p>
             </div>
             <div className="flex flex-wrap items-center gap-space-xs">
               {/* Search bar inside table header */}
@@ -706,7 +759,11 @@ export default function TeacherDashboard() {
                   </button>
                 ))}
               </div>
-              <button className="inline-flex items-center gap-1 bg-surface-container-low px-3 py-1.5 rounded-xl text-on-surface-variant hover:text-primary transition-colors font-label-sm text-label-sm" type="button">
+              <button
+                className="inline-flex items-center gap-1 bg-surface-container-low px-3 py-1.5 rounded-xl text-on-surface-variant hover:text-primary transition-colors font-label-sm text-label-sm"
+                onClick={exportLabCsv}
+                type="button"
+              >
                 <span className="material-symbols-outlined text-[16px]">file_download</span> Export
               </button>
             </div>
@@ -737,7 +794,7 @@ export default function TeacherDashboard() {
                         </div>
                       </div>
                     </td>
-                    <td className="py-3.5 px-3 text-on-surface-variant">Sampaguita</td>
+                    <td className="py-3.5 px-3 text-on-surface-variant">{s.section}</td>
                     <td className="py-3.5 px-4">
                       <div className="flex items-center gap-2">
                         <span className={`font-semibold ${s.scoreColor} w-8`}>{s.score}%</span>
@@ -759,8 +816,8 @@ export default function TeacherDashboard() {
                       <div className="inline-flex items-center gap-1">
                         <button
                           className="p-1.5 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors"
-                          onClick={() => showToast(`Nudge sent to ${s.name} ✉️`)}
-                          title="Send Message"
+                          onClick={() => sendCodeHint(s.name)}
+                          title={s.mailTitle}
                           type="button"
                         >
                           <span className="material-symbols-outlined text-[18px]">mail</span>
@@ -781,7 +838,7 @@ export default function TeacherDashboard() {
           </div>
           {/* Pagination Footer */}
           <div className="flex flex-col sm:flex-row items-center justify-between gap-space-sm pt-space-md mt-space-sm">
-            <span className="font-body-sm text-body-sm text-on-surface-variant">Showing 1 to 7 of 42 students</span>
+            <span className="font-body-sm text-body-sm text-on-surface-variant">Showing 1 to {visibleStudents.length} of 42 students</span>
             <div className="flex items-center gap-1">
               <button className="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-on-surface-variant hover:text-on-surface disabled:opacity-50" disabled type="button">
                 <span className="material-symbols-outlined text-[18px]">chevron_left</span>
@@ -813,7 +870,7 @@ export default function TeacherDashboard() {
                     <h3 className="font-headline-sm text-headline-sm text-on-surface">{modalStudent.name}</h3>
                     <span className={`px-2 py-0.5 rounded-full font-label-sm text-label-sm font-bold ${modalStudent.status.includes('Help') ? 'bg-[#FDE4E5] text-[#E5484D]' : modalStudent.status.includes('Nudge') ? 'bg-[#FFEFD1] text-[#B8740B]' : 'bg-[#DDF5E8] text-[#22A06B]'}`}>{modalStudent.status}</span>
                   </div>
-                  <p className="font-body-sm text-body-sm text-on-surface-variant">Grade 8 - Sampaguita · LRN: 109283-001</p>
+                  <p className="font-body-sm text-body-sm text-on-surface-variant">CS 101: Intro to Python · Student ID: {modalStudent.id}</p>
                 </div>
               </div>
               <button className="w-8 h-8 rounded-full bg-surface-container hover:bg-surface-container-high flex items-center justify-center text-on-surface-variant hover:text-on-surface" onClick={closeStudentModal} type="button">
@@ -836,7 +893,7 @@ export default function TeacherDashboard() {
               </div>
               <p className="font-body-sm text-body-sm text-on-surface leading-relaxed">
                 {modalStudent.lang === 'fil'
-                  ? `Nakakitaan si ${modalStudent.name} ng magandang pagkaunawa sa parehong denominators. Ang hamon ay nasa pagkuha ng Least Common Multiple (LCM) sa mga numero 4 at 7.`
+                  ? modalStudent.observationFil
                   : `"${modalStudent.observation}"`}
               </p>
             </div>
@@ -857,11 +914,11 @@ export default function TeacherDashboard() {
             </div>
             {/* Quick Action / Encouragement Message Field */}
             <div className="flex flex-col gap-1.5">
-              <label className="font-label-sm text-label-sm text-on-surface font-semibold" htmlFor="teacherQuickNote">Send Personalized Support Note to Student &amp; Parent Portal:</label>
+              <label className="font-label-sm text-label-sm text-on-surface font-semibold" htmlFor="teacherQuickNote">Send Code Hint / Feedback to Student Lab Console:</label>
               <textarea
                 className="w-full bg-surface-container-low text-on-surface placeholder:text-on-surface-variant font-body-sm text-body-sm p-3 rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-primary-container"
                 id="teacherQuickNote"
-                placeholder="e.g. Mahusay ang simula mo sa addition! Tingnan natin ulit ang common denominators bukas pagkatapos ng klase..."
+                placeholder="e.g. Remember that range(start, stop) stops before reaching 'stop'! Try printing your loop variable inside each iteration..."
                 rows={2}
               />
             </div>
@@ -872,7 +929,7 @@ export default function TeacherDashboard() {
               </button>
               <button className="inline-flex items-center gap-1.5 px-space-md py-2 rounded-xl bg-primary text-on-primary font-label-md text-label-md font-bold hover:bg-primary-container transition-colors shadow-sm" onClick={sendTeacherNote} type="button">
                 <span className="material-symbols-outlined text-[18px]">send</span>
-                <span>Send Encouragement</span>
+                <span className="">Send Encouragement</span>
               </button>
             </div>
           </div>

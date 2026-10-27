@@ -69,7 +69,7 @@ export default function Sidebar({ open = false, onClose }) {
               Bb. Santos
             </span>
             <span className="font-body-sm text-body-sm text-on-surface-variant truncate">
-              Grade 8 Adviser
+              CS Instructor
             </span>
           </div>
         </div>

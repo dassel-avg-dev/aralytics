@@ -18,10 +18,10 @@ export default function TopBar({ onMenu }) {
           </button>
           <div className="flex items-center gap-space-xs bg-surface-container px-space-md py-space-xs rounded-full cursor-pointer hover:bg-surface-container-high transition-colors">
             <span className="font-label-md text-label-md text-on-surface hidden sm:block">
-              🏫 Grade 8 - Sampaguita (42 students)
+              💻 CS 101: Intro to Python (42 students)
             </span>
             <span className="font-label-md text-label-md text-on-surface sm:hidden">
-              Grade 8 - Sampaguita
+              CS 101
             </span>
             <span className="material-symbols-outlined text-[16px] text-on-surface-variant">
               arrow_drop_down
