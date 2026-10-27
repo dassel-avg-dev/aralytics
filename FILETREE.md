@@ -19,8 +19,7 @@ aralytics/
 ├── vite.config.js                   # Vite config: react() + tailwindcss(), dev port 3000
 ├── index.html                       # SPA entry; loads Nunito Sans / Inter / Material Symbols fonts
 ├── public/                          # Static assets served at the root URL
-│   ├── favicon.svg
-│   └── icons.svg
+│   └── favicon.svg                  # Referenced by index.html (icons.svg removed 2026-10-27, unreferenced)
 ├── screens/                         # Reference design package (input material, NOT runtime code) — git-ignored
 │   ├── warm_editorial_edtech/
 │   │   └── DESIGN.md                # Design system source of truth: tokens, colors, type, components
@@ -36,10 +35,7 @@ aralytics/
     ├── App.jsx                      # Router shell: Sidebar + TopBar + Routes
     ├── main.jsx                     # React bootstrap (renders App, imports index.css)
     ├── index.css                    # Tailwind v4 @theme with full design-token set
-    ├── assets/                      # Images bundled with imports
-    │   ├── hero.png
-    │   ├── react.svg
-    │   └── vite.svg
+    ├── assets/                      # (empty — scaffold images hero.png/react.svg/vite.svg removed 2026-10-27, unreferenced)
     ├── components/
     │   ├── layout/
     │   │   ├── Sidebar.jsx          # 250px fixed nav rail, active route highlight, logo image

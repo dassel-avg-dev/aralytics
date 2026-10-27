@@ -2,7 +2,7 @@
 
 Working state of the **Aralytics** project. Update this file whenever the project changes meaningfully.
 
-**Last updated:** 2026-10-27 (later session — **all 7 screens re-implemented 1:1 from `screens/stitch/*/code.html`**; `git init` + baseline & re-implementation commits; unused `StatCard.jsx`/`MasteryRing.jsx` removed; Playwright-verified desktop 1440px + mobile 390px on all routes)
+**Last updated:** 2026-10-27 (new session: unreferenced scaffold assets removed — `public/icons.svg`, `src/assets/hero.png`, `react.svg`, `vite.svg`; `favicon.svg` kept, `index.html` references it)
 
 ## Project Overview
 
