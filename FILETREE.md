@@ -54,21 +54,19 @@ aralytics/
     │   ├── hero.png
     │   ├── react.svg
     │   └── vite.svg
-    ├── components/                  # Reusable React components
+    ├── components/
     │   ├── layout/
-    │   │   ├── Sidebar.jsx          # 250px fixed nav rail, active route highlight
-    │   │   └── TopBar.jsx           # Fixed top bar: class pill, search, EN/FIL, alerts
-    │   └── ui/
-    │       ├── MasteryRing.jsx      # SVG circular progress ring (mastery %)
-    │       └── StatCard.jsx         # KPI scorecard card (dot + big metric + trend + ring)
-    └── screens/                     # Route screens (converted from screens/*/code.html)
-        ├── LandingPage.jsx          # /           (marketing page, converted from "landing page")
-        ├── HomeScreen.jsx           # /home       (personal home, converted from "home screen")
-        ├── TeacherDashboard.jsx     # /dashboard  (hand-built — reference HTML was a duplicate)
-        ├── StudentsMasteryRoster.jsx        # /students
-        ├── ActivitiesQuizManagement.jsx     # /activities
-        ├── ClassReportsLearningAnalytics.jsx # /reports
-        └── TeacherClassroomSettings.jsx     # /settings
+    │   │   ├── Sidebar.jsx          # 250px fixed nav rail, active route highlight, logo image
+    │   │   └── TopBar.jsx           # Fixed top bar: hamburger (mobile), class pill, search, EN/FIL, alerts
+    │   └── ui/                      # (empty — StatCard.jsx/MasteryRing.jsx removed after dashboard re-conversion)
+    └── screens/                     # Route screens (all converted 1:1 from screens/stitch/*/code.html)
+        ├── LandingPage.jsx          # /           (converted from stitch/landing_page)
+        ├── HomeScreen.jsx           # /home       (converted from stitch/student_desktop_portal)
+        ├── TeacherDashboard.jsx     # /dashboard  (converted from stitch/teacher_desktop_dashboard)
+        ├── StudentsMasteryRoster.jsx        # /students (converted from stitch/students_mastery_roster)
+        ├── ActivitiesQuizManagement.jsx     # /activities (converted from stitch/activities_quiz_management)
+        ├── ClassReportsLearningAnalytics.jsx # /reports (converted from stitch/class_reports_learning_analytics)
+        └── TeacherClassroomSettings.jsx     # /settings (converted from stitch/teacher_classroom_settings)
 
 Not shown: node_modules/ (third-party packages), dist/ (build output)
 ```

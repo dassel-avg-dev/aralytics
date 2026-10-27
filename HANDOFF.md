@@ -2,11 +2,11 @@
 
 Working state of the **Aralytics** project. Update this file whenever the project changes meaningfully.
 
-**Last updated:** 2026-10-27 (end of session — Stitch MCP configured & auth-verified; all 7 current screen designs + full-res screenshots exported to `screens/stitch/`; API key moved to global config; docs fully synced)
+**Last updated:** 2026-10-27 (later session — **all 7 screens re-implemented 1:1 from `screens/stitch/*/code.html`**; `git init` + baseline & re-implementation commits; unused `StatCard.jsx`/`MasteryRing.jsx` removed; Playwright-verified desktop 1440px + mobile 390px on all routes)
 
 ## Project Overview
 
-Aralytics — an AI learning-analytics platform for Filipino classrooms. Built from a design-package reference (HTML mockups in `screens/`, git-ignored). **7 screens live and verified via Playwright at desktop (1440px) + mobile (390px)**: public landing, learner home, and 5 teacher screens.
+Aralytics — an AI learning-analytics platform for Filipino classrooms. **All 7 screens are now converted 1:1 from the Stitch exports in `screens/stitch/*/code.html`** and verified via Playwright at desktop (1440px) + mobile (390px): public landing, learner home, and 5 teacher screens. The original `screens/aralytics_*` + `screens/` mockup dirs remain as reference history only — the app no longer derives from them.
 
 ⚠️ **If the UI looks unstyled/broken next session, check these two known root-cause bugs FIRST** (both happened once, both would silently recur):
 1. `src/index.css` — never let a CSS comment contain a literal `*/` sequence (it was in a `screens/*/code.html` path string; it terminates the comment early and corrupts the `@theme` block → every custom utility vanishes).
@@ -29,11 +29,11 @@ Symptom of either: page renders but cards/colors/paddings/grid missing. Fix, the
 
 Source of truth: `screens/warm_editorial_edtech/DESIGN.md` ("Warm Editorial EdTech"). Same design system exists in the Stitch project (`Warm Editorial EdTech` asset) — generated screens under `screens/stitch/` use it.
 
-⚠️ **Reference package now has TWO generations**: the original `screens/aralytics_*` + `screens/` mockup dirs used for the built screens, and **`screens/stitch/` (added 2026-10-27)** — full HTML + full-res screenshots for all 7 current Stitch screens, fetched via the Stitch MCP. Key changes vs the originals:
-- `screens/stitch/teacher_desktop_dashboard/code.html` is the **real dashboard design** (the hand-built `TeacherDashboard.jsx` was based on a byte-identical roster duplicate; re-convert from this).
-- `screens/stitch/student_desktop_portal/code.html` is a **learner portal screen** (new; `/home` was built from an older design; compare before touching it).
-- `screens/stitch/landing_page/code.html` is a **updated landing design** (longer page, 1280×5888 at canvas scale — compare with current `LandingPage.jsx` before assuming drift).
-- The other 4 (roster, settings, reports, activities) match the already-converted screens in structure.
+⚠️ **Reference package generations (historical note):** `screens/aralytics_*` + `screens/` mockup dirs were used for the first build; **`screens/stitch/` (added 2026-10-27) is now the sole conversion source** — every screen in `src/screens/` was re-implemented from its `code.html`. Differences that came out of the re-conversion:
+- `teacher_desktop_dashboard/code.html` is the **real dashboard design** (KPI cards, SVG trend chart + donut, AI insights, Needs-Attention triage, student directory table) — now live at `/dashboard`, replacing the old hand-built variant (and its `StatCard`/`MasteryRing` components, now deleted).
+- `student_desktop_portal/code.html` replaced the old `/home` design: simplified restyle (calmer streak banner, compact AI Coach card, inline metadata pills; no "Warm-up preview" filler — the new hero card ends at its metadata pills, so the left bento card has intentional empty space).
+- `landing_page/code.html` replaced the old landing: flatter bordered cards, plain "Warm Editorial" styling, same section inventory (hero → pillars → tabs → DepEd → testimonials → metrics → pilot).
+- The other 4 (roster, settings, reports, activities) were re-derived verbatim; structure unchanged.
 
 **Stitch screen IDs ↔ `screens/stitch/` slugs** (project `17585807675120887156`, "Aralytics Learning Platform Design"):
 
@@ -64,37 +64,35 @@ Also in the project (not downloaded, unless needed): `4f40a181…` hidden 390px 
 
 | Route | Screen (`src/screens/`) | Shell | Notes |
 |---|---|---|---|
-| `/` | `LandingPage.jsx` | none (own header) | converted from `screens/landing page/` mockup; product tabs (students/teachers), demo modal, pilot form w/ success state, hamburger menu below `lg` (includes mobile CTA) |
-| `/home` | `HomeScreen.jsx` | none (own header) | learner home ("Magandang araw, Maria!"); EN/FIL toggle state, hamburger below `xl`; bento: quiz card + "Warm-up preview" filler block (fills equal-height gap vs taller Aral Coach card) + mastery cards + learning path + gamification + footer |
-| `/dashboard` | `TeacherDashboard.jsx` | yes | **hand-built** — original package's `aralytics_teacher_dashboard/code.html` was a byte-identical duplicate of the roster mockup; the **real dashboard design now exists** at `screens/stitch/teacher_desktop_dashboard/code.html` (KPI cards, SVG trend chart + donut, AI insights, Needs-Attention triage, student directory table) — re-convert from it. Current: KPI rings (StatCard), SVG trend chart, AI-ranked nudges, upcoming, topic snapshot |
-| `/students` | `StudentsMasteryRoster.jsx` | yes | converted from `code.html`; masterlist table with `overflow-x-auto` |
-| `/activities` | `ActivitiesQuizManagement.jsx` | yes | converted; create-activity drawer (useState open/close + backdrop) |
-| `/reports` | `ClassReportsLearningAnalytics.jsx` | yes | converted; SVG bar chart inline, ambient glow divs kept |
-| `/settings` | `TeacherClassroomSettings.jsx` | yes | converted; tab switching, toggles, slider, dirty flag + save toast all work via useState |
+| `/` | `LandingPage.jsx` | none (own header) | converted from `screens/stitch/landing_page/code.html`; product tabs (students/teachers), demo modal, pilot form w/ success state, hamburger menu below `lg` (includes mobile CTA) |
+| `/home` | `HomeScreen.jsx` | none (own header) | learner home ("Magandang araw, Maria!"); converted from `screens/stitch/student_desktop_portal/code.html`; EN/FIL toggle state, hamburger below `xl`; bento: quiz card (ends at metadata pills — intentional gap) + mastery cards + learning path + gamification + footer |
+| `/dashboard` | `TeacherDashboard.jsx` | yes | converted from `screens/stitch/teacher_desktop_dashboard/code.html` — KPI cards, SVG trend chart (Line Chart/Table toggle) + status donut, topic snapshot w/ filter pills, AI-ranked Needs-Attention triage (View → student modal w/ EN/FIL note language toggle), student directory table (search + status filter pills + pagination), toasts for AI Summary/encouragement |
+| `/students` | `StudentsMasteryRoster.jsx` | yes | converted; masterlist table w/ `overflow-x-auto`, search + status filter pills + topic select + pagination state, teacher log, Batch Nudge toast |
+| `/activities` | `ActivitiesQuizManagement.jsx` | yes | converted; create-activity drawer (useState + backdrop), status tabs + subject chips + format selector state |
+| `/reports` | `ClassReportsLearningAnalytics.jsx` | yes | converted; inline SVG bar chart, quarter/section selects, export button busy states |
+| `/settings` | `TeacherClassroomSettings.jsx` | yes | converted; tab switching, tone cards, threshold slider, toggles, dirty flag + save toast via useState |
 | `*` | redirect → `/` | | |
 
 Unknown paths land on `/`. Landing logo → `/home`; Home nav pills → `/activities`, `/reports`; sidebar logo → `/home`. Landing "Log In" CTA still inert (`#`).
 
 ## Layout Components (`src/components/`)
 
-- `layout/Sidebar.jsx` — teacher nav rail; below `lg` becomes hamburger drawer (App-level `navOpen` state, backdrop tap + link tap auto-close), active route highlight via NavLink
+- `layout/Sidebar.jsx` — teacher nav rail; below `lg` becomes hamburger drawer (App-level `navOpen` state, backdrop tap + link tap auto-close), active route highlight via NavLink; logo image + wordmark → `/home`
 - `layout/TopBar.jsx` — fixed bar: hamburger (mobile), class pill, search, EN/FIL, notifications, New Activity → `/activities`, avatar; elements progressively hidden on narrow widths
-- `ui/MasteryRing.jsx` — SVG progress ring (value, color class, size)
-- `ui/StatCard.jsx` — KPI scorecard (dot + big Nunito metric + trend + MasteryRing) — used by TeacherDashboard only
 
-Screens are self-contained JSX (converted from mockup HTML; Tailwind classes verbatim; remote googleusercontent images kept with `onError` hide fallbacks; dashboard avatars use initials). Screens don't import each other.
+Screens are self-contained JSX (converted from `screens/stitch/*/code.html`; Tailwind classes verbatim; remote googleusercontent images kept with `onError` hide fallbacks; dashboard avatars use initials). Screens don't import each other. `ui/` is empty — the old `StatCard.jsx`/`MasteryRing.jsx` were only used by the pre-reconversion dashboard and were deleted.
 
 ## Verified State (end of session)
 
-- `npx vite build` ✅ (~425 kB JS / ~49 kB CSS; chunk-size warning is noise) • `npx oxlint src` ✅ clean • dev server port **3000** was running as a background task but the two opencode service restarts this session likely killed it — `npx vite dev` first if the browser shows nothing
-- Playwright-verified: all routes 200; landing + home + dashboard pixel-checked desktop & mobile; home bento gap fixed w/ Warm-up preview; "Just In" pill fixed; hamburger menus work on home + landing at 390px; `.playwright-mcp` + temp screenshots cleaned up after checks
-- Stitch MCP ✅ connected + auth-verified (`get_screen` 200 with real data after key moved to global config; earlier `{env:…}`-based attempt 401'd and was reverted — see Stitch usage notes)
-- `screens/stitch/` ✅ all 7 code.html identity-checked (titles/h1 markers) + all 7 screenshots magic-byte/dimension-verified at full res; scratch scripts + `temp_raw/` deleted
-- Exercise for later: landing & home at `sm`/`md` tablet widths not exhaustively eyeballed; `screens/stitch/` HTML was never diffed line-by-line against the converted JSX screens
+- git repo ✅ initialized (commits: baseline → .playwright-mcp ignore → re-implementation); anchored `/screens/` ignore works
+- `npx vite build` ✅ (~550 kB JS / ~49 kB CSS; chunk-size warning is noise) • `npx oxlint src` ✅ clean • dev server on port **3000** running (fresh instance this session; old one was stale — it served pre-edit modules until killed)
+- Playwright-verified (desktop 1440px + mobile 390px, full-page screenshots): all 7 routes styled & correct. Interactions spot-checked in browser: dashboard student modal (EN/FIL toggle, Send Encouragement toast), activities create drawer, landing hamburger menu. Entities bug found & fixed: `&amp;`/`&lt;` written literally inside JS string literals in `TeacherDashboard.jsx` (JSX text children decode entities, JS strings don't)
+- Landing footer uses `CURRENT_YEAR` (© 2026); Home footer too
+- Exercise for later: `sm`/`md` tablet widths not exhaustively eyeballed; home bento left-card gap could take a filler block (dropped filler no longer in reference HTML); row action buttons on roster + dashboard pagination pages 2-6 have no data rows (static-safe)
 
 ## Not Set Up Yet
 
-git repo (dir is not initialized — do this FIRST next session, `.gitignore` is ready; ✅ project `opencode.json` is secret-free now, Stitch key lives in **global** config), backend/API/data layer (all data static), auth (login CTA inert), tests, CI, mobile app.
+backend/API/data layer (all data static — roster search/filter/pagination operate on the 9 rendered sample rows only), auth (login CTA inert), tests, CI, mobile app.
 
 New-session note: user env var `STITCH_API_KEY` exists (setx) but `{env:…}` did NOT expand inside the live opencode service during this session (Windows doesn't refresh running process env) — if env substitution is ever needed, restart OpenCode from a new terminal first. The global-config key already proves the sanctioned path.
 
@@ -108,9 +106,7 @@ New-session note: user env var `STITCH_API_KEY` exists (setx) but `{env:…}` di
 
 ## Suggested Next Steps
 
-1. `git init` + first commit (`.gitignore` ready; confirms anchored `/screens/` works in practice). ✓ Stitch API key already lives in *global* config (not committed) — project `opencode.json` is secret-free and safe to commit.
-2. Re-convert `TeacherDashboard.jsx` from `screens/stitch/teacher_desktop_dashboard/code.html` (real design now available).
-3. Review `screens/stitch/student_desktop_portal/code.html` vs current `/home` — either diff-convert or adopt as `HomeScreen` v2.
-4. Replace static data with a data layer (local mock JSON first), then loading/empty states.
-5. Wire landing "Log In" → simple auth → route role-based (teacher → `/dashboard`, learner → `/home`).
-6. Feature work behind inert buttons: Upload/Export CSV, Batch Nudge, filters, "Start Quiz Now".
+1. Replace static data with a data layer (local mock JSON first), then loading/empty states — roster/dashboard filters and pagination currently operate on hardcoded sample rows.
+2. Wire landing "Log In" → simple auth → route role-based (teacher → `/dashboard`, learner → `/home`).
+3. Feature work behind inert buttons: Upload/Export CSV, Batch Nudge, filters, "Start Quiz Now".
+4. Tablet-width (`sm`/`md`) eyeball pass for landing + home; consider a filler block for the home bento left-card gap.
