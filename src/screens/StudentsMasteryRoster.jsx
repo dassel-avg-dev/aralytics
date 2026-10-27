@@ -1,4 +1,43 @@
+import { useState } from 'react';
+
+const rowMeta = [
+  { text: 'maria santos 109283-001', overall: 58, tags: ['struggling'] },
+  { text: 'juan dela cruz 109283-002', overall: 62, tags: ['struggling'] },
+  { text: 'angel reyes 109283-007', overall: 71, tags: [] },
+  { text: 'paolo garcia 109283-014', overall: 73, tags: ['incomplete'] },
+  { text: 'bea mendoza 109283-005', overall: 96, tags: ['high'] },
+  { text: 'luis fernando 109283-022', overall: 92, tags: ['high'] },
+  { text: 'jasmine catacutan 109283-031', overall: 88, tags: ['high'] },
+  { text: 'sofia bautista 109283-019', overall: 81, tags: ['high'] },
+  { text: 'elijah ramos 109283-040', overall: 64, tags: ['struggling', 'incomplete', 'inactive'] },
+];
+
+const pillActive = 'px-3 py-1.5 rounded-full bg-primary-container text-on-primary font-bold shadow-xs whitespace-nowrap';
+const pillIdle = 'px-3 py-1.5 rounded-full bg-surface-container text-on-surface-variant hover:bg-surface-container-high transition-colors whitespace-nowrap flex items-center gap-1';
+
 export default function StudentsMasteryRoster() {
+  const [query, setQuery] = useState('');
+  const [subject, setSubject] = useState('all');
+  const [activeFilter, setActiveFilter] = useState('all');
+  const [page, setPage] = useState(1);
+  const [note, setNote] = useState("Spoke with Maria after Period 3. She understands basic equivalent fractions but gets anxious when timed quizzes begin. Pair with Bea Mendoza during peer practice tomorrow.");
+  const [savedLabel, setSavedLabel] = useState('Saved 10m ago');
+  const [showToast, setShowToast] = useState(false);
+
+  const rowVisible = (i) => {
+    const row = rowMeta[i];
+    const q = query.trim().toLowerCase();
+    return (
+      (activeFilter === 'all' || row.tags.includes(activeFilter)) &&
+      (q === '' || row.text.includes(q))
+    );
+  };
+
+  const handleBatchNudge = () => {
+    setShowToast(true);
+    setTimeout(() => setShowToast(false), 3500);
+  };
+
   return (
     <div className="flex flex-col w-full">
       <div className="px-space-lg py-space-xl max-w-[1280px] w-full mx-auto flex flex-col gap-space-xl">
@@ -21,7 +60,7 @@ export default function StudentsMasteryRoster() {
               <span className="material-symbols-outlined text-[18px] text-on-surface-variant">download</span>
               <span>Export Masterlist (CSV)</span>
             </button>
-            <button className="flex items-center gap-space-xs px-space-md py-2.5 rounded-xl bg-surface-container text-primary hover:bg-surface-container-high transition-all font-label-md text-label-md" title="Broadcast nudge to filtered group" type="button">
+            <button className="flex items-center gap-space-xs px-space-md py-2.5 rounded-xl bg-surface-container text-primary hover:bg-surface-container-high transition-all font-label-md text-label-md" onClick={handleBatchNudge} title="Broadcast nudge to filtered group" type="button">
               <span className="material-symbols-outlined text-[18px]">forward_to_inbox</span>
               <span>Batch Nudge / Message</span>
             </button>
@@ -118,12 +157,12 @@ export default function StudentsMasteryRoster() {
               <div className="flex flex-col md:flex-row gap-space-sm items-center justify-between">
                 <div className="relative w-full md:max-w-md">
                   <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">search</span>
-                  <input className="w-full bg-surface-container-low text-on-surface placeholder:text-on-surface-variant font-body-sm text-body-sm pl-10 pr-4 py-2.5 rounded-xl border-none focus:outline-none focus:ring-2 focus:ring-primary-container transition-all" placeholder="Filter by student name, LRN, or topic..." type="text"/>
+                  <input className="w-full bg-surface-container-low text-on-surface placeholder:text-on-surface-variant font-body-sm text-body-sm pl-10 pr-4 py-2.5 rounded-xl border-none focus:outline-none focus:ring-2 focus:ring-primary-container transition-all" placeholder="Filter by student name, LRN, or topic..." type="text" value={query} onChange={(e) => setQuery(e.target.value)}/>
                 </div>
                 {/* Subject selector dropdown */}
                 <div className="w-full md:w-auto flex items-center gap-space-xs self-stretch md:self-auto">
                   <label className="font-label-sm text-label-sm text-on-surface-variant whitespace-nowrap" htmlFor="subjectSelect">Topic Focus:</label>
-                  <select className="bg-surface-container-low text-on-surface font-label-md text-label-md px-3 py-2 rounded-xl border-none focus:outline-none focus:ring-2 focus:ring-primary-container w-full md:w-auto cursor-pointer" id="subjectSelect">
+                  <select className="bg-surface-container-low text-on-surface font-label-md text-label-md px-3 py-2 rounded-xl border-none focus:outline-none focus:ring-2 focus:ring-primary-container w-full md:w-auto cursor-pointer" id="subjectSelect" value={subject} onChange={(e) => setSubject(e.target.value)}>
                     <option value="all">All Subjects (Holistic)</option>
                     <option value="math">Math · Fractions &amp; Decimals</option>
                     <option value="sci">Science · Photosynthesis &amp; Respiration</option>
@@ -134,22 +173,22 @@ export default function StudentsMasteryRoster() {
               </div>
               {/* Filter Pills Carousel */}
               <div className="flex items-center gap-2 overflow-x-auto pb-1 text-label-sm font-label-sm">
-                <button className="px-3 py-1.5 rounded-full bg-primary-container text-on-primary font-bold shadow-xs whitespace-nowrap" type="button">
+                <button className={activeFilter === 'all' ? pillActive : pillIdle} onClick={() => setActiveFilter('all')} type="button">
               All (42)
             </button>
-                <button className="px-3 py-1.5 rounded-full bg-surface-container text-on-surface-variant hover:bg-surface-container-high transition-colors whitespace-nowrap flex items-center gap-1" type="button">
+                <button className={activeFilter === 'high' ? pillActive : pillIdle} onClick={() => setActiveFilter('high')} type="button">
                   <span className="w-2 h-2 rounded-full bg-secondary"></span>
                   {'High Mastery (>85%)'}
                 </button>
-                <button className="px-3 py-1.5 rounded-full bg-surface-container text-on-surface-variant hover:bg-surface-container-high transition-colors whitespace-nowrap flex items-center gap-1" type="button">
+                <button className={activeFilter === 'struggling' ? pillActive : pillIdle} onClick={() => setActiveFilter('struggling')} type="button">
                   <span className="w-2 h-2 rounded-full bg-error"></span>
                   {'Struggling (<65%)'}
                 </button>
-                <button className="px-3 py-1.5 rounded-full bg-surface-container text-on-surface-variant hover:bg-surface-container-high transition-colors whitespace-nowrap flex items-center gap-1" type="button">
+                <button className={activeFilter === 'incomplete' ? pillActive : pillIdle} onClick={() => setActiveFilter('incomplete')} type="button">
                   <span className="material-symbols-outlined text-[14px]">pending_actions</span>
               Incomplete Tasks (6)
             </button>
-                <button className="px-3 py-1.5 rounded-full bg-surface-container text-on-surface-variant hover:bg-surface-container-high transition-colors whitespace-nowrap flex items-center gap-1" type="button">
+                <button className={activeFilter === 'inactive' ? pillActive : pillIdle} onClick={() => setActiveFilter('inactive')} type="button">
                   <span className="material-symbols-outlined text-[14px]">schedule</span>
                   {'Inactive >3 days (2)'}
                 </button>
@@ -172,7 +211,7 @@ export default function StudentsMasteryRoster() {
                   </thead>
                   <tbody className="divide-y divide-surface-container font-body-sm text-body-sm text-on-surface">
                     {/* Row 1: Maria Santos (Active / Focused) */}
-                    <tr className="bg-surface-container-high/40 hover:bg-surface-container-high transition-colors cursor-pointer border-l-4 border-l-primary-container">
+                    <tr className={`${rowVisible(0) ? '' : 'hidden '}bg-surface-container-high/40 hover:bg-surface-container-high transition-colors cursor-pointer border-l-4 border-l-primary-container`}>
                       <td className="py-3.5 px-4">
                         <div className="flex items-center gap-3">
                           <div className="relative">
@@ -236,7 +275,7 @@ export default function StudentsMasteryRoster() {
                       </td>
                     </tr>
                     {/* Row 2: Juan Dela Cruz */}
-                    <tr className="hover:bg-surface-container-low transition-colors cursor-pointer">
+                    <tr className={`${rowVisible(1) ? '' : 'hidden '}hover:bg-surface-container-low transition-colors cursor-pointer`}>
                       <td className="py-3.5 px-4">
                         <div className="flex items-center gap-3">
                           <div className="relative">
@@ -293,7 +332,7 @@ export default function StudentsMasteryRoster() {
                       </td>
                     </tr>
                     {/* Row 3: Angel Reyes */}
-                    <tr className="hover:bg-surface-container-low transition-colors cursor-pointer">
+                    <tr className={`${rowVisible(2) ? '' : 'hidden '}hover:bg-surface-container-low transition-colors cursor-pointer`}>
                       <td className="py-3.5 px-4">
                         <div className="flex items-center gap-3">
                           <div className="relative">
@@ -340,7 +379,7 @@ export default function StudentsMasteryRoster() {
                       </td>
                     </tr>
                     {/* Row 4: Paolo Garcia */}
-                    <tr className="hover:bg-surface-container-low transition-colors cursor-pointer">
+                    <tr className={`${rowVisible(3) ? '' : 'hidden '}hover:bg-surface-container-low transition-colors cursor-pointer`}>
                       <td className="py-3.5 px-4">
                         <div className="flex items-center gap-3">
                           <div className="relative">
@@ -383,7 +422,7 @@ export default function StudentsMasteryRoster() {
                       </td>
                     </tr>
                     {/* Row 5: Bea Mendoza (Top Performer) */}
-                    <tr className="hover:bg-surface-container-low transition-colors cursor-pointer bg-secondary-container/10">
+                    <tr className={`${rowVisible(4) ? '' : 'hidden '}hover:bg-surface-container-low transition-colors cursor-pointer bg-secondary-container/10`}>
                       <td className="py-3.5 px-4">
                         <div className="flex items-center gap-3">
                           <div className="relative">
@@ -429,7 +468,7 @@ export default function StudentsMasteryRoster() {
                       </td>
                     </tr>
                     {/* Row 6: Luis Fernando */}
-                    <tr className="hover:bg-surface-container-low transition-colors cursor-pointer">
+                    <tr className={`${rowVisible(5) ? '' : 'hidden '}hover:bg-surface-container-low transition-colors cursor-pointer`}>
                       <td className="py-3.5 px-4">
                         <div className="flex items-center gap-3">
                           <div className="relative">
@@ -472,7 +511,7 @@ export default function StudentsMasteryRoster() {
                       </td>
                     </tr>
                     {/* Row 7: Jasmine Catacutan */}
-                    <tr className="hover:bg-surface-container-low transition-colors cursor-pointer">
+                    <tr className={`${rowVisible(6) ? '' : 'hidden '}hover:bg-surface-container-low transition-colors cursor-pointer`}>
                       <td className="py-3.5 px-4">
                         <div className="flex items-center gap-3">
                           <div className="relative">
@@ -515,7 +554,7 @@ export default function StudentsMasteryRoster() {
                       </td>
                     </tr>
                     {/* Row 8: Sofia Bautista */}
-                    <tr className="hover:bg-surface-container-low transition-colors cursor-pointer">
+                    <tr className={`${rowVisible(7) ? '' : 'hidden '}hover:bg-surface-container-low transition-colors cursor-pointer`}>
                       <td className="py-3.5 px-4">
                         <div className="flex items-center gap-3">
                           <div className="relative">
@@ -558,7 +597,7 @@ export default function StudentsMasteryRoster() {
                       </td>
                     </tr>
                     {/* Row 9: Elijah Ramos */}
-                    <tr className="hover:bg-surface-container-low transition-colors cursor-pointer">
+                    <tr className={`${rowVisible(8) ? '' : 'hidden '}hover:bg-surface-container-low transition-colors cursor-pointer`}>
                       <td className="py-3.5 px-4">
                         <div className="flex items-center gap-3">
                           <div className="relative">
@@ -614,12 +653,11 @@ export default function StudentsMasteryRoster() {
                   <span className="text-xs">3 students currently have unassigned remedial packets</span>
                 </div>
                 <div className="flex items-center gap-1 font-label-md text-label-md">
-                  <button className="px-2.5 py-1 rounded-lg bg-surface-container text-on-surface-variant disabled:opacity-50" disabled type="button">Previous</button>
-                  <button className="px-3 py-1 rounded-lg bg-primary-container text-on-primary font-bold" type="button">1</button>
-                  <button className="px-3 py-1 rounded-lg hover:bg-surface-container text-on-surface" type="button">2</button>
-                  <button className="px-3 py-1 rounded-lg hover:bg-surface-container text-on-surface" type="button">3</button>
-                  <button className="px-3 py-1 rounded-lg hover:bg-surface-container text-on-surface" type="button">4</button>
-                  <button className="px-2.5 py-1 rounded-lg bg-surface-container text-on-surface hover:bg-surface-container-high transition-colors" type="button">Next</button>
+                  <button className="px-2.5 py-1 rounded-lg bg-surface-container text-on-surface-variant disabled:opacity-50" disabled={page === 1} onClick={() => setPage((p) => Math.max(1, p - 1))} type="button">Previous</button>
+                  {[1, 2, 3, 4].map((n) => (
+                    <button key={n} className={n === page ? 'px-3 py-1 rounded-lg bg-primary-container text-on-primary font-bold' : 'px-3 py-1 rounded-lg hover:bg-surface-container text-on-surface'} onClick={() => setPage(n)} type="button">{n}</button>
+                  ))}
+                  <button className="px-2.5 py-1 rounded-lg bg-surface-container text-on-surface hover:bg-surface-container-high transition-colors" disabled={page === 4} onClick={() => setPage((p) => Math.min(4, p + 1))} type="button">Next</button>
                 </div>
               </div>
             </div>
@@ -710,13 +748,13 @@ export default function StudentsMasteryRoster() {
                   </span>
                   <span className="text-[11px] text-on-surface-variant font-label-sm">Autosaves</span>
                 </div>
-                <textarea className="w-full bg-surface-container-low text-on-surface placeholder:text-on-surface-variant font-body-sm text-body-sm p-3 rounded-xl border-none focus:outline-none focus:ring-2 focus:ring-primary-container transition-all resize-none" placeholder="Add confidential notes on Maria's recitation, group participation, or home modular access..." rows={3} defaultValue="Spoke with Maria after Period 3. She understands basic equivalent fractions but gets anxious when timed quizzes begin. Pair with Bea Mendoza during peer practice tomorrow."></textarea>
+                <textarea className="w-full bg-surface-container-low text-on-surface placeholder:text-on-surface-variant font-body-sm text-body-sm p-3 rounded-xl border-none focus:outline-none focus:ring-2 focus:ring-primary-container transition-all resize-none" placeholder="Add confidential notes on Maria's recitation, group participation, or home modular access..." rows={3} value={note} onChange={(e) => setNote(e.target.value)}></textarea>
                 <div className="flex items-center justify-between mt-1">
                   <span className="font-label-sm text-label-sm text-secondary flex items-center gap-1">
                     <span className="material-symbols-outlined text-[14px]">check_circle</span>
-                Saved 10m ago
+                {savedLabel}
                   </span>
-                  <button className="px-3 py-1.5 rounded-lg bg-primary-container text-on-primary font-label-sm text-label-sm hover:bg-primary transition-colors shadow-xs" type="button">
+                  <button className="px-3 py-1.5 rounded-lg bg-primary-container text-on-primary font-label-sm text-label-sm hover:bg-primary transition-colors shadow-xs" onClick={() => setSavedLabel('Saved just now')} type="button">
                 Save Note
                   </button>
                 </div>
@@ -740,6 +778,16 @@ export default function StudentsMasteryRoster() {
             </div>
           </div>
         </div>
+      </div>
+      {/* Floating Toast Confirmation on Batch Nudge */}
+      <div
+        className={
+          'fixed bottom-6 right-6 z-50 transform transition-all duration-300 flex items-center gap-space-sm bg-inverse-surface text-inverse-on-surface px-space-lg py-3 rounded-xl shadow-xl ' +
+          (showToast ? '' : 'translate-y-24 opacity-0 pointer-events-none')
+        }
+      >
+        <span className="material-symbols-outlined text-secondary-fixed text-[20px]" style={{ fontVariationSettings: "'FILL' 1" }}>forward_to_inbox</span>
+        <span className="font-label-md text-label-md">Batch nudge queued for the filtered student group!</span>
       </div>
     </div>
   );

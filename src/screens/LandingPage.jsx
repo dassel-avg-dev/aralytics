@@ -50,7 +50,7 @@ export default function LandingPage() {
               <span className="text-outline-variant px-0.5">|</span>
               <button className="px-2.5 py-1 rounded-full hover:text-on-surface font-label-sm text-label-sm transition-colors" type="button">FIL</button>
             </div>
-            <a className="hidden sm:inline-flex px-3.5 py-2 rounded-xl text-on-surface font-label-lg text-label-lg hover:bg-surface-container transition-colors" data-path="login" href="#">Log In</a>
+            <button className="hidden sm:inline-flex px-3.5 py-2 rounded-xl text-on-surface font-label-lg text-label-lg hover:bg-surface-container transition-colors" data-path="login" type="button">Log In</button>
             <a className="hidden lg:inline-flex items-center justify-center px-4 py-2.5 rounded-xl bg-primary text-on-primary font-label-lg text-label-lg shadow-[0_4px_16px_rgba(91,75,219,0.18)] hover:bg-primary-container hover:text-on-primary-container transition-all focus:outline-none focus:ring-4 focus:ring-primary-fixed" data-path="pricing-pilot" href="#">Start Free Classroom Pilot</a>
             <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0">
               <span className="material-symbols-outlined text-on-primary text-[18px]">person</span>
@@ -87,161 +87,130 @@ export default function LandingPage() {
       </header>
       <main className="w-full pt-20 bg-background flex-1">
         <div className="flex flex-col w-full">
-          <section className="relative w-full overflow-hidden pb-16 lg:pb-24 pt-4 lg:pt-8">
-            <div className="pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 w-[980px] h-[480px] bg-gradient-to-br from-primary-fixed/30 via-tertiary-fixed/20 to-transparent blur-3xl opacity-60 rounded-full"></div>
-            <div className="pointer-events-none absolute top-48 -right-20 w-80 h-80 bg-secondary-container/20 blur-2xl rounded-full"></div>
+          {/* HERO SECTION */}
+          <section className="relative w-full overflow-hidden pb-24 lg:pb-32 pt-8 lg:pt-16">
+            <div className="pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 w-[980px] h-[480px] bg-gradient-to-br from-primary-fixed/30 via-tertiary-fixed/20 to-transparent blur-3xl opacity-40 rounded-full"></div>
             <div className="relative max-w-[1120px] mx-auto px-margin-mobile lg:px-margin flex flex-col items-center">
-              <div className="inline-flex items-center gap-space-xs px-4 py-1.5 rounded-full bg-surface-container shadow-sm border-0 mb-6 group cursor-default transition-transform hover:scale-[1.02]">
-                <span className="w-2 h-2 rounded-full bg-tertiary-fixed-dim animate-pulse"></span>
+              <div className="inline-flex items-center gap-space-xs px-4 py-1.5 rounded-full bg-surface-container/60 mb-8 cursor-default transition-all hover:bg-surface-container">
+                <span className="w-2 h-2 rounded-full bg-primary"></span>
                 <span className="font-label-md text-label-md text-primary font-semibold tracking-wide">
-                  ✨ Bagong K-12 MATATAG Aligned · Built for Filipino Classrooms
+                  Bagong K-12 MATATAG Aligned · Built for Filipino Classrooms
                 </span>
               </div>
-              <h1 className="font-display-lg text-display-lg-mobile lg:text-display-lg text-on-surface text-center max-w-4xl tracking-tight leading-tight mb-5">
-                Personalized AI Tutoring &amp; Instant Diagnostic Feedback for <span className="text-primary relative inline-block">Every Filipino Learner.<svg className="absolute -bottom-1 left-0 w-full h-2.5 text-tertiary-fixed" preserveAspectRatio="none" viewBox="0 0 100 20"><path d="M0 15 Q 50 0 100 12" fill="none" stroke="currentColor" strokeLinecap="round" strokeWidth="6" /></svg></span>
+              <h1 className="font-display-lg text-display-lg-mobile lg:text-display-lg text-on-surface text-center max-w-4xl tracking-tight leading-tight mb-6">
+                Personalized AI Tutoring &amp; Instant Diagnostic Feedback for <span className="text-primary relative inline-block">Every Filipino Learner.</span>
               </h1>
-              <p className="font-body-lg text-body-lg text-on-surface-variant text-center max-w-2xl mb-8 leading-relaxed">
+              <p className="font-body-lg text-body-lg text-on-surface-variant text-center max-w-2xl mb-10 leading-relaxed">
                 Aralytics empowers teachers to spot learning gaps in seconds and provides students with encouraging, step-by-step AI guidance in English and Tagalog. Zero grade anxiety, 100% mastery.
               </p>
-              <div className="flex flex-col sm:flex-row items-center gap-space-md w-full sm:w-auto mb-10">
-                <a className="w-full sm:w-auto inline-flex items-center justify-center gap-space-sm px-6 py-3.5 rounded-[14px] bg-primary text-on-primary font-label-lg text-label-lg shadow-[0_8px_20px_rgba(91,75,219,0.22)] hover:bg-primary-container transition-all hover:-translate-y-0.5 active:translate-y-0" href="#pilot-signup">
+              <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto mb-12">
+                <a className="w-full sm:w-auto inline-flex items-center justify-center gap-space-sm px-6 py-3.5 rounded-xl bg-primary text-on-primary font-label-lg text-label-lg shadow-sm hover:bg-primary-container transition-all" href="#pilot-signup">
                   <span>Launch Free School Pilot</span>
                   <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
                 </a>
-                <button className="w-full sm:w-auto inline-flex items-center justify-center gap-space-sm px-6 py-3.5 rounded-[14px] bg-surface-container-lowest text-on-surface font-label-lg text-label-lg shadow-[0_4px_16px_rgba(91,75,219,0.06)] hover:bg-surface-container-low transition-all" onClick={() => setDemoOpen(true)} type="button">
+                <button className="w-full sm:w-auto inline-flex items-center justify-center gap-space-sm px-6 py-3.5 rounded-xl bg-surface-container-lowest text-on-surface font-label-lg text-label-lg border border-surface-container-high/60 shadow-xs hover:bg-surface-container-low transition-all" onClick={() => setDemoOpen(true)} type="button">
                   <span className="w-6 h-6 rounded-full bg-surface-container flex items-center justify-center text-primary">
                     <span className="material-symbols-outlined text-[16px]" style={{ fontVariationSettings: "'FILL' 1" }}>play_arrow</span>
                   </span>
                   <span>Watch 2-Min Classroom Demo</span>
                 </button>
               </div>
-              <div className="w-full max-w-2xl py-3 px-4 rounded-xl bg-surface-container-low/80 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-center mb-12 shadow-sm">
+              <div className="w-full max-w-2xl py-2.5 px-4 rounded-full bg-surface-container-low/50 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-center mb-16">
                 <div className="flex items-center gap-2">
-                  <div className="flex -space-x-1.5 overflow-hidden">
-                    <div className="w-6 h-6 rounded-full bg-primary-fixed text-primary text-[10px] font-bold flex items-center justify-center">QC</div>
-                    <div className="w-6 h-6 rounded-full bg-secondary-fixed text-secondary text-[10px] font-bold flex items-center justify-center">PSG</div>
-                    <div className="w-6 h-6 rounded-full bg-tertiary-fixed text-tertiary text-[10px] font-bold flex items-center justify-center">LAG</div>
-                  </div>
-                  <span className="font-label-sm text-label-sm text-on-surface-variant font-medium">
-                    Trusted by <strong className="text-on-surface font-bold">45+ public &amp; private schools</strong> across SDO Pasig, QC, &amp; Laguna
+                  <span className="font-label-sm text-label-sm text-on-surface-variant">
+                    Trusted by <strong className="text-on-surface font-semibold">45+ public &amp; private schools</strong> across SDO Pasig, QC, &amp; Laguna
                   </span>
                 </div>
                 <span className="text-outline-variant hidden sm:inline">•</span>
-                <span className="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
-                  <span className="material-symbols-outlined text-secondary text-[14px]" style={{ fontVariationSettings: "'FILL' 1" }}>verified</span>
-                  <strong className="text-on-surface font-semibold">48,000+</strong> quizzes submitted this school year
+                <span className="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1.5">
+                  <span className="material-symbols-outlined text-secondary text-[16px]">verified</span>
+                  <span><strong className="text-on-surface font-semibold">48,000+</strong> quizzes submitted this school year</span>
                 </span>
               </div>
-              <div className="w-full rounded-[24px] bg-surface-container-lowest p-4 sm:p-6 lg:p-8 shadow-[0_16px_40px_rgba(91,75,219,0.1)] relative">
-                <div className="flex items-center justify-between pb-4 sm:pb-6 mb-4 sm:mb-6 border-b border-surface-container-high/60">
-                  <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-full bg-error/70"></div>
-                    <div className="w-3 h-3 rounded-full bg-tertiary-fixed-dim"></div>
-                    <div className="w-3 h-3 rounded-full bg-secondary"></div>
-                    <span className="ml-2 font-label-sm text-label-sm text-on-surface-variant font-semibold">Aralytics Live Diagnostic Classroom · Section 8-Mabini</span>
+              <div className="w-full rounded-2xl bg-surface-container-lowest p-6 lg:p-8 shadow-[0_8px_32px_rgba(91,75,219,0.06)] border border-surface-container-high/50 relative">
+                <div className="flex items-center justify-between pb-5 mb-6 border-b border-surface-container-high/50">
+                  <div className="flex items-center gap-2.5">
+                    <span className="w-2.5 h-2.5 rounded-full bg-secondary"></span>
+                    <span className="font-label-md text-label-md text-on-surface font-semibold">Section 8-Mabini · Live Diagnostic Session</span>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <span className="px-2.5 py-1 rounded-full bg-secondary/10 text-secondary font-label-sm text-label-sm font-semibold flex items-center gap-1">
-                      <span className="w-1.5 h-1.5 rounded-full bg-secondary animate-ping"></span> Live Session
-                    </span>
-                    <span className="px-2 py-0.5 rounded-md bg-surface-container-high font-label-sm text-label-sm text-on-surface-variant">DepEd Math 8 · Q1 MELC #3</span>
-                  </div>
+                  <span className="px-2.5 py-1 rounded-md bg-surface-container font-label-sm text-label-sm text-on-surface-variant">DepEd Math 8 · Q1 MELC #3</span>
                 </div>
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-stretch">
-                  <div className="lg:col-span-6 flex flex-col justify-between bg-surface-container-low p-5 sm:p-6 rounded-[20px]">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+                  <div className="lg:col-span-6 flex flex-col justify-between bg-surface-container-low/40 p-6 rounded-xl border border-surface-container-high/40">
                     <div>
-                      <div className="flex items-center justify-between mb-3">
-                        <span className="px-2.5 py-1 rounded-full bg-surface-container-highest text-primary font-label-sm text-label-sm font-bold">Question 4 of 5</span>
+                      <div className="flex items-center justify-between mb-4">
+                        <span className="text-primary font-label-sm text-label-sm font-bold tracking-wide uppercase">Question 4 of 5</span>
                         <span className="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1">
                           <span className="material-symbols-outlined text-[16px]">timer</span> 45s avg speed
                         </span>
                       </div>
-                      <h2 className="font-headline-sm text-headline-sm text-on-surface mb-2">
+                      <h2 className="font-headline-sm text-headline-sm text-on-surface mb-3">
                         Find the sum of the rational numbers:
                       </h2>
-                      <div className="p-4 rounded-xl bg-surface-container-lowest shadow-sm text-center my-3">
-                        <span className="font-metric-number text-headline-lg text-primary tracking-wide">
+                      <div className="p-4 rounded-xl bg-surface-container-lowest border border-surface-container-high/50 text-center my-4">
+                        <span className="font-headline-lg text-primary tracking-wide font-bold">
                           <sup>3</sup>/<sub>4</sub> + <sup>2</sup>/<sub>5</sub> = ?
                         </span>
                       </div>
-                      <p className="font-body-sm text-body-sm text-on-surface-variant mb-4">
+                      <p className="font-body-sm text-body-sm text-on-surface-variant mb-5">
                         <em>Paalala:</em> Find the least common denominator bago pagsamahin ang numerators.
                       </p>
-                      <div className="space-y-2">
-                        <div className="w-full p-3 rounded-xl bg-surface-container-lowest flex items-center justify-between opacity-60">
-                          <span className="font-body-md text-body-md font-medium text-on-surface">A) 5/9</span>
+                      <div className="space-y-2.5">
+                        <div className="w-full p-3.5 rounded-xl bg-surface-container-lowest border border-surface-container-high/50 flex items-center justify-between opacity-50">
+                          <span className="font-body-md text-body-md text-on-surface">A) 5/9</span>
                           <span className="text-xs text-on-surface-variant">Direct add</span>
                         </div>
-                        <div className="w-full p-3.5 rounded-xl bg-surface-container-lowest ring-2 ring-primary flex items-center justify-between shadow-sm">
-                          <div className="flex items-center gap-2">
-                            <span className="w-5 h-5 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold text-xs">✓</span>
-                            <span className="font-body-md text-body-md font-bold text-primary">B) 23/20 (or 1 3/20)</span>
+                        <div className="w-full p-3.5 rounded-xl bg-surface-container-lowest border-2 border-primary flex items-center justify-between shadow-xs">
+                          <div className="flex items-center gap-2.5">
+                            <span className="w-5 h-5 rounded-full bg-primary text-on-primary flex items-center justify-center text-xs font-bold">✓</span>
+                            <span className="font-body-md text-body-md font-semibold text-primary">B) 23/20 (or 1 3/20)</span>
                           </div>
-                          <span className="px-2 py-0.5 rounded-full bg-primary-fixed text-primary font-label-sm text-label-sm font-semibold">Submitted</span>
+                          <span className="px-2 py-0.5 rounded bg-primary-fixed text-primary font-label-sm text-label-sm font-semibold">Submitted</span>
                         </div>
-                        <div className="w-full p-3 rounded-xl bg-surface-container-lowest flex items-center justify-between opacity-60">
-                          <span className="font-body-md text-body-md font-medium text-on-surface">C) 6/20</span>
+                        <div className="w-full p-3.5 rounded-xl bg-surface-container-lowest border border-surface-container-high/50 flex items-center justify-between opacity-50">
+                          <span className="font-body-md text-body-md text-on-surface">C) 6/20</span>
                           <span className="text-xs text-on-surface-variant">Multiplied</span>
                         </div>
                       </div>
                     </div>
-                    <div className="pt-4 mt-4 border-t border-surface-container-high/60 flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm">
-                      <span>Student: <strong>Maria Clara De Leon</strong></span>
-                      <span>Learner Reference No. (LRN): 136482991024</span>
+                    <div className="pt-4 mt-6 border-t border-surface-container-high/50 flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm">
+                      <span>Maria Clara De Leon</span>
+                      <span className="opacity-75">LRN: 136482991024</span>
                     </div>
                   </div>
-                  <div className="lg:col-span-6 flex flex-col justify-between bg-gradient-to-br from-surface-container-lowest via-surface-container to-surface-container-high p-5 sm:p-6 rounded-[20px] shadow-[0_8px_24px_rgba(91,75,219,0.08)] relative overflow-hidden">
-                    <div className="absolute -right-4 -bottom-4 w-32 h-32 bg-tertiary-fixed/30 rounded-full blur-xl pointer-events-none"></div>
+                  <div className="lg:col-span-6 flex flex-col justify-between bg-surface-container-lowest p-6 rounded-xl border border-surface-container-high/60">
                     <div>
-                      <div className="flex items-start justify-between mb-4">
+                      <div className="flex items-center justify-between mb-5 pb-4 border-b border-surface-container-high/40">
                         <div className="flex items-center gap-3">
-                          <div className="relative w-12 h-12 rounded-2xl bg-primary text-on-primary flex items-center justify-center shadow-md">
-                            <span className="material-symbols-outlined text-[30px] text-tertiary-fixed">smart_toy</span>
-                            <span className="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-secondary-fixed border-2 border-surface-container-lowest flex items-center justify-center text-[9px] font-black text-secondary">★</span>
+                          <div className="w-10 h-10 rounded-xl bg-primary-fixed text-primary flex items-center justify-center font-bold">
+                            <span className="material-symbols-outlined text-[24px]">smart_toy</span>
                           </div>
                           <div>
-                            <div className="flex items-center gap-1.5">
-                              <span className="font-headline-sm text-headline-sm text-on-surface font-bold">Aral Coach AI</span>
-                              <span className="px-2 py-0.5 rounded-full bg-primary/10 text-primary font-label-sm text-label-sm font-semibold">Instant Feedback</span>
-                            </div>
-                            <span className="font-label-sm text-label-sm text-on-surface-variant">Your personal diagnostic coach · 10s ago</span>
+                            <div className="font-label-lg text-label-lg text-on-surface font-bold">Aral Coach AI</div>
+                            <span className="font-label-sm text-label-sm text-on-surface-variant">Personal diagnostic feedback</span>
                           </div>
                         </div>
-                        <div className="flex flex-col items-end gap-1">
-                          <span className="px-2.5 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-bold flex items-center gap-1 shadow-sm">
-                            <span>+50 XP</span>
-                          </span>
-                          <span className="px-2 py-0.5 rounded-full bg-surface-container-lowest text-on-surface font-label-sm text-label-sm font-semibold flex items-center gap-1 shadow-xs">
-                            <span>🔥 5-Day Streak</span>
-                          </span>
-                        </div>
+                        <span className="px-2.5 py-1 rounded-full bg-tertiary-fixed/40 text-on-tertiary-fixed-variant font-label-sm text-label-sm font-semibold">🔥 5-Day Streak</span>
                       </div>
-                      <div className="p-4 rounded-2xl bg-surface-container-lowest shadow-sm mb-4">
+                      <div className="p-4 rounded-xl bg-surface-container-low/50 mb-5">
                         <p className="font-body-md text-body-md text-on-surface leading-relaxed">
-                          “Nice work on finding the common denominator (<strong>20</strong>), Maria! You converted <sup>3</sup>/<sub>4</sub> to <sup>15</sup>/<sub>20</sub> and <sup>2</sup>/<sub>5</sub> to <sup>8</sup>/<sub>20</sub> correctly bago nagsama. Keep this momentum kapag nag-solve na tayo ng mixed fractions bukas!”
+                          “Nice work on finding the common denominator (<strong>20</strong>), Maria! You converted <sup>3</sup>/<sub>4</sub> to <sup>15</sup>/<sub>20</sub> and <sup>2</sup>/<sub>5</sub> to <sup>8</sup>/<sub>20</sub> correctly bago nagsama. Keep this momentum bukas!”
                         </p>
                       </div>
-                      <div className="space-y-2 mb-4">
-                        <div className="flex items-center gap-2 p-2.5 rounded-xl bg-secondary-container/30 text-on-secondary-container font-label-sm text-label-sm">
+                      <div className="space-y-2 mb-6">
+                        <div className="flex items-center gap-2.5 p-3 rounded-lg bg-surface-container-low/40 text-on-surface font-label-sm text-label-sm">
                           <span className="material-symbols-outlined text-secondary text-[18px]">check_circle</span>
-                          <span className="font-semibold">What went well:</span>
-                          <span>Finding LCD &amp; Equivalent Numerators (100% Mastery)</span>
+                          <span><strong>Mastered:</strong> LCD &amp; Equivalent Numerators</span>
                         </div>
-                        <div className="flex items-center gap-2 p-2.5 rounded-xl bg-tertiary-fixed/40 text-on-tertiary-fixed-variant font-label-sm text-label-sm">
-                          <span className="material-symbols-outlined text-tertiary text-[18px]">lightbulb</span>
-                          <span className="font-semibold">Try this next:</span>
-                          <span>Simplifying improper fraction <sup>23</sup>/<sub>20</sub> to 1 <sup>3</sup>/<sub>20</sub></span>
+                        <div className="flex items-center gap-2.5 p-3 rounded-lg bg-surface-container-low/40 text-on-surface font-label-sm text-label-sm">
+                          <span className="material-symbols-outlined text-primary text-[18px]">lightbulb</span>
+                          <span><strong>Next step:</strong> Simplifying improper fraction <sup>23</sup>/<sub>20</sub> to 1 <sup>3</sup>/<sub>20</sub></span>
                         </div>
                       </div>
                     </div>
-                    <div className="pt-3 border-t border-surface-container-high/60 flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <div className="w-24 h-2 rounded-full bg-surface-container-highest overflow-hidden">
-                          <div className="h-full bg-primary rounded-full" style={{ width: '85%' }}></div>
-                        </div>
-                        <span className="font-label-sm text-label-sm text-on-surface-variant font-semibold">Q1 Competency 85%</span>
-                      </div>
-                      <button className="px-3 py-1.5 rounded-lg bg-primary text-on-primary font-label-sm text-label-sm font-semibold hover:bg-primary-container transition-all flex items-center gap-1" type="button">
+                    <div className="pt-4 border-t border-surface-container-high/50 flex items-center justify-between">
+                      <span className="font-label-sm text-label-sm text-on-surface-variant font-medium">Q1 Competency Progress: <strong>85%</strong></span>
+                      <button className="px-3.5 py-2 rounded-lg bg-primary text-on-primary font-label-sm text-label-sm font-semibold hover:bg-primary-container transition-all flex items-center gap-1.5" type="button">
                         <span>Next Drill</span>
                         <span className="material-symbols-outlined text-[14px]">arrow_forward</span>
                       </button>
@@ -251,101 +220,103 @@ export default function LandingPage() {
               </div>
             </div>
           </section>
-          <section className="w-full py-16 bg-surface-container-low/40">
+          {/* KEY VALUE PILLARS (3-Column Grid) */}
+          <section className="w-full py-24 bg-surface-container-low/30">
             <div className="max-w-[1120px] mx-auto px-margin-mobile lg:px-margin">
-              <div className="text-center max-w-2xl mx-auto mb-12">
-                <span className="px-3 py-1 rounded-full bg-surface-container-high text-primary font-label-sm text-label-sm font-bold uppercase tracking-wider">
+              <div className="text-center max-w-2xl mx-auto mb-16">
+                <span className="text-primary font-label-sm text-label-sm font-bold uppercase tracking-wider">
                   Why Aralytics Works
                 </span>
                 <h2 className="font-headline-lg text-headline-lg text-on-surface mt-3">
                   Designed specifically for 50-student Philippine public classrooms.
                 </h2>
-                <p className="font-body-md text-body-md text-on-surface-variant mt-2">
+                <p className="font-body-md text-body-md text-on-surface-variant mt-3 leading-relaxed">
                   Empowering dedicated Filipino educators while giving every student a non-judgmental, patient learning companion.
                 </p>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-space-lg">
-                <div className="rounded-[20px] bg-surface-container-lowest p-space-lg shadow-[0_4px_16px_rgba(91,75,219,0.06)] hover:shadow-[0_10px_24px_rgba(91,75,219,0.12)] transition-all flex flex-col justify-between">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div className="rounded-2xl bg-surface-container-lowest p-8 shadow-xs border border-surface-container-high/50 flex flex-col justify-between hover:shadow-sm transition-all">
                   <div>
-                    <div className="w-12 h-12 rounded-2xl bg-primary-fixed flex items-center justify-center text-primary mb-5 shadow-xs">
-                      <span className="material-symbols-outlined text-[28px]">psychology_alt</span>
+                    <div className="w-10 h-10 rounded-xl bg-primary-fixed/60 flex items-center justify-center text-primary mb-6">
+                      <span className="material-symbols-outlined text-[24px]">psychology_alt</span>
                     </div>
                     <h3 className="font-headline-sm text-headline-sm text-on-surface mb-3">
-                      Instant Personalized AI Feedback (Aral Coach)
+                      Instant Personalized Feedback
                     </h3>
                     <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">
-                      No more waiting 2 weeks for test papers to be returned. Within 10 seconds of quiz submission, students receive empathetic, step-by-step Taglish hints that demystify tough STEM and Humanities concepts.
+                      No more waiting 2 weeks for test papers. Within 10 seconds of quiz submission, students receive empathetic, step-by-step Taglish hints that demystify tough concepts.
                     </p>
                   </div>
-                  <div className="mt-6 pt-4 border-t border-surface-container-high/50 flex items-center gap-2 text-primary font-label-sm text-label-sm font-semibold">
+                  <div className="mt-8 pt-4 border-t border-surface-container-high/40 flex items-center gap-2 text-primary font-label-sm text-label-sm font-medium">
+                    <span className="material-symbols-outlined text-[16px]">check</span>
                     <span>Reduces learner quiz anxiety</span>
-                    <span className="material-symbols-outlined text-[16px]">sentiment_satisfied</span>
                   </div>
                 </div>
-                <div className="rounded-[20px] bg-surface-container-lowest p-space-lg shadow-[0_4px_16px_rgba(91,75,219,0.06)] hover:shadow-[0_10px_24px_rgba(91,75,219,0.12)] transition-all flex flex-col justify-between">
+                <div className="rounded-2xl bg-surface-container-lowest p-8 shadow-xs border border-surface-container-high/50 flex flex-col justify-between hover:shadow-sm transition-all">
                   <div>
-                    <div className="w-12 h-12 rounded-2xl bg-secondary-fixed flex items-center justify-center text-secondary mb-5 shadow-xs">
-                      <span className="material-symbols-outlined text-[28px]">group_work</span>
+                    <div className="w-10 h-10 rounded-xl bg-secondary-container/50 flex items-center justify-center text-secondary mb-6">
+                      <span className="material-symbols-outlined text-[24px]">group_work</span>
                     </div>
                     <h3 className="font-headline-sm text-headline-sm text-on-surface mb-3">
-                      Real-Time Class Triage for Teachers
+                      Real-Time Class Triage
                     </h3>
                     <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">
-                      Automatically identify which 4 out of 45 learners need urgent scaffolding before periodic exams. Group students into peer tutoring squads and save 8+ hours a week on manual checking and remedial paperwork.
+                      Identify which students need urgent scaffolding before periodic exams. Group students into peer tutoring squads and save 8+ hours a week on manual paperwork.
                     </p>
                   </div>
-                  <div className="mt-6 pt-4 border-t border-surface-container-high/50 flex items-center gap-2 text-secondary font-label-sm text-label-sm font-semibold">
+                  <div className="mt-8 pt-4 border-t border-surface-container-high/40 flex items-center gap-2 text-secondary font-label-sm text-label-sm font-medium">
+                    <span className="material-symbols-outlined text-[16px]">check</span>
                     <span>Automated remedial clustering</span>
-                    <span className="material-symbols-outlined text-[16px]">bolt</span>
                   </div>
                 </div>
-                <div className="rounded-[20px] bg-surface-container-lowest p-space-lg shadow-[0_4px_16px_rgba(91,75,219,0.06)] hover:shadow-[0_10px_24px_rgba(91,75,219,0.12)] transition-all flex flex-col justify-between">
+                <div className="rounded-2xl bg-surface-container-lowest p-8 shadow-xs border border-surface-container-high/50 flex flex-col justify-between hover:shadow-sm transition-all">
                   <div>
-                    <div className="w-12 h-12 rounded-2xl bg-tertiary-fixed flex items-center justify-center text-tertiary mb-5 shadow-xs">
-                      <span className="material-symbols-outlined text-[28px]">description</span>
+                    <div className="w-10 h-10 rounded-xl bg-tertiary-fixed/60 flex items-center justify-center text-tertiary mb-6">
+                      <span className="material-symbols-outlined text-[24px]">description</span>
                     </div>
                     <h3 className="font-headline-sm text-headline-sm text-on-surface mb-3">
-                      Automated DepEd SF9 &amp; SF10 Compliance
+                      Automated DepEd SF9 &amp; SF10
                     </h3>
                     <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">
-                      Generate DepEd-ready School Form 9 (Learner Progress Report Card) and SF10 competency audits in a single click. Print bilingual Parent-Teacher Conference (PTC) summary sheets with concrete mastery curves.
+                      Generate DepEd-ready School Form 9 (Learner Progress Report Card) and SF10 competency audits in a single click, with official transmuted mastery curves.
                     </p>
                   </div>
-                  <div className="mt-6 pt-4 border-t border-surface-container-high/50 flex items-center gap-2 text-tertiary font-label-sm text-label-sm font-semibold">
+                  <div className="mt-8 pt-4 border-t border-surface-container-high/40 flex items-center gap-2 text-tertiary font-label-sm text-label-sm font-medium">
+                    <span className="material-symbols-outlined text-[16px]">check</span>
                     <span>Compliant with DepEd DO 8, s. 2015</span>
-                    <span className="material-symbols-outlined text-[16px]">verified_user</span>
                   </div>
                 </div>
               </div>
             </div>
           </section>
-          <section className="w-full py-16 lg:py-24">
+          {/* DUAL-TAB PRODUCT PREVIEW ('For Students' vs 'For Teachers') */}
+          <section className="w-full py-24 lg:py-32">
             <div className="max-w-[1120px] mx-auto px-margin-mobile lg:px-margin">
-              <div className="flex flex-col items-center text-center mb-10">
-                <span className="px-3 py-1 rounded-full bg-primary-fixed text-on-primary-fixed-variant font-label-sm text-label-sm font-bold uppercase tracking-wider">
+              <div className="flex flex-col items-center text-center mb-14">
+                <span className="text-primary font-label-sm text-label-sm font-bold uppercase tracking-wider">
                   Two Perspectives · One Seamless Loop
                 </span>
                 <h2 className="font-headline-lg text-headline-lg text-on-surface mt-3">
                   Explore the Aralytics Ecosystem
                 </h2>
-                <p className="font-body-md text-body-md text-on-surface-variant max-w-xl mt-2">
+                <p className="font-body-md text-body-md text-on-surface-variant max-w-xl mt-3 leading-relaxed">
                   Toggle between the gamified, low-pressure learner feed and the command center built for DepEd Master Teachers.
                 </p>
-                <div className="mt-6 inline-flex p-1.5 rounded-full bg-surface-container shadow-inner">
-                  <button className={`px-6 py-2 rounded-full ${productTab === 'students' ? 'bg-surface-container-lowest text-primary shadow-sm' : 'text-on-surface-variant hover:text-on-surface'} font-label-lg text-label-lg font-semibold transition-all flex items-center gap-2`} id="tab-btn-students" onClick={() => setProductTab('students')} type="button">
+                <div className="mt-8 inline-flex p-1 rounded-full bg-surface-container-high/50 border border-surface-container-high/60">
+                  <button className={`px-6 py-2 rounded-full ${productTab === 'students' ? 'bg-surface-container-lowest text-primary shadow-xs' : 'text-on-surface-variant hover:text-on-surface'} font-label-lg text-label-lg font-semibold transition-all flex items-center gap-2`} id="tab-btn-students" onClick={() => setProductTab('students')} type="button">
                     <span className="material-symbols-outlined text-[18px]">backpack</span>
                     <span>Student Experience</span>
                   </button>
-                  <button className={`px-6 py-2 rounded-full ${productTab === 'teachers' ? 'bg-surface-container-lowest text-primary shadow-sm' : 'text-on-surface-variant hover:text-on-surface'} font-label-lg text-label-lg font-semibold transition-all flex items-center gap-2`} id="tab-btn-teachers" onClick={() => setProductTab('teachers')} type="button">
+                  <button className={`px-6 py-2 rounded-full ${productTab === 'teachers' ? 'bg-surface-container-lowest text-primary shadow-xs' : 'text-on-surface-variant hover:text-on-surface'} font-label-lg text-label-lg font-semibold transition-all flex items-center gap-2`} id="tab-btn-teachers" onClick={() => setProductTab('teachers')} type="button">
                     <span className="material-symbols-outlined text-[18px]">co_present</span>
                     <span>Teacher &amp; Adviser Hub</span>
                   </button>
                 </div>
               </div>
-              <div className={`rounded-[24px] bg-surface-container-lowest p-6 lg:p-8 shadow-[0_8px_32px_rgba(91,75,219,0.08)] transition-all ${productTab === 'students' ? '' : 'hidden'}`} id="tab-content-students">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-center">
-                  <div className="lg:col-span-5 space-y-5">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-secondary-container/40 text-on-secondary-container font-label-sm text-label-sm font-bold">
+              <div className={`rounded-2xl bg-surface-container-lowest p-8 lg:p-10 border border-surface-container-high/50 shadow-xs transition-all ${productTab === 'students' ? '' : 'hidden'}`} id="tab-content-students">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                  <div className="lg:col-span-5 space-y-6">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm font-semibold">
                       <span>Low-Data &amp; Free Basics Compatible</span>
                     </div>
                     <h3 className="font-headline-lg text-headline-md text-on-surface">
@@ -354,18 +325,18 @@ export default function LandingPage() {
                     <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">
                       Filipino students often hesitate to raise their hands in crowded classrooms. With Aral Coach, learners ask questions in conversational Taglish, review concepts without embarrassment, and receive encouraging badges.
                     </p>
-                    <ul className="space-y-3 font-body-md text-body-md text-on-surface">
-                      <li className="flex items-start gap-2.5">
+                    <ul className="space-y-3.5 font-body-md text-body-md text-on-surface">
+                      <li className="flex items-start gap-3">
                         <span className="material-symbols-outlined text-secondary text-[20px] mt-0.5">check_circle</span>
                         <span><strong>Bilingual Code-Switching:</strong> Tap any concept to view explanations in Filipino or English.</span>
                       </li>
-                      <li className="flex items-start gap-2.5">
+                      <li className="flex items-start gap-3">
                         <span className="material-symbols-outlined text-secondary text-[20px] mt-0.5">check_circle</span>
-                        <span><strong>Bite-Sized Remedial:</strong> 5-question adaptive quizzes that target the student's exact misconception.</span>
+                        <span><strong>Bite-Sized Remedial:</strong> 5-question adaptive quizzes targeting exact misconceptions.</span>
                       </li>
-                      <li className="flex items-start gap-2.5">
+                      <li className="flex items-start gap-3">
                         <span className="material-symbols-outlined text-secondary text-[20px] mt-0.5">check_circle</span>
-                        <span><strong>Offline Mode Sync:</strong> Complete exercises offline; progress automatically uploads upon reconnecting.</span>
+                        <span><strong>Offline Mode Sync:</strong> Complete exercises offline; sync when network is ready.</span>
                       </li>
                     </ul>
                     <div className="pt-2">
@@ -375,54 +346,52 @@ export default function LandingPage() {
                       </a>
                     </div>
                   </div>
-                  <div className="lg:col-span-7 bg-surface-container-low rounded-[20px] p-5 sm:p-6 shadow-inner">
-                    <div className="bg-surface-container-lowest rounded-2xl p-5 shadow-sm space-y-4">
-                      <div className="flex items-center justify-between pb-3 border-b border-surface-container-high/60">
+                  <div className="lg:col-span-7 bg-surface-container-low/40 rounded-xl p-6 border border-surface-container-high/40">
+                    <div className="bg-surface-container-lowest rounded-xl p-6 border border-surface-container-high/50 space-y-5">
+                      <div className="flex items-center justify-between pb-4 border-b border-surface-container-high/50">
                         <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 rounded-full bg-primary-fixed text-primary flex items-center justify-center font-bold text-sm">
+                          <div className="w-9 h-9 rounded-full bg-primary-fixed text-primary flex items-center justify-center font-bold text-sm">
                             MC
                           </div>
                           <div>
-                            <h4 className="font-label-lg text-label-lg text-on-surface font-bold leading-none">Kumusta, Maria! 👋</h4>
+                            <h4 className="font-label-lg text-label-lg text-on-surface font-bold leading-none">Kumusta, Maria!</h4>
                             <span className="font-label-sm text-label-sm text-on-surface-variant">Grade 8 - SDO Pasig · Science &amp; Math</span>
                           </div>
                         </div>
-                        <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-bold">
-                          <span>⚡ 320 XP</span>
-                        </div>
+                        <span className="font-label-sm text-label-sm text-on-surface-variant font-medium">⚡ 320 XP</span>
                       </div>
-                      <div className="p-4 rounded-xl bg-gradient-to-r from-primary-fixed/40 to-surface-container-low flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                      <div className="p-4 rounded-xl bg-surface-container-low/60 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                         <div>
-                          <span className="px-2 py-0.5 rounded-full bg-primary text-on-primary font-label-sm text-label-sm font-semibold">Today's Focus</span>
-                          <h4 className="font-headline-sm text-headline-sm text-on-surface mt-1.5">Mendelian Genetics: Punnett Square Drill</h4>
-                          <p className="font-body-sm text-body-sm text-on-surface-variant">5 interactive questions · Estimated time: 6 mins</p>
+                          <span className="text-primary font-label-sm text-label-sm font-semibold uppercase tracking-wider">Today's Focus</span>
+                          <h4 className="font-headline-sm text-headline-sm text-on-surface mt-1">Mendelian Genetics: Punnett Square Drill</h4>
+                          <p className="font-body-sm text-body-sm text-on-surface-variant">5 interactive questions · 6 mins</p>
                         </div>
-                        <button className="px-4 py-2 rounded-xl bg-tertiary-fixed-dim text-on-tertiary-fixed font-label-md text-label-md font-bold hover:bg-tertiary-fixed shadow-sm shrink-0" type="button">
+                        <button className="px-4 py-2 rounded-lg bg-primary text-on-primary font-label-md text-label-md font-semibold hover:bg-primary-container shrink-0" type="button">
                           Simulan Na →
                         </button>
                       </div>
                       <div className="grid grid-cols-3 gap-3 pt-1">
-                        <div className="p-3 rounded-xl bg-surface-container-low text-center">
-                          <span className="font-metric-number text-headline-md text-secondary">94%</span>
-                          <p className="font-label-sm text-label-sm text-on-surface-variant mt-0.5">Algebraic Expressions</p>
+                        <div className="p-3.5 rounded-xl bg-surface-container-low/40 text-center">
+                          <span className="font-headline-md text-secondary font-bold">94%</span>
+                          <p className="font-label-sm text-label-sm text-on-surface-variant mt-1">Algebra</p>
                         </div>
-                        <div className="p-3 rounded-xl bg-surface-container-low text-center">
-                          <span className="font-metric-number text-headline-md text-primary">88%</span>
-                          <p className="font-label-sm text-label-sm text-on-surface-variant mt-0.5">Cellular Structure</p>
+                        <div className="p-3.5 rounded-xl bg-surface-container-low/40 text-center">
+                          <span className="font-headline-md text-primary font-bold">88%</span>
+                          <p className="font-label-sm text-label-sm text-on-surface-variant mt-1">Cell Structure</p>
                         </div>
-                        <div className="p-3 rounded-xl bg-surface-container-low text-center">
-                          <span className="font-metric-number text-headline-md text-tertiary">72%</span>
-                          <p className="font-label-sm text-label-sm text-on-surface-variant mt-0.5">Rational Equations</p>
+                        <div className="p-3.5 rounded-xl bg-surface-container-low/40 text-center">
+                          <span className="font-headline-md text-on-surface-variant font-bold">72%</span>
+                          <p className="font-label-sm text-label-sm text-on-surface-variant mt-1">Equations</p>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div className={`hidden rounded-[24px] bg-surface-container-lowest p-6 lg:p-8 shadow-[0_8px_32px_rgba(91,75,219,0.08)] transition-all ${productTab === 'teachers' ? 'block' : 'hidden'}`} id="tab-content-teachers">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-center">
-                  <div className="lg:col-span-5 space-y-5">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-fixed text-primary font-label-sm text-label-sm font-bold">
+              <div className={`rounded-2xl bg-surface-container-lowest p-8 lg:p-10 border border-surface-container-high/50 shadow-xs transition-all ${productTab === 'teachers' ? 'block' : 'hidden'}`} id="tab-content-teachers">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                  <div className="lg:col-span-5 space-y-6">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm font-semibold">
                       <span>Teacher Diagnostic Dashboard</span>
                     </div>
                     <h3 className="font-headline-lg text-headline-md text-on-surface">
@@ -431,18 +400,18 @@ export default function LandingPage() {
                     <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">
                       No more manual rubric computation. Aralytics aggregates quiz items across your section into intuitive mastery clusters. Spot exactly which questions triggered errors and push auto-differentiated homework in 2 clicks.
                     </p>
-                    <ul className="space-y-3 font-body-md text-body-md text-on-surface">
-                      <li className="flex items-start gap-2.5">
+                    <ul className="space-y-3.5 font-body-md text-body-md text-on-surface">
+                      <li className="flex items-start gap-3">
                         <span className="material-symbols-outlined text-primary text-[20px] mt-0.5">analytics</span>
-                        <span><strong>Instant Class Triage:</strong> Learners partitioned into 'Mastered', 'Needs a Nudge', and 'Urgent Intervention'.</span>
+                        <span><strong>Instant Class Triage:</strong> Group learners by clear mastery segments.</span>
                       </li>
-                      <li className="flex items-start gap-2.5">
+                      <li className="flex items-start gap-3">
                         <span className="material-symbols-outlined text-primary text-[20px] mt-0.5">download_done</span>
-                        <span><strong>1-Click SF9 Export:</strong> Quarterly grades pre-formatted according to DepEd Order 8 transmuted grading tables.</span>
+                        <span><strong>1-Click SF9 Export:</strong> Transmuted grading table compatible.</span>
                       </li>
-                      <li className="flex items-start gap-2.5">
+                      <li className="flex items-start gap-3">
                         <span className="material-symbols-outlined text-primary text-[20px] mt-0.5">sms</span>
-                        <span><strong>Automated Parent SMS Summaries:</strong> Send encouraging Tagalog learning reports directly to parents.</span>
+                        <span><strong>Automated Parent Reports:</strong> Bilingual progress updates sent in 1 tap.</span>
                       </li>
                     </ul>
                     <div className="pt-2">
@@ -452,51 +421,51 @@ export default function LandingPage() {
                       </a>
                     </div>
                   </div>
-                  <div className="lg:col-span-7 bg-surface-container-low rounded-[20px] p-5 sm:p-6 shadow-inner">
-                    <div className="bg-surface-container-lowest rounded-2xl p-5 shadow-sm space-y-4">
-                      <div className="flex items-center justify-between pb-3 border-b border-surface-container-high/60">
+                  <div className="lg:col-span-7 bg-surface-container-low/40 rounded-xl p-6 border border-surface-container-high/40">
+                    <div className="bg-surface-container-lowest rounded-xl p-6 border border-surface-container-high/50 space-y-5">
+                      <div className="flex items-center justify-between pb-4 border-b border-surface-container-high/50">
                         <div>
-                          <h4 className="font-label-lg text-label-lg text-on-surface font-bold">G8 - Mabini · Mathematics (Diagnostic)</h4>
+                          <h4 className="font-label-lg text-label-lg text-on-surface font-bold">G8 - Mabini · Mathematics</h4>
                           <span className="font-label-sm text-label-sm text-on-surface-variant">Teacher: Bb. Elena Santos · 42 Enrolled</span>
                         </div>
-                        <button className="px-3 py-1 rounded-lg bg-primary text-on-primary font-label-sm text-label-sm font-semibold flex items-center gap-1" type="button">
-                          <span className="material-symbols-outlined text-[14px]">send</span> Push 5-Q Remedial
+                        <button className="px-3.5 py-1.5 rounded-lg bg-primary text-on-primary font-label-sm text-label-sm font-semibold flex items-center gap-1.5" type="button">
+                          <span className="material-symbols-outlined text-[14px]">send</span> Push Remedial
                         </button>
                       </div>
                       <div className="overflow-x-auto">
                         <table className="w-full text-left font-body-sm text-body-sm">
                           <thead>
-                            <tr className="text-on-surface-variant border-b border-surface-container-high">
-                              <th className="pb-2 font-semibold">Student Name</th>
-                              <th className="pb-2 font-semibold">MELC 3.1</th>
-                              <th className="pb-2 font-semibold">Status</th>
-                              <th className="pb-2 font-semibold text-right">Action</th>
+                            <tr className="text-on-surface-variant border-b border-surface-container-high/60">
+                              <th className="pb-2.5 font-semibold">Student Name</th>
+                              <th className="pb-2.5 font-semibold">MELC 3.1</th>
+                              <th className="pb-2.5 font-semibold">Status</th>
+                              <th className="pb-2.5 font-semibold text-right">Action</th>
                             </tr>
                           </thead>
-                          <tbody className="divide-y divide-surface-container-high/40">
+                          <tbody className="divide-y divide-surface-container-high/30">
                             <tr>
-                              <td className="py-2.5 font-medium text-on-surface">Maria Clara De Leon</td>
-                              <td className="py-2.5 text-secondary font-semibold">88%</td>
-                              <td className="py-2.5"><span className="px-2 py-0.5 rounded-full bg-secondary-container/50 text-secondary font-label-sm text-label-sm font-semibold">On Track</span></td>
-                              <td className="py-2.5 text-right"><span className="text-primary hover:underline cursor-pointer font-semibold text-xs">Praise</span></td>
+                              <td className="py-3 font-medium text-on-surface">Maria Clara De Leon</td>
+                              <td className="py-3 text-secondary font-semibold">88%</td>
+                              <td className="py-3"><span className="px-2 py-0.5 rounded bg-secondary-container/40 text-on-secondary-container font-label-sm text-label-sm font-semibold">On Track</span></td>
+                              <td className="py-3 text-right"><span className="text-primary hover:underline cursor-pointer font-semibold text-xs">Praise</span></td>
                             </tr>
                             <tr>
-                              <td className="py-2.5 font-medium text-on-surface">Juan Bautista Cruz</td>
-                              <td className="py-2.5 text-tertiary font-semibold">64%</td>
-                              <td className="py-2.5"><span className="px-2 py-0.5 rounded-full bg-tertiary-fixed/60 text-on-tertiary-fixed-variant font-label-sm text-label-sm font-semibold">Needs Nudge</span></td>
-                              <td className="py-2.5 text-right"><span className="text-primary hover:underline cursor-pointer font-semibold text-xs">Send Hint</span></td>
+                              <td className="py-3 font-medium text-on-surface">Juan Bautista Cruz</td>
+                              <td className="py-3 text-on-surface-variant font-semibold">64%</td>
+                              <td className="py-3"><span className="px-2 py-0.5 rounded bg-surface-container text-on-surface-variant font-label-sm text-label-sm font-semibold">Needs Nudge</span></td>
+                              <td className="py-3 text-right"><span className="text-primary hover:underline cursor-pointer font-semibold text-xs">Send Hint</span></td>
                             </tr>
                             <tr>
-                              <td className="py-2.5 font-medium text-on-surface">Carlos Joshua Reyes</td>
-                              <td className="py-2.5 text-error font-semibold">42%</td>
-                              <td className="py-2.5"><span className="px-2 py-0.5 rounded-full bg-error-container text-on-error-container font-label-sm text-label-sm font-semibold">Needs Help</span></td>
-                              <td className="py-2.5 text-right"><span className="text-error hover:underline cursor-pointer font-semibold text-xs">1-on-1 Peer</span></td>
+                              <td className="py-3 font-medium text-on-surface">Carlos Joshua Reyes</td>
+                              <td className="py-3 text-error font-semibold">42%</td>
+                              <td className="py-3"><span className="px-2 py-0.5 rounded bg-error-container/60 text-error font-label-sm text-label-sm font-semibold">Needs Help</span></td>
+                              <td className="py-3 text-right"><span className="text-error hover:underline cursor-pointer font-semibold text-xs">1-on-1 Peer</span></td>
                             </tr>
                           </tbody>
                         </table>
                       </div>
-                      <div className="pt-3 border-t border-surface-container-high/60 flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm">
-                        <span>34 Mastered · 5 Nudge · 3 Urgent Help</span>
+                      <div className="pt-4 border-t border-surface-container-high/50 flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm">
+                        <span>34 Mastered · 5 Nudge · 3 Urgent</span>
                         <span className="text-secondary font-semibold flex items-center gap-1">
                           <span className="material-symbols-outlined text-[16px]">check</span> SF9 Ready
                         </span>
@@ -507,73 +476,66 @@ export default function LandingPage() {
               </div>
             </div>
           </section>
-          <section className="w-full py-16 bg-surface-container-high/30">
+          {/* DEPED K-12 MATATAG CURRICULUM ALIGNMENT */}
+          <section className="w-full py-24 bg-surface-container-low/20">
             <div className="max-w-[1120px] mx-auto px-margin-mobile lg:px-margin">
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-center">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
                 <div className="lg:col-span-5 order-2 lg:order-1">
-                  <div className="rounded-[20px] bg-surface-container-lowest p-6 shadow-[0_8px_24px_rgba(91,75,219,0.06)] space-y-4">
-                    <div className="flex items-center justify-between">
+                  <div className="rounded-2xl bg-surface-container-lowest p-6 border border-surface-container-high/50 shadow-xs space-y-4">
+                    <div className="flex items-center justify-between pb-2 border-b border-surface-container-high/40">
                       <span className="font-headline-sm text-headline-sm text-on-surface">DepEd Competencies Covered</span>
-                      <span className="px-2 py-0.5 rounded-full bg-primary-fixed text-primary font-label-sm text-label-sm font-bold">2024-2025</span>
+                      <span className="font-label-sm text-label-sm text-on-surface-variant font-medium">S.Y. 2024-2025</span>
                     </div>
-                    <div className="space-y-3">
-                      <div className="p-3.5 rounded-xl bg-surface-container-low flex items-center justify-between">
+                    <div className="space-y-2.5">
+                      <div className="p-3.5 rounded-xl bg-surface-container-low/50 flex items-center justify-between">
                         <div className="flex items-center gap-3">
-                          <div className="w-9 h-9 rounded-xl bg-primary/10 text-primary flex items-center justify-center font-bold">
-                            <span className="material-symbols-outlined text-[20px]">calculate</span>
-                          </div>
+                          <span className="material-symbols-outlined text-primary text-[20px]">calculate</span>
                           <div>
-                            <h4 className="font-label-lg text-label-lg text-on-surface font-bold">Mathematics 7 - 10</h4>
+                            <h4 className="font-label-lg text-label-lg text-on-surface font-semibold">Mathematics 7 - 10</h4>
                             <span className="font-body-sm text-body-sm text-on-surface-variant">MELCs: Patterns, Algebra, Geometry, Stats</span>
                           </div>
                         </div>
-                        <span className="font-label-sm text-label-sm text-secondary font-bold">100% Mapped</span>
+                        <span className="font-label-sm text-label-sm text-secondary font-semibold">100% Mapped</span>
                       </div>
-                      <div className="p-3.5 rounded-xl bg-surface-container-low flex items-center justify-between">
+                      <div className="p-3.5 rounded-xl bg-surface-container-low/50 flex items-center justify-between">
                         <div className="flex items-center gap-3">
-                          <div className="w-9 h-9 rounded-xl bg-secondary/10 text-secondary flex items-center justify-center font-bold">
-                            <span className="material-symbols-outlined text-[20px]">science</span>
-                          </div>
+                          <span className="material-symbols-outlined text-secondary text-[20px]">science</span>
                           <div>
-                            <h4 className="font-label-lg text-label-lg text-on-surface font-bold">Science &amp; Inquiry</h4>
+                            <h4 className="font-label-lg text-label-lg text-on-surface font-semibold">Science &amp; Inquiry</h4>
                             <span className="font-body-sm text-body-sm text-on-surface-variant">Living Things, Earth &amp; Space, Physics</span>
                           </div>
                         </div>
-                        <span className="font-label-sm text-label-sm text-secondary font-bold">100% Mapped</span>
+                        <span className="font-label-sm text-label-sm text-secondary font-semibold">100% Mapped</span>
                       </div>
-                      <div className="p-3.5 rounded-xl bg-surface-container-low flex items-center justify-between">
+                      <div className="p-3.5 rounded-xl bg-surface-container-low/50 flex items-center justify-between">
                         <div className="flex items-center gap-3">
-                          <div className="w-9 h-9 rounded-xl bg-tertiary/10 text-tertiary flex items-center justify-center font-bold">
-                            <span className="material-symbols-outlined text-[20px]">menu_book</span>
-                          </div>
+                          <span className="material-symbols-outlined text-on-surface-variant text-[20px]">menu_book</span>
                           <div>
-                            <h4 className="font-label-lg text-label-lg text-on-surface font-bold">Filipino (Panitikan &amp; Balarila)</h4>
+                            <h4 className="font-label-lg text-label-lg text-on-surface font-semibold">Filipino (Panitikan &amp; Balarila)</h4>
                             <span className="font-body-sm text-body-sm text-on-surface-variant">Ibong Adarna, Florante at Laura, Noli Me Tangere</span>
                           </div>
                         </div>
-                        <span className="font-label-sm text-label-sm text-secondary font-bold">100% Mapped</span>
+                        <span className="font-label-sm text-label-sm text-secondary font-semibold">100% Mapped</span>
                       </div>
-                      <div className="p-3.5 rounded-xl bg-surface-container-low flex items-center justify-between">
+                      <div className="p-3.5 rounded-xl bg-surface-container-low/50 flex items-center justify-between">
                         <div className="flex items-center gap-3">
-                          <div className="w-9 h-9 rounded-xl bg-surface-container-highest text-on-surface-variant flex items-center justify-center font-bold">
-                            <span className="material-symbols-outlined text-[20px]">translate</span>
-                          </div>
+                          <span className="material-symbols-outlined text-on-surface-variant text-[20px]">translate</span>
                           <div>
-                            <h4 className="font-label-lg text-label-lg text-on-surface font-bold">English Communication</h4>
+                            <h4 className="font-label-lg text-label-lg text-on-surface font-semibold">English Communication</h4>
                             <span className="font-body-sm text-body-sm text-on-surface-variant">Grammar, Reading Comprehension, Critical Text</span>
                           </div>
                         </div>
-                        <span className="font-label-sm text-label-sm text-secondary font-bold">100% Mapped</span>
+                        <span className="font-label-sm text-label-sm text-secondary font-semibold">100% Mapped</span>
                       </div>
                     </div>
-                    <div className="p-3 rounded-xl bg-secondary-container/20 flex items-center gap-2.5 text-on-secondary-container font-label-sm text-label-sm">
-                      <span className="material-symbols-outlined text-secondary text-[20px]">signal_cellular_alt</span>
-                      <span>Ultra-optimized for 3G/4G prepaid mobile data in rural division schools.</span>
+                    <div className="pt-2 flex items-center gap-2 text-on-surface-variant font-label-sm text-label-sm">
+                      <span className="material-symbols-outlined text-[18px] text-secondary">signal_cellular_alt</span>
+                      <span>Optimized for low-bandwidth 3G/4G prepaid data in division schools.</span>
                     </div>
                   </div>
                 </div>
                 <div className="lg:col-span-7 order-1 lg:order-2 space-y-6">
-                  <span className="px-3 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-bold uppercase tracking-wider">
+                  <span className="text-primary font-label-sm text-label-sm font-bold uppercase tracking-wider">
                     Standardized &amp; Grounded
                   </span>
                   <h2 className="font-headline-lg text-headline-lg text-on-surface">
@@ -582,105 +544,79 @@ export default function LandingPage() {
                   <p className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
                     We didn't just port Western curriculums. Aralytics was engineered from the ground up to support the MATATAG curriculum framework and DepEd's Most Essential Learning Competencies (MELCs).
                   </p>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-space-md pt-2">
-                    <div className="p-4 rounded-xl bg-surface-container-lowest shadow-sm">
-                      <div className="w-8 h-8 rounded-lg bg-primary-fixed flex items-center justify-center text-primary mb-2">
-                        <span className="material-symbols-outlined text-[18px]">gavel</span>
-                      </div>
-                      <h4 className="font-headline-sm text-headline-sm text-on-surface text-base">DO 8, s. 2015 Transmuted Scores</h4>
-                      <p className="font-body-sm text-body-sm text-on-surface-variant mt-1">Automatic conversion of raw quiz diagnostic data into official DepEd transmuted grades.</p>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 pt-2">
+                    <div className="p-5 rounded-xl bg-surface-container-lowest border border-surface-container-high/50 shadow-xs">
+                      <h4 className="font-headline-sm text-headline-sm text-on-surface text-base mb-1.5">DO 8, s. 2015 Transmuted Scores</h4>
+                      <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">Automatic conversion of raw quiz diagnostic data into official DepEd transmuted grades.</p>
                     </div>
-                    <div className="p-4 rounded-xl bg-surface-container-lowest shadow-sm">
-                      <div className="w-8 h-8 rounded-lg bg-secondary-fixed flex items-center justify-center text-secondary mb-2">
-                        <span className="material-symbols-outlined text-[18px]">forum</span>
-                      </div>
-                      <h4 className="font-headline-sm text-headline-sm text-on-surface text-base">Culturally Aware Taglish NLP</h4>
-                      <p className="font-body-sm text-body-sm text-on-surface-variant mt-1">AI trained on natural Filipino high school dialogue to ensure relatable, encouraging guidance.</p>
+                    <div className="p-5 rounded-xl bg-surface-container-lowest border border-surface-container-high/50 shadow-xs">
+                      <h4 className="font-headline-sm text-headline-sm text-on-surface text-base mb-1.5">Culturally Aware Taglish NLP</h4>
+                      <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">AI trained on natural Philippine classroom dialogue to ensure relatable, encouraging guidance.</p>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </section>
-          <section className="w-full py-16 lg:py-24">
+          {/* TESTIMONIALS & CLASSROOM IMPACT STORIES */}
+          <section className="w-full py-24 lg:py-32">
             <div className="max-w-[1120px] mx-auto px-margin-mobile lg:px-margin">
-              <div className="text-center max-w-2xl mx-auto mb-14">
-                <span className="px-3 py-1 rounded-full bg-surface-container-high text-primary font-label-sm text-label-sm font-bold uppercase tracking-wider">
+              <div className="text-center max-w-2xl mx-auto mb-16">
+                <span className="text-primary font-label-sm text-label-sm font-bold uppercase tracking-wider">
                   Voices from the Classroom
                 </span>
                 <h2 className="font-headline-lg text-headline-lg text-on-surface mt-3">
                   Loved by teachers, advisers, and learners across the islands.
                 </h2>
-                <p className="font-body-md text-body-md text-on-surface-variant mt-2">
+                <p className="font-body-md text-body-md text-on-surface-variant mt-3 leading-relaxed">
                   Real stories of transformation, reduced educator burnout, and newfound student confidence.
                 </p>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-space-lg">
-                <div className="rounded-[20px] bg-surface-container-lowest p-space-lg shadow-[0_4px_16px_rgba(91,75,219,0.06)] flex flex-col justify-between relative overflow-hidden">
-                  <div className="space-y-4">
-                    <div className="flex items-center text-tertiary-fixed-dim">
-                      <span className="material-symbols-outlined text-[20px]" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
-                      <span className="material-symbols-outlined text-[20px]" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
-                      <span className="material-symbols-outlined text-[20px]" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
-                      <span className="material-symbols-outlined text-[20px]" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
-                      <span className="material-symbols-outlined text-[20px]" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
-                    </div>
-                    <p className="font-body-md text-body-md text-on-surface italic leading-relaxed">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div className="rounded-2xl bg-surface-container-lowest p-8 border border-surface-container-high/50 shadow-xs flex flex-col justify-between">
+                  <div>
+                    <p className="font-body-md text-body-md text-on-surface leading-relaxed mb-6">
                       “Dati inaabot ako ng hatinggabi kakacheck ng diagnostic tests para sa apat kong sections. Sa Aralytics, nakikita ko agad kung saan nagkamali si Maria at Juan sa fractions, at may handa nang 5-item remedial drill kinabukasan.”
                     </p>
                   </div>
-                  <div className="pt-6 mt-4 border-t border-surface-container-high/60 flex items-center gap-3">
-                    <div className="w-11 h-11 rounded-full bg-primary-fixed text-primary font-bold flex items-center justify-center shrink-0">
+                  <div className="pt-5 border-t border-surface-container-high/40 flex items-center gap-3.5">
+                    <div className="w-10 h-10 rounded-full bg-primary-fixed text-primary font-bold flex items-center justify-center shrink-0 text-sm">
                       ES
                     </div>
                     <div>
-                      <h4 className="font-label-lg text-label-lg text-on-surface font-bold">Bb. Elena Santos, LPT</h4>
-                      <p className="font-body-sm text-body-sm text-on-surface-variant">Grade 8 Adviser, Pasig National High School</p>
+                      <h4 className="font-label-lg text-label-lg text-on-surface font-semibold">Bb. Elena Santos, LPT</h4>
+                      <p className="font-body-sm text-body-sm text-on-surface-variant">Grade 8 Adviser, Pasig NHS</p>
                     </div>
                   </div>
                 </div>
-                <div className="rounded-[20px] bg-surface-container-lowest p-space-lg shadow-[0_4px_16px_rgba(91,75,219,0.06)] flex flex-col justify-between relative overflow-hidden">
-                  <div className="space-y-4">
-                    <div className="flex items-center text-tertiary-fixed-dim">
-                      <span className="material-symbols-outlined text-[20px]" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
-                      <span className="material-symbols-outlined text-[20px]" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
-                      <span className="material-symbols-outlined text-[20px]" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
-                      <span className="material-symbols-outlined text-[20px]" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
-                      <span className="material-symbols-outlined text-[20px]" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
-                    </div>
-                    <p className="font-body-md text-body-md text-on-surface italic leading-relaxed">
+                <div className="rounded-2xl bg-surface-container-lowest p-8 border border-surface-container-high/50 shadow-xs flex flex-col justify-between">
+                  <div>
+                    <p className="font-body-md text-body-md text-on-surface leading-relaxed mb-6">
                       “Hindi na nakakatakot magkamali sa math kasi si Aral parang mabait na tutor na nagpapaliwanag nang dahan-dahan sa Tagalog. Sobrang saya mag-streak tuwing gabi bago matulog!”
                     </p>
                   </div>
-                  <div className="pt-6 mt-4 border-t border-surface-container-high/60 flex items-center gap-3">
-                    <div className="w-11 h-11 rounded-full bg-secondary-fixed text-secondary font-bold flex items-center justify-center shrink-0">
+                  <div className="pt-5 border-t border-surface-container-high/40 flex items-center gap-3.5">
+                    <div className="w-10 h-10 rounded-full bg-secondary-container/50 text-secondary font-bold flex items-center justify-center shrink-0 text-sm">
                       MD
                     </div>
                     <div>
-                      <h4 className="font-label-lg text-label-lg text-on-surface font-bold">Maria Clara D.</h4>
+                      <h4 className="font-label-lg text-label-lg text-on-surface font-semibold">Maria Clara D.</h4>
                       <p className="font-body-sm text-body-sm text-on-surface-variant">Grade 8 Learner, SDO Pasig</p>
                     </div>
                   </div>
                 </div>
-                <div className="rounded-[20px] bg-surface-container-lowest p-space-lg shadow-[0_4px_16px_rgba(91,75,219,0.06)] flex flex-col justify-between relative overflow-hidden">
-                  <div className="space-y-4">
-                    <div className="flex items-center text-tertiary-fixed-dim">
-                      <span className="material-symbols-outlined text-[20px]" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
-                      <span className="material-symbols-outlined text-[20px]" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
-                      <span className="material-symbols-outlined text-[20px]" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
-                      <span className="material-symbols-outlined text-[20px]" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
-                      <span className="material-symbols-outlined text-[20px]" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
-                    </div>
-                    <p className="font-body-md text-body-md text-on-surface italic leading-relaxed">
+                <div className="rounded-2xl bg-surface-container-lowest p-8 border border-surface-container-high/50 shadow-xs flex flex-col justify-between">
+                  <div>
+                    <p className="font-body-md text-body-md text-on-surface leading-relaxed mb-6">
                       “Our quarterly passing rates in Math and Science improved by 23% in the pilot quarter because interventions happen daily, not during finals week panic. Aralytics gives school leaders crystal clarity.”
                     </p>
                   </div>
-                  <div className="pt-6 mt-4 border-t border-surface-container-high/60 flex items-center gap-3">
-                    <div className="w-11 h-11 rounded-full bg-tertiary-fixed text-tertiary font-bold flex items-center justify-center shrink-0">
+                  <div className="pt-5 border-t border-surface-container-high/40 flex items-center gap-3.5">
+                    <div className="w-10 h-10 rounded-full bg-tertiary-fixed text-tertiary font-bold flex items-center justify-center shrink-0 text-sm">
                       RG
                     </div>
                     <div>
-                      <h4 className="font-label-lg text-label-lg text-on-surface font-bold">Mr. Roberto Gomez</h4>
+                      <h4 className="font-label-lg text-label-lg text-on-surface font-semibold">Mr. Roberto Gomez</h4>
                       <p className="font-body-sm text-body-sm text-on-surface-variant">Principal II, Division of City Schools</p>
                     </div>
                   </div>
@@ -688,6 +624,7 @@ export default function LandingPage() {
               </div>
             </div>
           </section>
+          {/* METRICS CALLOUT STRIP (Warm Indigo/Yellow Accent Band) */}
           <section className="w-full py-12 bg-primary text-on-primary shadow-inner">
             <div className="max-w-[1120px] mx-auto px-margin-mobile lg:px-margin">
               <div className="grid grid-cols-2 md:grid-cols-4 gap-space-lg text-center divide-y md:divide-y-0 md:divide-x divide-primary-fixed/20">
@@ -738,54 +675,52 @@ export default function LandingPage() {
               </div>
             </div>
           </section>
-          <section className="w-full py-16 lg:py-24 bg-surface-container-low/50" id="pilot-signup">
+          {/* FINAL CONVERSION & PILOT SIGNUP CTA SECTION */}
+          <section className="w-full py-24 bg-surface-container-low/30" id="pilot-signup">
             <div className="max-w-[1120px] mx-auto px-margin-mobile lg:px-margin">
-              <div className="relative rounded-[28px] bg-gradient-to-br from-surface-container-lowest via-surface-container to-surface-container-high p-8 lg:p-14 shadow-[0_16px_40px_rgba(91,75,219,0.12)] overflow-hidden">
-                <div className="absolute -top-12 -right-12 w-64 h-64 bg-tertiary-fixed/40 rounded-full blur-2xl pointer-events-none"></div>
-                <div className="absolute -bottom-16 -left-16 w-72 h-72 bg-primary-fixed/40 rounded-full blur-3xl pointer-events-none"></div>
-                <div className="relative z-10 max-w-2xl mx-auto text-center space-y-6">
-                  <div className="inline-flex w-16 h-16 rounded-2xl bg-primary text-on-primary items-center justify-center shadow-lg mx-auto">
-                    <span className="material-symbols-outlined text-[36px] text-tertiary-fixed">school</span>
-                  </div>
-                  <h2 className="font-headline-lg text-headline-lg sm:text-[36px] text-on-surface font-extrabold tracking-tight">
-                    Ready to bring personalized learning to your school?
-                  </h2>
-                  <p className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
-                    Join over 45 Philippine public and private high schools pioneering AI-assisted mastery learning. <strong>Free 60-day pilot program for public high schools.</strong>
-                  </p>
-                  <form className="flex flex-col sm:flex-row items-center gap-space-sm max-w-lg mx-auto pt-2" onSubmit={(e) => { e.preventDefault(); setPilotSubmitted(true); e.currentTarget.reset(); }}>
-                    <div className="relative w-full">
-                      <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-on-surface-variant">
-                        <span className="material-symbols-outlined text-[20px]">mail</span>
-                      </span>
-                      <input className="w-full pl-10 pr-4 py-3.5 rounded-[14px] bg-surface-container-lowest border-0 ring-1 ring-outline-variant focus:ring-2 focus:ring-primary text-on-surface font-body-md text-body-md shadow-sm outline-none transition-all placeholder:text-outline" placeholder="Enter your DepEd or school email..." required type="email" />
-                    </div>
-                    <button className="w-full sm:w-auto px-6 py-3.5 rounded-[14px] bg-primary text-on-primary font-label-lg text-label-lg font-bold shadow-[0_4px_16px_rgba(91,75,219,0.2)] hover:bg-primary-container transition-all whitespace-nowrap shrink-0" type="submit">
-                      Request School Pilot
-                    </button>
-                  </form>
-                  <div className={`p-4 rounded-xl bg-secondary-container/40 text-on-secondary-container font-label-md text-label-md ${pilotSubmitted ? '' : 'hidden'}`} id="pilot-success-msg">
-                    🎉 Salamat po! Our DepEd division onboarding coordinator will email you within 24 hours with sandbox credentials.
-                  </div>
-                  <div className="pt-4 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-on-surface-variant font-label-sm text-label-sm">
-                    <span className="flex items-center gap-1.5">
-                      <span className="material-symbols-outlined text-secondary text-[16px]">check_circle</span>
-                      No credit card required
+              <div className="rounded-3xl bg-surface-container-lowest p-10 lg:p-16 border border-surface-container-high/60 shadow-sm text-center max-w-3xl mx-auto space-y-6">
+                <div className="w-12 h-12 rounded-xl bg-primary text-on-primary flex items-center justify-center mx-auto mb-2">
+                  <span className="material-symbols-outlined text-[28px]">school</span>
+                </div>
+                <h2 className="font-headline-lg text-headline-lg sm:text-[36px] text-on-surface font-bold tracking-tight">
+                  Ready to bring personalized learning to your school?
+                </h2>
+                <p className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed max-w-xl mx-auto">
+                  Join over 45 Philippine public and private high schools pioneering AI-assisted mastery learning. <strong>Free 60-day pilot program for public high schools.</strong>
+                </p>
+                <form className="flex flex-col sm:flex-row items-center gap-3 max-w-lg mx-auto pt-4" onSubmit={(e) => { e.preventDefault(); setPilotSubmitted(true); e.currentTarget.reset(); }}>
+                  <div className="relative w-full">
+                    <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-on-surface-variant">
+                      <span className="material-symbols-outlined text-[20px]">mail</span>
                     </span>
-                    <span className="flex items-center gap-1.5">
-                      <span className="material-symbols-outlined text-secondary text-[16px]">lock</span>
-                      PH Data Privacy Act of 2012 Certified
-                    </span>
-                    <span className="flex items-center gap-1.5">
-                      <span className="material-symbols-outlined text-secondary text-[16px]">cloud_done</span>
-                      DepEd LMS &amp; LRN Ready
-                    </span>
+                    <input className="w-full pl-10 pr-4 py-3.5 rounded-xl bg-surface-container-low/40 border border-surface-container-high/60 focus:ring-2 focus:ring-primary text-on-surface font-body-md text-body-md shadow-xs outline-none transition-all placeholder:text-outline" placeholder="Enter your DepEd or school email..." required type="email" />
                   </div>
+                  <button className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-primary text-on-primary font-label-lg text-label-lg font-semibold hover:bg-primary-container transition-all whitespace-nowrap shrink-0" type="submit">
+                    Request School Pilot
+                  </button>
+                </form>
+                <div className={`p-4 rounded-xl bg-surface-container text-on-surface font-label-md text-label-md ${pilotSubmitted ? '' : 'hidden'}`} id="pilot-success-msg">
+                  🎉 Salamat po! Our DepEd division onboarding coordinator will email you within 24 hours with sandbox credentials.
+                </div>
+                <div className="pt-4 flex flex-wrap items-center justify-center gap-x-8 gap-y-2 text-on-surface-variant font-label-sm text-label-sm">
+                  <span className="flex items-center gap-1.5">
+                    <span className="material-symbols-outlined text-secondary text-[16px]">check</span>
+                    No credit card required
+                  </span>
+                  <span className="flex items-center gap-1.5">
+                    <span className="material-symbols-outlined text-secondary text-[16px]">check</span>
+                    Data Privacy Act Certified
+                  </span>
+                  <span className="flex items-center gap-1.5">
+                    <span className="material-symbols-outlined text-secondary text-[16px]">check</span>
+                    DepEd LMS &amp; LRN Ready
+                  </span>
                 </div>
               </div>
             </div>
           </section>
-          <div className={`fixed inset-0 z-50 flex items-center justify-center p-4 bg-on-surface/60 backdrop-blur-sm ${demoOpen ? '' : 'hidden'}`} id="demo-modal">
+          {/* DEMO VIDEO / INTERACTIVE SIMULATION MODAL */}
+          <div className={`fixed inset-0 z-50 flex items-center justify-center p-4 bg-on-surface/60 backdrop-blur-sm ${demoOpen ? 'flex' : 'hidden'}`} id="demo-modal">
             <div className="relative w-full max-w-2xl bg-surface-container-lowest rounded-[24px] p-6 shadow-2xl space-y-4">
               <div className="flex items-center justify-between pb-3 border-b border-surface-container-high">
                 <div className="flex items-center gap-2">
@@ -798,6 +733,7 @@ export default function LandingPage() {
                   <span className="material-symbols-outlined text-[20px]">close</span>
                 </button>
               </div>
+              {/* Video Placeholder Container */}
               <div className="w-full aspect-video rounded-xl bg-surface-container-high relative overflow-hidden flex flex-col items-center justify-center text-center p-6">
                 <div className="absolute inset-0 w-full h-full bg-cover bg-center" data-alt="A bright high school classroom in the Philippines where an energetic Filipino teacher in formal DepEd uniform assists smiling Grade 8 students with tablet computers running diagnostic quizzes with colorful animated illustrations, soft warm natural sunlight" style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuByAQQyWkiR8GmHKMaeGMXcq90qiOv15v4SHzx-saXMEsQTWJ5LSYKpRI9OG-5mZjpEI-C4RKBkfnydgmZknTsNg6MGxDBU5jOETzgrM4Mu-6DB_KOJg5aXAF4-cYmE2Rk64IfG8eD_TqQpkWYWTbebm6dOUBWNAskZNCfOyHoyOClPv_ca-knaAXWiSSl2LDaTkSQvM_La4j3NPEjaLOlzK-O4Anb9Qpw6iAr9wqMS92BW2RuAEpm0BQ')" }}></div>
                 <div className="absolute inset-0 bg-primary/60 backdrop-blur-xs"></div>

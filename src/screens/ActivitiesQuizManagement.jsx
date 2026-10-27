@@ -2,6 +2,9 @@ import { useState } from 'react'
 
 export default function ActivitiesQuizManagement() {
   const [drawerOpen, setDrawerOpen] = useState(false)
+  const [activeStatus, setActiveStatus] = useState('active')
+  const [activeSubject, setActiveSubject] = useState('All Subjects')
+  const [format, setFormat] = useState('Diagnostic')
 
   return (
     <>
@@ -68,37 +71,43 @@ export default function ActivitiesQuizManagement() {
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-space-md pb-space-lg">
           {/* Status Tabs */}
           <div className="flex items-center p-1 rounded-full bg-surface-container gap-1 overflow-x-auto max-w-full">
-            <button className="px-space-md py-1.5 rounded-full bg-surface-container-lowest text-primary font-label-md text-label-md shadow-xs transition-colors shrink-0">
-              Active Quizzes (4)
-            </button>
-            <button className="px-space-md py-1.5 rounded-full text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-colors shrink-0">
-              Scheduled (2)
-            </button>
-            <button className="px-space-md py-1.5 rounded-full text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-colors shrink-0">
-              Past / Archived (12)
-            </button>
-            <button className="px-space-md py-1.5 rounded-full text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-colors shrink-0">
-              Drafts (3)
-            </button>
+            {[
+              ['active', 'Active Quizzes (4)'],
+              ['scheduled', 'Scheduled (2)'],
+              ['archived', 'Past / Archived (12)'],
+              ['drafts', 'Drafts (3)'],
+            ].map(([id, label]) => (
+              <button
+                key={id}
+                className={`px-space-md py-1.5 rounded-full font-label-md text-label-md transition-colors shrink-0 ${
+                  activeStatus === id
+                    ? 'bg-surface-container-lowest text-primary shadow-xs'
+                    : 'text-on-surface-variant hover:text-on-surface'
+                }`}
+                type="button"
+                onClick={() => setActiveStatus(id)}
+              >
+                {label}
+              </button>
+            ))}
           </div>
           {/* Subject Filtering Chips */}
           <div className="flex items-center gap-2 overflow-x-auto max-w-full py-1">
             <span className="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider pl-1">Subject:</span>
-            <button className="px-3 py-1 rounded-full bg-primary-container text-on-primary font-label-sm text-label-sm shadow-xs">
-              All Subjects
-            </button>
-            <button className="px-3 py-1 rounded-full bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container-high font-label-sm text-label-sm transition-colors">
-              Mathematics
-            </button>
-            <button className="px-3 py-1 rounded-full bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container-high font-label-sm text-label-sm transition-colors">
-              Science
-            </button>
-            <button className="px-3 py-1 rounded-full bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container-high font-label-sm text-label-sm transition-colors">
-              Filipino
-            </button>
-            <button className="px-3 py-1 rounded-full bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container-high font-label-sm text-label-sm transition-colors">
-              English
-            </button>
+            {['All Subjects', 'Mathematics', 'Science', 'Filipino', 'English'].map((subject) => (
+              <button
+                key={subject}
+                className={`px-3 py-1 rounded-full font-label-sm text-label-sm transition-colors ${
+                  activeSubject === subject
+                    ? 'bg-primary-container text-on-primary shadow-xs'
+                    : 'bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container-high'
+                }`}
+                type="button"
+                onClick={() => setActiveSubject(subject)}
+              >
+                {subject}
+              </button>
+            ))}
           </div>
         </div>
         {/* Activity Cards Grid (Primary Presentation) */}
@@ -461,18 +470,21 @@ export default function ActivitiesQuizManagement() {
               <div className="flex flex-col gap-1.5">
                 <label className="font-label-md text-label-md text-on-surface">Format</label>
                 <div className="grid grid-cols-3 gap-2">
-                  <button className="p-3 rounded-xl bg-surface-container-high text-primary font-label-sm text-label-sm font-bold flex flex-col items-center gap-1" type="button">
-                    <span className="material-symbols-outlined text-[20px]">quiz</span>
-                    Diagnostic
-                  </button>
-                  <button className="p-3 rounded-xl bg-surface-container text-on-surface-variant hover:bg-surface-container-high font-label-sm text-label-sm flex flex-col items-center gap-1" type="button">
-                    <span className="material-symbols-outlined text-[20px]">task_alt</span>
-                    Summative
-                  </button>
-                  <button className="p-3 rounded-xl bg-surface-container text-on-surface-variant hover:bg-surface-container-high font-label-sm text-label-sm flex flex-col items-center gap-1" type="button">
-                    <span className="material-symbols-outlined text-[20px]">healing</span>
-                    Remedial
-                  </button>
+                  {['Diagnostic', 'Summative', 'Remedial'].map((option, index) => (
+                    <button
+                      key={option}
+                      className={`p-3 rounded-xl font-label-sm text-label-sm flex flex-col items-center gap-1 ${
+                        format === option
+                          ? 'bg-surface-container-high text-primary font-bold'
+                          : 'bg-surface-container text-on-surface-variant hover:bg-surface-container-high'
+                      }`}
+                      type="button"
+                      onClick={() => setFormat(option)}
+                    >
+                      <span className="material-symbols-outlined text-[20px]">{['quiz', 'task_alt', 'healing'][index]}</span>
+                      {option}
+                    </button>
+                  ))}
                 </div>
               </div>
             </div>

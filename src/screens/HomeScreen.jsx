@@ -50,13 +50,12 @@ export default function HomeScreen() {
               >
                 My Progress &amp; Badges
               </Link>
-              <a
+              <button
                 className="px-space-md py-space-xs rounded-full font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors"
-                data-path="aral-ai-feedback"
-                href="#"
+                type="button"
               >
                 Aral AI Feedback
-              </a>
+              </button>
             </nav>
             <button
               aria-expanded={menuOpen}
@@ -153,20 +152,19 @@ export default function HomeScreen() {
             >
               My Progress &amp; Badges
             </Link>
-            <a
+            <button
               className="flex items-center px-space-md py-2.5 rounded-xl font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container transition-colors"
-              data-path="aral-ai-feedback"
-              href="#"
               onClick={() => setMenuOpen(false)}
+              type="button"
             >
               Aral AI Feedback
-            </a>
+            </button>
           </div>
         )}
       </header>
       <main className="w-full pt-20 bg-background max-w-[1120px] mx-auto px-gutter">
         <div className="flex flex-col w-full pb-16">
-          {/* Top Greeting &amp; Motivation Banner Section */}
+          {/* Top Greeting & Motivation Banner Section */}
           <section className="w-full pt-6 pb-4">
             <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-space-md">
               <div>
@@ -188,315 +186,185 @@ export default function HomeScreen() {
               </div>
               {/* Quick Student Metric Badges */}
               <div className="flex flex-wrap items-center gap-2 sm:gap-3">
-                <div className="flex items-center gap-2 bg-surface-container-lowest px-3.5 py-2 rounded-2xl shadow-[0_4px_16px_rgba(91,75,219,0.06)]">
-                  <div className="w-8 h-8 rounded-full bg-primary-fixed flex items-center justify-center text-primary">
-                    <span className="material-symbols-outlined text-[18px]">military_tech</span>
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="font-label-sm text-label-sm text-on-surface-variant">
-                      Badge Tier
-                    </span>
-                    <span className="font-label-lg text-label-lg text-on-surface font-bold">
-                      Lvl 4 Explorer
-                    </span>
-                  </div>
+                <div className="flex items-center gap-2 bg-surface-container-lowest px-4 py-2 rounded-xl shadow-sm">
+                  <span className="material-symbols-outlined text-[18px] text-primary">
+                    military_tech
+                  </span>
+                  <span className="font-label-md text-label-md text-on-surface font-semibold">
+                    Lvl 4 Explorer
+                  </span>
                 </div>
-                <div className="flex items-center gap-2 bg-surface-container-lowest px-3.5 py-2 rounded-2xl shadow-[0_4px_16px_rgba(91,75,219,0.06)]">
-                  <div className="w-8 h-8 rounded-full bg-secondary-fixed flex items-center justify-center text-secondary">
-                    <span className="material-symbols-outlined text-[18px]">leaderboard</span>
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="font-label-sm text-label-sm text-on-surface-variant">
-                      Class Standing
-                    </span>
-                    <span className="font-label-lg text-label-lg text-on-surface font-bold">
-                      Rank #3
-                    </span>
-                  </div>
+                <div className="flex items-center gap-2 bg-surface-container-lowest px-4 py-2 rounded-xl shadow-sm">
+                  <span className="material-symbols-outlined text-[18px] text-secondary">
+                    leaderboard
+                  </span>
+                  <span className="font-label-md text-label-md text-on-surface font-semibold">
+                    Rank #3
+                  </span>
                 </div>
-                <div className="flex items-center gap-2 bg-surface-container-lowest px-3.5 py-2 rounded-2xl shadow-[0_4px_16px_rgba(91,75,219,0.06)]">
-                  <div className="w-8 h-8 rounded-full bg-tertiary-fixed flex items-center justify-center text-tertiary">
-                    <span
-                      className="material-symbols-outlined text-[18px]"
-                      style={{ fontVariationSettings: "'FILL' 1" }}
-                    >
-                      local_fire_department
-                    </span>
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="font-label-sm text-label-sm text-on-surface-variant">
-                      Current Streak
-                    </span>
-                    <span className="font-label-lg text-label-lg text-on-surface font-bold">
-                      5 Days 🔥
-                    </span>
-                  </div>
+                <div className="flex items-center gap-2 bg-surface-container-lowest px-4 py-2 rounded-xl shadow-sm">
+                  <span className="material-symbols-outlined text-[18px] text-tertiary-container">
+                    local_fire_department
+                  </span>
+                  <span className="font-label-md text-label-md text-on-surface font-semibold">
+                    5 Days 🔥
+                  </span>
                 </div>
               </div>
             </div>
             {/* Coral Streak Urgency Banner */}
-            <div className="mt-5 w-full bg-surface-container-lowest rounded-2xl p-4 sm:p-5 shadow-[0_4px_16px_rgba(91,75,219,0.08)] relative overflow-hidden flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-              <div className="absolute left-0 top-0 bottom-0 w-2 bg-error"></div>
-              <div className="flex items-center gap-3.5 pl-1.5">
-                <div className="w-11 h-11 rounded-2xl bg-error-container text-error flex items-center justify-center shrink-0">
-                  <span className="material-symbols-outlined text-[24px]">crisis_alert</span>
+            <div className="mt-5 w-full bg-surface-container-lowest rounded-2xl p-4 sm:p-5 relative overflow-hidden flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-sm">
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-xl bg-surface-container text-error flex items-center justify-center shrink-0">
+                  <span className="material-symbols-outlined text-[20px]">crisis_alert</span>
                 </div>
                 <div>
-                  <div className="flex items-center gap-2">
-                    <span className="font-label-md text-label-md text-error font-bold uppercase tracking-wider">
-                      Streak at Risk!
-                    </span>
-                    <span className="w-1.5 h-1.5 rounded-full bg-error"></span>
-                    <span className="font-body-sm text-body-sm text-on-surface-variant">
-                      Resets at 11:59 PM tonight
-                    </span>
-                  </div>
-                  <p className="font-body-md text-body-md text-on-surface font-medium mt-0.5">
-                    Complete at least 1 micro-quiz today to safeguard your{' '}
-                    <span className="font-bold text-on-surface">5-day streak</span> and earn +25
-                    bonus XP!
+                  <p className="font-label-lg text-label-lg text-on-surface font-bold">
+                    5-Day Streak Active
+                  </p>
+                  <p className="font-body-sm text-body-sm text-on-surface-variant">
+                    Complete 1 drill before 11:59 PM to maintain your streak and earn +25 XP.
                   </p>
                 </div>
               </div>
               <button
-                className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-[14px] bg-primary text-on-primary font-label-lg text-label-lg font-bold hover:bg-primary-container transition-all shadow-[0_4px_12px_rgba(66,46,194,0.25)] shrink-0 self-start sm:self-auto"
+                className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-primary text-on-primary font-label-md text-label-md font-semibold hover:bg-primary-container transition-colors shrink-0"
                 type="button"
               >
                 <span className="material-symbols-outlined text-[18px]">play_circle</span>
-                <span>Start Quick Drill</span>
+                <span>Quick Drill</span>
               </button>
             </div>
           </section>
           {/* Main Bento Grid (Hero Priority Drill 8 cols + Aral AI Coach 4 cols) */}
           <section className="grid grid-cols-1 lg:grid-cols-12 gap-space-lg mt-3">
-            {/* Hero Priority Activity Card (8 cols) */}
-            <div className="lg:col-span-7 xl:col-span-8 bg-surface-container-lowest rounded-[20px] p-6 lg:p-7 shadow-[0_4px_16px_rgba(91,75,219,0.08)] flex flex-col justify-between relative overflow-hidden">
-              {/* Decorative background accent glow */}
-              <div className="absolute -top-24 -right-24 w-64 h-64 rounded-full bg-primary-fixed/30 blur-3xl pointer-events-none"></div>
-              <div className="flex-1 flex flex-col">
-                <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
+            <div className="lg:col-span-7 xl:col-span-8 bg-surface-container-lowest rounded-2xl p-6 shadow-sm flex flex-col justify-between">
+              <div>
+                <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
                   <div className="flex items-center gap-2">
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container text-primary font-label-sm text-label-sm font-semibold">
-                      <span className="material-symbols-outlined text-[14px]">assignment_ind</span>
-                      Assigned by Bb. Santos
+                    <span className="text-primary font-label-sm text-label-sm font-semibold">
+                      Mathematics 8 • Quarter 2
                     </span>
-                    <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-secondary-fixed/50 text-secondary font-label-sm text-label-sm font-bold">
-                      <span className="material-symbols-outlined text-[14px]">stars</span>
-                      +50 XP Bonus
+                    <span className="text-on-surface-variant text-[11px]">•</span>
+                    <span className="text-secondary font-label-sm text-label-sm font-bold">
+                      +50 XP
                     </span>
                   </div>
-                  <span className="inline-flex items-center gap-1 text-error font-label-md text-label-md font-semibold">
-                    <span className="material-symbols-outlined text-[16px]">timer</span>
+                  <span className="text-on-surface-variant font-label-sm text-label-sm">
                     Due Today, 5:00 PM
                   </span>
                 </div>
-                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mt-2">
-                  <div>
-                    <div className="flex items-center gap-2 text-primary font-label-md text-label-md font-bold uppercase tracking-wider mb-1">
-                      <span className="material-symbols-outlined text-[16px]">calculate</span>
-                      Mathematics 8 • Quarter 2 Diagnostic
-                    </div>
-                    <h2 className="font-headline-md text-headline-md text-on-surface font-extrabold tracking-tight">
-                      Fractions &amp; Mixed Numbers Diagnostic
-                    </h2>
-                  </div>
-                  <div className="shrink-0 flex items-center justify-center w-14 h-14 rounded-2xl bg-primary-fixed text-primary shadow-[0_2px_8px_rgba(91,75,219,0.12)]">
-                    <span className="material-symbols-outlined text-[32px]">functions</span>
+                <div className="flex items-start justify-between gap-4">
+                  <h2 className="font-headline-md text-headline-md text-on-surface font-extrabold tracking-tight">
+                    Fractions &amp; Mixed Numbers Diagnostic
+                  </h2>
+                  <div className="w-11 h-11 rounded-xl bg-surface-container text-primary flex items-center justify-center shrink-0">
+                    <span className="material-symbols-outlined text-[24px]">functions</span>
                   </div>
                 </div>
-                <p className="font-body-md text-body-md text-on-surface-variant mt-3 max-w-2xl leading-relaxed">
-                  Focus: Unlike denominators, common denominators (LCM), and real-world word problem
-                  simplification. Designed to help diagnose areas where step-by-step factoring needs
-                  practice.
+                <p className="font-body-md text-body-md text-on-surface-variant mt-2 leading-relaxed max-w-2xl">
+                  Focus: Unlike denominators, LCM, and real-world problem simplification to diagnose
+                  step-by-step factoring skills.
                 </p>
-                {/* Metadata Pills */}
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 my-5">
-                  <div className="p-3 rounded-xl bg-surface-container-low flex items-center gap-2.5">
-                    <span className="material-symbols-outlined text-primary text-[20px]">quiz</span>
-                    <div>
-                      <p className="font-label-sm text-label-sm text-on-surface-variant">
-                        Question Count
-                      </p>
-                      <p className="font-label-lg text-label-lg text-on-surface font-bold">
-                        10 Interactive
-                      </p>
-                    </div>
-                  </div>
-                  <div className="p-3 rounded-xl bg-surface-container-low flex items-center gap-2.5">
-                    <span className="material-symbols-outlined text-primary text-[20px]">
-                      hourglass_top
+                <div className="flex flex-wrap items-center gap-6 my-5 pt-1">
+                  <div className="flex items-center gap-2 text-on-surface">
+                    <span className="material-symbols-outlined text-[18px] text-on-surface-variant">
+                      quiz
                     </span>
-                    <div>
-                      <p className="font-label-sm text-label-sm text-on-surface-variant">
-                        Est. Duration
-                      </p>
-                      <p className="font-label-lg text-label-lg text-on-surface font-bold">
-                        ~8 Minutes
-                      </p>
-                    </div>
+                    <span className="font-body-sm text-body-sm font-medium">10 Questions</span>
                   </div>
-                  <div className="p-3 rounded-xl bg-surface-container-low flex items-center gap-2.5 col-span-2 sm:col-span-1">
-                    <span className="material-symbols-outlined text-primary text-[20px]">
+                  <div className="flex items-center gap-2 text-on-surface">
+                    <span className="material-symbols-outlined text-[18px] text-on-surface-variant">
+                      schedule
+                    </span>
+                    <span className="font-body-sm text-body-sm font-medium">~8 Minutes</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-on-surface">
+                    <span className="material-symbols-outlined text-[18px] text-on-surface-variant">
                       target
                     </span>
-                    <div>
-                      <p className="font-label-sm text-label-sm text-on-surface-variant">
-                        Target Score
-                      </p>
-                      <p className="font-label-lg text-label-lg text-on-surface font-bold">
-                        80% to Master
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                {/* Warm-up Preview */}
-                <div className="mt-5 flex-1 flex flex-col">
-                  <div className="p-4 rounded-2xl border border-lavender-ash bg-cream/60 flex-1 flex flex-col gap-3">
-                    <div className="flex items-center justify-between">
-                      <span className="font-label-md text-label-md text-on-surface font-bold flex items-center gap-1.5">
-                        <span className="material-symbols-outlined text-[16px] text-primary">
-                          lightbulb
-                        </span>
-                        Warm-up preview
-                      </span>
-                      <span className="px-2 py-0.5 rounded-full bg-primary-fixed text-primary font-label-sm text-label-sm font-semibold shrink-0">
-                        3 skills
-                      </span>
-                    </div>
-                    <div className="flex flex-wrap gap-2">
-                      {['Unlike denominators', 'Finding the LCM', 'Real-world word problems'].map(
-                        (skill) => (
-                          <span
-                            className="px-2.5 py-1 rounded-full bg-surface-container-lowest text-on-surface-variant border border-lavender-ash font-label-sm text-label-sm"
-                            key={skill}
-                          >
-                            {skill}
-                          </span>
-                        ),
-                      )}
-                    </div>
-                    <p className="font-body-sm text-body-sm text-on-surface-variant">
-                      Suggested pace: ~45 seconds per question · Aral Coach steps in after 2 misses.
-                    </p>
+                    <span className="font-body-sm text-body-sm font-medium">80% Mastery Goal</span>
                   </div>
                 </div>
               </div>
-              {/* Action Row */}
-              <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+              <div className="pt-3 flex flex-wrap items-center gap-3">
                 <button
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-[14px] bg-tertiary-fixed text-on-tertiary-fixed font-headline-sm text-headline-sm font-extrabold hover:bg-tertiary-fixed-dim transition-all shadow-[0_4px_16px_rgba(244,191,50,0.35)]"
+                  className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-primary text-on-primary font-label-lg text-label-lg font-bold hover:bg-primary-container transition-colors shadow-sm"
                   type="button"
                 >
                   <span>Start Quiz Now</span>
-                  <span className="material-symbols-outlined text-[20px]">arrow_forward</span>
+                  <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
                 </button>
                 <button
-                  className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-[14px] bg-surface-container text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors font-label-lg text-label-lg"
+                  className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-surface-container text-on-surface font-label-md text-label-md font-medium hover:bg-surface-container-high transition-colors"
                   type="button"
                 >
                   <span className="material-symbols-outlined text-[18px]">info</span>
-                  <span>Preview Competency Details</span>
+                  <span>Preview Details</span>
                 </button>
               </div>
             </div>
-            {/* Signature Aral Coach AI Personal Feedback Hub (4 cols) */}
-            <div className="lg:col-span-5 xl:col-span-4 bg-surface-container-lowest rounded-[20px] p-6 shadow-[0_4px_16px_rgba(91,75,219,0.08)] flex flex-col justify-between relative">
+            <div className="lg:col-span-5 xl:col-span-4 bg-surface-container-lowest rounded-2xl p-6 shadow-sm flex flex-col justify-between">
               <div>
-                {/* AI Hub Header */}
-                <div className="flex items-center justify-between gap-2 pb-4 border-b border-surface-container-high">
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-2xl bg-primary-fixed flex items-center justify-center text-primary relative shadow-sm">
-                      <span
-                        className="material-symbols-outlined text-[28px]"
-                        style={{ fontVariationSettings: "'FILL' 1" }}
-                      >
-                        smart_toy
-                      </span>
-                      <span className="absolute -top-1 -right-1 w-3.5 h-3.5 rounded-full bg-secondary-container border-2 border-surface-container-lowest"></span>
+                <div className="flex items-center justify-between pb-3">
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-9 h-9 rounded-xl bg-primary-fixed flex items-center justify-center text-primary">
+                      <span className="material-symbols-outlined text-[20px]">smart_toy</span>
                     </div>
                     <div>
-                      <div className="flex items-center gap-1.5">
-                        <h3 className="font-headline-sm text-headline-sm text-on-surface font-extrabold">
-                          Aral Coach AI
-                        </h3>
-                        <span className="material-symbols-outlined text-primary text-[16px]">
-                          verified
-                        </span>
-                      </div>
-                      <p className="font-body-sm text-body-sm text-on-surface-variant">
-                        Personalized Study Nudge • 10m ago
+                      <h3 className="font-headline-sm text-headline-sm text-on-surface font-bold">
+                        Aral Coach AI
+                      </h3>
+                      <p className="font-body-sm text-body-sm text-on-surface-variant text-[11px]">
+                        Updated 10m ago
                       </p>
                     </div>
                   </div>
-                  <span className="inline-flex items-center justify-center shrink-0 whitespace-nowrap px-2.5 py-0.5 rounded-full bg-primary-container text-on-primary font-label-sm text-label-sm font-bold text-center">
-                    Just In
-                  </span>
+                  <span className="font-label-sm text-label-sm text-primary font-bold">Tip</span>
                 </div>
-                {/* Mascot Speech Bubble */}
-                <div className="mt-4 p-4 rounded-2xl bg-surface-container-low relative">
-                  <div className="flex items-start gap-2.5">
-                    <span className="material-symbols-outlined text-tertiary-container text-[20px] shrink-0 mt-0.5">
-                      auto_awesome
+                <div className="p-3.5 rounded-xl bg-surface-container-low mt-2">
+                  <p className="font-body-sm text-body-sm text-on-surface leading-relaxed">
+                    “Nice work on fractions addition! Subtraction with different denominators needs
+                    a bit more care—remember to find the LCM first.”
+                  </p>
+                </div>
+                <div className="space-y-2 mt-3">
+                  <div className="p-2.5 rounded-lg bg-surface-container flex items-center gap-2">
+                    <span className="material-symbols-outlined text-secondary text-[16px]">
+                      check_circle
                     </span>
-                    <p className="font-body-md text-body-md text-on-surface leading-relaxed">
-                      “Nice work on fractions, Maria! You got all the addition problems right.
-                      Subtraction with different denominators tripped you up, so try finding the
-                      common denominator first. You've got this! ✨”
-                    </p>
+                    <span className="font-body-sm text-body-sm text-on-surface">
+                      Like denominators: 100% accuracy
+                    </span>
                   </div>
-                </div>
-                {/* Feedback Highlights */}
-                <div className="space-y-2.5 mt-4">
-                  <div className="p-3 rounded-xl bg-surface-container flex items-start gap-2.5">
-                    <div className="w-5 h-5 rounded-full bg-secondary-fixed flex items-center justify-center text-secondary shrink-0 mt-0.5">
-                      <span className="material-symbols-outlined text-[14px] font-bold">check</span>
-                    </div>
-                    <div className="flex-1">
-                      <span className="font-label-sm text-label-sm text-secondary font-bold block uppercase tracking-wide">
-                        What went well
-                      </span>
-                      <p className="font-body-sm text-body-sm text-on-surface font-medium">
-                        Addition with like denominators (100% accuracy)
-                      </p>
-                    </div>
-                  </div>
-                  <div className="p-3 rounded-xl bg-surface-container flex items-start gap-2.5">
-                    <div className="w-5 h-5 rounded-full bg-tertiary-fixed flex items-center justify-center text-tertiary shrink-0 mt-0.5">
-                      <span className="material-symbols-outlined text-[14px] font-bold">
-                        lightbulb
-                      </span>
-                    </div>
-                    <div className="flex-1">
-                      <span className="font-label-sm text-label-sm text-tertiary font-bold block uppercase tracking-wide">
-                        Try this next
-                      </span>
-                      <p className="font-body-sm text-body-sm text-on-surface font-medium">
-                        Lowest Common Multiple (LCM) step
-                      </p>
-                    </div>
+                  <div className="p-2.5 rounded-lg bg-surface-container flex items-center gap-2">
+                    <span className="material-symbols-outlined text-tertiary text-[16px]">
+                      lightbulb
+                    </span>
+                    <span className="font-body-sm text-body-sm text-on-surface">
+                      Focus next: Lowest Common Multiple
+                    </span>
                   </div>
                 </div>
               </div>
-              {/* AI Actions */}
-              <div className="mt-6 pt-3 flex flex-col gap-2">
+              <div className="mt-4 pt-2 flex flex-col gap-1.5">
                 <button
-                  className="w-full inline-flex items-center justify-center gap-2 py-3 rounded-[14px] bg-primary-container text-on-primary font-label-lg text-label-lg font-bold hover:bg-primary transition-all shadow-[0_2px_8px_rgba(91,75,219,0.15)]"
+                  className="w-full inline-flex items-center justify-center gap-2 py-2.5 rounded-xl bg-surface-container text-primary font-label-md text-label-md font-bold hover:bg-surface-container-high transition-colors"
                   type="button"
                 >
                   <span className="material-symbols-outlined text-[18px]">psychology</span>
-                  <span>Practice Weak Topic (5 min)</span>
+                  <span>Practice Weak Topic (5m)</span>
                 </button>
                 <button
-                  className="w-full inline-flex items-center justify-center gap-1.5 py-2 text-on-surface-variant hover:text-primary font-label-md text-label-md font-semibold transition-colors"
+                  className="w-full text-center py-1 text-on-surface-variant hover:text-primary font-label-sm text-label-sm transition-colors"
                   type="button"
                 >
-                  <span>View All Past Feedback (4)</span>
-                  <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
+                  View All Feedback
                 </button>
               </div>
             </div>
           </section>
-          {/* Subject Mastery &amp; Progress Overview Section */}
+          {/* Subject Mastery & Progress Overview Section */}
           <section className="mt-10">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-5">
               <div>
@@ -520,176 +388,137 @@ export default function HomeScreen() {
             </div>
             {/* 4 Mastery Cards Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-              {/* Subject 1: Math */}
-              <div className="bg-surface-container-lowest rounded-[20px] p-5 shadow-[0_4px_16px_rgba(91,75,219,0.08)] flex flex-col justify-between hover:translate-y-[-2px] transition-transform">
+              <div className="bg-surface-container-lowest rounded-2xl p-5 shadow-sm flex flex-col justify-between">
                 <div>
-                  <div className="flex items-center justify-between gap-2 mb-3">
-                    <div className="w-10 h-10 rounded-xl bg-primary-fixed flex items-center justify-center text-primary">
-                      <span className="material-symbols-outlined text-[22px]">calculate</span>
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+                      <span className="material-symbols-outlined text-[18px]">calculate</span>
                     </div>
-                    <span className="px-2.5 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-bold">
+                    <span className="px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm font-semibold">
                       Needs Nudge
                     </span>
                   </div>
-                  <span className="font-label-sm text-label-sm text-on-surface-variant font-semibold">
+                  <span className="font-body-sm text-body-sm text-on-surface-variant">
                     Mathematics
                   </span>
-                  <h4 className="font-headline-sm text-headline-sm text-on-surface font-extrabold mt-0.5 leading-snug">
+                  <h4 className="font-label-lg text-label-lg text-on-surface font-bold mt-0.5">
                     Fractions &amp; Mixed Numbers
                   </h4>
                 </div>
-                <div className="mt-5">
+                <div className="mt-4">
                   <div className="flex items-baseline justify-between mb-1.5">
                     <span className="font-body-sm text-body-sm text-on-surface-variant">
-                      Mastery Index
+                      Mastery
                     </span>
-                    <span className="font-metric-number text-headline-sm text-tertiary font-extrabold">
-                      71%
-                    </span>
+                    <span className="font-label-lg text-label-lg text-tertiary font-bold">71%</span>
                   </div>
-                  <div className="w-full h-2.5 rounded-full bg-surface-container overflow-hidden">
+                  <div className="w-full h-2 rounded-full bg-surface-container overflow-hidden">
                     <div
                       className="h-full rounded-full bg-tertiary-fixed-dim"
                       style={{ width: '71%' }}
                     ></div>
                   </div>
-                  <div className="flex items-center justify-between mt-3 pt-2 text-on-surface-variant font-body-sm text-body-sm">
-                    <span>Last drill: Yesterday</span>
-                    <span className="material-symbols-outlined text-[16px] text-tertiary">
-                      trending_up
-                    </span>
-                  </div>
+                  <p className="font-body-sm text-body-sm text-on-surface-variant mt-2 text-[11px]">
+                    Last drill: Yesterday
+                  </p>
                 </div>
               </div>
-              {/* Subject 2: Science */}
-              <div className="bg-surface-container-lowest rounded-[20px] p-5 shadow-[0_4px_16px_rgba(91,75,219,0.08)] flex flex-col justify-between hover:translate-y-[-2px] transition-transform">
+              <div className="bg-surface-container-lowest rounded-2xl p-5 shadow-sm flex flex-col justify-between">
                 <div>
-                  <div className="flex items-center justify-between gap-2 mb-3">
-                    <div className="w-10 h-10 rounded-xl bg-secondary-fixed/50 flex items-center justify-center text-secondary">
-                      <span className="material-symbols-outlined text-[22px]">eco</span>
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-secondary">
+                      <span className="material-symbols-outlined text-[18px]">eco</span>
                     </div>
-                    <span className="px-2.5 py-1 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-bold">
+                    <span className="px-2 py-0.5 rounded-full bg-surface-container text-secondary font-label-sm text-label-sm font-semibold">
                       Mastered
                     </span>
                   </div>
-                  <span className="font-label-sm text-label-sm text-on-surface-variant font-semibold">
-                    Science
-                  </span>
-                  <h4 className="font-headline-sm text-headline-sm text-on-surface font-extrabold mt-0.5 leading-snug">
+                  <span className="font-body-sm text-body-sm text-on-surface-variant">Science</span>
+                  <h4 className="font-label-lg text-label-lg text-on-surface font-bold mt-0.5">
                     Plant Biology &amp; Photosynthesis
                   </h4>
                 </div>
-                <div className="mt-5">
+                <div className="mt-4">
                   <div className="flex items-baseline justify-between mb-1.5">
                     <span className="font-body-sm text-body-sm text-on-surface-variant">
-                      Mastery Index
+                      Mastery
                     </span>
-                    <span className="font-metric-number text-headline-sm text-secondary font-extrabold">
-                      92%
-                    </span>
+                    <span className="font-label-lg text-label-lg text-secondary font-bold">92%</span>
                   </div>
-                  <div className="w-full h-2.5 rounded-full bg-surface-container overflow-hidden">
-                    <div
-                      className="h-full rounded-full bg-secondary"
-                      style={{ width: '92%' }}
-                    ></div>
+                  <div className="w-full h-2 rounded-full bg-surface-container overflow-hidden">
+                    <div className="h-full rounded-full bg-secondary" style={{ width: '92%' }}></div>
                   </div>
-                  <div className="flex items-center justify-between mt-3 pt-2 text-on-surface-variant font-body-sm text-body-sm">
-                    <span>Last drill: 3 days ago</span>
-                    <span className="material-symbols-outlined text-[16px] text-secondary">
-                      verified
-                    </span>
-                  </div>
+                  <p className="font-body-sm text-body-sm text-on-surface-variant mt-2 text-[11px]">
+                    Last drill: 3 days ago
+                  </p>
                 </div>
               </div>
-              {/* Subject 3: Filipino */}
-              <div className="bg-surface-container-lowest rounded-[20px] p-5 shadow-[0_4px_16px_rgba(91,75,219,0.08)] flex flex-col justify-between hover:translate-y-[-2px] transition-transform">
+              <div className="bg-surface-container-lowest rounded-2xl p-5 shadow-sm flex flex-col justify-between">
                 <div>
-                  <div className="flex items-center justify-between gap-2 mb-3">
-                    <div className="w-10 h-10 rounded-xl bg-primary-fixed flex items-center justify-center text-primary">
-                      <span className="material-symbols-outlined text-[22px]">menu_book</span>
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+                      <span className="material-symbols-outlined text-[18px]">menu_book</span>
                     </div>
-                    <span className="px-2.5 py-1 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-bold">
+                    <span className="px-2 py-0.5 rounded-full bg-surface-container text-secondary font-label-sm text-label-sm font-semibold">
                       Mastered
                     </span>
                   </div>
-                  <span className="font-label-sm text-label-sm text-on-surface-variant font-semibold">
-                    Filipino
-                  </span>
-                  <h4 className="font-headline-sm text-headline-sm text-on-surface font-extrabold mt-0.5 leading-snug">
+                  <span className="font-body-sm text-body-sm text-on-surface-variant">Filipino</span>
+                  <h4 className="font-label-lg text-label-lg text-on-surface font-bold mt-0.5">
                     Panitikan: Ibong Adarna
                   </h4>
                 </div>
-                <div className="mt-5">
+                <div className="mt-4">
                   <div className="flex items-baseline justify-between mb-1.5">
                     <span className="font-body-sm text-body-sm text-on-surface-variant">
-                      Mastery Index
+                      Mastery
                     </span>
-                    <span className="font-metric-number text-headline-sm text-secondary font-extrabold">
-                      94%
-                    </span>
+                    <span className="font-label-lg text-label-lg text-secondary font-bold">94%</span>
                   </div>
-                  <div className="w-full h-2.5 rounded-full bg-surface-container overflow-hidden">
-                    <div
-                      className="h-full rounded-full bg-secondary"
-                      style={{ width: '94%' }}
-                    ></div>
+                  <div className="w-full h-2 rounded-full bg-surface-container overflow-hidden">
+                    <div className="h-full rounded-full bg-secondary" style={{ width: '94%' }}></div>
                   </div>
-                  <div className="flex items-center justify-between mt-3 pt-2 text-on-surface-variant font-body-sm text-body-sm">
-                    <span>Last drill: Dec 12</span>
-                    <span className="material-symbols-outlined text-[16px] text-secondary">
-                      verified
-                    </span>
-                  </div>
+                  <p className="font-body-sm text-body-sm text-on-surface-variant mt-2 text-[11px]">
+                    Last drill: Dec 12
+                  </p>
                 </div>
               </div>
-              {/* Subject 4: English */}
-              <div className="bg-surface-container-lowest rounded-[20px] p-5 shadow-[0_4px_16px_rgba(91,75,219,0.08)] flex flex-col justify-between hover:translate-y-[-2px] transition-transform">
+              <div className="bg-surface-container-lowest rounded-2xl p-5 shadow-sm flex flex-col justify-between">
                 <div>
-                  <div className="flex items-center justify-between gap-2 mb-3">
-                    <div className="w-10 h-10 rounded-xl bg-surface-container flex items-center justify-center text-primary">
-                      <span className="material-symbols-outlined text-[22px]">spellcheck</span>
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+                      <span className="material-symbols-outlined text-[18px]">spellcheck</span>
                     </div>
-                    <span className="px-2.5 py-1 rounded-full bg-primary-fixed text-on-primary-fixed-variant font-label-sm text-label-sm font-bold">
+                    <span className="px-2 py-0.5 rounded-full bg-surface-container text-primary font-label-sm text-label-sm font-semibold">
                       On Track
                     </span>
                   </div>
-                  <span className="font-label-sm text-label-sm text-on-surface-variant font-semibold">
-                    English
-                  </span>
-                  <h4 className="font-headline-sm text-headline-sm text-on-surface font-extrabold mt-0.5 leading-snug">
+                  <span className="font-body-sm text-body-sm text-on-surface-variant">English</span>
+                  <h4 className="font-label-lg text-label-lg text-on-surface font-bold mt-0.5">
                     Verb Tenses &amp; Structures
                   </h4>
                 </div>
-                <div className="mt-5">
+                <div className="mt-4">
                   <div className="flex items-baseline justify-between mb-1.5">
                     <span className="font-body-sm text-body-sm text-on-surface-variant">
-                      Mastery Index
+                      Mastery
                     </span>
-                    <span className="font-metric-number text-headline-sm text-primary font-extrabold">
-                      74%
-                    </span>
+                    <span className="font-label-lg text-label-lg text-primary font-bold">74%</span>
                   </div>
-                  <div className="w-full h-2.5 rounded-full bg-surface-container overflow-hidden">
-                    <div
-                      className="h-full rounded-full bg-primary"
-                      style={{ width: '74%' }}
-                    ></div>
+                  <div className="w-full h-2 rounded-full bg-surface-container overflow-hidden">
+                    <div className="h-full rounded-full bg-primary" style={{ width: '74%' }}></div>
                   </div>
-                  <div className="flex items-center justify-between mt-3 pt-2 text-on-surface-variant font-body-sm text-body-sm">
-                    <span>Last drill: 5 days ago</span>
-                    <span className="material-symbols-outlined text-[16px] text-primary">
-                      trending_flat
-                    </span>
-                  </div>
+                  <p className="font-body-sm text-body-sm text-on-surface-variant mt-2 text-[11px]">
+                    Last drill: 5 days ago
+                  </p>
                 </div>
               </div>
             </div>
           </section>
-          {/* Two-Column Bottom Section (Learning Path &amp; Gamification) */}
+          {/* Two-Column Bottom Section (Learning Path & Gamification) */}
           <section className="grid grid-cols-1 lg:grid-cols-12 gap-space-lg mt-10">
-            {/* Left Column: Learning Path &amp; Upcoming Quizzes (6 cols) */}
-            <div className="lg:col-span-6 bg-surface-container-lowest rounded-[20px] p-6 shadow-[0_4px_16px_rgba(91,75,219,0.08)] flex flex-col justify-between">
+            {/* Left Column: Learning Path & Upcoming Quizzes (6 cols) */}
+            <div className="lg:col-span-6 bg-surface-container-lowest rounded-[20px] p-6 flex flex-col justify-between shadow-sm">
               <div>
                 <div className="flex items-center justify-between pb-4 border-b border-surface-container-high mb-4">
                   <div className="flex items-center gap-2.5">
@@ -798,33 +627,25 @@ export default function HomeScreen() {
                 </a>
               </div>
             </div>
-            {/* Right Column: Gamification &amp; Weekly Milestones (6 cols) */}
-            <div className="lg:col-span-6 bg-surface-container-lowest rounded-[20px] p-6 shadow-[0_4px_16px_rgba(91,75,219,0.08)] flex flex-col justify-between">
+            {/* Right Column: Gamification & Weekly Milestones (6 cols) */}
+            <div className="lg:col-span-6 bg-surface-container-lowest rounded-[20px] p-6 flex flex-col justify-between shadow-sm">
               <div>
-                {/* Card Header */}
-                <div className="flex items-center justify-between pb-4 border-b border-surface-container-high mb-4">
-                  <div className="flex items-center gap-2.5">
-                    <div className="w-9 h-9 rounded-xl bg-tertiary-fixed flex items-center justify-center text-tertiary">
-                      <span className="material-symbols-outlined text-[20px]">emoji_events</span>
-                    </div>
-                    <div>
-                      <h3 className="font-headline-sm text-headline-sm text-on-surface font-extrabold">
-                        Gamification &amp; Milestones
-                      </h3>
-                      <p className="font-body-sm text-body-sm text-on-surface-variant">
-                        Track your habits, badges, and weekly targets
-                      </p>
-                    </div>
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-2">
+                    <span className="material-symbols-outlined text-primary text-[20px]">
+                      emoji_events
+                    </span>
+                    <h3 className="font-headline-sm text-headline-sm text-on-surface font-bold">
+                      Milestones
+                    </h3>
                   </div>
-                  <span className="font-label-sm text-label-sm text-tertiary font-bold bg-tertiary-fixed/50 px-2.5 py-1 rounded-full">
-                    Week 14 Active
+                  <span className="font-label-sm text-label-sm text-on-surface-variant font-medium">
+                    Week 14
                   </span>
                 </div>
-                {/* Daily Drill Goal &amp; Mascot Quote Banner */}
-                <div className="p-4 rounded-2xl bg-surface-container-low flex flex-col sm:flex-row items-center gap-4">
-                  {/* Circular Progress Ring (Inline SVG) */}
-                  <div className="relative w-20 h-20 shrink-0 flex items-center justify-center">
-                    <svg className="w-20 h-20 transform -rotate-90" viewBox="0 0 72 72">
+                <div className="p-4 rounded-xl bg-surface-container-low flex items-center gap-4">
+                  <div className="relative w-14 h-14 shrink-0 flex items-center justify-center">
+                    <svg className="w-14 h-14 transform -rotate-90" viewBox="0 0 72 72">
                       <circle
                         className="text-surface-container"
                         cx="36"
@@ -847,94 +668,62 @@ export default function HomeScreen() {
                         strokeWidth="6"
                       />
                     </svg>
-                    <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
-                      <span className="font-headline-sm text-headline-sm text-on-surface font-extrabold leading-none">
-                        1/2
-                      </span>
-                      <span className="font-label-sm text-label-sm text-on-surface-variant text-[9px] mt-0.5">
-                        DRILLS
-                      </span>
-                    </div>
+                    <span className="absolute font-label-md text-label-md text-on-surface font-bold">
+                      1/2
+                    </span>
                   </div>
-                  {/* Motivational Mascot Speech */}
-                  <div className="text-center sm:text-left flex-1">
-                    <div className="inline-flex items-center gap-1 text-primary font-label-sm text-label-sm font-bold uppercase tracking-wide">
-                      <span className="material-symbols-outlined text-[14px]">psychology</span>
-                      Aral Reminder
-                    </div>
-                    <p className="font-body-sm text-body-sm text-on-surface font-semibold mt-0.5 italic">
-                      “Kaya mo 'yan, Maria! Aral is always here to help you learn step by step.”
+                  <div className="flex-1">
+                    <p className="font-label-md text-label-md text-on-surface font-bold">
+                      Daily Drill Goal
                     </p>
-                    <p className="font-body-sm text-body-sm text-on-surface-variant mt-1">
-                      Complete your second micro-quiz to hit today's daily 100% goal.
+                    <p className="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+                      Complete 1 more quiz to finish today's target.
                     </p>
                   </div>
                 </div>
-                {/* Recent Badges Earned Mosaic */}
-                <div className="mt-4">
+                <div className="mt-5">
                   <div className="flex items-center justify-between mb-3">
-                    <span className="font-label-md text-label-md text-on-surface font-bold">
-                      Recent Badges Unlocked
+                    <span className="font-label-md text-label-md text-on-surface font-semibold">
+                      Recent Badges
                     </span>
-                    <span className="font-label-sm text-label-sm text-primary font-bold">
-                      12 Total Badges
+                    <span className="font-body-sm text-body-sm text-on-surface-variant text-[11px]">
+                      12 total
                     </span>
                   </div>
                   <div className="grid grid-cols-3 gap-3">
-                    {/* Badge 1 */}
-                    <div className="p-3 rounded-xl bg-surface-container flex flex-col items-center text-center group hover:bg-surface-container-high transition-colors">
-                      <div className="w-11 h-11 rounded-full bg-tertiary-fixed flex items-center justify-center text-tertiary shadow-sm mb-1.5 group-hover:scale-110 transition-transform">
-                        <span
-                          className="material-symbols-outlined text-[24px]"
-                          style={{ fontVariationSettings: "'FILL' 1" }}
-                        >
-                          local_fire_department
-                        </span>
-                      </div>
-                      <span className="font-label-sm text-label-sm text-on-surface font-bold leading-tight">
+                    <div className="p-3 rounded-xl bg-surface-container-low flex flex-col items-center text-center">
+                      <span className="material-symbols-outlined text-tertiary text-[22px] mb-1">
+                        local_fire_department
+                      </span>
+                      <span className="font-label-sm text-label-sm text-on-surface font-semibold leading-tight">
                         3-Day Streak
                       </span>
-                      <span className="font-body-sm text-body-sm text-on-surface-variant text-[11px] mt-0.5">
-                        Unlocked 2d ago
-                      </span>
                     </div>
-                    {/* Badge 2 */}
-                    <div className="p-3 rounded-xl bg-surface-container flex flex-col items-center text-center group hover:bg-surface-container-high transition-colors">
-                      <div className="w-11 h-11 rounded-full bg-primary-fixed flex items-center justify-center text-primary shadow-sm mb-1.5 group-hover:scale-110 transition-transform">
-                        <span className="material-symbols-outlined text-[24px]">pie_chart</span>
-                      </div>
-                      <span className="font-label-sm text-label-sm text-on-surface font-bold leading-tight">
+                    <div className="p-3 rounded-xl bg-surface-container-low flex flex-col items-center text-center">
+                      <span className="material-symbols-outlined text-primary text-[22px] mb-1">
+                        pie_chart
+                      </span>
+                      <span className="font-label-sm text-label-sm text-on-surface font-semibold leading-tight">
                         Fraction Fighter
                       </span>
-                      <span className="font-body-sm text-body-sm text-on-surface-variant text-[11px] mt-0.5">
-                        Unlocked Dec 10
-                      </span>
                     </div>
-                    {/* Badge 3 */}
-                    <div className="p-3 rounded-xl bg-surface-container flex flex-col items-center text-center group hover:bg-surface-container-high transition-colors">
-                      <div className="w-11 h-11 rounded-full bg-secondary-fixed flex items-center justify-center text-secondary shadow-sm mb-1.5 group-hover:scale-110 transition-transform">
-                        <span className="material-symbols-outlined text-[24px]">bolt</span>
-                      </div>
-                      <span className="font-label-sm text-label-sm text-on-surface font-bold leading-tight">
-                        Speedy Thinker
+                    <div className="p-3 rounded-xl bg-surface-container-low flex flex-col items-center text-center">
+                      <span className="material-symbols-outlined text-secondary text-[22px] mb-1">
+                        bolt
                       </span>
-                      <span className="font-body-sm text-body-sm text-on-surface-variant text-[11px] mt-0.5">
-                        Under 5 mins drill
+                      <span className="font-label-sm text-label-sm text-on-surface font-semibold leading-tight">
+                        Speedy Thinker
                       </span>
                     </div>
                   </div>
                 </div>
               </div>
-              {/* Footer CTA to Badges Gallery */}
-              <div className="mt-5 pt-4 border-t border-surface-container-high flex items-center justify-between">
+              <div className="mt-5 pt-3 border-t border-surface-container-high flex items-center justify-between">
                 <span className="font-body-sm text-body-sm text-on-surface-variant">
-                  Next reward: “Math Wizard II” (35 XP to go)
+                  Next: Math Wizard II
                 </span>
-                <a
-                  className="font-label-md text-label-md text-primary font-bold hover:underline"
-                  href="#"
-                >
-                  View All Badges →
+                <a className="font-label-sm text-label-sm text-primary font-bold hover:underline" href="#">
+                  All Badges →
                 </a>
               </div>
             </div>

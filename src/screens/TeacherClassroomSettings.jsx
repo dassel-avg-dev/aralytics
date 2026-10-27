@@ -14,15 +14,26 @@ const TABS = [
   { id: 'notifications', label: 'Notifications & Nudges' }
 ];
 
+const DEFAULTS = {
+  tone: 'gentle',
+  threshold: 65,
+  bilingualFeedback: true,
+  strictLanguage: false,
+  quizTime: '16:30',
+  inactivityCount: '3',
+  parentDigest: true
+};
+
 export default function TeacherClassroomSettings() {
   const [activeTab, setActiveTab] = useState('aral');
-  const [tone, setTone] = useState('gentle');
-  const [threshold, setThreshold] = useState(65);
-  const [bilingualFeedback, setBilingualFeedback] = useState(true);
-  const [strictLanguage, setStrictLanguage] = useState(false);
-  const [quizTime, setQuizTime] = useState('16:30');
-  const [inactivityCount, setInactivityCount] = useState('3');
-  const [parentDigest, setParentDigest] = useState(true);
+  const [tone, setTone] = useState(DEFAULTS.tone);
+  const [threshold, setThreshold] = useState(DEFAULTS.threshold);
+  const [bilingualFeedback, setBilingualFeedback] = useState(DEFAULTS.bilingualFeedback);
+  const [strictLanguage, setStrictLanguage] = useState(DEFAULTS.strictLanguage);
+  const [quizTime, setQuizTime] = useState(DEFAULTS.quizTime);
+  const [inactivityCount, setInactivityCount] = useState(DEFAULTS.inactivityCount);
+  const [parentDigest, setParentDigest] = useState(DEFAULTS.parentDigest);
+  const [greetingFading, setGreetingFading] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const [dirty, setDirty] = useState(false);
 
@@ -50,6 +61,14 @@ export default function TeacherClassroomSettings() {
   const showLeft = activeTab === 'aral' || activeTab === 'notifications';
   const showRight = activeTab === 'profile' || activeTab === 'classroom' || activeTab === 'localization';
 
+  const selectTone = (id) => {
+    if (id === tone) return;
+    setTone(id);
+    setDirty(true);
+    setGreetingFading(true);
+    setTimeout(() => setGreetingFading(false), 150);
+  };
+
   const handleSave = () => {
     setDirty(false);
     setShowToast(true);
@@ -57,14 +76,16 @@ export default function TeacherClassroomSettings() {
   };
 
   const handleDiscard = () => {
-    setTone('gentle');
-    setThreshold(65);
-    setBilingualFeedback(true);
-    setStrictLanguage(false);
-    setQuizTime('16:30');
-    setInactivityCount('3');
-    setParentDigest(true);
-    setDirty(false);
+    if (window.confirm('I-discard ang mga binagong settings? Hindi mai-save ang pinakabagong pagbabago.')) {
+      setTone(DEFAULTS.tone);
+      setThreshold(DEFAULTS.threshold);
+      setBilingualFeedback(DEFAULTS.bilingualFeedback);
+      setStrictLanguage(DEFAULTS.strictLanguage);
+      setQuizTime(DEFAULTS.quizTime);
+      setInactivityCount(DEFAULTS.inactivityCount);
+      setParentDigest(DEFAULTS.parentDigest);
+      setDirty(false);
+    }
   };
 
   return (
@@ -89,10 +110,10 @@ export default function TeacherClassroomSettings() {
             {dirty && (
               <span className="bg-tertiary-fixed text-on-tertiary-fixed-variant px-2.5 py-0.5 rounded-full font-label-sm text-label-sm font-bold">Unsaved changes</span>
             )}
-            <button className="px-space-md py-2.5 rounded-xl font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-high transition-colors" onClick={handleDiscard} type="button">
+            <button className="px-space-md py-2.5 rounded-xl font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-high transition-colors" id="discard-settings-btn" onClick={handleDiscard} type="button">
               Discard Changes
             </button>
-            <button className="flex items-center gap-space-xs bg-primary-container hover:bg-primary text-on-primary px-space-lg py-2.5 rounded-xl font-label-lg text-label-lg shadow-[0_4px_16px_rgba(91,75,219,0.24)] transition-all transform active:scale-95" onClick={handleSave} type="button">
+            <button className="flex items-center gap-space-xs bg-primary-container hover:bg-primary text-on-primary px-space-lg py-2.5 rounded-xl font-label-lg text-label-lg shadow-[0_4px_16px_rgba(91,75,219,0.24)] transition-all transform active:scale-95" id="save-settings-btn" onClick={handleSave} type="button">
               <span className="material-symbols-outlined text-[20px]" style={{ fontVariationSettings: "'FILL' 1" }}>save</span>
               <span>Save Settings</span>
             </button>
@@ -165,7 +186,10 @@ export default function TeacherClassroomSettings() {
                           <span className="font-label-md text-label-md text-primary font-bold">Preview: Live Student Intervention Greeting</span>
                           <span className="font-label-sm text-label-sm text-on-surface-variant">Taglish Dynamic Mode</span>
                         </div>
-                        <p className="font-body-sm text-body-sm text-on-surface bg-surface-container-lowest p-space-sm rounded-lg shadow-xs transition-opacity duration-200 italic">
+                        <p
+                          className="font-body-sm text-body-sm text-on-surface bg-surface-container-lowest p-space-sm rounded-lg shadow-xs transition-opacity duration-200 italic"
+                          style={{ opacity: greetingFading ? 0 : 1 }}
+                        >
                           {TONE_GREETINGS[tone]}
                         </p>
                       </div>
@@ -184,10 +208,7 @@ export default function TeacherClassroomSettings() {
                                 'tone-card cursor-pointer p-space-md rounded-xl transition-all flex items-start justify-between gap-space-sm ' +
                                 (selected ? 'bg-surface-container-high shadow-md' : 'bg-surface-container-low hover:bg-surface-container-high')
                               }
-                              onClick={() => {
-                                setTone(option.id);
-                                setDirty(true);
-                              }}
+                              onClick={() => selectTone(option.id)}
                             >
                               <div className="flex items-start gap-space-sm">
                                 <span className={'material-symbols-outlined tone-radio-icon text-[22px] shrink-0 mt-0.5 ' + (selected ? 'text-primary' : 'text-outline')}>

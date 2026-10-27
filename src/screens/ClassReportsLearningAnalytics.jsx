@@ -1,7 +1,18 @@
-/* Subtle decorative ambient background glows (strictly relative/contained) */
+import { useState } from 'react';
+
 export default function ClassReportsLearningAnalytics() {
+  const [quarter, setQuarter] = useState('Quarter 2 (2024-2025)');
+  const [section, setSection] = useState('Section: Sampaguita (Advisory)');
+  const [exporting, setExporting] = useState(null);
+
+  const runExport = (key) => {
+    setExporting(key);
+    window.setTimeout(() => setExporting(null), 1800);
+  };
+
   return (
     <div className="relative w-full max-w-[1120px] mx-auto px-space-lg py-space-xl">
+      {/* Subtle decorative ambient background glows (strictly relative/contained) */}
       <div className="absolute -top-10 right-10 w-96 h-96 bg-primary-container/5 rounded-full blur-3xl pointer-events-none -z-10"></div>
       <div className="absolute top-1/3 left-0 w-80 h-80 bg-secondary-container/10 rounded-full blur-3xl pointer-events-none -z-10"></div>
       {/* Header Section with Distinct Visual Scale and Context Controls */}
@@ -12,20 +23,20 @@ export default function ClassReportsLearningAnalytics() {
               <span className="material-symbols-outlined text-[16px]">verified</span>
               <span className="font-label-sm text-label-sm uppercase tracking-wider">DepEd K to 12 MATATAG Aligned</span>
             </div>
-            <h1 className="font-display-lg text-display-lg text-on-surface tracking-tight">Class Analytics & DepEd Compliance Reports</h1>
+            <h1 className="font-display-lg text-display-lg text-on-surface tracking-tight">Class Analytics &amp; DepEd Compliance Reports</h1>
             <p className="font-body-lg text-body-lg text-on-surface-variant mt-space-xs">
               Comprehensive mastery analytics, intervention efficacy, and quarterly grading summaries for <span className="font-semibold text-primary">Grade 8 - Sampaguita</span>.
             </p>
           </div>
           {/* Primary Export Actions */}
           <div className="flex flex-wrap items-center gap-space-xs shrink-0">
-            <button className="flex items-center gap-space-xs bg-surface-container hover:bg-surface-container-high text-on-surface px-4 py-2.5 rounded-xl font-label-lg text-label-lg shadow-sm transition-all hover:scale-[1.01] active:scale-[0.99]" type="button">
+            <button className="flex items-center gap-space-xs bg-surface-container hover:bg-surface-container-high text-on-surface px-4 py-2.5 rounded-xl font-label-lg text-label-lg shadow-sm transition-all hover:scale-[1.01] active:scale-[0.99]" type="button" onClick={() => runExport('sf9')} disabled={exporting === 'sf9'}>
               <span className="material-symbols-outlined text-[18px] text-primary">description</span>
-              <span>SF9 / Form 137</span>
+              <span>{exporting === 'sf9' ? 'Preparing SF9…' : 'SF9 / Form 137'}</span>
             </button>
-            <button className="flex items-center gap-space-xs bg-primary-container text-on-primary hover:bg-primary px-4 py-2.5 rounded-xl font-label-lg text-label-lg shadow-sm transition-all hover:scale-[1.01] active:scale-[0.99]" type="button">
-              <span className="material-symbols-outlined text-[18px]">file_download</span>
-              <span>Export Full Analytics</span>
+            <button className="flex items-center gap-space-xs bg-primary-container text-on-primary hover:bg-primary px-4 py-2.5 rounded-xl font-label-lg text-label-lg shadow-sm transition-all hover:scale-[1.01] active:scale-[0.99]" type="button" onClick={() => runExport('full')} disabled={exporting === 'full'}>
+              <span className="material-symbols-outlined text-[18px]">{exporting === 'full' ? 'progress_activity' : 'file_download'}</span>
+              <span>{exporting === 'full' ? 'Exporting…' : 'Export Full Analytics'}</span>
             </button>
           </div>
         </div>
@@ -34,20 +45,30 @@ export default function ClassReportsLearningAnalytics() {
           <div className="flex flex-wrap items-center gap-space-xs">
             {/* Quarter Selector */}
             <div className="relative">
-              <select aria-label="Quarter Selector" className="appearance-none bg-surface-container-low hover:bg-surface-container text-on-surface font-label-md text-label-md pl-9 pr-8 py-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-container cursor-pointer transition-colors">
-                <option selected="">Quarter 2 (2024-2025)</option>
-                <option>Quarter 1 (2024-2025)</option>
-                <option>Quarter 4 (2023-2024)</option>
+              <select
+                aria-label="Quarter Selector"
+                className="appearance-none bg-surface-container-low hover:bg-surface-container text-on-surface font-label-md text-label-md pl-9 pr-8 py-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-container cursor-pointer transition-colors"
+                value={quarter}
+                onChange={(e) => setQuarter(e.target.value)}
+              >
+                <option value="Quarter 2 (2024-2025)">Quarter 2 (2024-2025)</option>
+                <option value="Quarter 1 (2024-2025)">Quarter 1 (2024-2025)</option>
+                <option value="Quarter 4 (2023-2024)">Quarter 4 (2023-2024)</option>
               </select>
               <span className="material-symbols-outlined absolute left-2.5 top-1/2 -translate-y-1/2 text-primary text-[18px] pointer-events-none">calendar_month</span>
               <span className="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px] pointer-events-none">arrow_drop_down</span>
             </div>
             {/* Section Switcher */}
             <div className="relative">
-              <select aria-label="Section Switcher" className="appearance-none bg-surface-container-low hover:bg-surface-container text-on-surface font-label-md text-label-md pl-9 pr-8 py-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-container cursor-pointer transition-colors">
-                <option selected="">Section: Sampaguita (Advisory)</option>
-                <option>Section: Rosal (Math 8)</option>
-                <option>Section: Camia (Science 8)</option>
+              <select
+                aria-label="Section Switcher"
+                className="appearance-none bg-surface-container-low hover:bg-surface-container text-on-surface font-label-md text-label-md pl-9 pr-8 py-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-container cursor-pointer transition-colors"
+                value={section}
+                onChange={(e) => setSection(e.target.value)}
+              >
+                <option value="Section: Sampaguita (Advisory)">Section: Sampaguita (Advisory)</option>
+                <option value="Section: Rosal (Math 8)">Section: Rosal (Math 8)</option>
+                <option value="Section: Camia (Science 8)">Section: Camia (Science 8)</option>
               </select>
               <span className="material-symbols-outlined absolute left-2.5 top-1/2 -translate-y-1/2 text-secondary text-[18px] pointer-events-none">groups</span>
               <span className="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px] pointer-events-none">arrow_drop_down</span>
@@ -146,7 +167,7 @@ export default function ClassReportsLearningAnalytics() {
                 36 parents
               </span>
             </div>
-            <p className="font-body-sm text-body-sm text-on-surface-variant mt-1">SMS & app summaries opened</p>
+            <p className="font-body-sm text-body-sm text-on-surface-variant mt-1">SMS &amp; app summaries opened</p>
           </div>
           <div className="w-full bg-surface-container h-2 rounded-full mt-4 overflow-hidden">
             <div className="bg-primary-container h-full rounded-full transition-all duration-700" style={{ width: '86%' }}></div>
@@ -159,7 +180,7 @@ export default function ClassReportsLearningAnalytics() {
           <div>
             <div className="flex items-center gap-space-xs">
               <span className="material-symbols-outlined text-primary text-[22px]">target</span>
-              <h2 className="font-headline-md text-headline-md text-on-surface">Competency Breakdown & Learning Gaps</h2>
+              <h2 className="font-headline-md text-headline-md text-on-surface">Competency Breakdown &amp; Learning Gaps</h2>
             </div>
             <p className="font-body-md text-body-md text-on-surface-variant mt-1">
               DepEd MELCs progress mapping with real-time class readiness telemetry.
@@ -185,7 +206,7 @@ export default function ClassReportsLearningAnalytics() {
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
               <div className="flex items-center gap-space-xs">
                 <span className="font-label-md text-label-md px-2.5 py-1 rounded-lg bg-primary-fixed text-on-primary-fixed uppercase tracking-wider">M8NS-IIa-1</span>
-                <span className="font-label-lg text-label-lg text-on-surface">Algebraic expressions & polynomials</span>
+                <span className="font-label-lg text-label-lg text-on-surface">Algebraic expressions &amp; polynomials</span>
                 <span className="font-body-sm text-body-sm text-on-surface-variant">(Mathematics 8)</span>
               </div>
               <div className="flex items-center gap-space-sm">
@@ -233,7 +254,7 @@ export default function ClassReportsLearningAnalytics() {
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
               <div className="flex items-center gap-space-xs">
                 <span className="font-label-md text-label-md px-2.5 py-1 rounded-lg bg-secondary-fixed text-on-secondary-fixed uppercase tracking-wider">S8LT-IVa-1</span>
-                <span className="font-label-lg text-label-lg text-on-surface">Plant biology & photosynthesis</span>
+                <span className="font-label-lg text-label-lg text-on-surface">Plant biology &amp; photosynthesis</span>
                 <span className="font-body-sm text-body-sm text-on-surface-variant">(Science 8)</span>
               </div>
               <div className="flex items-center gap-space-sm">
@@ -307,7 +328,7 @@ export default function ClassReportsLearningAnalytics() {
             <div className="flex items-center justify-between mb-space-xs">
               <div className="flex items-center gap-space-xs">
                 <span className="material-symbols-outlined text-secondary text-[22px]">show_chart</span>
-                <h2 className="font-headline-md text-headline-md text-on-surface">Intervention Tracking & Growth Matrix</h2>
+                <h2 className="font-headline-md text-headline-md text-on-surface">Intervention Tracking &amp; Growth Matrix</h2>
               </div>
               <span className="font-label-sm text-label-sm px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container font-semibold">
                 Pre vs. Post AI Drill
@@ -467,7 +488,7 @@ export default function ClassReportsLearningAnalytics() {
           <div>
             <div className="flex items-center gap-space-xs">
               <span className="material-symbols-outlined text-primary text-[22px]">print</span>
-              <h2 className="font-headline-md text-headline-md text-on-surface">DepEd Export & Print Center</h2>
+              <h2 className="font-headline-md text-headline-md text-on-surface">DepEd Export &amp; Print Center</h2>
             </div>
             <p className="font-body-md text-body-md text-on-surface-variant mt-1">
               One-click verified generation for standard public school compliance documentation.
@@ -515,7 +536,7 @@ export default function ClassReportsLearningAnalytics() {
             </div>
             <div className="mt-space-lg pt-space-md flex items-center justify-between">
               <span className="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
-                <span className="material-symbols-outlined text-[14px]">grid_on</span> Excel & PDF
+                <span className="material-symbols-outlined text-[14px]">grid_on</span> Excel &amp; PDF
               </span>
               <button className="flex items-center gap-1 bg-surface-container hover:bg-surface-container-high text-primary px-3.5 py-1.5 rounded-xl font-label-md text-label-md transition-colors" type="button">
                 <span className="material-symbols-outlined text-[16px]">download</span>
