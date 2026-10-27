@@ -22,7 +22,12 @@ aralytics/
 │   └── favicon.svg                  # Referenced by index.html (icons.svg removed 2026-10-27, unreferenced)
 ├── .playwright-mcp/                 # Playwright verification screenshots (git-ignored)
 │   ├── home-desktop-1440.png / home-mobile-390.png      # /home after CS rebrand re-implementation
-│   └── landing-desktop-1440.png / landing-mobile-390.png # / after CS rebrand re-implementation
+│   ├── landing-desktop-1440.png / landing-mobile-390.png # / after CS rebrand re-implementation
+│   ├── dashboard-desktop-1440.png            # /dashboard after full CS rebrand
+│   ├── roster-desktop-1440.png               # /students after full CS rebrand
+│   ├── activities-desktop-1440.png           # /activities after full CS rebrand
+│   ├── reports-desktop-1440.png              # /reports after full CS rebrand
+│   └── settings-desktop-1440.png             # /settings after full CS rebrand
 ├── screens/                         # Reference design package (input material, NOT runtime code) — git-ignored
 │   ├── warm_editorial_edtech/
 │   │   └── DESIGN.md                # Design system source of truth: tokens, colors, type, components
@@ -47,11 +52,11 @@ aralytics/
     └── screens/                     # Route screens (all converted 1:1 from screens/stitch/*/code.html)
         ├── LandingPage.jsx          # /           (re-implemented from new CS-rebrand stitch/landing_page export)
         ├── HomeScreen.jsx           # /home       (re-implemented from new CS-rebrand stitch/student_desktop_portal export)
-        ├── TeacherDashboard.jsx     # /dashboard  (converted from stitch/teacher_desktop_dashboard)
-        ├── StudentsMasteryRoster.jsx        # /students (converted from stitch/students_mastery_roster)
-        ├── ActivitiesQuizManagement.jsx     # /activities (converted from stitch/activities_quiz_management)
-        ├── ClassReportsLearningAnalytics.jsx # /reports (converted from stitch/class_reports_learning_analytics)
-        └── TeacherClassroomSettings.jsx     # /settings (converted from stitch/teacher_classroom_settings)
+        ├── TeacherDashboard.jsx     # /dashboard  (re-implemented from CS-rebrand stitch/teacher_desktop_dashboard export)
+        ├── StudentsMasteryRoster.jsx        # /students (re-implemented from CS-rebrand stitch/students_mastery_roster export)
+        ├── ActivitiesQuizManagement.jsx     # /activities (re-implemented from CS-rebrand stitch/activities_quiz_management export)
+        ├── ClassReportsLearningAnalytics.jsx # /reports (re-implemented from CS-rebrand stitch/class_reports_learning_analytics export)
+        └── TeacherClassroomSettings.jsx     # /settings (re-implemented from CS-rebrand stitch/teacher_classroom_settings export)
 
 Not shown: node_modules/ (third-party packages), dist/ (build output)
 ```
