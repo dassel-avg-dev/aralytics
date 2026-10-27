@@ -119,10 +119,10 @@ export default function HomeScreen() {
               </div>
               <div className="hidden lg:flex flex-col text-left">
                 <span className="font-label-md text-label-md text-on-surface leading-tight font-bold">
-                  Maria Santos
+                  Miguel Ramos
                 </span>
                 <span className="font-body-sm text-body-sm text-on-surface-variant leading-tight">
-                  Gr. 8 - Sampaguita
+                  Python &amp; CS Track
                 </span>
               </div>
             </div>
@@ -169,19 +169,19 @@ export default function HomeScreen() {
             <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-space-md">
               <div>
                 <div className="inline-flex items-center gap-space-xs px-3 py-1 rounded-full bg-surface-container text-primary font-label-md text-label-md mb-2">
-                  <span className="material-symbols-outlined text-[16px]">school</span>
-                  <span>Pasig National High School • Section 8-Sampaguita</span>
+                  <span className="material-symbols-outlined text-[16px]">terminal</span>
+                  <span>Python 101 • Section Py-B</span>
                 </div>
                 <h1 className="font-headline-lg text-headline-lg text-on-surface tracking-tight font-extrabold flex items-center gap-2">
-                  Magandang araw, Maria!{' '}
+                  Kumusta, Miguel!{' '}
                   <span className="inline-block hover:rotate-12 transition-transform cursor-pointer">
                     👋
                   </span>
                 </h1>
                 <p className="font-body-lg text-body-lg text-on-surface-variant mt-1">
-                  Ready for your 8-minute daily drill today? Your adviser{' '}
-                  <span className="font-bold text-on-surface">Bb. Elena Santos, LPT</span> posted new
-                  feedback.
+                  Ready for your 8-minute coding drill today? Your CS mentor{' '}
+                  <span className="font-bold text-on-surface">Coach Alex Reyes</span> posted personalized
+                  diagnostics.
                 </p>
               </div>
               {/* Quick Student Metric Badges */}
@@ -243,7 +243,7 @@ export default function HomeScreen() {
                 <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
                   <div className="flex items-center gap-2">
                     <span className="text-primary font-label-sm text-label-sm font-semibold">
-                      Mathematics 8 • Quarter 2
+                      Python Programming • Module 3
                     </span>
                     <span className="text-on-surface-variant text-[11px]">•</span>
                     <span className="text-secondary font-label-sm text-label-sm font-bold">
@@ -256,22 +256,22 @@ export default function HomeScreen() {
                 </div>
                 <div className="flex items-start justify-between gap-4">
                   <h2 className="font-headline-md text-headline-md text-on-surface font-extrabold tracking-tight">
-                    Fractions &amp; Mixed Numbers Diagnostic
+                    Python Loops &amp; List Comprehension Diagnostic
                   </h2>
                   <div className="w-11 h-11 rounded-xl bg-surface-container text-primary flex items-center justify-center shrink-0">
-                    <span className="material-symbols-outlined text-[24px]">functions</span>
+                    <span className="material-symbols-outlined text-[24px]">data_object</span>
                   </div>
                 </div>
                 <p className="font-body-md text-body-md text-on-surface-variant mt-2 leading-relaxed max-w-2xl">
-                  Focus: Unlike denominators, LCM, and real-world problem simplification to diagnose
-                  step-by-step factoring skills.
+                  Focus: Nested for-loops, while-loop boundaries, infinite loop traps, and list comprehension
+                  refactoring to verify debugging mastery.
                 </p>
                 <div className="flex flex-wrap items-center gap-6 my-5 pt-1">
                   <div className="flex items-center gap-2 text-on-surface">
                     <span className="material-symbols-outlined text-[18px] text-on-surface-variant">
                       quiz
                     </span>
-                    <span className="font-body-sm text-body-sm font-medium">10 Questions</span>
+                    <span className="font-body-sm text-body-sm font-medium">10 Questions (MCQ &amp; Debugging)</span>
                   </div>
                   <div className="flex items-center gap-2 text-on-surface">
                     <span className="material-symbols-outlined text-[18px] text-on-surface-variant">
@@ -320,12 +320,12 @@ export default function HomeScreen() {
                       </p>
                     </div>
                   </div>
-                  <span className="font-label-sm text-label-sm text-primary font-bold">Tip</span>
+                  <span className="font-label-sm text-label-sm text-primary font-bold">Diagnostic</span>
                 </div>
                 <div className="p-3.5 rounded-xl bg-surface-container-low mt-2">
                   <p className="font-body-sm text-body-sm text-on-surface leading-relaxed">
-                    “Nice work on fractions addition! Subtraction with different denominators needs
-                    a bit more care—remember to find the LCM first.”
+                    “Nice work on list slicing, Miguel! You got the basic indexing right, but the nested
+                    while-loop caused an infinite loop in question 3. Remember to increment your counter inside the loop body.”
                   </p>
                 </div>
                 <div className="space-y-2 mt-3">
@@ -334,7 +334,7 @@ export default function HomeScreen() {
                       check_circle
                     </span>
                     <span className="font-body-sm text-body-sm text-on-surface">
-                      Like denominators: 100% accuracy
+                      List indexing &amp; slicing: 100% accuracy
                     </span>
                   </div>
                   <div className="p-2.5 rounded-lg bg-surface-container flex items-center gap-2">
@@ -342,7 +342,7 @@ export default function HomeScreen() {
                       lightbulb
                     </span>
                     <span className="font-body-sm text-body-sm text-on-surface">
-                      Focus next: Lowest Common Multiple
+                      Focus next: While-loop counter increments
                     </span>
                   </div>
                 </div>
@@ -352,8 +352,8 @@ export default function HomeScreen() {
                   className="w-full inline-flex items-center justify-center gap-2 py-2.5 rounded-xl bg-surface-container text-primary font-label-md text-label-md font-bold hover:bg-surface-container-high transition-colors"
                   type="button"
                 >
-                  <span className="material-symbols-outlined text-[18px]">psychology</span>
-                  <span>Practice Weak Topic (5m)</span>
+                  <span className="material-symbols-outlined text-[18px]">terminal</span>
+                  <span>Practice While Loops (5m)</span>
                 </button>
                 <button
                   className="w-full text-center py-1 text-on-surface-variant hover:text-primary font-label-sm text-label-sm transition-colors"
@@ -375,14 +375,14 @@ export default function HomeScreen() {
                   </h2>
                 </div>
                 <p className="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
-                  Real-time adaptive assessment scores mapped to DepEd Grade 8 competencies
+                  Real-time adaptive assessment scores mapped to Computer Science competencies
                 </p>
               </div>
               <a
                 className="inline-flex items-center gap-1 font-label-lg text-label-lg text-primary hover:text-primary-container transition-colors font-bold self-start sm:self-auto"
                 href="#"
               >
-                <span>View Curriculum Matrix</span>
+                <span>View CS Skill Matrix</span>
                 <span className="material-symbols-outlined text-[18px]">chevron_right</span>
               </a>
             </div>
@@ -392,17 +392,17 @@ export default function HomeScreen() {
                 <div>
                   <div className="flex items-center justify-between mb-3">
                     <div className="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-primary">
-                      <span className="material-symbols-outlined text-[18px]">calculate</span>
+                      <span className="material-symbols-outlined text-[18px]">sync</span>
                     </div>
                     <span className="px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm font-semibold">
                       Needs Nudge
                     </span>
                   </div>
                   <span className="font-body-sm text-body-sm text-on-surface-variant">
-                    Mathematics
+                    Python Fundamentals
                   </span>
                   <h4 className="font-label-lg text-label-lg text-on-surface font-bold mt-0.5">
-                    Fractions &amp; Mixed Numbers
+                    Loops &amp; Iteration
                   </h4>
                 </div>
                 <div className="mt-4">
@@ -410,12 +410,12 @@ export default function HomeScreen() {
                     <span className="font-body-sm text-body-sm text-on-surface-variant">
                       Mastery
                     </span>
-                    <span className="font-label-lg text-label-lg text-tertiary font-bold">71%</span>
+                    <span className="font-label-lg text-label-lg text-tertiary font-bold">58%</span>
                   </div>
                   <div className="w-full h-2 rounded-full bg-surface-container overflow-hidden">
                     <div
                       className="h-full rounded-full bg-tertiary-fixed-dim"
-                      style={{ width: '71%' }}
+                      style={{ width: '58%' }}
                     ></div>
                   </div>
                   <p className="font-body-sm text-body-sm text-on-surface-variant mt-2 text-[11px]">
@@ -427,15 +427,15 @@ export default function HomeScreen() {
                 <div>
                   <div className="flex items-center justify-between mb-3">
                     <div className="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-secondary">
-                      <span className="material-symbols-outlined text-[18px]">eco</span>
+                      <span className="material-symbols-outlined text-[18px]">dataset</span>
                     </div>
                     <span className="px-2 py-0.5 rounded-full bg-surface-container text-secondary font-label-sm text-label-sm font-semibold">
                       Mastered
                     </span>
                   </div>
-                  <span className="font-body-sm text-body-sm text-on-surface-variant">Science</span>
+                  <span className="font-body-sm text-body-sm text-on-surface-variant">Data Structures</span>
                   <h4 className="font-label-lg text-label-lg text-on-surface font-bold mt-0.5">
-                    Plant Biology &amp; Photosynthesis
+                    Lists &amp; Dictionaries
                   </h4>
                 </div>
                 <div className="mt-4">
@@ -457,15 +457,15 @@ export default function HomeScreen() {
                 <div>
                   <div className="flex items-center justify-between mb-3">
                     <div className="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-primary">
-                      <span className="material-symbols-outlined text-[18px]">menu_book</span>
+                      <span className="material-symbols-outlined text-[18px]">alt_route</span>
                     </div>
                     <span className="px-2 py-0.5 rounded-full bg-surface-container text-secondary font-label-sm text-label-sm font-semibold">
                       Mastered
                     </span>
                   </div>
-                  <span className="font-body-sm text-body-sm text-on-surface-variant">Filipino</span>
+                  <span className="font-body-sm text-body-sm text-on-surface-variant">Algorithms</span>
                   <h4 className="font-label-lg text-label-lg text-on-surface font-bold mt-0.5">
-                    Panitikan: Ibong Adarna
+                    Conditional Logic &amp; Branching
                   </h4>
                 </div>
                 <div className="mt-4">
@@ -487,15 +487,15 @@ export default function HomeScreen() {
                 <div>
                   <div className="flex items-center justify-between mb-3">
                     <div className="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-primary">
-                      <span className="material-symbols-outlined text-[18px]">spellcheck</span>
+                      <span className="material-symbols-outlined text-[18px]">code</span>
                     </div>
                     <span className="px-2 py-0.5 rounded-full bg-surface-container text-primary font-label-sm text-label-sm font-semibold">
                       On Track
                     </span>
                   </div>
-                  <span className="font-body-sm text-body-sm text-on-surface-variant">English</span>
+                  <span className="font-body-sm text-body-sm text-on-surface-variant">OOP Fundamentals</span>
                   <h4 className="font-label-lg text-label-lg text-on-surface font-bold mt-0.5">
-                    Verb Tenses &amp; Structures
+                    Classes &amp; Functions
                   </h4>
                 </div>
                 <div className="mt-4">
@@ -503,10 +503,10 @@ export default function HomeScreen() {
                     <span className="font-body-sm text-body-sm text-on-surface-variant">
                       Mastery
                     </span>
-                    <span className="font-label-lg text-label-lg text-primary font-bold">74%</span>
+                    <span className="font-label-lg text-label-lg text-primary font-bold">76%</span>
                   </div>
                   <div className="w-full h-2 rounded-full bg-surface-container overflow-hidden">
-                    <div className="h-full rounded-full bg-primary" style={{ width: '74%' }}></div>
+                    <div className="h-full rounded-full bg-primary" style={{ width: '76%' }}></div>
                   </div>
                   <p className="font-body-sm text-body-sm text-on-surface-variant mt-2 text-[11px]">
                     Last drill: 5 days ago
@@ -532,7 +532,7 @@ export default function HomeScreen() {
                         Your Learning Path
                       </h3>
                       <p className="font-body-sm text-body-sm text-on-surface-variant">
-                        Upcoming micro-quizzes assigned by your teachers
+                        Upcoming coding drills assigned by your mentors
                       </p>
                     </div>
                   </div>
@@ -545,12 +545,12 @@ export default function HomeScreen() {
                   <div className="p-4 rounded-2xl bg-surface-container-low hover:bg-surface-container transition-colors flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                     <div className="flex items-start gap-3">
                       <div className="w-10 h-10 rounded-xl bg-secondary-fixed/40 text-secondary flex items-center justify-center shrink-0 mt-0.5">
-                        <span className="material-symbols-outlined text-[20px]">science</span>
+                        <span className="material-symbols-outlined text-[20px]">terminal</span>
                       </div>
                       <div>
                         <div className="flex items-center gap-2">
                           <span className="font-label-sm text-label-sm text-secondary font-bold">
-                            Science 8
+                            Python 101
                           </span>
                           <span className="text-on-surface-variant text-[11px]">•</span>
                           <span className="font-label-sm text-label-sm text-on-surface-variant font-medium">
@@ -558,13 +558,13 @@ export default function HomeScreen() {
                           </span>
                         </div>
                         <h4 className="font-label-lg text-label-lg text-on-surface font-extrabold mt-0.5">
-                          Photosynthesis Unit Review
+                          Nested Loops &amp; Break Statements
                         </h4>
                         <div className="flex items-center gap-2 text-on-surface-variant font-body-sm text-body-sm mt-1">
                           <span className="material-symbols-outlined text-[14px]">schedule</span>
                           <span>Due Tomorrow, 5:00 PM</span>
                           <span>•</span>
-                          <span>15 questions</span>
+                          <span>10 questions</span>
                         </div>
                       </div>
                     </div>
@@ -581,13 +581,13 @@ export default function HomeScreen() {
                     <div className="flex items-start gap-3">
                       <div className="w-10 h-10 rounded-xl bg-primary-fixed text-primary flex items-center justify-center shrink-0 mt-0.5">
                         <span className="material-symbols-outlined text-[20px]">
-                          auto_stories
+                          data_object
                         </span>
                       </div>
                       <div>
                         <div className="flex items-center gap-2">
                           <span className="font-label-sm text-label-sm text-primary font-bold">
-                            Filipino 8
+                            Data Structures
                           </span>
                           <span className="text-on-surface-variant text-[11px]">•</span>
                           <span className="font-label-sm text-label-sm text-on-surface-variant font-medium">
@@ -595,13 +595,13 @@ export default function HomeScreen() {
                           </span>
                         </div>
                         <h4 className="font-label-lg text-label-lg text-on-surface font-extrabold mt-0.5">
-                          Ibong Adarna: Kabanata 6-10 Drill
+                          Dictionary Key-Value Operations
                         </h4>
                         <div className="flex items-center gap-2 text-on-surface-variant font-body-sm text-body-sm mt-1">
                           <span className="material-symbols-outlined text-[14px]">schedule</span>
                           <span>Due Friday, Dec 20</span>
                           <span>•</span>
-                          <span>10 questions</span>
+                          <span>8 questions</span>
                         </div>
                       </div>
                     </div>
@@ -623,7 +623,7 @@ export default function HomeScreen() {
                   className="font-label-md text-label-md text-primary font-bold hover:underline"
                   href="#"
                 >
-                  View All Completed Quizzes →
+                  View All Completed Drills →
                 </a>
               </div>
             </div>
@@ -701,10 +701,10 @@ export default function HomeScreen() {
                     </div>
                     <div className="p-3 rounded-xl bg-surface-container-low flex flex-col items-center text-center">
                       <span className="material-symbols-outlined text-primary text-[22px] mb-1">
-                        pie_chart
+                        bug_report
                       </span>
                       <span className="font-label-sm text-label-sm text-on-surface font-semibold leading-tight">
-                        Fraction Fighter
+                        Debug Ace
                       </span>
                     </div>
                     <div className="p-3 rounded-xl bg-surface-container-low flex flex-col items-center text-center">
@@ -712,7 +712,7 @@ export default function HomeScreen() {
                         bolt
                       </span>
                       <span className="font-label-sm text-label-sm text-on-surface font-semibold leading-tight">
-                        Speedy Thinker
+                        Speed Coder
                       </span>
                     </div>
                   </div>
@@ -720,7 +720,7 @@ export default function HomeScreen() {
               </div>
               <div className="mt-5 pt-3 border-t border-surface-container-high flex items-center justify-between">
                 <span className="font-body-sm text-body-sm text-on-surface-variant">
-                  Next: Math Wizard II
+                  Next: Python Master II
                 </span>
                 <a className="font-label-sm text-label-sm text-primary font-bold hover:underline" href="#">
                   All Badges →

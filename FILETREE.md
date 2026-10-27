@@ -20,6 +20,9 @@ aralytics/
 ├── index.html                       # SPA entry; loads Nunito Sans / Inter / Material Symbols fonts
 ├── public/                          # Static assets served at the root URL
 │   └── favicon.svg                  # Referenced by index.html (icons.svg removed 2026-10-27, unreferenced)
+├── .playwright-mcp/                 # Playwright verification screenshots (git-ignored)
+│   ├── home-desktop-1440.png / home-mobile-390.png      # /home after CS rebrand re-implementation
+│   └── landing-desktop-1440.png / landing-mobile-390.png # / after CS rebrand re-implementation
 ├── screens/                         # Reference design package (input material, NOT runtime code) — git-ignored
 │   ├── warm_editorial_edtech/
 │   │   └── DESIGN.md                # Design system source of truth: tokens, colors, type, components
@@ -42,8 +45,8 @@ aralytics/
     │   │   └── TopBar.jsx           # Fixed top bar: hamburger (mobile), class pill, search, EN/FIL, alerts
     │   └── ui/                      # (empty — StatCard.jsx/MasteryRing.jsx removed after dashboard re-conversion)
     └── screens/                     # Route screens (all converted 1:1 from screens/stitch/*/code.html)
-        ├── LandingPage.jsx          # /           (converted from stitch/landing_page)
-        ├── HomeScreen.jsx           # /home       (converted from stitch/student_desktop_portal)
+        ├── LandingPage.jsx          # /           (re-implemented from new CS-rebrand stitch/landing_page export)
+        ├── HomeScreen.jsx           # /home       (re-implemented from new CS-rebrand stitch/student_desktop_portal export)
         ├── TeacherDashboard.jsx     # /dashboard  (converted from stitch/teacher_desktop_dashboard)
         ├── StudentsMasteryRoster.jsx        # /students (converted from stitch/students_mastery_roster)
         ├── ActivitiesQuizManagement.jsx     # /activities (converted from stitch/activities_quiz_management)

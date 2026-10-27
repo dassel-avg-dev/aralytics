@@ -28,7 +28,7 @@ export default function LandingPage() {
               <a className="px-3 py-2 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-label-lg text-label-lg" data-path="features" href="#">Features</a>
               <a className="px-3 py-2 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-label-lg text-label-lg" data-path="for-students" href="#">For Students</a>
               <a className="px-3 py-2 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-label-lg text-label-lg" data-path="for-teachers" href="#">For Teachers</a>
-              <a className="px-3 py-2 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-label-lg text-label-lg" data-path="deped-alignment" href="#">DepEd Alignment</a>
+              <a className="px-3 py-2 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-label-lg text-label-lg" data-path="curriculum" href="#">Curriculum &amp; Topics</a>
               <a className="px-3 py-2 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-label-lg text-label-lg" data-path="pricing-pilot" href="#">Pricing / Pilot</a>
             </nav>
             <button
@@ -69,7 +69,7 @@ export default function LandingPage() {
             >
               Start Free Classroom Pilot
             </a>
-            {['Features', 'For Students', 'For Teachers', 'DepEd Alignment', 'Pricing / Pilot'].map(
+            {['Features', 'For Students', 'For Teachers', 'Curriculum & Topics', 'Pricing / Pilot'].map(
               (label) => (
                 <a
                   className="flex items-center px-3 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-label-lg text-label-lg"
@@ -94,14 +94,14 @@ export default function LandingPage() {
               <div className="inline-flex items-center gap-space-xs px-4 py-1.5 rounded-full bg-surface-container/60 mb-8 cursor-default transition-all hover:bg-surface-container">
                 <span className="w-2 h-2 rounded-full bg-primary"></span>
                 <span className="font-label-md text-label-md text-primary font-semibold tracking-wide">
-                  Bagong K-12 MATATAG Aligned · Built for Filipino Classrooms
+                  AI Coding Diagnostics · Instant Personalized Feedback
                 </span>
               </div>
               <h1 className="font-display-lg text-display-lg-mobile lg:text-display-lg text-on-surface text-center max-w-4xl tracking-tight leading-tight mb-6">
-                Personalized AI Tutoring &amp; Instant Diagnostic Feedback for <span className="text-primary relative inline-block">Every Filipino Learner.</span>
+                Personalized AI Tutoring &amp; Instant Diagnostic Feedback for <span className="text-primary relative inline-block">Every Student Coder.</span>
               </h1>
               <p className="font-body-lg text-body-lg text-on-surface-variant text-center max-w-2xl mb-10 leading-relaxed">
-                Aralytics empowers teachers to spot learning gaps in seconds and provides students with encouraging, step-by-step AI guidance in English and Tagalog. Zero grade anxiety, 100% mastery.
+                Aralytics empowers Computer Science teachers to spot programming misconceptions in seconds and guides student coders with instant, empathetic step-by-step AI feedback on Python, loops, and logic errors.
               </p>
               <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto mb-12">
                 <a className="w-full sm:w-auto inline-flex items-center justify-center gap-space-sm px-6 py-3.5 rounded-xl bg-primary text-on-primary font-label-lg text-label-lg shadow-sm hover:bg-primary-container transition-all" href="#pilot-signup">
@@ -118,64 +118,65 @@ export default function LandingPage() {
               <div className="w-full max-w-2xl py-2.5 px-4 rounded-full bg-surface-container-low/50 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-center mb-16">
                 <div className="flex items-center gap-2">
                   <span className="font-label-sm text-label-sm text-on-surface-variant">
-                    Trusted by <strong className="text-on-surface font-semibold">45+ public &amp; private schools</strong> across SDO Pasig, QC, &amp; Laguna
+                    Trusted by <strong className="text-on-surface font-semibold">60+ partner schools &amp; coding academies</strong> in the Philippines
                   </span>
                 </div>
                 <span className="text-outline-variant hidden sm:inline">•</span>
                 <span className="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1.5">
                   <span className="material-symbols-outlined text-secondary text-[16px]">verified</span>
-                  <span><strong className="text-on-surface font-semibold">48,000+</strong> quizzes submitted this school year</span>
+                  <span><strong className="text-on-surface font-semibold">120,000+</strong> code exercises analyzed</span>
                 </span>
               </div>
               <div className="w-full rounded-2xl bg-surface-container-lowest p-6 lg:p-8 shadow-[0_8px_32px_rgba(91,75,219,0.06)] border border-surface-container-high/50 relative">
                 <div className="flex items-center justify-between pb-5 mb-6 border-b border-surface-container-high/50">
                   <div className="flex items-center gap-2.5">
                     <span className="w-2.5 h-2.5 rounded-full bg-secondary"></span>
-                    <span className="font-label-md text-label-md text-on-surface font-semibold">Section 8-Mabini · Live Diagnostic Session</span>
+                    <span className="font-label-md text-label-md text-on-surface font-semibold">Intro to Python · Section CS-101 Diagnostic</span>
                   </div>
-                  <span className="px-2.5 py-1 rounded-md bg-surface-container font-label-sm text-label-sm text-on-surface-variant">DepEd Math 8 · Q1 MELC #3</span>
+                  <span className="px-2.5 py-1 rounded-md bg-surface-container font-label-sm text-label-sm text-on-surface-variant">Module 3: For-Loops &amp; Indexing</span>
                 </div>
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
                   <div className="lg:col-span-6 flex flex-col justify-between bg-surface-container-low/40 p-6 rounded-xl border border-surface-container-high/40">
                     <div>
                       <div className="flex items-center justify-between mb-4">
-                        <span className="text-primary font-label-sm text-label-sm font-bold tracking-wide uppercase">Question 4 of 5</span>
+                        <span className="text-primary font-label-sm text-label-sm font-bold tracking-wide uppercase">Question 4 of 5 · Scenario</span>
                         <span className="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1">
-                          <span className="material-symbols-outlined text-[16px]">timer</span> 45s avg speed
+                          <span className="material-symbols-outlined text-[16px]">timer</span> 38s avg speed
                         </span>
                       </div>
                       <h2 className="font-headline-sm text-headline-sm text-on-surface mb-3">
-                        Find the sum of the rational numbers:
+                        Predict the output and identify any runtime issue:
                       </h2>
-                      <div className="p-4 rounded-xl bg-surface-container-lowest border border-surface-container-high/50 text-center my-4">
-                        <span className="font-headline-lg text-primary tracking-wide font-bold">
-                          <sup>3</sup>/<sub>4</sub> + <sup>2</sup>/<sub>5</sub> = ?
-                        </span>
+                      <div className="p-4 rounded-xl bg-surface-container-lowest border border-surface-container-high/50 text-left my-3 font-mono text-xs">
+                        <p className="text-on-surface-variant mb-1"># Iterate through student grades</p>
+                        <p className="text-primary font-semibold">grades = [88, 92, 79, 95]</p>
+                        <p className="text-primary font-semibold">for i in range(len(grades) + 1):</p>
+                        <p className="text-primary font-semibold pl-4">print(grades[i])</p>
                       </div>
                       <p className="font-body-sm text-body-sm text-on-surface-variant mb-5">
-                        <em>Paalala:</em> Find the least common denominator bago pagsamahin ang numerators.
+                        <em>Hint:</em> Check zero-based indexing boundaries in Python lists.
                       </p>
                       <div className="space-y-2.5">
                         <div className="w-full p-3.5 rounded-xl bg-surface-container-lowest border border-surface-container-high/50 flex items-center justify-between opacity-50">
-                          <span className="font-body-md text-body-md text-on-surface">A) 5/9</span>
-                          <span className="text-xs text-on-surface-variant">Direct add</span>
+                          <span className="font-body-md text-body-md text-on-surface">A) Prints 88, 92, 79, 95 then terminates</span>
+                          <span className="text-xs text-on-surface-variant">Normal loop</span>
                         </div>
                         <div className="w-full p-3.5 rounded-xl bg-surface-container-lowest border-2 border-primary flex items-center justify-between shadow-xs">
                           <div className="flex items-center gap-2.5">
                             <span className="w-5 h-5 rounded-full bg-primary text-on-primary flex items-center justify-center text-xs font-bold">✓</span>
-                            <span className="font-body-md text-body-md font-semibold text-primary">B) 23/20 (or 1 3/20)</span>
+                            <span className="font-body-md text-body-md font-semibold text-primary">B) Prints all 4 grades then throws IndexError</span>
                           </div>
                           <span className="px-2 py-0.5 rounded bg-primary-fixed text-primary font-label-sm text-label-sm font-semibold">Submitted</span>
                         </div>
                         <div className="w-full p-3.5 rounded-xl bg-surface-container-lowest border border-surface-container-high/50 flex items-center justify-between opacity-50">
-                          <span className="font-body-md text-body-md text-on-surface">C) 6/20</span>
-                          <span className="text-xs text-on-surface-variant">Multiplied</span>
+                          <span className="font-body-md text-body-md text-on-surface">C) SyntaxError on line 3</span>
+                          <span className="text-xs text-on-surface-variant">Syntax</span>
                         </div>
                       </div>
                     </div>
                     <div className="pt-4 mt-6 border-t border-surface-container-high/50 flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm">
-                      <span>Maria Clara De Leon</span>
-                      <span className="opacity-75">LRN: 136482991024</span>
+                      <span>Miguel Santos (Grade 10)</span>
+                      <span className="opacity-75">Student ID: CS-2024-884</span>
                     </div>
                   </div>
                   <div className="lg:col-span-6 flex flex-col justify-between bg-surface-container-lowest p-6 rounded-xl border border-surface-container-high/60">
@@ -187,31 +188,31 @@ export default function LandingPage() {
                           </div>
                           <div>
                             <div className="font-label-lg text-label-lg text-on-surface font-bold">Aral Coach AI</div>
-                            <span className="font-label-sm text-label-sm text-on-surface-variant">Personal diagnostic feedback</span>
+                            <span className="font-label-sm text-label-sm text-on-surface-variant">Real-time code diagnostic feedback</span>
                           </div>
                         </div>
-                        <span className="px-2.5 py-1 rounded-full bg-tertiary-fixed/40 text-on-tertiary-fixed-variant font-label-sm text-label-sm font-semibold">🔥 5-Day Streak</span>
+                        <span className="px-2.5 py-1 rounded-full bg-tertiary-fixed/40 text-on-tertiary-fixed-variant font-label-sm text-label-sm font-semibold">🔥 5-Day Coding Streak</span>
                       </div>
                       <div className="p-4 rounded-xl bg-surface-container-low/50 mb-5">
                         <p className="font-body-md text-body-md text-on-surface leading-relaxed">
-                          “Nice work on finding the common denominator (<strong>20</strong>), Maria! You converted <sup>3</sup>/<sub>4</sub> to <sup>15</sup>/<sub>20</sub> and <sup>2</sup>/<sub>5</sub> to <sup>8</sup>/<sub>20</sub> correctly bago nagsama. Keep this momentum bukas!”
+                          “Spot-on diagnostic, Miguel! You noticed that <code>len(grades)</code> is 4, but valid indices are only <code>0 to 3</code>. When the loop reaches index 4, Python raises an <strong>IndexError: list index out of range</strong>. To fix off-by-one loops, simply write <code>range(len(grades))</code> or iterate directly with <code>for grade in grades:</code>.”
                         </p>
                       </div>
                       <div className="space-y-2 mb-6">
                         <div className="flex items-center gap-2.5 p-3 rounded-lg bg-surface-container-low/40 text-on-surface font-label-sm text-label-sm">
                           <span className="material-symbols-outlined text-secondary text-[18px]">check_circle</span>
-                          <span><strong>Mastered:</strong> LCD &amp; Equivalent Numerators</span>
+                          <span><strong>Mastered:</strong> List Off-by-One Boundaries &amp; Index Errors</span>
                         </div>
                         <div className="flex items-center gap-2.5 p-3 rounded-lg bg-surface-container-low/40 text-on-surface font-label-sm text-label-sm">
                           <span className="material-symbols-outlined text-primary text-[18px]">lightbulb</span>
-                          <span><strong>Next step:</strong> Simplifying improper fraction <sup>23</sup>/<sub>20</sub> to 1 <sup>3</sup>/<sub>20</sub></span>
+                          <span><strong>Next Step:</strong> Nested list iteration and 2D arrays</span>
                         </div>
                       </div>
                     </div>
                     <div className="pt-4 border-t border-surface-container-high/50 flex items-center justify-between">
-                      <span className="font-label-sm text-label-sm text-on-surface-variant font-medium">Q1 Competency Progress: <strong>85%</strong></span>
+                      <span className="font-label-sm text-label-sm text-on-surface-variant font-medium">Topic Mastery: <strong>92%</strong></span>
                       <button className="px-3.5 py-2 rounded-lg bg-primary text-on-primary font-label-sm text-label-sm font-semibold hover:bg-primary-container transition-all flex items-center gap-1.5" type="button">
-                        <span>Next Drill</span>
+                        <span>Next Coding Drill</span>
                         <span className="material-symbols-outlined text-[14px]">arrow_forward</span>
                       </button>
                     </div>
@@ -225,65 +226,65 @@ export default function LandingPage() {
             <div className="max-w-[1120px] mx-auto px-margin-mobile lg:px-margin">
               <div className="text-center max-w-2xl mx-auto mb-16">
                 <span className="text-primary font-label-sm text-label-sm font-bold uppercase tracking-wider">
-                  Why Aralytics Works
+                  Why Aralytics for Coding
                 </span>
                 <h2 className="font-headline-lg text-headline-lg text-on-surface mt-3">
-                  Designed specifically for 50-student Philippine public classrooms.
+                  Built to fix coding roadblocks before students give up.
                 </h2>
                 <p className="font-body-md text-body-md text-on-surface-variant mt-3 leading-relaxed">
-                  Empowering dedicated Filipino educators while giving every student a non-judgmental, patient learning companion.
+                  CS classrooms are full of silent frustration. Aralytics provides immediate AI feedback and automated triage so teachers can rescue struggling coders instantly.
                 </p>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div className="rounded-2xl bg-surface-container-lowest p-8 shadow-xs border border-surface-container-high/50 flex flex-col justify-between hover:shadow-sm transition-all">
                   <div>
                     <div className="w-10 h-10 rounded-xl bg-primary-fixed/60 flex items-center justify-center text-primary mb-6">
-                      <span className="material-symbols-outlined text-[24px]">psychology_alt</span>
+                      <span className="material-symbols-outlined text-[24px]">bolt</span>
                     </div>
                     <h3 className="font-headline-sm text-headline-sm text-on-surface mb-3">
-                      Instant Personalized Feedback
+                      Instant AI Diagnostic Feedback
                     </h3>
                     <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">
-                      No more waiting 2 weeks for test papers. Within 10 seconds of quiz submission, students receive empathetic, step-by-step Taglish hints that demystify tough concepts.
+                      Within 5 seconds of code submission, students receive tailored diagnostic explanations identifying syntax bugs, logic errors, and variable scope mistakes without spoiling solutions.
                     </p>
                   </div>
                   <div className="mt-8 pt-4 border-t border-surface-container-high/40 flex items-center gap-2 text-primary font-label-sm text-label-sm font-medium">
                     <span className="material-symbols-outlined text-[16px]">check</span>
-                    <span>Reduces learner quiz anxiety</span>
+                    <span>Eliminates debugger anxiety</span>
                   </div>
                 </div>
                 <div className="rounded-2xl bg-surface-container-lowest p-8 shadow-xs border border-surface-container-high/50 flex flex-col justify-between hover:shadow-sm transition-all">
                   <div>
                     <div className="w-10 h-10 rounded-xl bg-secondary-container/50 flex items-center justify-center text-secondary mb-6">
-                      <span className="material-symbols-outlined text-[24px]">group_work</span>
+                      <span className="material-symbols-outlined text-[24px]">dashboard_customize</span>
                     </div>
                     <h3 className="font-headline-sm text-headline-sm text-on-surface mb-3">
-                      Real-Time Class Triage
+                      Teacher Remedial Triage
                     </h3>
                     <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">
-                      Identify which students need urgent scaffolding before periodic exams. Group students into peer tutoring squads and save 8+ hours a week on manual paperwork.
+                      Live cluster view flags students stuck on loops, conditions, or recursion. Teachers can immediately dispatch focused remedial exercises or pair students with peer tutors.
                     </p>
                   </div>
                   <div className="mt-8 pt-4 border-t border-surface-container-high/40 flex items-center gap-2 text-secondary font-label-sm text-label-sm font-medium">
                     <span className="material-symbols-outlined text-[16px]">check</span>
-                    <span>Automated remedial clustering</span>
+                    <span>Instant lab section visibility</span>
                   </div>
                 </div>
                 <div className="rounded-2xl bg-surface-container-lowest p-8 shadow-xs border border-surface-container-high/50 flex flex-col justify-between hover:shadow-sm transition-all">
                   <div>
                     <div className="w-10 h-10 rounded-xl bg-tertiary-fixed/60 flex items-center justify-center text-tertiary mb-6">
-                      <span className="material-symbols-outlined text-[24px]">description</span>
+                      <span className="material-symbols-outlined text-[24px]">quiz</span>
                     </div>
                     <h3 className="font-headline-sm text-headline-sm text-on-surface mb-3">
-                      Automated DepEd SF9 &amp; SF10
+                      Scenario &amp; Logic Assessments
                     </h3>
                     <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">
-                      Generate DepEd-ready School Form 9 (Learner Progress Report Card) and SF10 competency audits in a single click, with official transmuted mastery curves.
+                      Assess deep conceptual programming understanding with scenario questions, trace tables, and bug-hunting drills aligned to fundamental computing standards.
                     </p>
                   </div>
                   <div className="mt-8 pt-4 border-t border-surface-container-high/40 flex items-center gap-2 text-tertiary font-label-sm text-label-sm font-medium">
                     <span className="material-symbols-outlined text-[16px]">check</span>
-                    <span>Compliant with DepEd DO 8, s. 2015</span>
+                    <span>Deep conceptual mastery</span>
                   </div>
                 </div>
               </div>
@@ -317,31 +318,31 @@ export default function LandingPage() {
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
                   <div className="lg:col-span-5 space-y-6">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm font-semibold">
-                      <span>Low-Data &amp; Free Basics Compatible</span>
+                      <span>Interactive Code Companion</span>
                     </div>
                     <h3 className="font-headline-lg text-headline-md text-on-surface">
-                      Daily 8-minute micro-drills that turn homework panic into confidence.
+                      Daily 8-minute micro-drills that turn coding intimidation into mastery.
                     </h3>
                     <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">
-                      Filipino students often hesitate to raise their hands in crowded classrooms. With Aral Coach, learners ask questions in conversational Taglish, review concepts without embarrassment, and receive encouraging badges.
+                      Beginner coders often hesitate to ask questions during lab. Aral Coach gives friendly step-by-step guidance in English and Taglish, breaking down error logs into clear mental models.
                     </p>
                     <ul className="space-y-3.5 font-body-md text-body-md text-on-surface">
                       <li className="flex items-start gap-3">
                         <span className="material-symbols-outlined text-secondary text-[20px] mt-0.5">check_circle</span>
-                        <span><strong>Bilingual Code-Switching:</strong> Tap any concept to view explanations in Filipino or English.</span>
+                        <span><strong>Line-by-Line Diagnostics:</strong> Immediate explanations for SyntaxError, TypeError, and logic flaws.</span>
                       </li>
                       <li className="flex items-start gap-3">
                         <span className="material-symbols-outlined text-secondary text-[20px] mt-0.5">check_circle</span>
-                        <span><strong>Bite-Sized Remedial:</strong> 5-question adaptive quizzes targeting exact misconceptions.</span>
+                        <span><strong>Gamified Mastery Streaks:</strong> 5-minute drills for functions, loops, lists, and OOP concepts.</span>
                       </li>
                       <li className="flex items-start gap-3">
                         <span className="material-symbols-outlined text-secondary text-[20px] mt-0.5">check_circle</span>
-                        <span><strong>Offline Mode Sync:</strong> Complete exercises offline; sync when network is ready.</span>
+                        <span><strong>Low-Bandwidth Web &amp; Mobile:</strong> Complete offline syntax reviews, sync when connected.</span>
                       </li>
                     </ul>
                     <div className="pt-2">
                       <a className="inline-flex items-center gap-2 text-primary font-label-lg text-label-lg font-bold hover:underline" href="#pilot-signup">
-                        <span>Preview Student Mobile App</span>
+                        <span>Preview Student Coding App</span>
                         <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
                       </a>
                     </div>
@@ -351,20 +352,20 @@ export default function LandingPage() {
                       <div className="flex items-center justify-between pb-4 border-b border-surface-container-high/50">
                         <div className="flex items-center gap-3">
                           <div className="w-9 h-9 rounded-full bg-primary-fixed text-primary flex items-center justify-center font-bold text-sm">
-                            MC
+                            MS
                           </div>
                           <div>
-                            <h4 className="font-label-lg text-label-lg text-on-surface font-bold leading-none">Kumusta, Maria!</h4>
-                            <span className="font-label-sm text-label-sm text-on-surface-variant">Grade 8 - SDO Pasig · Science &amp; Math</span>
+                            <h4 className="font-label-lg text-label-lg text-on-surface font-bold leading-none">Kumusta, Miguel!</h4>
+                            <span className="font-label-sm text-label-sm text-on-surface-variant">Grade 10 · Python &amp; Algorithms</span>
                           </div>
                         </div>
-                        <span className="font-label-sm text-label-sm text-on-surface-variant font-medium">⚡ 320 XP</span>
+                        <span className="font-label-sm text-label-sm text-on-surface-variant font-medium">⚡ 450 XP</span>
                       </div>
                       <div className="p-4 rounded-xl bg-surface-container-low/60 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                         <div>
-                          <span className="text-primary font-label-sm text-label-sm font-semibold uppercase tracking-wider">Today's Focus</span>
-                          <h4 className="font-headline-sm text-headline-sm text-on-surface mt-1">Mendelian Genetics: Punnett Square Drill</h4>
-                          <p className="font-body-sm text-body-sm text-on-surface-variant">5 interactive questions · 6 mins</p>
+                          <span className="text-primary font-label-sm text-label-sm font-semibold uppercase tracking-wider">Today's Coding Focus</span>
+                          <h4 className="font-headline-sm text-headline-sm text-on-surface mt-1">Python List Comprehension &amp; Loops</h4>
+                          <p className="font-body-sm text-body-sm text-on-surface-variant">5 diagnostic coding challenges · 7 mins</p>
                         </div>
                         <button className="px-4 py-2 rounded-lg bg-primary text-on-primary font-label-md text-label-md font-semibold hover:bg-primary-container shrink-0" type="button">
                           Simulan Na →
@@ -372,16 +373,16 @@ export default function LandingPage() {
                       </div>
                       <div className="grid grid-cols-3 gap-3 pt-1">
                         <div className="p-3.5 rounded-xl bg-surface-container-low/40 text-center">
-                          <span className="font-headline-md text-secondary font-bold">94%</span>
-                          <p className="font-label-sm text-label-sm text-on-surface-variant mt-1">Algebra</p>
+                          <span className="font-headline-md text-secondary font-bold">96%</span>
+                          <p className="font-label-sm text-label-sm text-on-surface-variant mt-1">For-Loops</p>
                         </div>
                         <div className="p-3.5 rounded-xl bg-surface-container-low/40 text-center">
                           <span className="font-headline-md text-primary font-bold">88%</span>
-                          <p className="font-label-sm text-label-sm text-on-surface-variant mt-1">Cell Structure</p>
+                          <p className="font-label-sm text-label-sm text-on-surface-variant mt-1">Functions</p>
                         </div>
                         <div className="p-3.5 rounded-xl bg-surface-container-low/40 text-center">
-                          <span className="font-headline-md text-on-surface-variant font-bold">72%</span>
-                          <p className="font-label-sm text-label-sm text-on-surface-variant mt-1">Equations</p>
+                          <span className="font-headline-md text-on-surface-variant font-bold">78%</span>
+                          <p className="font-label-sm text-label-sm text-on-surface-variant mt-1">Recursion</p>
                         </div>
                       </div>
                     </div>
@@ -392,31 +393,31 @@ export default function LandingPage() {
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
                   <div className="lg:col-span-5 space-y-6">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm font-semibold">
-                      <span>Teacher Diagnostic Dashboard</span>
+                      <span>CS Teacher Command Center</span>
                     </div>
                     <h3 className="font-headline-lg text-headline-md text-on-surface">
-                      Identify struggling learners before the quarterly exam, not after.
+                      Identify students stuck on syntax or logic before project deadlines.
                     </h3>
                     <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">
-                      No more manual rubric computation. Aralytics aggregates quiz items across your section into intuitive mastery clusters. Spot exactly which questions triggered errors and push auto-differentiated homework in 2 clicks.
+                      Instead of running around crowded computer labs, Aralytics aggregates code misconceptions in real time. Group students by error patterns and push automated remedial drills in two clicks.
                     </p>
                     <ul className="space-y-3.5 font-body-md text-body-md text-on-surface">
                       <li className="flex items-start gap-3">
                         <span className="material-symbols-outlined text-primary text-[20px] mt-0.5">analytics</span>
-                        <span><strong>Instant Class Triage:</strong> Group learners by clear mastery segments.</span>
+                        <span><strong>Real-Time Lab Triage:</strong> Detect students facing repeated IndexError or infinite loops.</span>
                       </li>
                       <li className="flex items-start gap-3">
                         <span className="material-symbols-outlined text-primary text-[20px] mt-0.5">download_done</span>
-                        <span><strong>1-Click SF9 Export:</strong> Transmuted grading table compatible.</span>
+                        <span><strong>Automated Mastery Reports:</strong> Export objective skill benchmarks for every student.</span>
                       </li>
                       <li className="flex items-start gap-3">
                         <span className="material-symbols-outlined text-primary text-[20px] mt-0.5">sms</span>
-                        <span><strong>Automated Parent Reports:</strong> Bilingual progress updates sent in 1 tap.</span>
+                        <span><strong>Targeted Remedial Exercises:</strong> Push auto-generated 3-item debugging drills.</span>
                       </li>
                     </ul>
                     <div className="pt-2">
                       <a className="inline-flex items-center gap-2 text-primary font-label-lg text-label-lg font-bold hover:underline" href="#pilot-signup">
-                        <span>Request DepEd Teacher Sandbox</span>
+                        <span>Request Teacher CS Sandbox</span>
                         <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
                       </a>
                     </div>
@@ -425,11 +426,11 @@ export default function LandingPage() {
                     <div className="bg-surface-container-lowest rounded-xl p-6 border border-surface-container-high/50 space-y-5">
                       <div className="flex items-center justify-between pb-4 border-b border-surface-container-high/50">
                         <div>
-                          <h4 className="font-label-lg text-label-lg text-on-surface font-bold">G8 - Mabini · Mathematics</h4>
-                          <span className="font-label-sm text-label-sm text-on-surface-variant">Teacher: Bb. Elena Santos · 42 Enrolled</span>
+                          <h4 className="font-label-lg text-label-lg text-on-surface font-bold">Section CS-101 · Python Programming</h4>
+                          <span className="font-label-sm text-label-sm text-on-surface-variant">Instructor: Mr. Ronald Reyes · 38 Enrolled</span>
                         </div>
                         <button className="px-3.5 py-1.5 rounded-lg bg-primary text-on-primary font-label-sm text-label-sm font-semibold flex items-center gap-1.5" type="button">
-                          <span className="material-symbols-outlined text-[14px]">send</span> Push Remedial
+                          <span className="material-symbols-outlined text-[14px]">send</span> Push Drill
                         </button>
                       </div>
                       <div className="overflow-x-auto">
@@ -437,37 +438,37 @@ export default function LandingPage() {
                           <thead>
                             <tr className="text-on-surface-variant border-b border-surface-container-high/60">
                               <th className="pb-2.5 font-semibold">Student Name</th>
-                              <th className="pb-2.5 font-semibold">MELC 3.1</th>
+                              <th className="pb-2.5 font-semibold">Topic: Loops</th>
                               <th className="pb-2.5 font-semibold">Status</th>
                               <th className="pb-2.5 font-semibold text-right">Action</th>
                             </tr>
                           </thead>
                           <tbody className="divide-y divide-surface-container-high/30">
                             <tr>
-                              <td className="py-3 font-medium text-on-surface">Maria Clara De Leon</td>
-                              <td className="py-3 text-secondary font-semibold">88%</td>
-                              <td className="py-3"><span className="px-2 py-0.5 rounded bg-secondary-container/40 text-on-secondary-container font-label-sm text-label-sm font-semibold">On Track</span></td>
-                              <td className="py-3 text-right"><span className="text-primary hover:underline cursor-pointer font-semibold text-xs">Praise</span></td>
+                              <td className="py-3 font-medium text-on-surface">Miguel Santos</td>
+                              <td className="py-3 text-secondary font-semibold">92%</td>
+                              <td className="py-3"><span className="px-2 py-0.5 rounded bg-secondary-container/40 text-on-secondary-container font-label-sm text-label-sm font-semibold">Mastered</span></td>
+                              <td className="py-3 text-right"><span className="text-primary hover:underline cursor-pointer font-semibold text-xs">Challenge Drill</span></td>
                             </tr>
                             <tr>
-                              <td className="py-3 font-medium text-on-surface">Juan Bautista Cruz</td>
-                              <td className="py-3 text-on-surface-variant font-semibold">64%</td>
+                              <td className="py-3 font-medium text-on-surface">Patricia Lim</td>
+                              <td className="py-3 text-on-surface-variant font-semibold">65%</td>
                               <td className="py-3"><span className="px-2 py-0.5 rounded bg-surface-container text-on-surface-variant font-label-sm text-label-sm font-semibold">Needs Nudge</span></td>
-                              <td className="py-3 text-right"><span className="text-primary hover:underline cursor-pointer font-semibold text-xs">Send Hint</span></td>
+                              <td className="py-3 text-right"><span className="text-primary hover:underline cursor-pointer font-semibold text-xs">Send Loop Hint</span></td>
                             </tr>
                             <tr>
-                              <td className="py-3 font-medium text-on-surface">Carlos Joshua Reyes</td>
-                              <td className="py-3 text-error font-semibold">42%</td>
-                              <td className="py-3"><span className="px-2 py-0.5 rounded bg-error-container/60 text-error font-label-sm text-label-sm font-semibold">Needs Help</span></td>
-                              <td className="py-3 text-right"><span className="text-error hover:underline cursor-pointer font-semibold text-xs">1-on-1 Peer</span></td>
+                              <td className="py-3 font-medium text-on-surface">Kevin Bautista</td>
+                              <td className="py-3 text-error font-semibold">40%</td>
+                              <td className="py-3"><span className="px-2 py-0.5 rounded bg-error-container/60 text-error font-label-sm text-label-sm font-semibold">IndexError Trap</span></td>
+                              <td className="py-3 text-right"><span className="text-error hover:underline cursor-pointer font-semibold text-xs">1-on-1 Debug</span></td>
                             </tr>
                           </tbody>
                         </table>
                       </div>
                       <div className="pt-4 border-t border-surface-container-high/50 flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm">
-                        <span>34 Mastered · 5 Nudge · 3 Urgent</span>
+                        <span>31 Mastered · 5 Nudge · 2 Urgent Debug</span>
                         <span className="text-secondary font-semibold flex items-center gap-1">
-                          <span className="material-symbols-outlined text-[16px]">check</span> SF9 Ready
+                          <span className="material-symbols-outlined text-[16px]">check</span> Lab Triage Live
                         </span>
                       </div>
                     </div>
@@ -483,75 +484,75 @@ export default function LandingPage() {
                 <div className="lg:col-span-5 order-2 lg:order-1">
                   <div className="rounded-2xl bg-surface-container-lowest p-6 border border-surface-container-high/50 shadow-xs space-y-4">
                     <div className="flex items-center justify-between pb-2 border-b border-surface-container-high/40">
-                      <span className="font-headline-sm text-headline-sm text-on-surface">DepEd Competencies Covered</span>
-                      <span className="font-label-sm text-label-sm text-on-surface-variant font-medium">S.Y. 2024-2025</span>
+                      <span className="font-headline-sm text-headline-sm text-on-surface">Coding Competencies Covered</span>
+                      <span className="font-label-sm text-label-sm text-on-surface-variant font-medium">Core Computer Science</span>
                     </div>
                     <div className="space-y-2.5">
                       <div className="p-3.5 rounded-xl bg-surface-container-low/50 flex items-center justify-between">
                         <div className="flex items-center gap-3">
-                          <span className="material-symbols-outlined text-primary text-[20px]">calculate</span>
+                          <span className="material-symbols-outlined text-primary text-[20px]">code</span>
                           <div>
-                            <h4 className="font-label-lg text-label-lg text-on-surface font-semibold">Mathematics 7 - 10</h4>
-                            <span className="font-body-sm text-body-sm text-on-surface-variant">MELCs: Patterns, Algebra, Geometry, Stats</span>
+                            <h4 className="font-label-lg text-label-lg text-on-surface font-semibold">Python Fundamentals</h4>
+                            <span className="font-body-sm text-body-sm text-on-surface-variant">Variables, Data Types, Conditionals, Loops</span>
                           </div>
                         </div>
                         <span className="font-label-sm text-label-sm text-secondary font-semibold">100% Mapped</span>
                       </div>
                       <div className="p-3.5 rounded-xl bg-surface-container-low/50 flex items-center justify-between">
                         <div className="flex items-center gap-3">
-                          <span className="material-symbols-outlined text-secondary text-[20px]">science</span>
+                          <span className="material-symbols-outlined text-secondary text-[20px]">account_tree</span>
                           <div>
-                            <h4 className="font-label-lg text-label-lg text-on-surface font-semibold">Science &amp; Inquiry</h4>
-                            <span className="font-body-sm text-body-sm text-on-surface-variant">Living Things, Earth &amp; Space, Physics</span>
+                            <h4 className="font-label-lg text-label-lg text-on-surface font-semibold">Data Structures &amp; Lists</h4>
+                            <span className="font-body-sm text-body-sm text-on-surface-variant">Zero-indexing, Slicing, Dictionaries, Sets</span>
                           </div>
                         </div>
                         <span className="font-label-sm text-label-sm text-secondary font-semibold">100% Mapped</span>
                       </div>
                       <div className="p-3.5 rounded-xl bg-surface-container-low/50 flex items-center justify-between">
                         <div className="flex items-center gap-3">
-                          <span className="material-symbols-outlined text-on-surface-variant text-[20px]">menu_book</span>
+                          <span className="material-symbols-outlined text-on-surface-variant text-[20px]">bug_report</span>
                           <div>
-                            <h4 className="font-label-lg text-label-lg text-on-surface font-semibold">Filipino (Panitikan &amp; Balarila)</h4>
-                            <span className="font-body-sm text-body-sm text-on-surface-variant">Ibong Adarna, Florante at Laura, Noli Me Tangere</span>
+                            <h4 className="font-label-lg text-label-lg text-on-surface font-semibold">Debugging &amp; Exception Handling</h4>
+                            <span className="font-body-sm text-body-sm text-on-surface-variant">IndexError, TypeError, Tracebacks, Logic Bugs</span>
                           </div>
                         </div>
                         <span className="font-label-sm text-label-sm text-secondary font-semibold">100% Mapped</span>
                       </div>
                       <div className="p-3.5 rounded-xl bg-surface-container-low/50 flex items-center justify-between">
                         <div className="flex items-center gap-3">
-                          <span className="material-symbols-outlined text-on-surface-variant text-[20px]">translate</span>
+                          <span className="material-symbols-outlined text-on-surface-variant text-[20px]">terminal</span>
                           <div>
-                            <h4 className="font-label-lg text-label-lg text-on-surface font-semibold">English Communication</h4>
-                            <span className="font-body-sm text-body-sm text-on-surface-variant">Grammar, Reading Comprehension, Critical Text</span>
+                            <h4 className="font-label-lg text-label-lg text-on-surface font-semibold">Algorithmic Thinking</h4>
+                            <span className="font-body-sm text-body-sm text-on-surface-variant">Sorting, Searching, Nested Iteration</span>
                           </div>
                         </div>
                         <span className="font-label-sm text-label-sm text-secondary font-semibold">100% Mapped</span>
                       </div>
                     </div>
                     <div className="pt-2 flex items-center gap-2 text-on-surface-variant font-label-sm text-label-sm">
-                      <span className="material-symbols-outlined text-[18px] text-secondary">signal_cellular_alt</span>
-                      <span>Optimized for low-bandwidth 3G/4G prepaid data in division schools.</span>
+                      <span className="material-symbols-outlined text-[18px] text-secondary">check_circle</span>
+                      <span>Compatible with school computer lab Chromebooks and student laptops.</span>
                     </div>
                   </div>
                 </div>
                 <div className="lg:col-span-7 order-1 lg:order-2 space-y-6">
                   <span className="text-primary font-label-sm text-label-sm font-bold uppercase tracking-wider">
-                    Standardized &amp; Grounded
+                    Pedagogy-First AI Architecture
                   </span>
                   <h2 className="font-headline-lg text-headline-lg text-on-surface">
-                    Fully aligned with the Philippine Department of Education standards.
+                    Engineered specifically for computer science educators.
                   </h2>
                   <p className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
-                    We didn't just port Western curriculums. Aralytics was engineered from the ground up to support the MATATAG curriculum framework and DepEd's Most Essential Learning Competencies (MELCs).
+                    Unlike generic chatbots that provide complete code copy-pastes, Aralytics uses Socratic hints and diagnostic questions that encourage students to reason through their logic errors independently.
                   </p>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 pt-2">
                     <div className="p-5 rounded-xl bg-surface-container-lowest border border-surface-container-high/50 shadow-xs">
-                      <h4 className="font-headline-sm text-headline-sm text-on-surface text-base mb-1.5">DO 8, s. 2015 Transmuted Scores</h4>
-                      <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">Automatic conversion of raw quiz diagnostic data into official DepEd transmuted grades.</p>
+                      <h4 className="font-headline-sm text-headline-sm text-on-surface text-base mb-1.5">Socratic Hinting Engine</h4>
+                      <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">Pinpoints syntax and logic errors line by line without giving away the direct answer.</p>
                     </div>
                     <div className="p-5 rounded-xl bg-surface-container-lowest border border-surface-container-high/50 shadow-xs">
-                      <h4 className="font-headline-sm text-headline-sm text-on-surface text-base mb-1.5">Culturally Aware Taglish NLP</h4>
-                      <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">AI trained on natural Philippine classroom dialogue to ensure relatable, encouraging guidance.</p>
+                      <h4 className="font-headline-sm text-headline-sm text-on-surface text-base mb-1.5">Bilingual Taglish NLP Support</h4>
+                      <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">Explains complex computer science concepts in conversational, approachable language.</p>
                     </div>
                   </div>
                 </div>
@@ -563,61 +564,61 @@ export default function LandingPage() {
             <div className="max-w-[1120px] mx-auto px-margin-mobile lg:px-margin">
               <div className="text-center max-w-2xl mx-auto mb-16">
                 <span className="text-primary font-label-sm text-label-sm font-bold uppercase tracking-wider">
-                  Voices from the Classroom
+                  Voices from the Coding Lab
                 </span>
                 <h2 className="font-headline-lg text-headline-lg text-on-surface mt-3">
-                  Loved by teachers, advisers, and learners across the islands.
+                  Loved by computer science teachers and student coders.
                 </h2>
                 <p className="font-body-md text-body-md text-on-surface-variant mt-3 leading-relaxed">
-                  Real stories of transformation, reduced educator burnout, and newfound student confidence.
+                  Real stories of debugging breakthroughs, reduced grading fatigue, and newfound coding confidence.
                 </p>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div className="rounded-2xl bg-surface-container-lowest p-8 border border-surface-container-high/50 shadow-xs flex flex-col justify-between">
                   <div>
                     <p className="font-body-md text-body-md text-on-surface leading-relaxed mb-6">
-                      “Dati inaabot ako ng hatinggabi kakacheck ng diagnostic tests para sa apat kong sections. Sa Aralytics, nakikita ko agad kung saan nagkamali si Maria at Juan sa fractions, at may handa nang 5-item remedial drill kinabukasan.”
+                      “Dati tuwing lab hours, ang haba ng pila sa desk ko dahil sa simpleng IndexError o indentation issues. With Aralytics, students diagnose their own bugs within seconds, and I can focus on helping them design real algorithms.”
                     </p>
                   </div>
                   <div className="pt-5 border-t border-surface-container-high/40 flex items-center gap-3.5">
                     <div className="w-10 h-10 rounded-full bg-primary-fixed text-primary font-bold flex items-center justify-center shrink-0 text-sm">
-                      ES
+                      RR
                     </div>
                     <div>
-                      <h4 className="font-label-lg text-label-lg text-on-surface font-semibold">Bb. Elena Santos, LPT</h4>
-                      <p className="font-body-sm text-body-sm text-on-surface-variant">Grade 8 Adviser, Pasig NHS</p>
+                      <h4 className="font-label-lg text-label-lg text-on-surface font-semibold">Mr. Ronald Reyes</h4>
+                      <p className="font-body-sm text-body-sm text-on-surface-variant">CS &amp; Robotics Instructor, Ateneo HS</p>
                     </div>
                   </div>
                 </div>
                 <div className="rounded-2xl bg-surface-container-lowest p-8 border border-surface-container-high/50 shadow-xs flex flex-col justify-between">
                   <div>
                     <p className="font-body-md text-body-md text-on-surface leading-relaxed mb-6">
-                      “Hindi na nakakatakot magkamali sa math kasi si Aral parang mabait na tutor na nagpapaliwanag nang dahan-dahan sa Tagalog. Sobrang saya mag-streak tuwing gabi bago matulog!”
+                      “I used to get so stressed seeing red error tracebacks in terminal. Aral Coach explains off-by-one errors step by step like a patient friend in Taglish. Coding isn't intimidating anymore.”
                     </p>
                   </div>
                   <div className="pt-5 border-t border-surface-container-high/40 flex items-center gap-3.5">
                     <div className="w-10 h-10 rounded-full bg-secondary-container/50 text-secondary font-bold flex items-center justify-center shrink-0 text-sm">
-                      MD
+                      MS
                     </div>
                     <div>
-                      <h4 className="font-label-lg text-label-lg text-on-surface font-semibold">Maria Clara D.</h4>
-                      <p className="font-body-sm text-body-sm text-on-surface-variant">Grade 8 Learner, SDO Pasig</p>
+                      <h4 className="font-label-lg text-label-lg text-on-surface font-semibold">Miguel Santos</h4>
+                      <p className="font-body-sm text-body-sm text-on-surface-variant">Grade 10 Student &amp; Aspiring Developer</p>
                     </div>
                   </div>
                 </div>
                 <div className="rounded-2xl bg-surface-container-lowest p-8 border border-surface-container-high/50 shadow-xs flex flex-col justify-between">
                   <div>
                     <p className="font-body-md text-body-md text-on-surface leading-relaxed mb-6">
-                      “Our quarterly passing rates in Math and Science improved by 23% in the pilot quarter because interventions happen daily, not during finals week panic. Aralytics gives school leaders crystal clarity.”
+                      “Our student retention in elective programming jumped significantly this semester. Students don't drop out because Aralytics catches misconceptions before they compound into failed projects.”
                     </p>
                   </div>
                   <div className="pt-5 border-t border-surface-container-high/40 flex items-center gap-3.5">
                     <div className="w-10 h-10 rounded-full bg-tertiary-fixed text-tertiary font-bold flex items-center justify-center shrink-0 text-sm">
-                      RG
+                      CL
                     </div>
                     <div>
-                      <h4 className="font-label-lg text-label-lg text-on-surface font-semibold">Mr. Roberto Gomez</h4>
-                      <p className="font-body-sm text-body-sm text-on-surface-variant">Principal II, Division of City Schools</p>
+                      <h4 className="font-label-lg text-label-lg text-on-surface font-semibold">Claire Lim</h4>
+                      <p className="font-body-sm text-body-sm text-on-surface-variant">Tech Education Director, Metro Manila</p>
                     </div>
                   </div>
                 </div>
@@ -630,35 +631,35 @@ export default function LandingPage() {
               <div className="grid grid-cols-2 md:grid-cols-4 gap-space-lg text-center divide-y md:divide-y-0 md:divide-x divide-primary-fixed/20">
                 <div className="p-4 flex flex-col items-center">
                   <span className="font-metric-number text-metric-number text-tertiary-fixed font-black tracking-tight leading-none">
-                    4.2x
+                    &lt;5s
                   </span>
                   <span className="font-label-lg text-label-lg text-on-primary-container font-semibold mt-2">
-                    Faster Remediation Delivery
+                    Diagnostic AI Response
                   </span>
                   <span className="font-body-sm text-body-sm text-on-primary-container/80 mt-0.5">
-                    10-second diagnostic feedback
+                    Immediate error feedback
                   </span>
                 </div>
                 <div className="p-4 flex flex-col items-center pt-6 md:pt-4">
                   <span className="font-metric-number text-metric-number text-secondary-fixed font-black tracking-tight leading-none">
-                    92.8%
+                    94.2%
                   </span>
                   <span className="font-label-lg text-label-lg text-on-primary-container font-semibold mt-2">
-                    Quiz Completion Rate
+                    Exercise Completion Rate
                   </span>
                   <span className="font-body-sm text-body-sm text-on-primary-container/80 mt-0.5">
-                    Across low-bandwidth regions
+                    Across pilot coding classes
                   </span>
                 </div>
                 <div className="p-4 flex flex-col items-center pt-6 md:pt-4">
                   <span className="font-metric-number text-metric-number text-tertiary-fixed font-black tracking-tight leading-none">
-                    8+ Hours
+                    10+ Hours
                   </span>
                   <span className="font-label-lg text-label-lg text-on-primary-container font-semibold mt-2">
                     Saved Per Teacher / Week
                   </span>
                   <span className="font-body-sm text-body-sm text-on-primary-container/80 mt-0.5">
-                    Automated grading &amp; SF9 audit
+                    Automated code triage &amp; grading
                   </span>
                 </div>
                 <div className="p-4 flex flex-col items-center pt-6 md:pt-4">
@@ -666,10 +667,10 @@ export default function LandingPage() {
                     100%
                   </span>
                   <span className="font-label-lg text-label-lg text-on-primary-container font-semibold mt-2">
-                    DepEd DO 8, s. 2015 Compliant
+                    Pedagogical Integrity
                   </span>
                   <span className="font-body-sm text-body-sm text-on-primary-container/80 mt-0.5">
-                    Transmuted rubric formulas
+                    Socratic hints without answer leaks
                   </span>
                 </div>
               </div>
@@ -680,27 +681,27 @@ export default function LandingPage() {
             <div className="max-w-[1120px] mx-auto px-margin-mobile lg:px-margin">
               <div className="rounded-3xl bg-surface-container-lowest p-10 lg:p-16 border border-surface-container-high/60 shadow-sm text-center max-w-3xl mx-auto space-y-6">
                 <div className="w-12 h-12 rounded-xl bg-primary text-on-primary flex items-center justify-center mx-auto mb-2">
-                  <span className="material-symbols-outlined text-[28px]">school</span>
+                  <span className="material-symbols-outlined text-[28px]">terminal</span>
                 </div>
                 <h2 className="font-headline-lg text-headline-lg sm:text-[36px] text-on-surface font-bold tracking-tight">
-                  Ready to bring personalized learning to your school?
+                  Ready to transform coding education in your school?
                 </h2>
                 <p className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed max-w-xl mx-auto">
-                  Join over 45 Philippine public and private high schools pioneering AI-assisted mastery learning. <strong>Free 60-day pilot program for public high schools.</strong>
+                  Join over 60 schools and coding educators pioneering diagnostic-first computer science learning. <strong>Free 60-day pilot program for schools and coding academies.</strong>
                 </p>
                 <form className="flex flex-col sm:flex-row items-center gap-3 max-w-lg mx-auto pt-4" onSubmit={(e) => { e.preventDefault(); setPilotSubmitted(true); e.currentTarget.reset(); }}>
                   <div className="relative w-full">
                     <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-on-surface-variant">
                       <span className="material-symbols-outlined text-[20px]">mail</span>
                     </span>
-                    <input className="w-full pl-10 pr-4 py-3.5 rounded-xl bg-surface-container-low/40 border border-surface-container-high/60 focus:ring-2 focus:ring-primary text-on-surface font-body-md text-body-md shadow-xs outline-none transition-all placeholder:text-outline" placeholder="Enter your DepEd or school email..." required type="email" />
+                    <input className="w-full pl-10 pr-4 py-3.5 rounded-xl bg-surface-container-low/40 border border-surface-container-high/60 focus:ring-2 focus:ring-primary text-on-surface font-body-md text-body-md shadow-xs outline-none transition-all placeholder:text-outline" placeholder="Enter your school or educator email..." required type="email" />
                   </div>
                   <button className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-primary text-on-primary font-label-lg text-label-lg font-semibold hover:bg-primary-container transition-all whitespace-nowrap shrink-0" type="submit">
-                    Request School Pilot
+                    Request Coding Pilot
                   </button>
                 </form>
                 <div className={`p-4 rounded-xl bg-surface-container text-on-surface font-label-md text-label-md ${pilotSubmitted ? '' : 'hidden'}`} id="pilot-success-msg">
-                  🎉 Salamat po! Our DepEd division onboarding coordinator will email you within 24 hours with sandbox credentials.
+                  🎉 Salamat! Our academic onboarding coordinator will email you within 24 hours with your coding lab sandbox credentials.
                 </div>
                 <div className="pt-4 flex flex-wrap items-center justify-center gap-x-8 gap-y-2 text-on-surface-variant font-label-sm text-label-sm">
                   <span className="flex items-center gap-1.5">
@@ -713,7 +714,7 @@ export default function LandingPage() {
                   </span>
                   <span className="flex items-center gap-1.5">
                     <span className="material-symbols-outlined text-secondary text-[16px]">check</span>
-                    DepEd LMS &amp; LRN Ready
+                    Instant LMS &amp; Classroom Setup
                   </span>
                 </div>
               </div>
@@ -741,7 +742,7 @@ export default function LandingPage() {
                   <div className="w-16 h-16 rounded-full bg-tertiary-fixed text-on-tertiary-fixed flex items-center justify-center shadow-lg mb-3">
                     <span className="material-symbols-outlined text-[36px]" style={{ fontVariationSettings: "'FILL' 1" }}>play_arrow</span>
                   </div>
-                  <span className="font-headline-sm text-headline-sm text-on-primary font-bold">Watch: How Teacher Elena Uses Aralytics in Pasig NHS</span>
+                  <span className="font-headline-sm text-headline-sm text-on-primary font-bold">Watch: How Mr. Reyes Runs an Interactive Python Lab with Aralytics</span>
                   <span className="font-label-sm text-label-sm text-on-primary-container mt-1">Tagalog &amp; English Audio · 2:14 mins</span>
                 </div>
               </div>
@@ -760,41 +761,41 @@ export default function LandingPage() {
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-space-lg pb-space-xl">
             <div className="col-span-2 lg:col-span-2 flex flex-col gap-space-sm pr-space-lg">
               <div className="flex items-center gap-space-sm">
-                <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center"><span className="material-symbols-outlined text-tertiary-fixed text-[22px]">school</span></div>
+                <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center"><span className="material-symbols-outlined text-tertiary-fixed text-[22px]">terminal</span></div>
                 <span className="font-headline-sm text-headline-sm text-on-surface tracking-tight">Aralytics</span>
               </div>
-              <p className="font-body-md text-body-md text-on-surface-variant max-w-sm mt-1">Pinag-isang AI analytics platform para sa real-time diagnostics, personalized remediation, at data-backed DepEd academic governance.</p>
+              <p className="font-body-md text-body-md text-on-surface-variant max-w-sm mt-1">AI-powered diagnostic and feedback platform for computer science education, debugging mastery, and personalized coding guidance.</p>
               <div className="mt-space-sm inline-flex items-center gap-space-xs px-3 py-1.5 rounded-full bg-tertiary-fixed/30 text-tertiary font-label-sm text-label-sm w-fit">
-                <span className="material-symbols-outlined text-tertiary text-[18px]">favorite</span><span>Gawa nang may malasakit para sa kabataang Pilipino</span>
+                <span className="material-symbols-outlined text-tertiary text-[18px]">favorite</span><span>Empowering the next generation of Filipino software builders</span>
               </div>
             </div>
             <div className="flex flex-col gap-space-sm">
               <span className="font-label-lg text-label-lg text-on-surface font-semibold">Institutional</span>
-              <a className="font-body-sm text-body-sm hover:text-primary transition-colors" data-path="school-districts" href="#">School Districts</a>
-              <a className="font-body-sm text-body-sm hover:text-primary transition-colors" data-path="deped-alignment" href="#">DepEd Division Partners</a>
-              <a className="font-body-sm text-body-sm hover:text-primary transition-colors" data-path="pricing-pilot" href="#">Division Pilot Program</a>
-              <a className="font-body-sm text-body-sm hover:text-primary transition-colors" data-path="system-benchmarks" href="#">National Benchmarks</a>
+              <a className="font-body-sm text-body-sm hover:text-primary transition-colors" data-path="school-districts" href="#">School Partners</a>
+              <a className="font-body-sm text-body-sm hover:text-primary transition-colors" data-path="deped-alignment" href="#">Coding Academies</a>
+              <a className="font-body-sm text-body-sm hover:text-primary transition-colors" data-path="pricing-pilot" href="#">School Pilot Program</a>
+              <a className="font-body-sm text-body-sm hover:text-primary transition-colors" data-path="system-benchmarks" href="#">Skill Benchmarks</a>
             </div>
             <div className="flex flex-col gap-space-sm">
               <span className="font-label-lg text-label-lg text-on-surface font-semibold">Educators &amp; Youth</span>
-              <a className="font-body-sm text-body-sm hover:text-primary transition-colors" data-path="for-teachers" href="#">Teachers Roster</a>
-              <a className="font-body-sm text-body-sm hover:text-primary transition-colors" data-path="for-students" href="#">Student Resources</a>
-              <a className="font-body-sm text-body-sm hover:text-primary transition-colors" data-path="parent-portal" href="#">Parents Portal</a>
-              <a className="font-body-sm text-body-sm hover:text-primary transition-colors" data-path="intervention-hub" href="#">Remediation Hub</a>
+              <a className="font-body-sm text-body-sm hover:text-primary transition-colors" data-path="for-teachers" href="#">CS Teacher Hub</a>
+              <a className="font-body-sm text-body-sm hover:text-primary transition-colors" data-path="for-students" href="#">Student Coding Feed</a>
+              <a className="font-body-sm text-body-sm hover:text-primary transition-colors" data-path="parent-portal" href="#">Python Exercises</a>
+              <a className="font-body-sm text-body-sm hover:text-primary transition-colors" data-path="intervention-hub" href="#">Debugging Lab</a>
             </div>
             <div className="flex flex-col gap-space-sm">
               <span className="font-label-lg text-label-lg text-on-surface font-semibold">Compliance &amp; Trust</span>
               <a className="font-body-sm text-body-sm hover:text-primary transition-colors" data-path="privacy-policy" href="#">Data Privacy Act 2012</a>
               <a className="font-body-sm text-body-sm hover:text-primary transition-colors" data-path="terms-of-service" href="#">Terms of Service</a>
-              <a className="font-body-sm text-body-sm hover:text-primary transition-colors" data-path="security-standards" href="#">Student Data Security</a>
-              <a className="font-body-sm text-body-sm hover:text-primary transition-colors" data-path="deped-compliance" href="#">MATATAG Alignment</a>
+              <a className="font-body-sm text-body-sm hover:text-primary transition-colors" data-path="security-standards" href="#">Student Code Security</a>
+              <a className="font-body-sm text-body-sm hover:text-primary transition-colors" data-path="deped-compliance" href="#">AI Pedagogy Standards</a>
             </div>
           </div>
           <div className="pt-space-md flex flex-col sm:flex-row items-center justify-between gap-space-sm font-body-sm text-body-sm text-on-surface-variant">
-            <p>© {CURRENT_YEAR} Aralytics EdTech Philippines Inc. Nakalaan ang lahat ng karapatan.</p>
+            <p>© {CURRENT_YEAR} Aralytics EdTech Philippines Inc. All rights reserved.</p>
             <div className="flex items-center gap-space-md">
-              <span className="inline-flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-secondary"></span> DepEd LMS Ready</span>
-              <span>Lungsod Quezon, Pilipinas</span>
+              <span className="inline-flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-secondary"></span> Coding Lab LMS Ready</span>
+              <span>Manila, Philippines</span>
             </div>
           </div>
         </div>

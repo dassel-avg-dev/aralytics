@@ -2,7 +2,7 @@
 
 Working state of the **Aralytics** project. Update this file whenever the project changes meaningfully.
 
-**Last updated:** 2026-10-27 (new session: unreferenced scaffold assets removed — `public/icons.svg`, `src/assets/hero.png`, `react.svg`, `vite.svg`; `favicon.svg` kept, `index.html` references it)
+**Last updated:** 2026-10-27 (latest session — **`/home` + `/` re-implemented from a NEW Stitch export: full CS/Python-coding rebrand** (student Miguel Ramos, Python 101, Aral Coach diagnostic); landing hero demo card now an interactive Python quiz + AI feedback; footer `© 2024/2025` in reference HTML kept as `CURRENT_YEAR` per convention. Deliverable note: this model session has no image input, so verification was DOM/text-based (Playwright evaluate) rather than screenshot eyeballing — screenshots saved to `.playwright-mcp/` for the user to review. Both Stitch MCP (`global` config) and Playwright MCP re-enabled)
 
 ## Project Overview
 
@@ -22,8 +22,8 @@ Symptom of either: page renders but cards/colors/paddings/grid missing. Fix, the
 | React Router | v7 (`react-router-dom`) | Client routing |
 | Tailwind CSS | 4 via `@tailwindcss/vite` | Theme tokens in `src/index.css` `@theme` |
 | oxlint | installed | `npm run lint` (empty output = clean) |
-| Stitch MCP | remote, configured in **global** config `~/.config/opencode/opencode.json` (NOT project config — the `X-Goog-Api-Key` header must never be committed). **Disabled 2026-10-27** (`disabled: true`) — all needed exports already in `screens/stitch/`. Re-enable by flipping the flag | Fetches screen HTML + hosted screenshots for project `17585807675120887156` |
-| Playwright MCP | configured in `opencode.json` (`npx -y @playwright/mcp@latest`), **disabled 2026-10-27** (`disabled: true`) after the verification pass; flip the field to re-enable | Browser checks; user toggled off+on via `disabled: true` field before |
+| Stitch MCP | remote, configured in **global** config `~/.config/opencode/opencode.json` (NOT project config — the `X-Goog-Api-Key` header must never be committed). **Re-enabled 2026-10-27** (later session) and hot-reloaded mid-session — remote MCP config changes DO hot-reload in OpenCode | Fetches screen HTML + hosted screenshots for project `17585807675120887156` |
+| Playwright MCP | configured in `opencode.json` (`npx -y @playwright/mcp@latest`), **re-enabled 2026-10-27** | Browser checks; hot-reload also worked here |
 
 ## Design System
 
@@ -64,8 +64,8 @@ Also in the project (not downloaded, unless needed): `4f40a181…` hidden 390px 
 
 | Route | Screen (`src/screens/`) | Shell | Notes |
 |---|---|---|---|
-| `/` | `LandingPage.jsx` | none (own header) | converted from `screens/stitch/landing_page/code.html`; product tabs (students/teachers), demo modal, pilot form w/ success state, hamburger menu below `lg` (includes mobile CTA) |
-| `/home` | `HomeScreen.jsx` | none (own header) | learner home ("Magandang araw, Maria!"); converted from `screens/stitch/student_desktop_portal/code.html`; EN/FIL toggle state, hamburger below `xl`; bento: quiz card (ends at metadata pills — intentional gap) + mastery cards + learning path + gamification + footer |
+| `/` | `LandingPage.jsx` | none (own header) | re-implemented from **new** `screens/stitch/landing_page/code.html` (CS rebrand): python-quiz hero demo card + Aral Coach panel, product tabs (students: coding app preview / teachers: CS-101 triage table), "Coding Competencies Covered" card, 3 CS testimonials, metrics band (<5s / 94.2% / 10+ hours / 100%), pilot form w/ success state, demo modal w/ remote bg image, hamburger menu below `lg` (includes mobile CTA) |
+| `/home` | `HomeScreen.jsx` | none (own header) | learner home re-implemented from **new** `stitch/student_desktop_portal/code.html` ("Kumusta, Miguel!" — Python 101 • Section Py-B, Coach Alex Reyes); EN/FIL toggle state, hamburger below `xl`; bento: quiz card (Python Loops & List Comprehension Diagnostic) + Aral Coach AI (Diagnostic) + mastery cards (CS competencies) + learning path (coding drills) + milestones (Debug Ace/Speed Coder badges) + footer |
 | `/dashboard` | `TeacherDashboard.jsx` | yes | converted from `screens/stitch/teacher_desktop_dashboard/code.html` — KPI cards, SVG trend chart (Line Chart/Table toggle) + status donut, topic snapshot w/ filter pills, AI-ranked Needs-Attention triage (View → student modal w/ EN/FIL note language toggle), student directory table (search + status filter pills + pagination), toasts for AI Summary/encouragement |
 | `/students` | `StudentsMasteryRoster.jsx` | yes | converted; masterlist table w/ `overflow-x-auto`, search + status filter pills + topic select + pagination state, teacher log, Batch Nudge toast |
 | `/activities` | `ActivitiesQuizManagement.jsx` | yes | converted; create-activity drawer (useState + backdrop), status tabs + subject chips + format selector state |
@@ -84,11 +84,13 @@ Screens are self-contained JSX (converted from `screens/stitch/*/code.html`; Tai
 
 ## Verified State (end of session)
 
-- git repo ✅ initialized (commits: baseline → .playwright-mcp ignore → re-implementation); anchored `/screens/` ignore works
-- `npx vite build` ✅ (~550 kB JS / ~49 kB CSS; chunk-size warning is noise) • `npx oxlint src` ✅ clean • dev server on port **3000** running (fresh instance this session; old one was stale — it served pre-edit modules until killed)
-- Playwright-verified (desktop 1440px + mobile 390px, full-page screenshots): all 7 routes styled & correct. Interactions spot-checked in browser: dashboard student modal (EN/FIL toggle, Send Encouragement toast), activities create drawer, landing hamburger menu. Entities bug found & fixed: `&amp;`/`&lt;` written literally inside JS string literals in `TeacherDashboard.jsx` (JSX text children decode entities, JS strings don't)
-- Landing footer uses `CURRENT_YEAR` (© 2026); Home footer too
-- Exercise for later: `sm`/`md` tablet widths not exhaustively eyeballed; home bento left-card gap could take a filler block (dropped filler no longer in reference HTML); row action buttons on roster + dashboard pagination pages 2-6 have no data rows (static-safe)
+- git repo ✅ (commits through: MCP re-enables → asset cleanup → new Stitch re-exports → /home + / re-implementation)
+- `npx vite build` ✅ (~554 kB JS / ~49 kB CSS; chunk-size warning is noise) • `npx oxlint src` ✅ clean • dev server on port **3000** running (fresh instance)
+- New Stitch exports downloaded via `curl -L` on the hosted URLs from `get_screen` (`download_file` used to validate lengths; images got `=s0` suffix; portal → 1600×2062 JPEG, landing → 1600×7385 JPEG, magic bytes `FF D8` confirmed). Reference HTMLs now: portal 29.5 kB, landing 52 kB. Portal exports as 2560×3964, landing 2560×10812 (screenshot `=s0` serves the scaled 1600px version — fine)
+- Playwright-verified (desktop 1440px + mobile 390px): `/home` and `/` fully re-implemented — content checks (first-pass grep-clean sweep found zero stale terms), custom-token computed styles (canvas `#fbf8ff`, Nunito Sans, `px-gutter`=24px), no horizontal overflow at 390px, footer `© 2026` via `CURRENT_YEAR`. Interactions: home EN/FIL toggle + hamburger menu; landing product tab switch (teacher table: Miguel 92% Mastered), demo modal open/close, pilot form success banner
+- ⚠️ **Playwright MCP limitation this session: the model received no image input, so screenshots were NOT visually eyeballed.** All verification was DOM/text/computed-style assertions (`browser_evaluate` / `browser_find` + snapshots). Full-page screenshots saved to `.playwright-mcp/` (`landing-desktop-1440.png`, `home-desktop-1440.png`, `landing-mobile-390.png`, `home-mobile-390.png`) for a human visual pass
+- Reference footer says `© 2024` (portal) / `© 2025` (landing) — intentional deviation: kept `CURRENT_YEAR` convention
+- Exercise for later: `sm`/`md` tablet widths not eyeballed; new reference portal hero card has no "Warm-up preview" filler — left bento card has intentional empty space (unchanged from previous design); row action buttons/table pagination on the 5 unchanged screens remain static-safe
 
 ## Not Set Up Yet
 
@@ -107,6 +109,6 @@ New-session note: user env var `STITCH_API_KEY` exists (setx) but `{env:…}` di
 ## Suggested Next Steps
 
 1. Replace static data with a data layer (local mock JSON first), then loading/empty states — roster/dashboard filters and pagination currently operate on hardcoded sample rows.
-2. Wire landing "Log In" → simple auth → route role-based (teacher → `/dashboard`, learner → `/home`).
-3. Feature work behind inert buttons: Upload/Export CSV, Batch Nudge, filters, "Start Quiz Now".
-4. Tablet-width (`sm`/`md`) eyeball pass for landing + home; consider a filler block for the home bento left-card gap.
+2. Human visual pass over the 4 `.playwright-mcp/*.png` screenshots against `screens/stitch/*/screen.jpg` (model had no image input this session — DOM checks only).
+3. Wire landing "Log In" → simple auth → route role-based (teacher → `/dashboard`, learner → `/home`).
+4. Feature work behind inert buttons: Quick Drill / Start Quiz Now, View All Feedback, Preview Student Coding App, CSV exports, Batch Nudge.
