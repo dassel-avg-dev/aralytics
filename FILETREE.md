@@ -10,6 +10,7 @@ File tree of the **Aralytics** project, excluding third-party directories (`node
 aralytics/
 ├── HANDOFF.md                       # Project state, stack, conventions, next steps
 ├── FILETREE.md                      # This file
+├── LOG.md                           # Chronological log of every step taken in work sessions
 ├── .gitignore                       # Ignores node_modules, dist, etc.
 ├── .oxlintrc.json                   # oxlint linter configuration
 ├── package.json                     # Scripts, dependencies

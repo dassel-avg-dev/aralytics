@@ -105,6 +105,7 @@ New-session note: user env var `STITCH_API_KEY` exists (setx) but `{env:…}` di
 - Interactive polish goes through the browser first (playwright MCP) — inspect live, fix, re-screenshot, clean up artifacts.
 - Footer years dynamic via `CURRENT_YEAR`; DepEd school-year/quarter strings are content data (do not "update" them).
 - Keep this file + `FILETREE.md` in sync (both updated end of session).
+- Log every step in `LOG.md` as you go (append during the session, not just at the end).
 
 ## Suggested Next Steps
 
