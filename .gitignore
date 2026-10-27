@@ -11,6 +11,7 @@ node_modules
 dist
 dist-ssr
 *.local
+.playwright-mcp/
 
 # Reference design package (input material, excluded from the repo)
 /screens/
