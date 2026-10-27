@@ -22,8 +22,8 @@ Symptom of either: page renders but cards/colors/paddings/grid missing. Fix, the
 | React Router | v7 (`react-router-dom`) | Client routing |
 | Tailwind CSS | 4 via `@tailwindcss/vite` | Theme tokens in `src/index.css` `@theme` |
 | oxlint | installed | `npm run lint` (empty output = clean) |
-| Stitch MCP | remote, configured in **global** config `~/.config/opencode/opencode.json` (NOT project config — the `X-Goog-Api-Key` header must never be committed). Auth-verified. See Stitch usage notes under Design System | Fetches screen HTML + hosted screenshots for project `17585807675120887156` |
-| Playwright MCP | configured in `opencode.json` (`npx -y @playwright/mcp@latest`), currently **enabled/connected** | Browser checks; user toggled off+on via `disabled: true` field before |
+| Stitch MCP | remote, configured in **global** config `~/.config/opencode/opencode.json` (NOT project config — the `X-Goog-Api-Key` header must never be committed). **Disabled 2026-10-27** (`disabled: true`) — all needed exports already in `screens/stitch/`. Re-enable by flipping the flag | Fetches screen HTML + hosted screenshots for project `17585807675120887156` |
+| Playwright MCP | configured in `opencode.json` (`npx -y @playwright/mcp@latest`), **disabled 2026-10-27** (`disabled: true`) after the verification pass; flip the field to re-enable | Browser checks; user toggled off+on via `disabled: true` field before |
 
 ## Design System
 
