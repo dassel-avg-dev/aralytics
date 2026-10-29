@@ -19,7 +19,7 @@
 cd frontend
 npm install
 
-# 2. Start the Vite development server (http://localhost:5173)
+# 2. Start the Vite development server (http://localhost:3000)
 npm run dev
 ```
 
@@ -64,7 +64,7 @@ Run inside `frontend/` (or from root with `npm --prefix frontend run <script>`):
 
 | Command | Description |
 |---|---|
-| `npm run dev` | Starts Vite dev server with HMR at `http://localhost:5173` |
+| `npm run dev` | Starts Vite dev server with HMR at `http://localhost:3000` |
 | `npm run build` | Builds production bundle into `frontend/dist/` |
 | `npm run preview` | Serves the production build locally for verification |
 | `npm run lint` | Runs `oxlint` across `frontend/src/` (must exit with 0 warnings and 0 errors) |

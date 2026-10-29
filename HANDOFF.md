@@ -35,7 +35,7 @@ The UI is converted 1:1 from 13 Google Stitch HTML exports located in `screens/s
 | Framework | `react@^19.2.4`, `react-dom@^19.2.4` | Functional components + hooks only |
 | Routing | `react-router-dom@^7.14.1` | `<BrowserRouter>` in `frontend/src/main.jsx`, `<Routes>` in `frontend/src/App.jsx` |
 | Styling | `tailwindcss@^4.2.2`, `@tailwindcss/vite@^4.2.2` | Configured via `@theme` block in `frontend/src/index.css` (no `tailwind.config.js`) |
-| Bundler | `vite@^8.0.0`, `@vitejs/plugin-react@^6.0.0` | Dev server on `http://localhost:5173` |
+| Bundler | `vite@^8.0.0`, `@vitejs/plugin-react@^6.0.0` | Dev server on `http://localhost:3000` |
 | Linter | `oxlint@^1.51.0` | `npm run lint` (`oxlint`) inside `frontend/` |
 
 ### Commands (run from `frontend/` or with `--prefix frontend`)
