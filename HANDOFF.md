@@ -56,7 +56,7 @@ All Stitch exports share a Material-3-inspired palette and typography defined in
   - Error (Crimson): `--color-error: #ba1a1a`, `--color-error-container: #ffdad6`, `--color-on-error-container: #93000a`
   - Surfaces (Warm Sand / Cream): `--color-background: #faf9f4`, `--color-surface: #faf9f4`, `--color-surface-bright: #faf9f4`, `--color-surface-dim: #dadad5`, `--color-surface-container-lowest: #ffffff`, `--color-surface-container-low: #f4f4ef`, `--color-surface-container: #eeeee9`, `--color-surface-container-high: #e8e8e3`, `--color-surface-container-highest: #e3e3de`, `--color-on-surface: #1a1c19`, `--color-on-surface-variant: #3f4849`, `--color-outline: #6f7979`, `--color-outline-variant: #bec8c9`
 - **Fonts** (loaded in `frontend/index.html`):
-  - `--font-headline`: `'Plus Jakarta Sans', sans-serif`
+  - `--font-headline`: `'Nunito Sans', sans-serif`
   - `--font-body`: `'Inter', sans-serif`
   - `--font-label`: `'Inter', sans-serif`
   - `--font-mono`: `'JetBrains Mono', monospace`

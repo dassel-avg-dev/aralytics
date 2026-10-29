@@ -55,14 +55,13 @@ aralytics/
 │           └── screen.png                  # Visual reference screenshot
 │
 └── frontend/                               # React 19 + Vite 8 + Tailwind CSS v4 Frontend Application
-    ├── index.html                          # Vite HTML entry; loads Google Fonts (Plus Jakarta Sans, Inter, JetBrains Mono) + Material Symbols Outlined
+    ├── index.html                          # Vite HTML entry; tab title "Aralytics | AI Learning Analytics"; loads Google Fonts (Nunito Sans, Inter) + Material Symbols Outlined
     ├── package.json                        # Dependencies: react 19, react-dom 19, react-router-dom 7, @tailwindcss/vite 4, vite 8, oxlint
     ├── package-lock.json                   # Locked dependency tree
     ├── vite.config.js                      # Vite 8 config with @vitejs/plugin-react and @tailwindcss/vite
     │
     ├── public/                             # Static assets served at /
-    │   ├── favicon.svg                     # Browser tab icon
-    │   └── icons.svg                       # Starter SVG sprite (unused by Stitch screens)
+    │   ├── favicon.svg                     # Browser tab icon: primary rounded-square school mark + amber dot (matches BrandLogo)
     │
     └── src/                                # Application source code
         ├── main.jsx                        # React root mount wrapped in <BrowserRouter>
