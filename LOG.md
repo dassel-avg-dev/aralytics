@@ -124,3 +124,11 @@ Chronological log of steps taken during work sessions on this project, kept rega
 68. Fixed the quiz header by allowing the filename to shrink, hiding the redundant “Python 3.11” label below `sm`, and keeping the copy controls from shrinking. Removed `truncate` from the registration pilot notice so its complete title and description wrap on mobile.
 69. Confirmed the teacher roster table is intentionally horizontally scrollable at mobile (342px viewport, 900px table width); Playwright verified the final Actions column becomes visible after scrolling at both 390px and 1024px. Verified no document-level horizontal overflow on any route at 320, 390, 768, 1024, or 1440px; the quiz copy button stays inside its panel and both registration notice strings remain untruncated at 320, 390, and 768px. Captured `.playwright-mcp/after-quiz-mobile.png` and `after-register-mobile.png`.
 70. Ran `npm --prefix frontend run lint` (clean) and `npm --prefix frontend run build` (clean; existing >500 kB chunk-size warning only).
+
+---
+
+## Session 2026-10-29 (Project-aligned PRD)
+
+71. Confirmed no PRD file existed and reviewed the current route map, setup credentials, login implementation, and frontend interaction patterns. Verified the repository is a frontend-only prototype: demo login accepts non-empty credentials, UI uses sample/local state, and there is no product API or live AI service.
+72. Created `PRD.md` v1.1 aligned to the current two-role, 13-route product. Preserved the original goals and core requirements while clarifying invitation-based account activation (not open sign-up), the English-first scope, removed mood detection, and the distinction between prototype UI and production requirements for authentication, activity persistence, AI feedback, reports, notifications, privacy, and scale.
+73. Registered `PRD.md` in `FILETREE.md` and the repository structure section of `SETUP.md`.

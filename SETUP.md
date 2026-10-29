@@ -78,6 +78,7 @@ Run inside `frontend/` (or from root with `npm --prefix frontend run <script>`):
 aralytics/
 ├── SETUP.md          # Setup, commands, and default Student/Teacher credentials (this file)
 ├── NAVIGATION.md     # Frontend screen routes, navigation links, and backend /api/* endpoint map
+├── PRD.md            # Product requirements and current prototype/production scope distinction
 ├── HANDOFF.md        # Architecture, design tokens, and Stitch -> React conversion rules
 ├── FILETREE.md       # Complete directory & file purpose map
 ├── LOG.md            # Chronological log of project changes

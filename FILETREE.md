@@ -7,6 +7,7 @@ aralytics/
 ├── .gitignore                              # Excludes node_modules, dist, .env*, editor junk, and root /screens/ + /fetch-screens.mjs
 ├── SETUP.md                                # Developer quick-start, workspace commands, and default Student/Teacher credentials
 ├── NAVIGATION.md                           # Frontend screen routes, navigation links, and backend /api/* endpoint map
+├── PRD.md                                   # Project-aligned product requirements; distinguishes prototype UI from planned production behavior
 ├── HANDOFF.md                              # Architecture, design tokens, route map, Stitch -> React conversion rules
 ├── LOG.md                                  # Chronological append-only log of every agent action
 ├── FILETREE.md                             # This file — directory & file purpose map
