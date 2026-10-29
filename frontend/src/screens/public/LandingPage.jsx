@@ -759,9 +759,6 @@ export default function LandingPage() {
         <div className="max-w-[1120px] mx-auto px-margin-mobile lg:px-margin">
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-space-lg pb-space-xl">
             <div className="col-span-2 lg:col-span-2 flex flex-col gap-space-sm pr-space-lg">
-              <div className="flex items-center gap-space-sm">
-                <BrandLogo iconClassName="w-9 h-9" iconSize="text-[22px]" nameClassName="" />
-              </div>
               <p className="font-body-md text-body-md text-on-surface-variant max-w-sm mt-1">AI-powered diagnostic and feedback platform for computer science education, debugging mastery, and personalized coding guidance.</p>
               <div className="mt-space-sm inline-flex items-center gap-space-xs px-3 py-1.5 rounded-full bg-tertiary-fixed/30 text-tertiary font-label-sm text-label-sm w-fit">
                 <span className="material-symbols-outlined text-tertiary text-[18px]">favorite</span><span className="">Empowering the next generation of Filipino software builders</span>

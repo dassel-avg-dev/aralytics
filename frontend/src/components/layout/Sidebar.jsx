@@ -22,7 +22,7 @@ export default function Sidebar({ open = false, onClose }) {
     >
       <div className="flex flex-col">
         <div className="h-[72px] flex items-center px-space-lg gap-space-sm">
-          <BrandLogo to="/teacher/dashboard" />
+          <BrandLogo to="/" />
         </div>
         <nav className="flex flex-col gap-space-xs px-space-md mt-space-sm">
           {NAV_ITEMS.map((item) => (

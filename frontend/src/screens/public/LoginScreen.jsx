@@ -281,7 +281,6 @@ export default function LoginScreen() {
       <footer className="w-full bg-surface-container-low/60 shadow-[0_-1px_8px_rgba(91,75,219,0.02)] py-space-lg">
         <div className="max-w-[1120px] mx-auto px-margin-mobile md:px-margin flex flex-col sm:flex-row items-center justify-between gap-space-md">
           <div className="flex items-center gap-2 text-on-surface-variant">
-            <BrandLogo dotClassName="w-2.5 h-2.5" iconClassName="w-7 h-7" iconSize="text-[17px]" showName={false} to="/" />
             <span className="font-body-md text-[13.5px] text-on-surface-variant">
               © {CURRENT_YEAR} Aralytics Platform. Empowering learners and educators nationwide.
             </span>

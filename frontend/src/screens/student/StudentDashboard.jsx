@@ -12,7 +12,7 @@ export default function StudentDashboard() {
       <header className="fixed top-0 left-0 right-0 z-50 bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(91,75,219,0.06)]">
         <div className="h-20 max-w-[1120px] mx-auto px-gutter flex items-center justify-between gap-space-md">
           <div className="flex items-center gap-space-lg">
-            <BrandLogo to="/student/dashboard" />
+            <BrandLogo to="/" />
             <nav
               className="hidden xl:flex items-center gap-space-xs"
               data-active-classes="bg-primary-container text-on-primary font-label-lg text-label-lg rounded-full px-space-md py-space-xs shadow-[0_2px_8px_rgba(91,75,219,0.15)]"
@@ -723,10 +723,8 @@ export default function StudentDashboard() {
       <footer className="w-full bg-surface-container-lowest mt-space-xl py-space-lg shadow-[0_-1px_8px_rgba(91,75,219,0.04)]">
         <div className="max-w-[1120px] mx-auto px-gutter flex flex-col md:flex-row items-center justify-between gap-space-md text-center md:text-left">
           <div className="flex items-center gap-space-xs">
-            <BrandLogo dotClassName="w-2.5 h-2.5" iconClassName="w-7 h-7" iconSize="text-[17px]" showName={false} to="/" />
-            <span className="font-headline-sm text-headline-sm text-on-surface">Aralytics</span>
-            <span className="font-body-sm text-body-sm text-on-surface-variant ml-space-xs">
-              • Pagsulong sa Karunungan
+            <span className="font-body-sm text-body-sm text-on-surface-variant">
+              Pagsulong sa Karunungan
             </span>
           </div>
           <p className="font-body-sm text-body-sm text-on-surface-variant">

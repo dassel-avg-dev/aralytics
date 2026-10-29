@@ -99,7 +99,7 @@ export default function StudentProgressHistory() {
       <header className="fixed top-0 left-0 right-0 w-full z-50 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(91,75,219,0.06)]">
         <div className="h-20 max-w-7xl mx-auto px-gutter flex items-center justify-between gap-space-md">
           <div className="flex items-center gap-space-lg">
-            <BrandLogo to="/student/dashboard" />
+            <BrandLogo to="/" />
             <nav
               className="hidden xl:flex items-center gap-space-xs bg-surface-container-low/70 p-1.5 rounded-2xl"
               data-active-classes="bg-surface-container-high text-primary font-label-lg font-bold rounded-xl"
