@@ -65,7 +65,7 @@ export default function TopBar({ onMenu }) {
           </button>
           <Link
             className="flex items-center gap-space-xs bg-primary-container text-on-primary px-space-md py-2 rounded-xl font-label-md text-label-md hover:bg-primary transition-colors shadow-sm"
-            to="/activities"
+            to="/teacher/activities"
           >
             <span className="material-symbols-outlined text-[18px]">add</span>
             <span className="hidden md:inline">New Activity</span>

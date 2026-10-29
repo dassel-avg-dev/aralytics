@@ -1,115 +1,123 @@
-# HANDOFF.md
+# HANDOFF.md — Aralytics Architecture & Continuation Guide
 
-Working state of the **Aralytics** project. Update this file whenever the project changes meaningfully.
+> **Always read this file alongside [`LOG.md`](./LOG.md) and [`FILETREE.md`](./FILETREE.md) before touching any code.**
 
-**Last updated:** 2026-10-27 (latest session — **all 5 teacher screens re-implemented from their NEW CS-rebrand Stitch exports** (re-fetched 11:33 PM 2026-10-27): roster, dashboard, activities, reports, settings; Sidebar/TopBar chrome rebranded (CS Instructor / 💻 CS 101: Intro to Python). Whole app is now consistently CS/Python-themed. All verified via Playwright text/computed-style checks (no image input) + desktop screenshots saved to `.playwright-mcp/`)
+---
 
-## Project Overview
+## 1. Project Overview
 
-Aralytics — an AI learning-analytics platform for **Filipino CS classrooms** (Python programming diagnostics). **All 7 screens are now converted 1:1 from the CS-rebrand Stitch exports in `screens/stitch/*/code.html`** and verified via Playwright at desktop (1440px) + mobile (390px) overflow checks: public landing, learner home, and 5 teacher screens. Only `screens/stitch/` and `screens/warm_editorial_edtech/DESIGN.md` remain as references.
+**Aralytics** (also branded **Aralytics Pilipinas AI**) is a Philippine CS / Python coding classroom and diagnostic analytics platform. The React 19 + Vite 8 + Tailwind CSS v4 frontend lives in `frontend/` and is organized into three role-separated views:
+1. **Public & Authentication View** (`frontend/src/screens/public/`):
+   - Public Marketing Landing Page (`/`)
+   - Unified Student / Teacher Login (`/login`)
+   - Institutional Key & Account Activation (`/register`)
+2. **Student View** (`frontend/src/screens/student/`, routes under `/student/*`):
+   - Student Portal Home / Dashboard (`/student/dashboard`)
+   - Student Assigned Coding Activities (`/student/activities`)
+   - Student Live Quiz & Situational Code Scenario Arena (`/student/quiz`)
+   - Student Instant AI Feedback & Diagnostic Report (`/student/feedback`)
+   - Student Feedback History & Progress Analytics (`/student/progress`)
+3. **Teacher View** (`frontend/src/screens/teacher/`, routes under `/teacher/*`, wrapped in `AppShell`):
+   - Teacher Desktop Dashboard (`/teacher/dashboard`)
+   - Students & Coding Mastery Roster (`/teacher/students`)
+   - Coding Activities & Quizzes Management (`/teacher/activities`)
+   - Cohort Reports & Learning Analytics (`/teacher/reports`)
+   - Teacher Classroom Settings (`/teacher/settings`)
 
-⚠️ **If the UI looks unstyled/broken next session, check these two known root-cause bugs FIRST** (both happened once, both would silently recur):
-1. `src/index.css` — never let a CSS comment contain a literal `*/` sequence (it was in a `screens/*/code.html` path string; it terminates the comment early and corrupts the `@theme` block → every custom utility vanishes).
-2. `.gitignore` — the `screens` pattern **must stay root-anchored** (`/screens/`). Unanchored `screens` also matches `src/screens/`, and Tailwind v4 content detection respects `.gitignore` → all screen-only classes silently dropped from generated CSS.
-Symptom of either: page renders but cards/colors/paddings/grid missing. Fix, then **restart `npm run dev`** (vite does NOT restart on `.gitignore` changes, does restart on `vite.config.js` changes).
+The UI is converted 1:1 from 13 Google Stitch HTML exports located in `screens/stitch/` (gitignored via `/screens/` in `.gitignore`) into a modular React 19 + Vite 8 + Tailwind CSS v4 Single-Page Application inside `frontend/`.
 
-## Tech Stack
+---
 
-| Tool | Version | Purpose |
+## 2. Tech Stack & Commands
+
+| Layer | Package / Version | Notes |
 |---|---|---|
-| Vite | 8.3.5 | Dev server/bundler (rolldown-powered `vite` pkg; logs a harmless chunk-size warning in `vite build`) |
-| React | 19 | UI (JavaScript/JSX, no TypeScript) |
-| React Router | v7 (`react-router-dom`) | Client routing |
-| Tailwind CSS | 4 via `@tailwindcss/vite` | Theme tokens in `src/index.css` `@theme` |
-| oxlint | installed | `npm run lint` (empty output = clean) |
-| Stitch MCP | remote, configured in **global** config `~/.config/opencode/opencode.json` (NOT project config — the `X-Goog-Api-Key` header must never be committed). **Re-enabled 2026-10-27** (later session) and hot-reloaded mid-session — remote MCP config changes DO hot-reload in OpenCode | Fetches screen HTML + hosted screenshots for project `17585807675120887156` |
-| Playwright MCP | configured in `opencode.json` (`npx -y @playwright/mcp@latest`), **re-enabled 2026-10-27** | Browser checks; hot-reload also worked here |
+| Framework | `react@^19.2.4`, `react-dom@^19.2.4` | Functional components + hooks only |
+| Routing | `react-router-dom@^7.14.1` | `<BrowserRouter>` in `frontend/src/main.jsx`, `<Routes>` in `frontend/src/App.jsx` |
+| Styling | `tailwindcss@^4.2.2`, `@tailwindcss/vite@^4.2.2` | Configured via `@theme` block in `frontend/src/index.css` (no `tailwind.config.js`) |
+| Bundler | `vite@^8.0.0`, `@vitejs/plugin-react@^6.0.0` | Dev server on `http://localhost:5173` |
+| Linter | `oxlint@^1.51.0` | `npm run lint` (`oxlint`) inside `frontend/` |
 
-## Design System
+### Commands (run from `frontend/` or with `--prefix frontend`)
+- `npm --prefix frontend run dev` — start Vite dev server
+- `npm --prefix frontend run build` — production bundle into `frontend/dist/`
+- `npm --prefix frontend run lint` — run `oxlint` across `frontend/src/`
 
-Source of truth: `screens/warm_editorial_edtech/DESIGN.md` ("Warm Editorial EdTech"). Same design system exists in the Stitch project (`Warm Editorial EdTech` asset) — generated screens under `screens/stitch/` use it.
+---
 
-⚠️ **Reference package history:** the first build derived from `screens/aralytics_*` + `screens/` mockup dirs — **those were deleted 2026-10-27** (only `stitch/` + `warm_editorial_edtech/DESIGN.md` kept). `screens/stitch/` is now the sole screen-design source — every screen in `src/screens/` was re-implemented from its `code.html`. Differences that came out of the re-conversion:
-- `teacher_desktop_dashboard/code.html` is the **real dashboard design** (KPI cards, SVG trend chart + donut, AI insights, Needs-Attention triage, student directory table) — now live at `/dashboard`, replacing the old hand-built variant (and its `StatCard`/`MasteryRing` components, now deleted).
-- `student_desktop_portal/code.html` replaced the old `/home` design: simplified restyle (calmer streak banner, compact AI Coach card, inline metadata pills; no "Warm-up preview" filler — the new hero card ends at its metadata pills, so the left bento card has intentional empty space).
-- `landing_page/code.html` replaced the old landing: flatter bordered cards, plain "Warm Editorial" styling, same section inventory (hero → pillars → tabs → DepEd → testimonials → metrics → pilot).
-- The other 4 (roster, settings, reports, activities) were re-derived verbatim; structure unchanged.
+## 3. Design System Tokens (`frontend/src/index.css`)
 
-**Stitch screen IDs ↔ `screens/stitch/` slugs** (project `17585807675120887156`, "Aralytics Learning Platform Design"):
+All Stitch exports share a Material-3-inspired palette and typography defined inside `@theme` in `frontend/src/index.css`:
 
-| Screen slug | Screen ID |
-|---|---|
-| `students_mastery_roster` | `11487fb061364d58a7ee13f3a74832f7` |
-| `student_desktop_portal` | `1cddafa20c304b4885c42373a9c80497` |
-| `landing_page` | `77d817e2ddb94e56b55af094f1460c07` |
-| `teacher_classroom_settings` | `7893867e409b4d3d8dae0db9cc614681` |
-| `class_reports_learning_analytics` | `97a29eb994734c3eaa14511cd3081f80` |
-| `activities_quiz_management` | `a703a15b41d64dc7a3660377b9f7a1fc` |
-| `teacher_desktop_dashboard` | `faeb2f3b87484dd991ff3e818486f71a` |
+- **Colors**:
+  - Primary (Teal): `--color-primary: #00575c`, `--color-primary-container: #0e7076`, `--color-primary-fixed: #9ef0f7`, `--color-primary-fixed-dim: #82d3da`, `--color-on-primary-fixed: #002022`, `--color-on-primary-fixed-variant: #004f54`
+  - Secondary (Emerald): `--color-secondary: #1b6d24`, `--color-secondary-container: #a0f399`, `--color-secondary-fixed: #a3f69c`, `--color-on-secondary-container: #217128`, `--color-on-secondary-fixed: #002204`
+  - Tertiary (Amber/Brown): `--color-tertiary: #653e00`, `--color-tertiary-container: #835200`, `--color-tertiary-fixed: #ffddb4`, `--color-tertiary-fixed-dim: #ffb958`, `--color-on-tertiary-fixed: #291800`, `--color-on-tertiary-fixed-variant: #643f00`
+  - Error (Crimson): `--color-error: #ba1a1a`, `--color-error-container: #ffdad6`, `--color-on-error-container: #93000a`
+  - Surfaces (Warm Sand / Cream): `--color-background: #faf9f4`, `--color-surface: #faf9f4`, `--color-surface-bright: #faf9f4`, `--color-surface-dim: #dadad5`, `--color-surface-container-lowest: #ffffff`, `--color-surface-container-low: #f4f4ef`, `--color-surface-container: #eeeee9`, `--color-surface-container-high: #e8e8e3`, `--color-surface-container-highest: #e3e3de`, `--color-on-surface: #1a1c19`, `--color-on-surface-variant: #3f4849`, `--color-outline: #6f7979`, `--color-outline-variant: #bec8c9`
+- **Fonts** (loaded in `frontend/index.html`):
+  - `--font-headline`: `'Plus Jakarta Sans', sans-serif`
+  - `--font-body`: `'Inter', sans-serif`
+  - `--font-label`: `'Inter', sans-serif`
+  - `--font-mono`: `'JetBrains Mono', monospace`
+- **Radii** (`@theme` overrides):
+  - `--radius-sm: 4px`, `--radius-DEFAULT: 8px`, `--radius-md: 8px`, `--radius-lg: 12px`, `--radius-xl: 16px`, `--radius-2xl: 20px`, `--radius-3xl: 24px`, `--radius-full: 9999px`
+- **Custom Spacing** (`@theme`):
+  - `--spacing-space-xs: 4px` (`p-space-xs`, `gap-space-xs`, etc.)
+  - `--spacing-space-sm: 8px` (`p-space-sm`, `gap-space-sm`, etc.)
+  - `--spacing-space-md: 16px` (`p-space-md`, `gap-space-md`, etc.)
+  - `--spacing-space-lg: 24px` (`p-space-lg`, `gap-space-lg`, etc.)
+  - `--spacing-space-xl: 32px` (`p-space-xl`, `gap-space-xl`, etc.)
+  - `--spacing-space-2xl: 48px` (`p-space-2xl`, `gap-space-2xl`, etc.)
+- **Icons**: Google Material Symbols Outlined (`.material-symbols-outlined` in `frontend/src/index.css` with `font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24`).
 
-Also in the project (not downloaded, unless needed): `4f40a181…` hidden 390px mobile screen, `b2ec0693…` hidden legacy "Aralytics Teacher Dashboard".
+> **CRITICAL CSS RULE**: Never put a literal `*/` inside a CSS block comment in `frontend/src/index.css` (e.g., use `[all-screens]` instead of `*` followed by `/`), as that prematurely terminates the comment and breaks the Tailwind CSS parser.
 
-**Stitch MCP usage notes** (gotchas hit in 2026-10-27 session):
-- `get_screen({ name: "projects/{pid}/screens/{sid}" })` → returns `htmlCode` + `screenshot` objects with resource `name`s; `download_file({ name })` → raw `html` string or base64 `image`.
-- Hosted URLs (`lh3.googleusercontent.com/aida/…` for images, `contribution.usercontent.google.com/download?c=…` for HTML) are **publicly curl-able, no auth** — for images append **`=s0`** or you get ~512px-tall thumbnails. The 4 older screens host PNGs; the 3 newer ones (portal/landing/dashboard) host JPEGs regardless of URL extension — detect by magic bytes (`89 50 4E 47` vs `FF D8`).
-- Screenshot dims as exported: roster 2560×2856, settings 2560×3442, reports 2560×4760, activities 2560×2726 (PNG); portal 1600×2013, landing 1600×7360, dashboard 1600×2515 (JPG).
+---
 
-- Palette: indigo primary `#422ec2`/container `#5b4bdb`, turquoise secondary, amber tertiary, canvas `#fbf8ff`, ink `#151936`; status: On Track `#22a06b`, Nudge `#b8740b`/tint `#ffefd1`, Help `#e5484d`/tint `#fde4e5`; accent yellow `#ffc93c` for celebratory CTAs.
-- Fonts (**loaded in `index.html`**): **Nunito Sans** 700/800 headings+metrics, **Inter** 400–600 body, **Material Symbols Outlined** icons.
-- Custom class tokens ported verbatim into `src/index.css` `@theme` (`bg-surface-container-lowest`, `text-on-surface-variant`, `font-headline-sm`, `text-metric-number`, `px-space-lg`, `px-margin`, functional colors like `text-warn`, `bg-danger-tint`, `border-lavender-ash`, `bg-cream`) — class names in components match the mockup HTML with zero rewriting. Module-scope `const CURRENT_YEAR` drives footer years on Landing + Home.
+## 4. Screen & Route Map
 
-## App Shell & Routing (`src/App.jsx`)
-
-`BrowserRouter` → `AppShell` wrapper that renders the teacher chrome (fixed `Sidebar` 250px + fixed `TopBar` 72px + `<main pt-[72px] lg:pl-[250px]>`) **only** on teacher paths; standalone screens render fullscreen with their own headers.
-
-| Route | Screen (`src/screens/`) | Shell | Notes |
+| Route | Component | Source Stitch Export | Layout Chrome |
 |---|---|---|---|
-| `/` | `LandingPage.jsx` | none (own header) | re-implemented from **new** `screens/stitch/landing_page/code.html` (CS rebrand): python-quiz hero demo card + Aral Coach panel, product tabs (students: coding app preview / teachers: CS-101 triage table), "Coding Competencies Covered" card, 3 CS testimonials, metrics band (<5s / 94.2% / 10+ hours / 100%), pilot form w/ success state, demo modal w/ remote bg image, hamburger menu below `lg` (includes mobile CTA) |
-| `/home` | `HomeScreen.jsx` | none (own header) | learner home re-implemented from **new** `stitch/student_desktop_portal/code.html` ("Kumusta, Miguel!" — Python 101 • Section Py-B, Coach Alex Reyes); EN/FIL toggle state, hamburger below `xl`; bento: quiz card (Python Loops & List Comprehension Diagnostic) + Aral Coach AI (Diagnostic) + mastery cards (CS competencies) + learning path (coding drills) + milestones (Debug Ace/Speed Coder badges) + footer |
-| `/dashboard` | `TeacherDashboard.jsx` | yes | re-implemented from **new CS export**: "Welcome back, Mr. Reyes! 💻", cohort CS 101 - Intro to Python (Section A), KPIs (84.6% pass rate / 92.8% lab submissions), Coding Benchmark SVG trend (Line/Table toggle), Mastery by CS Concept pills (All/Syntax/Logic/Functions actually filter), Flagged for Coding Support (Miguel 58% off-by-one), directory table (CS-2024-00X IDs, initials avatars, search + status pills), student modal w/ EN/FIL note toggle, Export Lab CSV busy state, AI Diagnostics toast |
-| `/students` | `StudentsMasteryRoster.jsx` | yes | re-implemented from **new CS export**: 7 rows (Miguel Ramos 58% selected by default … Sofia Bautista 81%), `STU-109283-0X` IDs, "Needs Help" red bars rows 1–4, right drawer = Miguel detail card (Loops 42%/Conditionals 65%/Data Structures 70%/Functions 55%, per-topic grid, Assign Remedial Coding Quiz / Student Chat / Open Sandbox), row click selects; search + filter pills + topic select + pagination (1–4) + teacher log + Batch Nudge toast preserved; Incomplete/Inactive pills match zero rows in new export |
-| `/activities` | `ActivitiesQuizManagement.jsx` | yes | re-implemented from **new CS export**: "Coding Activities & Quizzes", topic chips (Python Fundamentals/Control Flow/Data Structures/Functions/Debugging), 4 coding activity cards (Loops & List Comprehension Diagnostic, Functions & Return Values debugging, Conditional Logic MCQ, While-Loop Remediation), Python 101 coverage footer 82%, create-activity drawer (Topic/Module + Section selects) + toast system |
-| `/reports` | `ClassReportsLearningAnalytics.jsx` | yes | re-implemented from **new CS export**: "Cohort Reports & Learning Analytics" for CS 101-A, Term/Section selects, 4 metric cards (83.4% mastery, 81% diagnostic efficacy, 8m45s debugging, 4-student remedial queue), CS-PY-101…104 competencies, growth matrix SVG (new students), AI Diagnostic Engine Telemetry panel replaces old 'Aral' tutor card, Institutional Reports & Exports w/ busy states |
-| `/settings` | `TeacherClassroomSettings.jsx` | yes | re-implemented from **new CS export**: "COMPUTER SCIENCE DEPARTMENT · DIAGNOSTIC CONFIGURATION", tabs (Profile & Account / Classroom & Grading / AI Diagnostic Model & Tone / Language / Notifications), Aralytics-Code-7B local model card, 3 tone cards (Socratic default), 70% intervention threshold slider, EN/Bilingual toggles, profile Mr. Ronald Reyes w/ CS 101-A + CS 201-B cohorts, 40/60 MCQ-vs-debugging weighting, dirty flag + save toast |
-| `*` | redirect → `/` | | |
+| `/` | `frontend/src/screens/public/LandingPage.jsx` | `screens/stitch/landing_page/code.html` | Standalone (Public Marketing Header + Footer) |
+| `/login` | `frontend/src/screens/public/LoginScreen.jsx` | `screens/stitch/aralytics_login/code.html` | Standalone (Auth Header + Split Card + Footer) |
+| `/register` | `frontend/src/screens/public/AccountActivationScreen.jsx` | `screens/stitch/aralytics_account_registration_activation/code.html` | Standalone (Auth Header + Split Card + Footer) |
+| `/student/dashboard` | `frontend/src/screens/student/StudentDashboard.jsx` | `screens/stitch/portal/code.html` | Standalone (Student Portal Header + Mobile Nav + Footer) |
+| `/student/activities` | `frontend/src/screens/student/StudentMyActivities.jsx` | `screens/stitch/aralytics_student_my_activities/code.html` | Standalone (Student Activities Header + Mobile Nav + Footer) |
+| `/student/quiz` | `frontend/src/screens/student/StudentLiveQuiz.jsx` | `screens/stitch/aralytics_student_live_quiz_code_scenario/code.html` | Standalone (Student Quiz Header + Sticky Submit Footer) |
+| `/student/feedback` | `frontend/src/screens/student/StudentDiagnosticReport.jsx` | `screens/stitch/aralytics_instant_ai_feedback_diagnostic_report/code.html` | Standalone (Student Feedback Header + Practice Modal + Footer) |
+| `/student/progress` | `frontend/src/screens/student/StudentProgressHistory.jsx` | `screens/stitch/aralytics_student_feedback_history_progress/code.html` | Standalone (Student Progress Header + Diagnostic Modal + Footer) |
+| `/teacher/dashboard` | `frontend/src/screens/teacher/TeacherDashboard.jsx` | `screens/stitch/aralytics_teacher_desktop_dashboard/code.html` | `AppShell` (`Sidebar` + `TopBar`) |
+| `/teacher/students` | `frontend/src/screens/teacher/StudentsMasteryRoster.jsx` | `screens/stitch/aralytics_students_mastery_roster/code.html` | `AppShell` (`Sidebar` + `TopBar`) |
+| `/teacher/activities` | `frontend/src/screens/teacher/ActivitiesQuizManagement.jsx` | `screens/stitch/aralytics_activities_quiz_management/code.html` | `AppShell` (`Sidebar` + `TopBar`) |
+| `/teacher/reports` | `frontend/src/screens/teacher/ClassReportsLearningAnalytics.jsx` | `screens/stitch/reports/code.html` | `AppShell` (`Sidebar` + `TopBar`) |
+| `/teacher/settings` | `frontend/src/screens/teacher/TeacherClassroomSettings.jsx` | `screens/stitch/teacher_settings/code.html` | `AppShell` (`Sidebar` + `TopBar`) |
 
-Unknown paths land on `/`. Landing logo → `/home`; Home nav pills → `/activities`, `/reports`; sidebar logo → `/home`. Landing "Log In" CTA still inert (`#`).
+### Backwards-Compatible Redirects (`frontend/src/App.jsx`)
+- `/home` and `/student` -> `/student/dashboard`
+- `/student/diagnostic-report` -> `/student/feedback`
+- `/teacher` and `/dashboard` -> `/teacher/dashboard`
+- `/students` -> `/teacher/students`
+- `/activities` -> `/teacher/activities`
+- `/reports` -> `/teacher/reports`
+- `/settings` -> `/teacher/settings`
 
-## Layout Components (`src/components/`)
+---
 
-- `layout/Sidebar.jsx` — teacher nav rail; below `lg` becomes hamburger drawer (App-level `navOpen` state, backdrop tap + link tap auto-close), active route highlight via NavLink; logo image + wordmark → `/home`
-- `layout/TopBar.jsx` — fixed bar: hamburger (mobile), class pill, search, EN/FIL, notifications, New Activity → `/activities`, avatar; elements progressively hidden on narrow widths
+## 5. Layout Architecture (`AppShell` vs Standalone)
 
-Screens are self-contained JSX (converted from `screens/stitch/*/code.html`; Tailwind classes verbatim; remote googleusercontent images kept with `onError` hide fallbacks; dashboard avatars use initials). Screens don't import each other. `ui/` is empty — the old `StatCard.jsx`/`MasteryRing.jsx` were only used by the pre-reconversion dashboard and were deleted.
+- **Teacher View Screens** (`/teacher/dashboard`, `/teacher/students`, `/teacher/activities`, `/teacher/reports`, `/teacher/settings`) share the exact same 240px left `<aside>` (`Sidebar.jsx`) and 64px sticky `<header>` (`TopBar.jsx`). `AppShell.jsx` renders both, plus a responsive mobile slide-over drawer (`lg:hidden`) triggered by a hamburger button in `TopBar.jsx`, and wraps children in `<main className="lg:ml-[240px] flex-1 p-6 lg:p-space-xl max-w-[1600px]">`.
+  - Therefore, the 5 teacher screen components in `frontend/src/screens/teacher/` render **only the inner content of `<main>`** (from the Page Header `<div>` through the end of `<main>`), plus any screen-specific modals/drawers.
+- **Public & Auth Screens** (`/`, `/login`, `/register` in `frontend/src/screens/public/`) and **Student View Screens** (`/student/*` in `frontend/src/screens/student/`) use their own standalone headers and footers from their respective Stitch exports and bypass `AppShell` in `frontend/src/App.jsx`. Each Student View screen preserves its exact Stitch top navigation bar while wiring all links to `/student/*` and `/login` and providing a responsive `xl:hidden` hamburger menu for smaller screens.
 
-## Verified State (end of session)
+---
 
-- git repo ✅ (commits through: MCP re-enables → asset cleanup → new Stitch re-exports → /home + / re-implementation → **5 teacher screens CS rebrand**)
-- `npx oxlint src` ✅ clean (exit 0) • `npx vite build` ✅ (~550 kB JS chunk-size warning is noise) • dev server running (port 3002 this session — 3000/3001 occupied by stale prior instances; kill them or pick the reported port)
-- Playwright-verified all 5 teacher routes at 1440px: per-route text assertions (CS terms present, zero stale "Grade 8/Sampaguita/LRN" terms) pass; body bg `rgb(251, 248, 255)` (canvas) + Inter confirmed; **no horizontal overflow at 390px on all 5**. Settings' "Mr. Ronald Reyes" confirmed present on the Profile & Account tab (not the default tab)
-- ⚠️ Model again had no image input — no visual eyeballing. Full-page desktop screenshots saved: `.playwright-mcp/{dashboard,roster,activities,reports,settings}-desktop-1440.png` (+ 4 older landing/home shots) for a human visual pass
-- Chrome components: Sidebar ("CS Instructor") + TopBar ("💻 CS 101: Intro to Python (42 students)" / "CS 101" mobile) rebranded manually (exports don't include chrome) — uncommitted edits from the interrupted prior session, now committed
-- Only remaining stale term in src: one decorative `data-alt` on `LandingPage.jsx` (verbatim from the landing export; text-only attribute)
-- Exercise for later: `sm`/`md` tablet widths not eyeballed; mobile-viewport screenshots of the 5 teacher screens not captured this session (overflow checks only); row action buttons/table pagination on all screens remain static-safe
+## 6. Rules for Modifying or Adding Screens
 
-## Not Set Up Yet
-
-backend/API/data layer (all data static — roster search/filter/pagination operate on the 9 rendered sample rows only), auth (login CTA inert), tests, CI, mobile app.
-
-New-session note: user env var `STITCH_API_KEY` exists (setx) but `{env:…}` did NOT expand inside the live opencode service during this session (Windows doesn't refresh running process env) — if env substitution is ever needed, restart OpenCode from a new terminal first. The global-config key already proves the sanctioned path.
-
-## Conventions
-
-- Tailwind v4 only — extend theme via `@theme` in `src/index.css`, never a JS config.
-- `screens/` (root) → reference package, git-ignored via anchored `/screens/`, read-only runtime rule: never import from it.
-- Interactive polish goes through the browser first (playwright MCP) — inspect live, fix, re-screenshot, clean up artifacts.
-- Footer years dynamic via `CURRENT_YEAR`; DepEd school-year/quarter strings are content data (do not "update" them).
-- Keep this file + `FILETREE.md` in sync (both updated end of session).
-- Log every step in `LOG.md` as you go (append during the session, not just at the end).
-
-## Suggested Next Steps
-
-1. Replace static data with a data layer (local mock JSON first), then loading/empty states — roster/dashboard filters and pagination currently operate on hardcoded sample rows.
-2. Human visual pass over the 9 `.playwright-mcp/*.png` screenshots against `screens/stitch/*/screen.*` (model had no image input — DOM checks only; also capture mobile screenshots of the 5 teacher screens next time).
-3. Wire landing "Log In" → simple auth → route role-based (teacher → `/dashboard`, learner → `/home`).
-4. Feature work behind inert buttons: Quick Drill / Start Quiz Now, View All Feedback, Preview Student Coding App, CSV exports, Batch Nudge.
+1. **Preserve Stitch Fidelity**: Keep all exact copy, statistics, Filipino/English code-switching examples (`Kumusta, Miguel!`, `G. Santos`, `Maria Clara R.`, `Juan Dela Cruz`), SVG illustrations, and Tailwind classes from `screens/stitch/*/code.html`.
+2. **React/JSX Cleanliness**:
+   - Convert `class` -> `className`, `for` -> `htmlFor`, `tabindex` -> `tabIndex`, SVG `stroke-width` -> `strokeWidth`, `stroke-dasharray` -> `strokeDasharray`, `stroke-dashoffset` -> `strokeDashoffset`, `stroke-linecap` -> `strokeLinecap`, `fill-rule` -> `fillRule`, `clip-rule` -> `clipRule`.
+   - Convert inline `<script>` handlers (`onclick="..."`, `onsubmit="..."`) into idiomatic React `useState` state and event handlers. Never use `window.alert` or `window.confirm`.
+   - Always clean up `setTimeout` / `setInterval` timers on unmount via `useEffect` + `useRef`.
+3. **Resilient Remote Avatars**: Any external `lh3.googleusercontent.com` `<img>` must include `onError={(e) => { e.currentTarget.style.visibility = 'hidden'; }}` inside a styled fallback container so offline/blocked requests degrade gracefully.
+4. **Update Documentation**: Every time you complete a change, append an entry to [`LOG.md`](./LOG.md) and update [`FILETREE.md`](./FILETREE.md) + [`HANDOFF.md`](./HANDOFF.md) if routes, files, or architecture changed.

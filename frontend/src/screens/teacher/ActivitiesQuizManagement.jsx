@@ -17,7 +17,7 @@ export default function ActivitiesQuizManagement() {
   }
 
   return (
-    <>
+    <div className="flex flex-col w-full">
       <div className="w-full max-w-[1120px] mx-auto px-space-md lg:px-space-lg py-space-lg">
         {/* Top Context & Header Action Suite */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-space-lg pb-space-lg">
@@ -38,15 +38,15 @@ export default function ActivitiesQuizManagement() {
           <div className="flex flex-wrap items-center gap-space-sm shrink-0">
             <button className="flex items-center gap-2 px-space-md py-2.5 rounded-[14px] bg-surface-container-lowest text-on-surface-variant font-label-lg text-label-lg shadow-sm hover:bg-surface-container transition-all" type="button">
               <span className="material-symbols-outlined text-[18px]">menu_book</span>
-              <span>Curriculum Standards</span>
+              <span className="">Curriculum Standards</span>
             </button>
             <button className="flex items-center gap-2 px-space-md py-2.5 rounded-[14px] bg-primary-fixed text-primary font-label-lg text-label-lg hover:bg-surface-container-high transition-all" type="button">
               <span className="material-symbols-outlined text-[18px]">bookmark_manager</span>
-              <span>Templates</span>
+              <span className="">Templates</span>
             </button>
             <button className="flex items-center gap-2 px-space-lg py-2.5 rounded-[14px] bg-primary-container text-on-primary font-label-lg text-label-lg shadow-md hover:bg-primary transition-all" type="button" onClick={() => setDrawerOpen(true)}>
               <span className="material-symbols-outlined text-[18px] text-tertiary-fixed-dim" style={{ fontVariationSettings: "'FILL' 1" }}>auto_awesome</span>
-              <span>+ Create Activity</span>
+              <span className="">+ Create Activity</span>
             </button>
           </div>
         </div>
@@ -70,7 +70,7 @@ export default function ActivitiesQuizManagement() {
             <div className="flex items-center gap-space-sm w-full lg:w-auto justify-end">
               <button className="flex items-center gap-2 px-space-md py-2.5 rounded-[14px] bg-tertiary-fixed-dim text-on-surface font-label-lg text-label-lg hover:brightness-105 shadow-sm transition-all" type="button" onClick={() => showToast('Generating a 5-question coding drill for Python • Loops & Lists ✨')}>
                 <span className="material-symbols-outlined text-[18px]">bolt</span>
-                <span>Create Coding Drill</span>
+                <span className="">Create Coding Drill</span>
               </button>
             </div>
           </div>
@@ -101,7 +101,7 @@ export default function ActivitiesQuizManagement() {
               </button>
             ))}
           </div>
-          {/* Topic Filtering Chips */}
+          {/* Subject Filtering Chips */}
           <div className="flex items-center gap-2 overflow-x-auto max-w-full py-1">
             <span className="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider pl-1">Topic:</span>
             {['All Topics', 'Python Fundamentals', 'Control Flow & Loops', 'Data Structures', 'Functions & Scope', 'Debugging & Logic'].map((topic) => (
@@ -122,10 +122,9 @@ export default function ActivitiesQuizManagement() {
         </div>
         {/* Activity Cards Grid (Primary Presentation) */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-space-lg mb-space-xl">
-          {/* Card 1: Python Loops & Lists Diagnostic */}
+          {/* Card 1: Diagnostic Math Fractions */}
           <div className="flex flex-col justify-between rounded-[20px] bg-surface-container-lowest p-space-lg shadow-sm hover:shadow-md transition-all relative overflow-hidden group">
             <div className="flex flex-col gap-space-sm">
-              {/* Top Tagging & Status */}
               <div className="flex items-center justify-between gap-space-xs">
                 <div className="flex items-center gap-2">
                   <span className="px-2.5 py-1 rounded-full bg-surface-container text-primary font-label-sm text-label-sm">
@@ -140,7 +139,6 @@ export default function ActivitiesQuizManagement() {
                   Active • Ends Friday 5:00 PM
                 </span>
               </div>
-              {/* Main Info */}
               <div>
                 <h3 className="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors">
                   Python Loops &amp; List Comprehension Diagnostic
@@ -149,23 +147,19 @@ export default function ActivitiesQuizManagement() {
                   Assigned to <span className="font-medium text-on-surface">Section A (42 students)</span> • 10 Questions (~8 mins)
                 </p>
               </div>
-              {/* Metric & Progress Module */}
               <div className="p-space-md rounded-[16px] bg-surface-container-low/60 flex flex-col gap-space-xs my-space-xs">
                 <div className="flex items-center justify-between font-label-sm text-label-sm">
                   <span className="text-on-surface-variant">Class Turnout: 39 / 42 Students</span>
                   <span className="font-bold text-on-surface">92.8%</span>
                 </div>
-                {/* Progress Bar */}
                 <div className="w-full h-2 rounded-full bg-surface-container-high overflow-hidden">
                   <div className="h-full rounded-full bg-secondary" style={{ width: '92.8%' }}></div>
                 </div>
-                {/* Score Pill Module */}
                 <div className="flex items-center justify-between pt-1">
                   <span className="font-body-sm text-body-sm text-on-surface-variant">Average Class Score</span>
                   <span className="font-headline-sm text-headline-sm text-primary">78.4%</span>
                 </div>
               </div>
-              {/* AI Feedback Notice */}
               <div className="flex items-center gap-2 p-2.5 rounded-xl bg-surface-container font-body-sm text-body-sm text-on-surface">
                 <span className="material-symbols-outlined text-[18px] text-primary" style={{ fontVariationSettings: "'FILL' 1" }}>smart_toy</span>
                 <span className="text-on-surface-variant text-[13px] leading-tight">
@@ -173,7 +167,6 @@ export default function ActivitiesQuizManagement() {
                 </span>
               </div>
             </div>
-            {/* Footer Actions */}
             <div className="flex items-center justify-between pt-space-md mt-space-md">
               <div className="flex items-center gap-1">
                 <button className="p-2 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" title="Edit Questions" type="button">
@@ -184,15 +177,14 @@ export default function ActivitiesQuizManagement() {
                 </button>
               </div>
               <button className="flex items-center gap-1.5 px-space-md py-2 rounded-[14px] bg-primary-container text-on-primary font-label-md text-label-md hover:bg-primary transition-all shadow-xs" type="button">
-                <span>View Submissions &amp; AI Feedback</span>
+                <span className="">View Submissions &amp; AI Feedback</span>
                 <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
               </button>
             </div>
           </div>
-          {/* Card 2: Functions & Scope Scenario */}
+          {/* Card 2: Science Cellular Respiration Quiz */}
           <div className="flex flex-col justify-between rounded-[20px] bg-surface-container-lowest p-space-lg shadow-sm hover:shadow-md transition-all relative overflow-hidden group">
             <div className="flex flex-col gap-space-sm">
-              {/* Top Tagging & Status */}
               <div className="flex items-center justify-between gap-space-xs">
                 <div className="flex items-center gap-2">
                   <span className="px-2.5 py-1 rounded-full bg-surface-container text-secondary font-label-sm text-label-sm">
@@ -207,7 +199,6 @@ export default function ActivitiesQuizManagement() {
                   Review Ready
                 </span>
               </div>
-              {/* Main Info */}
               <div>
                 <h3 className="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors">
                   Functions &amp; Return Values: Situational Debugging
@@ -216,7 +207,6 @@ export default function ActivitiesQuizManagement() {
                   Assigned to <span className="font-medium text-on-surface">Section A (42 students)</span> • 8 Questions (~10 mins)
                 </p>
               </div>
-              {/* Metric & Progress Module */}
               <div className="p-space-md rounded-[16px] bg-surface-container-low/60 flex flex-col gap-space-xs my-space-xs">
                 <div className="flex items-center justify-between font-label-sm text-label-sm">
                   <span className="text-on-surface-variant">Class Turnout: 41 / 42 Students</span>
@@ -230,7 +220,6 @@ export default function ActivitiesQuizManagement() {
                   <span className="font-headline-sm text-headline-sm text-secondary">86.2%</span>
                 </div>
               </div>
-              {/* Bug Insight Note */}
               <div className="flex items-center gap-2 p-2.5 rounded-xl bg-surface-container-low font-body-sm text-body-sm text-on-surface">
                 <span className="material-symbols-outlined text-[18px] text-secondary">bug_report</span>
                 <span className="text-on-surface-variant text-[13px] leading-tight">
@@ -238,7 +227,6 @@ export default function ActivitiesQuizManagement() {
                 </span>
               </div>
             </div>
-            {/* Footer Actions */}
             <div className="flex items-center justify-between pt-space-md mt-space-md">
               <div className="flex items-center gap-1">
                 <button className="p-2 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" title="Export CSV" type="button">
@@ -249,15 +237,14 @@ export default function ActivitiesQuizManagement() {
                 </button>
               </div>
               <button className="flex items-center gap-1.5 px-space-md py-2 rounded-[14px] bg-secondary text-on-secondary font-label-md text-label-md hover:opacity-90 transition-all shadow-xs" type="button" onClick={() => showToast('Scores & insights published for Functions & Return Values ✅')}>
-                <span>Publish Scores &amp; Insights</span>
+                <span className="">Publish Scores &amp; Insights</span>
                 <span className="material-symbols-outlined text-[16px]">send</span>
               </button>
             </div>
           </div>
-          {/* Card 3: Conditional Statements & Boolean Logic */}
+          {/* Card 3: Ibong Adarna Filipino Reading */}
           <div className="flex flex-col justify-between rounded-[20px] bg-surface-container-lowest p-space-lg shadow-sm hover:shadow-md transition-all relative overflow-hidden group">
             <div className="flex flex-col gap-space-sm">
-              {/* Top Tagging & Status */}
               <div className="flex items-center justify-between gap-space-xs">
                 <div className="flex items-center gap-2">
                   <span className="px-2.5 py-1 rounded-full bg-surface-container text-tertiary font-label-sm text-label-sm">
@@ -272,7 +259,6 @@ export default function ActivitiesQuizManagement() {
                   Completed
                 </span>
               </div>
-              {/* Main Info */}
               <div>
                 <h3 className="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors">
                   Conditional Statements &amp; Boolean Logic
@@ -281,7 +267,6 @@ export default function ActivitiesQuizManagement() {
                   Assigned to <span className="font-medium text-on-surface">Section A (42 students)</span> • 12 Questions (~10 mins)
                 </p>
               </div>
-              {/* Metric & Progress Module */}
               <div className="p-space-md rounded-[16px] bg-surface-container-low/60 flex flex-col gap-space-xs my-space-xs">
                 <div className="flex items-center justify-between font-label-sm text-label-sm">
                   <span className="text-on-surface-variant">Class Turnout: 42 / 42 Students</span>
@@ -295,7 +280,6 @@ export default function ActivitiesQuizManagement() {
                   <span className="font-headline-sm text-headline-sm text-secondary">91.5%</span>
                 </div>
               </div>
-              {/* Highlight */}
               <div className="flex items-center gap-2 p-2.5 rounded-xl bg-surface-container font-body-sm text-body-sm text-on-surface">
                 <span className="material-symbols-outlined text-[18px] text-tertiary-fixed-dim" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
                 <span className="text-on-surface-variant text-[13px] leading-tight">
@@ -303,7 +287,6 @@ export default function ActivitiesQuizManagement() {
                 </span>
               </div>
             </div>
-            {/* Footer Actions */}
             <div className="flex items-center justify-between pt-space-md mt-space-md">
               <div className="flex items-center gap-1">
                 <button className="p-2 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" title="Edit Content" type="button">
@@ -314,15 +297,14 @@ export default function ActivitiesQuizManagement() {
                 </button>
               </div>
               <button className="flex items-center gap-1.5 px-space-md py-2 rounded-[14px] bg-primary-container text-on-primary font-label-md text-label-md hover:bg-primary transition-all shadow-xs" type="button">
-                <span>View Submissions</span>
+                <span className="">View Submissions</span>
                 <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
               </button>
             </div>
           </div>
-          {/* Card 4: Targeted Loop Remediation */}
+          {/* Card 4: Targeted Remedial Intervention */}
           <div className="flex flex-col justify-between rounded-[20px] bg-surface-container-lowest p-space-lg shadow-sm hover:shadow-md transition-all relative overflow-hidden group">
             <div className="flex flex-col gap-space-sm">
-              {/* Top Tagging & Status */}
               <div className="flex items-center justify-between gap-space-xs">
                 <div className="flex items-center gap-2">
                   <span className="px-2.5 py-1 rounded-full bg-error-container text-on-error-container font-label-sm text-label-sm font-semibold">
@@ -337,7 +319,6 @@ export default function ActivitiesQuizManagement() {
                   In Progress (3/4)
                 </span>
               </div>
-              {/* Main Info */}
               <div>
                 <h3 className="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors">
                   Targeted Remedial: While Loop Counter &amp; Boundary Practice
@@ -346,7 +327,6 @@ export default function ActivitiesQuizManagement() {
                   5 Micro-Questions • Adaptive Socratic hints enabled
                 </p>
               </div>
-              {/* Flagged Students Chips Module */}
               <div className="p-space-md rounded-[16px] bg-surface-container-low/70 flex flex-col gap-2 my-space-xs">
                 <span className="font-label-sm text-label-sm text-on-surface-variant">Assigned to 4 flagged students:</span>
                 <div className="flex flex-wrap gap-1.5">
@@ -368,7 +348,6 @@ export default function ActivitiesQuizManagement() {
                   </span>
                 </div>
               </div>
-              {/* Nudge Action Callout */}
               <div className="flex items-center justify-between p-2.5 rounded-xl bg-surface-container font-body-sm text-body-sm text-on-surface">
                 <div className="flex items-center gap-2">
                   <span className="material-symbols-outlined text-[18px] text-primary">schedule_send</span>
@@ -379,7 +358,6 @@ export default function ActivitiesQuizManagement() {
                 </button>
               </div>
             </div>
-            {/* Footer Actions */}
             <div className="flex items-center justify-between pt-space-md mt-space-md">
               <div className="flex items-center gap-1">
                 <button className="p-2 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" title="Add Students" type="button">
@@ -387,31 +365,13 @@ export default function ActivitiesQuizManagement() {
                 </button>
               </div>
               <button className="flex items-center gap-1.5 px-space-md py-2 rounded-[14px] bg-primary text-on-primary font-label-md text-label-md hover:bg-primary-container transition-all shadow-xs" type="button">
-                <span>Review Intervention</span>
+                <span className="">Review Intervention</span>
                 <span className="material-symbols-outlined text-[16px]">trending_up</span>
               </button>
             </div>
           </div>
         </div>
-        {/* Supplementary CS Curriculum Mapping Footer Widget */}
-        <div className="p-space-lg rounded-[20px] bg-surface-container-lowest shadow-sm flex flex-col md:flex-row items-center justify-between gap-space-md">
-          <div className="flex items-center gap-space-md">
-            <div className="w-10 h-10 rounded-xl bg-surface-container flex items-center justify-center text-primary shrink-0">
-              <span className="material-symbols-outlined text-[22px]">account_tree</span>
-            </div>
-            <div className="flex flex-col">
-              <span className="font-label-lg text-label-lg text-on-surface">Python 101 Curriculum Coverage Indicator</span>
-              <span className="font-body-sm text-body-sm text-on-surface-variant">
-                Python 101 Curriculum Coverage: <strong>82% assessed</strong> across core coding competencies.
-              </span>
-            </div>
-          </div>
-          <div className="flex items-center gap-space-sm shrink-0">
-            <button className="px-space-md py-2 rounded-[14px] bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md transition-colors" type="button">
-              View Learning Matrix
-            </button>
-          </div>
-        </div>
+        {/* Supplementary DepEd Competency Mapping Footer Widget */}
       </div>
       {/* Interactive Slide-Over Drawer for Quick Activity Creation */}
       <div
@@ -502,7 +462,14 @@ export default function ActivitiesQuizManagement() {
             <button className="px-space-md py-2.5 rounded-[14px] bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-container-high transition-colors" type="button" onClick={() => setDrawerOpen(false)}>
               Cancel
             </button>
-            <button className="px-space-lg py-2.5 rounded-[14px] bg-primary-container text-on-primary font-label-md text-label-md hover:bg-primary transition-all shadow-md" type="button" onClick={() => { setDrawerOpen(false); showToast(`Activity "${format}" draft created — add your questions next 🎉`) }}>
+            <button
+              className="px-space-lg py-2.5 rounded-[14px] bg-primary-container text-on-primary font-label-md text-label-md hover:bg-primary transition-all shadow-md"
+              type="button"
+              onClick={() => {
+                setDrawerOpen(false)
+                showToast(`Activity "${format}" draft created — add your questions next 🎉`)
+              }}
+            >
               Save &amp; Add Questions
             </button>
           </div>
@@ -517,6 +484,6 @@ export default function ActivitiesQuizManagement() {
           </div>
         </div>
       )}
-    </>
+    </div>
   )
 }

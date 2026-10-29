@@ -14,14 +14,13 @@ export default function LandingPage() {
       <header className="fixed top-0 w-full z-50 bg-surface/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(91,75,219,0.06)]">
         <div className="h-20 max-w-[1120px] mx-auto px-margin-mobile lg:px-margin flex items-center justify-between gap-space-md">
           <div className="flex items-center gap-space-lg">
-            <Link className="flex items-center gap-space-sm group focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-xl" to="/home">
+            <Link className="flex items-center gap-space-sm group focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-xl" data-path="home" to="/">
               <div className="relative w-10 h-10 rounded-xl bg-primary flex items-center justify-center shadow-[0_4px_16px_rgba(91,75,219,0.2)] transition-transform duration-200 group-hover:scale-105">
                 <span className="material-symbols-outlined text-tertiary-fixed text-[26px] select-none">school</span>
                 <div className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 rounded-full bg-tertiary-fixed border-2 border-surface"></div>
               </div>
               <div className="flex flex-col">
                 <span className="font-headline-sm text-headline-sm tracking-tight text-on-surface leading-none">Aralytics</span>
-                <span className="font-label-sm text-label-sm text-on-surface-variant leading-none mt-1">Pilipinas AI</span>
               </div>
             </Link>
             <nav className="hidden lg:flex items-center gap-1" data-active-classes="bg-surface-container-high text-primary font-label-lg rounded-xl">
@@ -29,7 +28,7 @@ export default function LandingPage() {
               <a className="px-3 py-2 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-label-lg text-label-lg" data-path="for-students" href="#">For Students</a>
               <a className="px-3 py-2 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-label-lg text-label-lg" data-path="for-teachers" href="#">For Teachers</a>
               <a className="px-3 py-2 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-label-lg text-label-lg" data-path="curriculum" href="#">Curriculum &amp; Topics</a>
-              <a className="px-3 py-2 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-label-lg text-label-lg" data-path="pricing-pilot" href="#">Pricing / Pilot</a>
+              <a className="px-3 py-2 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-label-lg text-label-lg" data-path="pricing-pilot" href="#pilot-signup">Pricing&nbsp;&nbsp;</a>
             </nav>
             <button
               aria-expanded={menuOpen}
@@ -45,13 +44,9 @@ export default function LandingPage() {
             </button>
           </div>
           <div className="flex items-center gap-space-sm lg:gap-space-md">
-            <div className="flex items-center bg-surface-container-low p-1 rounded-full text-on-surface-variant font-label-sm text-label-sm">
-              <button className="px-2.5 py-1 rounded-full bg-surface-container-lowest text-primary shadow-[0_1px_4px_rgba(91,75,219,0.08)] font-label-sm text-label-sm font-semibold transition-all" type="button">EN</button>
-              <span className="text-outline-variant px-0.5">|</span>
-              <button className="px-2.5 py-1 rounded-full hover:text-on-surface font-label-sm text-label-sm transition-colors" type="button">FIL</button>
-            </div>
-            <button className="hidden sm:inline-flex px-3.5 py-2 rounded-xl text-on-surface font-label-lg text-label-lg hover:bg-surface-container transition-colors" data-path="login" type="button">Log In</button>
-            <a className="hidden lg:inline-flex items-center justify-center px-4 py-2.5 rounded-xl bg-primary text-on-primary font-label-lg text-label-lg shadow-[0_4px_16px_rgba(91,75,219,0.18)] hover:bg-primary-container hover:text-on-primary-container transition-all focus:outline-none focus:ring-4 focus:ring-primary-fixed" data-path="pricing-pilot" href="#">Start Free Classroom Pilot</a>
+            <div className="flex items-center bg-surface-container-low p-1 rounded-full text-on-surface-variant font-label-sm text-label-sm"></div>
+            <Link className="hidden sm:inline-flex px-3.5 py-2 rounded-xl text-on-surface font-label-lg text-label-lg hover:bg-surface-container transition-colors" data-path="login" to="/login">Log In</Link>
+            <a className="hidden sm:inline-flex items-center justify-center px-4 py-2.5 rounded-xl bg-primary text-on-primary font-label-lg text-label-lg shadow-[0_4px_16px_rgba(91,75,219,0.18)] hover:bg-primary-container hover:text-on-primary-container transition-all focus:outline-none focus:ring-4 focus:ring-primary-fixed" data-path="pricing-pilot" href="#pilot-signup">Start Free Classroom Pilot</a>
             <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0">
               <span className="material-symbols-outlined text-on-primary text-[18px]">person</span>
             </div>
@@ -59,29 +54,40 @@ export default function LandingPage() {
         </div>
         {/* Mobile nav dropdown */}
         {menuOpen && (
-          <div className="lg:hidden border-t border-lavender-ash bg-surface/95 backdrop-blur-xl px-margin-mobile py-space-md flex flex-col gap-1">
+          <div className="lg:hidden border-t border-surface-container-high bg-surface/95 backdrop-blur-xl px-margin-mobile py-space-md flex flex-col gap-1">
             <a
               className="flex items-center justify-center px-3 py-2.5 rounded-xl bg-primary text-on-primary font-label-lg text-label-lg font-semibold"
               data-path="pricing-pilot"
-              href="#"
-              key="cta"
+              href="#pilot-signup"
               onClick={() => setMenuOpen(false)}
             >
               Start Free Classroom Pilot
             </a>
-            {['Features', 'For Students', 'For Teachers', 'Curriculum & Topics', 'Pricing / Pilot'].map(
-              (label) => (
-                <a
-                  className="flex items-center px-3 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-label-lg text-label-lg"
-                  data-path={label.toLowerCase().replace(/[^a-z]+/g, '-')}
-                  href="#"
-                  key={label}
-                  onClick={() => setMenuOpen(false)}
-                >
-                  {label}
-                </a>
-              ),
-            )}
+            <Link
+              className="flex items-center px-3 py-2.5 rounded-xl text-on-surface hover:bg-surface-container transition-colors font-label-lg text-label-lg"
+              data-path="login"
+              onClick={() => setMenuOpen(false)}
+              to="/login"
+            >
+              Log In
+            </Link>
+            {[
+              { label: 'Features', path: 'features', href: '#' },
+              { label: 'For Students', path: 'for-students', href: '#' },
+              { label: 'For Teachers', path: 'for-teachers', href: '#' },
+              { label: 'Curriculum & Topics', path: 'curriculum', href: '#' },
+              { label: 'Pricing  ', path: 'pricing-pilot', href: '#pilot-signup' },
+            ].map((item) => (
+              <a
+                className="flex items-center px-3 py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-label-lg text-label-lg"
+                data-path={item.path}
+                href={item.href}
+                key={item.path}
+                onClick={() => setMenuOpen(false)}
+              >
+                {item.label}
+              </a>
+            ))}
           </div>
         )}
       </header>
@@ -105,14 +111,14 @@ export default function LandingPage() {
               </p>
               <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto mb-12">
                 <a className="w-full sm:w-auto inline-flex items-center justify-center gap-space-sm px-6 py-3.5 rounded-xl bg-primary text-on-primary font-label-lg text-label-lg shadow-sm hover:bg-primary-container transition-all" href="#pilot-signup">
-                  <span>Launch Free School Pilot</span>
+                  <span className="">Launch Free School Pilot</span>
                   <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
                 </a>
                 <button className="w-full sm:w-auto inline-flex items-center justify-center gap-space-sm px-6 py-3.5 rounded-xl bg-surface-container-lowest text-on-surface font-label-lg text-label-lg border border-surface-container-high/60 shadow-xs hover:bg-surface-container-low transition-all" onClick={() => setDemoOpen(true)} type="button">
                   <span className="w-6 h-6 rounded-full bg-surface-container flex items-center justify-center text-primary">
                     <span className="material-symbols-outlined text-[16px]" style={{ fontVariationSettings: "'FILL' 1" }}>play_arrow</span>
                   </span>
-                  <span>Watch 2-Min Classroom Demo</span>
+                  <span className="">Watch 2-Min Classroom Demo</span>
                 </button>
               </div>
               <div className="w-full max-w-2xl py-2.5 px-4 rounded-full bg-surface-container-low/50 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-center mb-16">
@@ -124,7 +130,7 @@ export default function LandingPage() {
                 <span className="text-outline-variant hidden sm:inline">•</span>
                 <span className="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1.5">
                   <span className="material-symbols-outlined text-secondary text-[16px]">verified</span>
-                  <span><strong className="text-on-surface font-semibold">120,000+</strong> code exercises analyzed</span>
+                  <span className=""><strong className="text-on-surface font-semibold">120,000+</strong> code exercises analyzed</span>
                 </span>
               </div>
               <div className="w-full rounded-2xl bg-surface-container-lowest p-6 lg:p-8 shadow-[0_8px_32px_rgba(91,75,219,0.06)] border border-surface-container-high/50 relative">
@@ -144,7 +150,7 @@ export default function LandingPage() {
                           <span className="material-symbols-outlined text-[16px]">timer</span> 38s avg speed
                         </span>
                       </div>
-                      <h2 className="font-headline-sm text-headline-sm text-on-surface mb-3">
+                      <h2 className="font-headline-sm text-headline-sm text-on-surface mb-2">
                         Predict the output and identify any runtime issue:
                       </h2>
                       <div className="p-4 rounded-xl bg-surface-container-lowest border border-surface-container-high/50 text-left my-3 font-mono text-xs">
@@ -153,7 +159,7 @@ export default function LandingPage() {
                         <p className="text-primary font-semibold">for i in range(len(grades) + 1):</p>
                         <p className="text-primary font-semibold pl-4">print(grades[i])</p>
                       </div>
-                      <p className="font-body-sm text-body-sm text-on-surface-variant mb-5">
+                      <p className="font-body-sm text-body-sm text-on-surface-variant mb-4">
                         <em>Hint:</em> Check zero-based indexing boundaries in Python lists.
                       </p>
                       <div className="space-y-2.5">
@@ -175,7 +181,7 @@ export default function LandingPage() {
                       </div>
                     </div>
                     <div className="pt-4 mt-6 border-t border-surface-container-high/50 flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm">
-                      <span>Miguel Santos (Grade 10)</span>
+                      <span className="">Miguel Santos (Grade 10)</span>
                       <span className="opacity-75">Student ID: CS-2024-884</span>
                     </div>
                   </div>
@@ -201,20 +207,20 @@ export default function LandingPage() {
                       <div className="space-y-2 mb-6">
                         <div className="flex items-center gap-2.5 p-3 rounded-lg bg-surface-container-low/40 text-on-surface font-label-sm text-label-sm">
                           <span className="material-symbols-outlined text-secondary text-[18px]">check_circle</span>
-                          <span><strong>Mastered:</strong> List Off-by-One Boundaries &amp; Index Errors</span>
+                          <span className=""><strong>Mastered:</strong> List Off-by-One Boundaries &amp; Index Errors</span>
                         </div>
                         <div className="flex items-center gap-2.5 p-3 rounded-lg bg-surface-container-low/40 text-on-surface font-label-sm text-label-sm">
                           <span className="material-symbols-outlined text-primary text-[18px]">lightbulb</span>
-                          <span><strong>Next Step:</strong> Nested list iteration and 2D arrays</span>
+                          <span className=""><strong>Next Step:</strong> Nested list iteration and 2D arrays</span>
                         </div>
                       </div>
                     </div>
                     <div className="pt-4 border-t border-surface-container-high/50 flex items-center justify-between">
                       <span className="font-label-sm text-label-sm text-on-surface-variant font-medium">Topic Mastery: <strong>92%</strong></span>
-                      <button className="px-3.5 py-2 rounded-lg bg-primary text-on-primary font-label-sm text-label-sm font-semibold hover:bg-primary-container transition-all flex items-center gap-1.5" type="button">
-                        <span>Next Coding Drill</span>
+                      <Link className="px-3.5 py-2 rounded-lg bg-primary text-on-primary font-label-sm text-label-sm font-semibold hover:bg-primary-container transition-all flex items-center gap-1.5" to="/student/quiz">
+                        <span className="">Next Coding Drill</span>
                         <span className="material-symbols-outlined text-[14px]">arrow_forward</span>
-                      </button>
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -250,7 +256,7 @@ export default function LandingPage() {
                   </div>
                   <div className="mt-8 pt-4 border-t border-surface-container-high/40 flex items-center gap-2 text-primary font-label-sm text-label-sm font-medium">
                     <span className="material-symbols-outlined text-[16px]">check</span>
-                    <span>Eliminates debugger anxiety</span>
+                    <span className="">Eliminates debugger anxiety</span>
                   </div>
                 </div>
                 <div className="rounded-2xl bg-surface-container-lowest p-8 shadow-xs border border-surface-container-high/50 flex flex-col justify-between hover:shadow-sm transition-all">
@@ -267,7 +273,7 @@ export default function LandingPage() {
                   </div>
                   <div className="mt-8 pt-4 border-t border-surface-container-high/40 flex items-center gap-2 text-secondary font-label-sm text-label-sm font-medium">
                     <span className="material-symbols-outlined text-[16px]">check</span>
-                    <span>Instant lab section visibility</span>
+                    <span className="">Instant lab section visibility</span>
                   </div>
                 </div>
                 <div className="rounded-2xl bg-surface-container-lowest p-8 shadow-xs border border-surface-container-high/50 flex flex-col justify-between hover:shadow-sm transition-all">
@@ -284,7 +290,7 @@ export default function LandingPage() {
                   </div>
                   <div className="mt-8 pt-4 border-t border-surface-container-high/40 flex items-center gap-2 text-tertiary font-label-sm text-label-sm font-medium">
                     <span className="material-symbols-outlined text-[16px]">check</span>
-                    <span>Deep conceptual mastery</span>
+                    <span className="">Deep conceptual mastery</span>
                   </div>
                 </div>
               </div>
@@ -306,11 +312,11 @@ export default function LandingPage() {
                 <div className="mt-8 inline-flex p-1 rounded-full bg-surface-container-high/50 border border-surface-container-high/60">
                   <button className={`px-6 py-2 rounded-full ${productTab === 'students' ? 'bg-surface-container-lowest text-primary shadow-xs' : 'text-on-surface-variant hover:text-on-surface'} font-label-lg text-label-lg font-semibold transition-all flex items-center gap-2`} id="tab-btn-students" onClick={() => setProductTab('students')} type="button">
                     <span className="material-symbols-outlined text-[18px]">backpack</span>
-                    <span>Student Experience</span>
+                    <span className="">Student Experience</span>
                   </button>
                   <button className={`px-6 py-2 rounded-full ${productTab === 'teachers' ? 'bg-surface-container-lowest text-primary shadow-xs' : 'text-on-surface-variant hover:text-on-surface'} font-label-lg text-label-lg font-semibold transition-all flex items-center gap-2`} id="tab-btn-teachers" onClick={() => setProductTab('teachers')} type="button">
                     <span className="material-symbols-outlined text-[18px]">co_present</span>
-                    <span>Teacher &amp; Adviser Hub</span>
+                    <span className="">Teacher &amp; Adviser Hub</span>
                   </button>
                 </div>
               </div>
@@ -318,7 +324,7 @@ export default function LandingPage() {
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
                   <div className="lg:col-span-5 space-y-6">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm font-semibold">
-                      <span>Interactive Code Companion</span>
+                      <span className="">Interactive Code Companion</span>
                     </div>
                     <h3 className="font-headline-lg text-headline-md text-on-surface">
                       Daily 8-minute micro-drills that turn coding intimidation into mastery.
@@ -329,22 +335,22 @@ export default function LandingPage() {
                     <ul className="space-y-3.5 font-body-md text-body-md text-on-surface">
                       <li className="flex items-start gap-3">
                         <span className="material-symbols-outlined text-secondary text-[20px] mt-0.5">check_circle</span>
-                        <span><strong>Line-by-Line Diagnostics:</strong> Immediate explanations for SyntaxError, TypeError, and logic flaws.</span>
+                        <span className=""><strong>Line-by-Line Diagnostics:</strong> Immediate explanations for SyntaxError, TypeError, and logic flaws.</span>
                       </li>
                       <li className="flex items-start gap-3">
                         <span className="material-symbols-outlined text-secondary text-[20px] mt-0.5">check_circle</span>
-                        <span><strong>Gamified Mastery Streaks:</strong> 5-minute drills for functions, loops, lists, and OOP concepts.</span>
+                        <span className=""><strong>Gamified Mastery Streaks:</strong> 5-minute drills for functions, loops, lists, and OOP concepts.</span>
                       </li>
                       <li className="flex items-start gap-3">
                         <span className="material-symbols-outlined text-secondary text-[20px] mt-0.5">check_circle</span>
-                        <span><strong>Low-Bandwidth Web &amp; Mobile:</strong> Complete offline syntax reviews, sync when connected.</span>
+                        <span className=""><strong>Low-Bandwidth Web &amp; Mobile:</strong> Complete offline syntax reviews, sync when connected.</span>
                       </li>
                     </ul>
                     <div className="pt-2">
-                      <a className="inline-flex items-center gap-2 text-primary font-label-lg text-label-lg font-bold hover:underline" href="#pilot-signup">
-                        <span>Preview Student Coding App</span>
+                      <Link className="inline-flex items-center gap-2 text-primary font-label-lg text-label-lg font-bold hover:underline" to="/student/dashboard">
+                        <span className="">Preview Student Coding App</span>
                         <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
-                      </a>
+                      </Link>
                     </div>
                   </div>
                   <div className="lg:col-span-7 bg-surface-container-low/40 rounded-xl p-6 border border-surface-container-high/40">
@@ -363,13 +369,13 @@ export default function LandingPage() {
                       </div>
                       <div className="p-4 rounded-xl bg-surface-container-low/60 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                         <div>
-                          <span className="text-primary font-label-sm text-label-sm font-semibold uppercase tracking-wider">Today's Coding Focus</span>
+                          <span className="text-primary font-label-sm text-label-sm font-semibold uppercase tracking-wider">Today&apos;s Coding Focus</span>
                           <h4 className="font-headline-sm text-headline-sm text-on-surface mt-1">Python List Comprehension &amp; Loops</h4>
                           <p className="font-body-sm text-body-sm text-on-surface-variant">5 diagnostic coding challenges · 7 mins</p>
                         </div>
-                        <button className="px-4 py-2 rounded-lg bg-primary text-on-primary font-label-md text-label-md font-semibold hover:bg-primary-container shrink-0" type="button">
+                        <Link className="px-4 py-2 rounded-lg bg-primary text-on-primary font-label-md text-label-md font-semibold hover:bg-primary-container shrink-0" to="/student/dashboard">
                           Simulan Na →
-                        </button>
+                        </Link>
                       </div>
                       <div className="grid grid-cols-3 gap-3 pt-1">
                         <div className="p-3.5 rounded-xl bg-surface-container-low/40 text-center">
@@ -393,7 +399,7 @@ export default function LandingPage() {
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
                   <div className="lg:col-span-5 space-y-6">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm font-semibold">
-                      <span>CS Teacher Command Center</span>
+                      <span className="">CS Teacher Command Center</span>
                     </div>
                     <h3 className="font-headline-lg text-headline-md text-on-surface">
                       Identify students stuck on syntax or logic before project deadlines.
@@ -404,22 +410,22 @@ export default function LandingPage() {
                     <ul className="space-y-3.5 font-body-md text-body-md text-on-surface">
                       <li className="flex items-start gap-3">
                         <span className="material-symbols-outlined text-primary text-[20px] mt-0.5">analytics</span>
-                        <span><strong>Real-Time Lab Triage:</strong> Detect students facing repeated IndexError or infinite loops.</span>
+                        <span className=""><strong>Real-Time Lab Triage:</strong> Detect students facing repeated IndexError or infinite loops.</span>
                       </li>
                       <li className="flex items-start gap-3">
                         <span className="material-symbols-outlined text-primary text-[20px] mt-0.5">download_done</span>
-                        <span><strong>Automated Mastery Reports:</strong> Export objective skill benchmarks for every student.</span>
+                        <span className=""><strong>Automated Mastery Reports:</strong> Export objective skill benchmarks for every student.</span>
                       </li>
                       <li className="flex items-start gap-3">
                         <span className="material-symbols-outlined text-primary text-[20px] mt-0.5">sms</span>
-                        <span><strong>Targeted Remedial Exercises:</strong> Push auto-generated 3-item debugging drills.</span>
+                        <span className=""><strong>Targeted Remedial Exercises:</strong> Push auto-generated 3-item debugging drills.</span>
                       </li>
                     </ul>
                     <div className="pt-2">
-                      <a className="inline-flex items-center gap-2 text-primary font-label-lg text-label-lg font-bold hover:underline" href="#pilot-signup">
-                        <span>Request Teacher CS Sandbox</span>
+                      <Link className="inline-flex items-center gap-2 text-primary font-label-lg text-label-lg font-bold hover:underline" to="/teacher/dashboard">
+                        <span className="">Request Teacher CS Sandbox</span>
                         <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
-                      </a>
+                      </Link>
                     </div>
                   </div>
                   <div className="lg:col-span-7 bg-surface-container-low/40 rounded-xl p-6 border border-surface-container-high/40">
@@ -429,9 +435,9 @@ export default function LandingPage() {
                           <h4 className="font-label-lg text-label-lg text-on-surface font-bold">Section CS-101 · Python Programming</h4>
                           <span className="font-label-sm text-label-sm text-on-surface-variant">Instructor: Mr. Ronald Reyes · 38 Enrolled</span>
                         </div>
-                        <button className="px-3.5 py-1.5 rounded-lg bg-primary text-on-primary font-label-sm text-label-sm font-semibold flex items-center gap-1.5" type="button">
+                        <Link className="px-3.5 py-1.5 rounded-lg bg-primary text-on-primary font-label-sm text-label-sm font-semibold flex items-center gap-1.5" to="/teacher/dashboard">
                           <span className="material-symbols-outlined text-[14px]">send</span> Push Drill
-                        </button>
+                        </Link>
                       </div>
                       <div className="overflow-x-auto">
                         <table className="w-full text-left font-body-sm text-body-sm">
@@ -466,7 +472,7 @@ export default function LandingPage() {
                         </table>
                       </div>
                       <div className="pt-4 border-t border-surface-container-high/50 flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm">
-                        <span>31 Mastered · 5 Nudge · 2 Urgent Debug</span>
+                        <span className="">31 Mastered · 5 Nudge · 2 Urgent Debug</span>
                         <span className="text-secondary font-semibold flex items-center gap-1">
                           <span className="material-symbols-outlined text-[16px]">check</span> Lab Triage Live
                         </span>
@@ -531,7 +537,7 @@ export default function LandingPage() {
                     </div>
                     <div className="pt-2 flex items-center gap-2 text-on-surface-variant font-label-sm text-label-sm">
                       <span className="material-symbols-outlined text-[18px] text-secondary">check_circle</span>
-                      <span>Compatible with school computer lab Chromebooks and student laptops.</span>
+                      <span className="">Compatible with school computer lab Chromebooks and student laptops.</span>
                     </div>
                   </div>
                 </div>
@@ -593,7 +599,7 @@ export default function LandingPage() {
                 <div className="rounded-2xl bg-surface-container-lowest p-8 border border-surface-container-high/50 shadow-xs flex flex-col justify-between">
                   <div>
                     <p className="font-body-md text-body-md text-on-surface leading-relaxed mb-6">
-                      “I used to get so stressed seeing red error tracebacks in terminal. Aral Coach explains off-by-one errors step by step like a patient friend in Taglish. Coding isn't intimidating anymore.”
+                      “I used to get so stressed seeing red error tracebacks in terminal. Aral Coach explains off-by-one errors step by step like a patient friend in Taglish. Coding isn&apos;t intimidating anymore.”
                     </p>
                   </div>
                   <div className="pt-5 border-t border-surface-container-high/40 flex items-center gap-3.5">
@@ -609,7 +615,7 @@ export default function LandingPage() {
                 <div className="rounded-2xl bg-surface-container-lowest p-8 border border-surface-container-high/50 shadow-xs flex flex-col justify-between">
                   <div>
                     <p className="font-body-md text-body-md text-on-surface leading-relaxed mb-6">
-                      “Our student retention in elective programming jumped significantly this semester. Students don't drop out because Aralytics catches misconceptions before they compound into failed projects.”
+                      “Our student retention in elective programming jumped significantly this semester. Students don&apos;t drop out because Aralytics catches misconceptions before they compound into failed projects.”
                     </p>
                   </div>
                   <div className="pt-5 border-t border-surface-container-high/40 flex items-center gap-3.5">
@@ -766,36 +772,36 @@ export default function LandingPage() {
               </div>
               <p className="font-body-md text-body-md text-on-surface-variant max-w-sm mt-1">AI-powered diagnostic and feedback platform for computer science education, debugging mastery, and personalized coding guidance.</p>
               <div className="mt-space-sm inline-flex items-center gap-space-xs px-3 py-1.5 rounded-full bg-tertiary-fixed/30 text-tertiary font-label-sm text-label-sm w-fit">
-                <span className="material-symbols-outlined text-tertiary text-[18px]">favorite</span><span>Empowering the next generation of Filipino software builders</span>
+                <span className="material-symbols-outlined text-tertiary text-[18px]">favorite</span><span className="">Empowering the next generation of Filipino software builders</span>
               </div>
             </div>
             <div className="flex flex-col gap-space-sm">
               <span className="font-label-lg text-label-lg text-on-surface font-semibold">Institutional</span>
               <a className="font-body-sm text-body-sm hover:text-primary transition-colors" data-path="school-districts" href="#">School Partners</a>
-              <a className="font-body-sm text-body-sm hover:text-primary transition-colors" data-path="deped-alignment" href="#">Coding Academies</a>
-              <a className="font-body-sm text-body-sm hover:text-primary transition-colors" data-path="pricing-pilot" href="#">School Pilot Program</a>
-              <a className="font-body-sm text-body-sm hover:text-primary transition-colors" data-path="system-benchmarks" href="#">Skill Benchmarks</a>
+              <a className="font-body-sm text-body-sm hover:text-primary transition-colors" data-path="coding-academies" href="#">Coding Academies</a>
+              <a className="font-body-sm text-body-sm hover:text-primary transition-colors" data-path="pricing-pilot" href="#pilot-signup">School Pilot Program</a>
+              <a className="font-body-sm text-body-sm hover:text-primary transition-colors" data-path="cs-benchmarks" href="#">Skill Benchmarks</a>
             </div>
             <div className="flex flex-col gap-space-sm">
               <span className="font-label-lg text-label-lg text-on-surface font-semibold">Educators &amp; Youth</span>
-              <a className="font-body-sm text-body-sm hover:text-primary transition-colors" data-path="for-teachers" href="#">CS Teacher Hub</a>
-              <a className="font-body-sm text-body-sm hover:text-primary transition-colors" data-path="for-students" href="#">Student Coding Feed</a>
-              <a className="font-body-sm text-body-sm hover:text-primary transition-colors" data-path="parent-portal" href="#">Python Exercises</a>
-              <a className="font-body-sm text-body-sm hover:text-primary transition-colors" data-path="intervention-hub" href="#">Debugging Lab</a>
+              <Link className="font-body-sm text-body-sm hover:text-primary transition-colors" data-path="for-teachers" to="/teacher/dashboard">CS Teacher Hub</Link>
+              <Link className="font-body-sm text-body-sm hover:text-primary transition-colors" data-path="for-students" to="/student/dashboard">Student Coding Feed</Link>
+              <Link className="font-body-sm text-body-sm hover:text-primary transition-colors" data-path="exercises" to="/student/quiz">Python Exercises</Link>
+              <Link className="font-body-sm text-body-sm hover:text-primary transition-colors" data-path="debug-lab" to="/student/quiz">Debugging Lab</Link>
             </div>
             <div className="flex flex-col gap-space-sm">
               <span className="font-label-lg text-label-lg text-on-surface font-semibold">Compliance &amp; Trust</span>
               <a className="font-body-sm text-body-sm hover:text-primary transition-colors" data-path="privacy-policy" href="#">Data Privacy Act 2012</a>
               <a className="font-body-sm text-body-sm hover:text-primary transition-colors" data-path="terms-of-service" href="#">Terms of Service</a>
               <a className="font-body-sm text-body-sm hover:text-primary transition-colors" data-path="security-standards" href="#">Student Code Security</a>
-              <a className="font-body-sm text-body-sm hover:text-primary transition-colors" data-path="deped-compliance" href="#">AI Pedagogy Standards</a>
+              <a className="font-body-sm text-body-sm hover:text-primary transition-colors" data-path="pedagogy-ethics" href="#">AI Pedagogy Standards</a>
             </div>
           </div>
           <div className="pt-space-md flex flex-col sm:flex-row items-center justify-between gap-space-sm font-body-sm text-body-sm text-on-surface-variant">
-            <p>© {CURRENT_YEAR} Aralytics EdTech Philippines Inc. All rights reserved.</p>
+            <p className="">© {CURRENT_YEAR} Aralytics EdTech Philippines Inc. All rights reserved.</p>
             <div className="flex items-center gap-space-md">
               <span className="inline-flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-secondary"></span> Coding Lab LMS Ready</span>
-              <span>Manila, Philippines</span>
+              <span className="">Manila, Philippines</span>
             </div>
           </div>
         </div>

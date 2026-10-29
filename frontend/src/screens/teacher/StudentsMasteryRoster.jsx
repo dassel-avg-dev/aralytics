@@ -1,9 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react'
 
-// Row + student-detail data rebuilt from the NEW Stitch export
-// (screens/stitch/students_mastery_roster/code.html — CS 101: Intro to Python).
-// Per-row filter tags follow each row's visible status pill
-// (Needs Help -> 'struggling', On Track -> 'high').
+// Row + student-detail data rebuilt from the Stitch export
+// (screens/stitch/aralytics_students_mastery_roster/code.html — CS 101: Intro to Python).
 const rowMeta = [
   {
     text: 'miguel ramos 109283-01',
@@ -138,42 +136,46 @@ const rowMeta = [
     aiSummary: '“Strong function decomposition. Writes clean docstrings and modular helper functions.”',
     intervention: 'Assign Function Design Sprint',
   },
-];
+]
 
-const pillActive = 'px-3 py-1.5 rounded-full bg-primary-container text-on-primary font-bold shadow-xs whitespace-nowrap';
-const pillIdle = 'px-3 py-1.5 rounded-full bg-surface-container text-on-surface-variant hover:bg-surface-container-high transition-colors whitespace-nowrap flex items-center gap-1';
-const rowActionBtn = 'p-1.5 rounded-lg hover:bg-surface-container transition-colors';
-const iconFill = { fontVariationSettings: "'FILL' 1" };
-const imgFallback = (e) => (e.currentTarget.style.visibility = 'hidden');
+const pillActive = 'px-3 py-1.5 rounded-full bg-primary-container text-on-primary font-bold shadow-xs whitespace-nowrap'
+const pillIdle = 'px-3 py-1.5 rounded-full bg-surface-container text-on-surface-variant hover:bg-surface-container-high transition-colors whitespace-nowrap flex items-center gap-1'
+const rowActionBtn = 'p-1.5 rounded-lg hover:bg-surface-container transition-colors'
+const iconFill = { fontVariationSettings: "'FILL' 1" }
+const imgFallback = (e) => (e.currentTarget.style.visibility = 'hidden')
 
 export default function StudentsMasteryRoster() {
-  const [query, setQuery] = useState('');
-  const [subject, setSubject] = useState('all');
-  const [activeFilter, setActiveFilter] = useState('all');
-  const [selected, setSelected] = useState(0);
-  const [page, setPage] = useState(1);
-  const [note, setNote] = useState('Spoke with Miguel. He confuses 0-indexed lists with 1-based counting. Paired with peer mentor and assigned loop tracer.');
-  const [savedLabel, setSavedLabel] = useState('Saved 10m ago');
-  const [showToast, setShowToast] = useState(false);
+  const [query, setQuery] = useState('')
+  const [subject, setSubject] = useState('all')
+  const [activeFilter, setActiveFilter] = useState('all')
+  const [selected, setSelected] = useState(0)
+  const [page, setPage] = useState(1)
+  const [note, setNote] = useState('Spoke with Miguel. He confuses 0-indexed lists with 1-based counting. Paired with peer mentor and assigned loop tracer.')
+  const [savedLabel, setSavedLabel] = useState('Saved 10m ago')
+  const [showToast, setShowToast] = useState(false)
+  const toastTimer = useRef(null)
 
-  const sel = rowMeta[selected];
+  useEffect(() => () => clearTimeout(toastTimer.current), [])
+
+  const sel = rowMeta[selected]
 
   const rowVisible = (i) => {
-    const row = rowMeta[i];
-    const q = query.trim().toLowerCase();
+    const row = rowMeta[i]
+    const q = query.trim().toLowerCase()
     return (
       (activeFilter === 'all' || row.tags.includes(activeFilter)) &&
       (q === '' || row.text.includes(q))
-    );
-  };
+    )
+  }
 
   const rowClass = (i, base) =>
-    `${rowVisible(i) ? '' : 'hidden '}${selected === i ? 'bg-surface-container-high/40 border-l-4 border-l-primary-container ' : ''}${base}`;
+    `${rowVisible(i) ? '' : 'hidden '}${selected === i ? 'bg-surface-container-high/40 border-l-4 border-l-primary-container ' : ''}${base}`
 
   const handleBatchNudge = () => {
-    setShowToast(true);
-    setTimeout(() => setShowToast(false), 3500);
-  };
+    setShowToast(true)
+    clearTimeout(toastTimer.current)
+    toastTimer.current = setTimeout(() => setShowToast(false), 3500)
+  }
 
   return (
     <div className="flex flex-col w-full">
@@ -184,7 +186,7 @@ export default function StudentsMasteryRoster() {
             <div className="flex items-center gap-space-xs text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider">
               <span className="text-primary font-bold">Classroom Central</span>
               <span className="material-symbols-outlined text-[14px]">chevron_right</span>
-              <span>Learner Performance Diagnostics</span>
+              <span className="">Learner Performance Diagnostics</span>
             </div>
             <h1 className="font-headline-lg text-headline-lg text-on-surface tracking-tight">Students &amp; Coding Mastery Roster</h1>
             <p className="font-body-md text-body-md text-on-surface-variant">
@@ -195,15 +197,15 @@ export default function StudentsMasteryRoster() {
           <div className="flex flex-wrap items-center gap-space-sm">
             <button className="flex items-center gap-space-xs px-space-md py-2.5 rounded-xl bg-surface-container-lowest text-on-surface hover:bg-surface-container-high transition-all shadow-sm font-label-md text-label-md" title="Download spreadsheet of student records" type="button">
               <span className="material-symbols-outlined text-[18px] text-on-surface-variant">download</span>
-              <span>Export Masterlist (CSV)</span>
+              <span className="">Export Masterlist (CSV)</span>
             </button>
             <button className="flex items-center gap-space-xs px-space-md py-2.5 rounded-xl bg-surface-container text-primary hover:bg-surface-container-high transition-all font-label-md text-label-md" onClick={handleBatchNudge} title="Broadcast nudge to filtered group" type="button">
               <span className="material-symbols-outlined text-[18px]">forward_to_inbox</span>
-              <span>Batch Nudge / Message</span>
+              <span className="">Batch Nudge / Message</span>
             </button>
             <button className="flex items-center gap-space-xs px-space-md py-2.5 rounded-xl bg-primary-container text-on-primary hover:bg-primary transition-all shadow-md font-label-md text-label-md" title="Enroll new learner" type="button">
               <span className="material-symbols-outlined text-[18px]">person_add</span>
-              <span>+ Add Student</span>
+              <span className="">+ Add Student</span>
             </button>
           </div>
         </div>
@@ -222,7 +224,7 @@ export default function StudentsMasteryRoster() {
               </div>
               <div className="flex items-center gap-1 font-body-sm text-body-sm text-secondary font-medium">
                 <span className="material-symbols-outlined text-[16px]">trending_up</span>
-                <span>71% of class · Meets mastery</span>
+                <span className="">71% of class · Meets mastery</span>
               </div>
             </div>
             {/* Progress Ring Visual */}
@@ -247,7 +249,7 @@ export default function StudentsMasteryRoster() {
               </div>
               <div className="flex items-center gap-1 font-body-sm text-body-sm text-tertiary font-medium">
                 <span className="material-symbols-outlined text-[16px]">info</span>
-                <span>19% of class · Borderline 70-75%</span>
+                <span className="">19% of class · Borderline 70-75%</span>
               </div>
             </div>
             {/* Progress Ring Visual */}
@@ -272,7 +274,7 @@ export default function StudentsMasteryRoster() {
               </div>
               <div className="flex items-center gap-1 font-body-sm text-body-sm text-error font-medium">
                 <span className="material-symbols-outlined text-[16px]">priority_high</span>
-                <span>10% of class · Below 70% threshold</span>
+                <span className="">10% of class · Below 70% threshold</span>
               </div>
             </div>
             {/* Progress Ring Visual */}
@@ -294,7 +296,7 @@ export default function StudentsMasteryRoster() {
               <div className="flex flex-col md:flex-row gap-space-sm items-center justify-between">
                 <div className="relative w-full md:max-w-md">
                   <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">search</span>
-                  <input className="w-full bg-surface-container-low text-on-surface placeholder:text-on-surface-variant font-body-sm text-body-sm pl-10 pr-4 py-2.5 rounded-xl border-none focus:outline-none focus:ring-2 focus:ring-primary-container transition-all" placeholder="Filter by student name, LRN, or topic..." type="text" value={query} onChange={(e) => setQuery(e.target.value)}/>
+                  <input className="w-full bg-surface-container-low text-on-surface placeholder:text-on-surface-variant font-body-sm text-body-sm pl-10 pr-4 py-2.5 rounded-xl border-none focus:outline-none focus:ring-2 focus:ring-primary-container transition-all" placeholder="Filter by student name, LRN, or topic..." type="text" value={query} onChange={(e) => setQuery(e.target.value)} />
                 </div>
                 {/* Subject selector dropdown */}
                 <div className="w-full md:w-auto flex items-center gap-space-xs self-stretch md:self-auto">
@@ -350,7 +352,7 @@ export default function StudentsMasteryRoster() {
                       <td className="py-3.5 px-4">
                         <div className="flex items-center gap-3">
                           <div className="relative">
-                            <img className="w-9 h-9 rounded-full object-cover ring-2 ring-primary-container" alt="Miguel Ramos" src={rowMeta[0].img} onError={imgFallback}/>
+                            <img className="w-9 h-9 rounded-full object-cover ring-2 ring-primary-container" alt="Miguel Ramos" src={rowMeta[0].img} onError={imgFallback} />
                             <span className="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-secondary ring-2 ring-surface-container-lowest" title="Active 15m ago"></span>
                           </div>
                           <div className="flex flex-col min-w-0">
@@ -370,10 +372,10 @@ export default function StudentsMasteryRoster() {
                       <td className="py-3.5 px-3">
                         <div className="flex flex-col gap-1 w-32">
                           <div className="flex items-center justify-between text-[10px] text-on-surface-variant">
-                            <span>L: 42%</span>
-                            <span>C: 65%</span>
-                            <span>D: 70%</span>
-                            <span>F: 55%</span>
+                            <span className="">L: 42%</span>
+                            <span className="">C: 65%</span>
+                            <span className="">D: 70%</span>
+                            <span className="">F: 55%</span>
                           </div>
                           <div className="w-full h-1.5 bg-surface-container rounded-full overflow-hidden flex">
                             <div className="bg-error h-full" style={{ width: '42%' }} title="Loops 42%"></div>
@@ -412,7 +414,7 @@ export default function StudentsMasteryRoster() {
                       <td className="py-3.5 px-4">
                         <div className="flex items-center gap-3">
                           <div className="relative">
-                            <img className="w-9 h-9 rounded-full object-cover" alt="Carlos Reyes" src={rowMeta[1].img} onError={imgFallback}/>
+                            <img className="w-9 h-9 rounded-full object-cover" alt="Carlos Reyes" src={rowMeta[1].img} onError={imgFallback} />
                             <span className="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-surface-dim ring-2 ring-surface-container-lowest"></span>
                           </div>
                           <div className="flex flex-col min-w-0">
@@ -461,7 +463,7 @@ export default function StudentsMasteryRoster() {
                       <td className="py-3.5 px-4">
                         <div className="flex items-center gap-3">
                           <div className="relative">
-                            <img className="w-9 h-9 rounded-full object-cover" alt="Jasmine Tan" src={rowMeta[2].img} onError={imgFallback}/>
+                            <img className="w-9 h-9 rounded-full object-cover" alt="Jasmine Tan" src={rowMeta[2].img} onError={imgFallback} />
                             <span className="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-secondary ring-2 ring-surface-container-lowest"></span>
                           </div>
                           <div className="flex flex-col min-w-0">
@@ -502,7 +504,7 @@ export default function StudentsMasteryRoster() {
                       <td className="py-3.5 px-4">
                         <div className="flex items-center gap-3">
                           <div className="relative">
-                            <img className="w-9 h-9 rounded-full object-cover" alt="Paolo Garcia" src={rowMeta[3].img} onError={imgFallback}/>
+                            <img className="w-9 h-9 rounded-full object-cover" alt="Paolo Garcia" src={rowMeta[3].img} onError={imgFallback} />
                             <span className="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-secondary ring-2 ring-surface-container-lowest"></span>
                           </div>
                           <div className="flex flex-col min-w-0">
@@ -543,7 +545,7 @@ export default function StudentsMasteryRoster() {
                       <td className="py-3.5 px-4">
                         <div className="flex items-center gap-3">
                           <div className="relative">
-                            <img className="w-9 h-9 rounded-full object-cover ring-2 ring-secondary" alt="Bea Mendoza" src={rowMeta[4].img} onError={imgFallback}/>
+                            <img className="w-9 h-9 rounded-full object-cover ring-2 ring-secondary" alt="Bea Mendoza" src={rowMeta[4].img} onError={imgFallback} />
                             <span className="absolute -top-1 -right-1 bg-tertiary-fixed-dim text-on-tertiary-fixed rounded-full w-4 h-4 flex items-center justify-center text-[10px] font-bold">★</span>
                           </div>
                           <div className="flex flex-col min-w-0">
@@ -587,7 +589,7 @@ export default function StudentsMasteryRoster() {
                       <td className="py-3.5 px-4">
                         <div className="flex items-center gap-3">
                           <div className="relative">
-                            <img className="w-9 h-9 rounded-full object-cover" alt="Luis Fernando" src={rowMeta[5].img} onError={imgFallback}/>
+                            <img className="w-9 h-9 rounded-full object-cover" alt="Luis Fernando" src={rowMeta[5].img} onError={imgFallback} />
                             <span className="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-secondary ring-2 ring-surface-container-lowest"></span>
                           </div>
                           <div className="flex flex-col min-w-0">
@@ -628,7 +630,7 @@ export default function StudentsMasteryRoster() {
                       <td className="py-3.5 px-4">
                         <div className="flex items-center gap-3">
                           <div className="relative">
-                            <img className="w-9 h-9 rounded-full object-cover" alt="Sofia Bautista" src={rowMeta[6].img} onError={imgFallback}/>
+                            <img className="w-9 h-9 rounded-full object-cover" alt="Sofia Bautista" src={rowMeta[6].img} onError={imgFallback} />
                             <span className="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-secondary ring-2 ring-surface-container-lowest"></span>
                           </div>
                           <div className="flex flex-col min-w-0">
@@ -670,7 +672,7 @@ export default function StudentsMasteryRoster() {
               {/* Pagination / Masterlist Summary Bar */}
               <div className="p-space-md bg-surface-container-low flex flex-col sm:flex-row items-center justify-between gap-space-sm text-on-surface-variant font-body-sm text-body-sm">
                 <div className="flex items-center gap-space-sm">
-                  <span>Showing <strong className="text-on-surface">1 - 9</strong> of 42 students</span>
+                  <span className="">Showing <strong className="text-on-surface">1 - 9</strong> of 42 students</span>
                   <span className="text-outline-variant">·</span>
                   <span className="text-xs">3 students currently have unassigned remedial packets</span>
                 </div>
@@ -691,7 +693,7 @@ export default function StudentsMasteryRoster() {
               {/* Card Header & Status */}
               <div className="flex items-start justify-between gap-space-sm">
                 <div className="flex items-center gap-3">
-                  <img className="w-14 h-14 rounded-2xl object-cover ring-2 ring-primary-container shadow-sm" alt={`Portrait of ${sel.name}`} src={sel.img} onError={imgFallback}/>
+                  <img className="w-14 h-14 rounded-2xl object-cover ring-2 ring-primary-container shadow-sm" alt={`Portrait of ${sel.name}`} src={sel.img} onError={imgFallback} />
                   <div className="flex flex-col">
                     <div className="flex items-center gap-1.5">
                       <h3 className="font-headline-sm text-headline-sm text-on-surface">{sel.name}</h3>
@@ -717,7 +719,7 @@ export default function StudentsMasteryRoster() {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-1.5 text-primary font-label-sm text-label-sm font-bold">
                     <span className="material-symbols-outlined text-[16px]" style={iconFill}>psychology</span>
-                    <span>Aralytics AI Diagnostic Summary</span>
+                    <span className="">Aralytics AI Diagnostic Summary</span>
                   </div>
                   <span className="font-label-sm text-label-sm text-on-surface-variant">Today, 2:15 PM</span>
                 </div>
@@ -733,16 +735,16 @@ export default function StudentsMasteryRoster() {
               <div className="flex flex-col gap-2">
                 <button className="w-full flex items-center justify-center gap-space-xs py-2.5 rounded-xl bg-tertiary-fixed text-on-tertiary-fixed font-label-lg text-label-lg hover:bg-tertiary-fixed-dim transition-colors shadow-sm" type="button">
                   <span className="material-symbols-outlined text-[18px]">code</span>
-                  <span>Assign Remedial Coding Quiz</span>
+                  <span className="">Assign Remedial Coding Quiz</span>
                 </button>
                 <div className="grid grid-cols-2 gap-2">
                   <button className="flex items-center justify-center gap-1 py-2 rounded-xl bg-surface-container text-primary font-label-md text-label-md hover:bg-surface-container-high transition-colors" type="button">
                     <span className="material-symbols-outlined text-[16px]">chat_bubble_outline</span>
-                    <span>Student Chat</span>
+                    <span className="">Student Chat</span>
                   </button>
                   <button className="flex items-center justify-center gap-1 py-2 rounded-xl bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-container-high transition-colors" type="button">
                     <span className="material-symbols-outlined text-[16px]">terminal</span>
-                    <span>Open Sandbox</span>
+                    <span className="">Open Sandbox</span>
                   </button>
                 </div>
               </div>
@@ -797,5 +799,5 @@ export default function StudentsMasteryRoster() {
         <span className="font-label-md text-label-md">Batch nudge queued for the filtered student group!</span>
       </div>
     </div>
-  );
+  )
 }

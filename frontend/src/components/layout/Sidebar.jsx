@@ -2,11 +2,11 @@ import { NavLink } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 
 const NAV_ITEMS = [
-  { path: '/dashboard', icon: 'dashboard', label: 'Dashboard' },
-  { path: '/students', icon: 'group', label: 'Students' },
-  { path: '/activities', icon: 'assignment', label: 'Activities' },
-  { path: '/reports', icon: 'insights', label: 'Reports' },
-  { path: '/settings', icon: 'settings', label: 'Settings' },
+  { path: '/teacher/dashboard', icon: 'dashboard', label: 'Dashboard' },
+  { path: '/teacher/students', icon: 'group', label: 'Students' },
+  { path: '/teacher/activities', icon: 'assignment', label: 'Activities' },
+  { path: '/teacher/reports', icon: 'insights', label: 'Reports' },
+  { path: '/teacher/settings', icon: 'settings', label: 'Settings' },
 ]
 
 const PROFILE_URL =
@@ -23,7 +23,7 @@ export default function Sidebar({ open = false, onClose }) {
         <div className="h-[72px] flex items-center px-space-lg gap-space-sm">
           <Link
             className="flex items-center gap-space-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-xl"
-            to="/home"
+            to="/"
           >
             <img
               alt="Aralytics Logo"
@@ -73,13 +73,13 @@ export default function Sidebar({ open = false, onClose }) {
             </span>
           </div>
         </div>
-        <button
+        <Link
           className="text-on-surface-variant hover:text-primary transition-colors p-space-xs"
           title="Switch role or logout"
-          type="button"
+          to="/login"
         >
           <span className="material-symbols-outlined text-[20px]">swap_horiz</span>
-        </button>
+        </Link>
       </div>
     </aside>
   )

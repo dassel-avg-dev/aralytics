@@ -291,7 +291,12 @@ export default function TeacherDashboard() {
   }
 
   function openStudentModal(student) {
-    setModalStudent({ ...student, lang: 'en' })
+    setModalStudent({
+      ...student,
+      status: student.status || student.modalStatus || 'On Track',
+      score: typeof student.score === 'number' ? `${student.score}%` : student.score,
+      lang: 'en',
+    })
   }
 
   function closeStudentModal() {
@@ -838,7 +843,7 @@ export default function TeacherDashboard() {
           </div>
           {/* Pagination Footer */}
           <div className="flex flex-col sm:flex-row items-center justify-between gap-space-sm pt-space-md mt-space-sm">
-            <span className="font-body-sm text-body-sm text-on-surface-variant">Showing 1 to {visibleStudents.length} of 42 students</span>
+            <span className="font-body-sm text-body-sm text-on-surface-variant">Showing 1 to 7 of 42 students</span>
             <div className="flex items-center gap-1">
               <button className="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-on-surface-variant hover:text-on-surface disabled:opacity-50" disabled type="button">
                 <span className="material-symbols-outlined text-[18px]">chevron_left</span>

@@ -15,6 +15,7 @@ dist-ssr
 
 # Reference design package (input material, excluded from the repo)
 /screens/
+/fetch-screens.mjs
 
 # Editor directories and files
 .vscode/*

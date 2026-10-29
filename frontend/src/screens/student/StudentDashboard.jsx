@@ -1,11 +1,11 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
 
-const CURRENT_YEAR = new Date().getFullYear();
+const CURRENT_YEAR = new Date().getFullYear()
 
-export default function HomeScreen() {
-  const [lang, setLang] = useState('EN');
-  const [menuOpen, setMenuOpen] = useState(false);
+export default function StudentDashboard() {
+  const [lang, setLang] = useState('EN')
+  const [menuOpen, setMenuOpen] = useState(false)
 
   return (
     <div className="bg-background font-body-md text-on-surface min-h-screen">
@@ -15,7 +15,7 @@ export default function HomeScreen() {
             <Link
               className="flex items-center gap-space-sm text-decoration-none focus:outline-none"
               data-path="home"
-              to="/home"
+              to="/student/dashboard"
             >
               <div className="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center text-primary shadow-[0_2px_8px_rgba(91,75,219,0.12)]">
                 <span className="material-symbols-outlined text-[24px]">school</span>
@@ -32,30 +32,31 @@ export default function HomeScreen() {
                 aria-current="page"
                 className="transition-colors bg-primary-container text-on-primary font-label-lg text-label-lg rounded-full px-space-md py-space-xs shadow-[0_2px_8px_rgba(91,75,219,0.15)]"
                 data-path="home"
-                to="/home"
+                to="/student/dashboard"
               >
                 Home
               </Link>
               <Link
                 className="px-space-md py-space-xs rounded-full font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors"
                 data-path="my-quizzes-activities"
-                to="/activities"
+                to="/student/activities"
               >
                 My Quizzes &amp; Activities
               </Link>
               <Link
                 className="px-space-md py-space-xs rounded-full font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors"
                 data-path="my-progress-badges"
-                to="/reports"
+                to="/student/progress"
               >
                 My Progress &amp; Badges
               </Link>
-              <button
+              <Link
                 className="px-space-md py-space-xs rounded-full font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors"
-                type="button"
+                data-path="aral-ai-feedback"
+                to="/student/feedback"
               >
                 Aral AI Feedback
-              </button>
+              </Link>
             </nav>
             <button
               aria-expanded={menuOpen}
@@ -130,35 +131,43 @@ export default function HomeScreen() {
         </div>
         {/* Mobile nav dropdown */}
         {menuOpen && (
-          <div className="xl:hidden border-t border-lavender-ash bg-surface-container-lowest/95 backdrop-blur-xl px-gutter py-space-md flex flex-col gap-1">
+          <div className="xl:hidden border-t border-outline-variant/30 bg-surface-container-lowest/95 backdrop-blur-xl px-gutter py-space-md flex flex-col gap-1">
             <Link
               className="flex items-center px-space-md py-2.5 rounded-xl bg-primary-container text-on-primary font-label-lg text-label-lg font-bold"
               onClick={() => setMenuOpen(false)}
-              to="/home"
+              to="/student/dashboard"
             >
               Home
             </Link>
             <Link
               className="flex items-center px-space-md py-2.5 rounded-xl font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container transition-colors"
               onClick={() => setMenuOpen(false)}
-              to="/activities"
+              to="/student/activities"
             >
               My Quizzes &amp; Activities
             </Link>
             <Link
               className="flex items-center px-space-md py-2.5 rounded-xl font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container transition-colors"
               onClick={() => setMenuOpen(false)}
-              to="/reports"
+              to="/student/progress"
             >
               My Progress &amp; Badges
             </Link>
-            <button
+            <Link
               className="flex items-center px-space-md py-2.5 rounded-xl font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container transition-colors"
               onClick={() => setMenuOpen(false)}
-              type="button"
+              to="/student/feedback"
             >
               Aral AI Feedback
-            </button>
+            </Link>
+            <Link
+              className="flex items-center gap-2 px-space-md py-2.5 rounded-xl font-label-lg text-label-lg text-error hover:bg-error-container/40 transition-colors mt-1 border-t border-outline-variant/20 pt-3"
+              onClick={() => setMenuOpen(false)}
+              to="/login"
+            >
+              <span className="material-symbols-outlined text-[18px]">logout</span>
+              <span>Sign Out</span>
+            </Link>
           </div>
         )}
       </header>
@@ -170,7 +179,7 @@ export default function HomeScreen() {
               <div>
                 <div className="inline-flex items-center gap-space-xs px-3 py-1 rounded-full bg-surface-container text-primary font-label-md text-label-md mb-2">
                   <span className="material-symbols-outlined text-[16px]">terminal</span>
-                  <span>Python 101 • Section Py-B</span>
+                  <span className="">Python 101 • Section Py-B</span>
                 </div>
                 <h1 className="font-headline-lg text-headline-lg text-on-surface tracking-tight font-extrabold flex items-center gap-2">
                   Kumusta, Miguel!{' '}
@@ -180,8 +189,8 @@ export default function HomeScreen() {
                 </h1>
                 <p className="font-body-lg text-body-lg text-on-surface-variant mt-1">
                   Ready for your 8-minute coding drill today? Your CS mentor{' '}
-                  <span className="font-bold text-on-surface">Coach Alex Reyes</span> posted personalized
-                  diagnostics.
+                  <span className="font-bold text-on-surface">Coach Alex Reyes</span> posted
+                  personalized diagnostics.
                 </p>
               </div>
               {/* Quick Student Metric Badges */}
@@ -227,13 +236,13 @@ export default function HomeScreen() {
                   </p>
                 </div>
               </div>
-              <button
+              <Link
                 className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-primary text-on-primary font-label-md text-label-md font-semibold hover:bg-primary-container transition-colors shrink-0"
-                type="button"
+                to="/student/quiz"
               >
                 <span className="material-symbols-outlined text-[18px]">play_circle</span>
-                <span>Quick Drill</span>
-              </button>
+                <span className="">Quick Drill</span>
+              </Link>
             </div>
           </section>
           {/* Main Bento Grid (Hero Priority Drill 8 cols + Aral AI Coach 4 cols) */}
@@ -263,15 +272,17 @@ export default function HomeScreen() {
                   </div>
                 </div>
                 <p className="font-body-md text-body-md text-on-surface-variant mt-2 leading-relaxed max-w-2xl">
-                  Focus: Nested for-loops, while-loop boundaries, infinite loop traps, and list comprehension
-                  refactoring to verify debugging mastery.
+                  Focus: Nested for-loops, while-loop boundaries, infinite loop traps, and list
+                  comprehension refactoring to verify debugging mastery.
                 </p>
                 <div className="flex flex-wrap items-center gap-6 my-5 pt-1">
                   <div className="flex items-center gap-2 text-on-surface">
                     <span className="material-symbols-outlined text-[18px] text-on-surface-variant">
                       quiz
                     </span>
-                    <span className="font-body-sm text-body-sm font-medium">10 Questions (MCQ &amp; Debugging)</span>
+                    <span className="font-body-sm text-body-sm font-medium">
+                      10 Questions (MCQ &amp; Debugging)
+                    </span>
                   </div>
                   <div className="flex items-center gap-2 text-on-surface">
                     <span className="material-symbols-outlined text-[18px] text-on-surface-variant">
@@ -288,20 +299,20 @@ export default function HomeScreen() {
                 </div>
               </div>
               <div className="pt-3 flex flex-wrap items-center gap-3">
-                <button
+                <Link
                   className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-primary text-on-primary font-label-lg text-label-lg font-bold hover:bg-primary-container transition-colors shadow-sm"
-                  type="button"
+                  to="/student/quiz"
                 >
-                  <span>Start Quiz Now</span>
+                  <span className="">Start Quiz Now</span>
                   <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
-                </button>
-                <button
+                </Link>
+                <Link
                   className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-surface-container text-on-surface font-label-md text-label-md font-medium hover:bg-surface-container-high transition-colors"
-                  type="button"
+                  to="/student/activities"
                 >
                   <span className="material-symbols-outlined text-[18px]">info</span>
-                  <span>Preview Details</span>
-                </button>
+                  <span className="">Preview Details</span>
+                </Link>
               </div>
             </div>
             <div className="lg:col-span-5 xl:col-span-4 bg-surface-container-lowest rounded-2xl p-6 shadow-sm flex flex-col justify-between">
@@ -320,12 +331,15 @@ export default function HomeScreen() {
                       </p>
                     </div>
                   </div>
-                  <span className="font-label-sm text-label-sm text-primary font-bold">Diagnostic</span>
+                  <span className="font-label-sm text-label-sm text-primary font-bold">
+                    Diagnostic
+                  </span>
                 </div>
                 <div className="p-3.5 rounded-xl bg-surface-container-low mt-2">
                   <p className="font-body-sm text-body-sm text-on-surface leading-relaxed">
-                    “Nice work on list slicing, Miguel! You got the basic indexing right, but the nested
-                    while-loop caused an infinite loop in question 3. Remember to increment your counter inside the loop body.”
+                    “Nice work on list slicing, Miguel! You got the basic indexing right, but the
+                    nested while-loop caused an infinite loop in question 3. Remember to increment
+                    your counter inside the loop body.”
                   </p>
                 </div>
                 <div className="space-y-2 mt-3">
@@ -348,19 +362,19 @@ export default function HomeScreen() {
                 </div>
               </div>
               <div className="mt-4 pt-2 flex flex-col gap-1.5">
-                <button
+                <Link
                   className="w-full inline-flex items-center justify-center gap-2 py-2.5 rounded-xl bg-surface-container text-primary font-label-md text-label-md font-bold hover:bg-surface-container-high transition-colors"
-                  type="button"
+                  to="/student/feedback"
                 >
                   <span className="material-symbols-outlined text-[18px]">terminal</span>
-                  <span>Practice While Loops (5m)</span>
-                </button>
-                <button
+                  <span className="">Practice While Loops (5m)</span>
+                </Link>
+                <Link
                   className="w-full text-center py-1 text-on-surface-variant hover:text-primary font-label-sm text-label-sm transition-colors"
-                  type="button"
+                  to="/student/feedback"
                 >
                   View All Feedback
-                </button>
+                </Link>
               </div>
             </div>
           </section>
@@ -378,13 +392,13 @@ export default function HomeScreen() {
                   Real-time adaptive assessment scores mapped to Computer Science competencies
                 </p>
               </div>
-              <a
+              <Link
                 className="inline-flex items-center gap-1 font-label-lg text-label-lg text-primary hover:text-primary-container transition-colors font-bold self-start sm:self-auto"
-                href="#"
+                to="/student/progress"
               >
-                <span>View CS Skill Matrix</span>
+                <span className="">View CS Skill Matrix</span>
                 <span className="material-symbols-outlined text-[18px]">chevron_right</span>
-              </a>
+              </Link>
             </div>
             {/* 4 Mastery Cards Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -433,7 +447,9 @@ export default function HomeScreen() {
                       Mastered
                     </span>
                   </div>
-                  <span className="font-body-sm text-body-sm text-on-surface-variant">Data Structures</span>
+                  <span className="font-body-sm text-body-sm text-on-surface-variant">
+                    Data Structures
+                  </span>
                   <h4 className="font-label-lg text-label-lg text-on-surface font-bold mt-0.5">
                     Lists &amp; Dictionaries
                   </h4>
@@ -443,7 +459,9 @@ export default function HomeScreen() {
                     <span className="font-body-sm text-body-sm text-on-surface-variant">
                       Mastery
                     </span>
-                    <span className="font-label-lg text-label-lg text-secondary font-bold">92%</span>
+                    <span className="font-label-lg text-label-lg text-secondary font-bold">
+                      92%
+                    </span>
                   </div>
                   <div className="w-full h-2 rounded-full bg-surface-container overflow-hidden">
                     <div className="h-full rounded-full bg-secondary" style={{ width: '92%' }}></div>
@@ -463,7 +481,9 @@ export default function HomeScreen() {
                       Mastered
                     </span>
                   </div>
-                  <span className="font-body-sm text-body-sm text-on-surface-variant">Algorithms</span>
+                  <span className="font-body-sm text-body-sm text-on-surface-variant">
+                    Algorithms
+                  </span>
                   <h4 className="font-label-lg text-label-lg text-on-surface font-bold mt-0.5">
                     Conditional Logic &amp; Branching
                   </h4>
@@ -473,7 +493,9 @@ export default function HomeScreen() {
                     <span className="font-body-sm text-body-sm text-on-surface-variant">
                       Mastery
                     </span>
-                    <span className="font-label-lg text-label-lg text-secondary font-bold">94%</span>
+                    <span className="font-label-lg text-label-lg text-secondary font-bold">
+                      94%
+                    </span>
                   </div>
                   <div className="w-full h-2 rounded-full bg-surface-container overflow-hidden">
                     <div className="h-full rounded-full bg-secondary" style={{ width: '94%' }}></div>
@@ -493,7 +515,9 @@ export default function HomeScreen() {
                       On Track
                     </span>
                   </div>
-                  <span className="font-body-sm text-body-sm text-on-surface-variant">OOP Fundamentals</span>
+                  <span className="font-body-sm text-body-sm text-on-surface-variant">
+                    OOP Fundamentals
+                  </span>
                   <h4 className="font-label-lg text-label-lg text-on-surface font-bold mt-0.5">
                     Classes &amp; Functions
                   </h4>
@@ -541,7 +565,6 @@ export default function HomeScreen() {
                   </span>
                 </div>
                 <div className="space-y-3.5">
-                  {/* Quiz Item 1 */}
                   <div className="p-4 rounded-2xl bg-surface-container-low hover:bg-surface-container transition-colors flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                     <div className="flex items-start gap-3">
                       <div className="w-10 h-10 rounded-xl bg-secondary-fixed/40 text-secondary flex items-center justify-center shrink-0 mt-0.5">
@@ -562,21 +585,20 @@ export default function HomeScreen() {
                         </h4>
                         <div className="flex items-center gap-2 text-on-surface-variant font-body-sm text-body-sm mt-1">
                           <span className="material-symbols-outlined text-[14px]">schedule</span>
-                          <span>Due Tomorrow, 5:00 PM</span>
-                          <span>•</span>
-                          <span>10 questions</span>
+                          <span className="">Due Tomorrow, 5:00 PM</span>
+                          <span className="">•</span>
+                          <span className="">10 questions</span>
                         </div>
                       </div>
                     </div>
-                    <button
+                    <Link
                       className="inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl bg-surface-container-lowest text-primary font-label-md text-label-md font-bold shadow-sm hover:bg-primary hover:text-on-primary transition-all self-start sm:self-auto shrink-0"
-                      type="button"
+                      to="/student/quiz"
                     >
-                      <span>Start</span>
+                      <span className="">Start</span>
                       <span className="material-symbols-outlined text-[16px]">chevron_right</span>
-                    </button>
+                    </Link>
                   </div>
-                  {/* Quiz Item 2 */}
                   <div className="p-4 rounded-2xl bg-surface-container-low hover:bg-surface-container transition-colors flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                     <div className="flex items-start gap-3">
                       <div className="w-10 h-10 rounded-xl bg-primary-fixed text-primary flex items-center justify-center shrink-0 mt-0.5">
@@ -599,19 +621,19 @@ export default function HomeScreen() {
                         </h4>
                         <div className="flex items-center gap-2 text-on-surface-variant font-body-sm text-body-sm mt-1">
                           <span className="material-symbols-outlined text-[14px]">schedule</span>
-                          <span>Due Friday, Dec 20</span>
-                          <span>•</span>
-                          <span>8 questions</span>
+                          <span className="">Due Friday, Dec 20</span>
+                          <span className="">•</span>
+                          <span className="">8 questions</span>
                         </div>
                       </div>
                     </div>
-                    <button
+                    <Link
                       className="inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl bg-surface-container-lowest text-primary font-label-md text-label-md font-bold shadow-sm hover:bg-primary hover:text-on-primary transition-all self-start sm:self-auto shrink-0"
-                      type="button"
+                      to="/student/quiz"
                     >
-                      <span>Start</span>
+                      <span className="">Start</span>
                       <span className="material-symbols-outlined text-[16px]">chevron_right</span>
-                    </button>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -619,12 +641,12 @@ export default function HomeScreen() {
                 <span className="font-body-sm text-body-sm text-on-surface-variant">
                   Looking for older activities?
                 </span>
-                <a
+                <Link
                   className="font-label-md text-label-md text-primary font-bold hover:underline"
-                  href="#"
+                  to="/student/activities"
                 >
                   View All Completed Drills →
-                </a>
+                </Link>
               </div>
             </div>
             {/* Right Column: Gamification & Weekly Milestones (6 cols) */}
@@ -677,7 +699,7 @@ export default function HomeScreen() {
                       Daily Drill Goal
                     </p>
                     <p className="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
-                      Complete 1 more quiz to finish today's target.
+                      Complete 1 more quiz to finish today&apos;s target.
                     </p>
                   </div>
                 </div>
@@ -722,9 +744,12 @@ export default function HomeScreen() {
                 <span className="font-body-sm text-body-sm text-on-surface-variant">
                   Next: Python Master II
                 </span>
-                <a className="font-label-sm text-label-sm text-primary font-bold hover:underline" href="#">
+                <Link
+                  className="font-label-sm text-label-sm text-primary font-bold hover:underline"
+                  to="/student/progress"
+                >
                   All Badges →
-                </a>
+                </Link>
               </div>
             </div>
           </section>
@@ -747,5 +772,5 @@ export default function HomeScreen() {
         </div>
       </footer>
     </div>
-  );
+  )
 }
