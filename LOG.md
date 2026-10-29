@@ -115,3 +115,12 @@ Chronological log of steps taken during work sessions on this project, kept rega
 58. Made every `BrandLogo` header link target the public landing page (`/`): student headers and the teacher sidebar previously went to their role dashboards. Playwright-click verified `/student/dashboard`, `/teacher/dashboard`, and `/login` all navigate to `/`; lint clean.
 59. Replaced the browser tab icon (`frontend/public/favicon.svg`) with the BrandLogo mark — primary `#422ec2` rounded square, amber `#ffdf9a` graduation cap and status dot — and changed the document title separator from an em dash to a pipe: “Aralytics | AI Learning Analytics”. Verified the title and favicon URL through Playwright; updated `FILETREE.md`.
 60. Standardized the local dev URL on port 3000: `frontend/vite.config.js` already sets `server.port: 3000`, so the server is now started without a CLI port override. Updated `SETUP.md` and `HANDOFF.md` references from `localhost:5173` to `localhost:3000` and verified HTTP 200 on the new port.
+
+---
+
+## Session 2026-10-29 (Responsive cutoff fixes)
+
+67. Audited all 13 routes in Playwright at 1440×900, 1024×768, and 390×844, then ran additional responsive checks at 320×720 and 768×1024. Found two real clipped-content issues: the `/student/quiz` mobile code header pushed its copy button outside the rounded panel, and `/register` truncated both lines of its school inquiry message.
+68. Fixed the quiz header by allowing the filename to shrink, hiding the redundant “Python 3.11” label below `sm`, and keeping the copy controls from shrinking. Removed `truncate` from the registration pilot notice so its complete title and description wrap on mobile.
+69. Confirmed the teacher roster table is intentionally horizontally scrollable at mobile (342px viewport, 900px table width); Playwright verified the final Actions column becomes visible after scrolling at both 390px and 1024px. Verified no document-level horizontal overflow on any route at 320, 390, 768, 1024, or 1440px; the quiz copy button stays inside its panel and both registration notice strings remain untruncated at 320, 390, and 768px. Captured `.playwright-mcp/after-quiz-mobile.png` and `after-register-mobile.png`.
+70. Ran `npm --prefix frontend run lint` (clean) and `npm --prefix frontend run build` (clean; existing >500 kB chunk-size warning only).

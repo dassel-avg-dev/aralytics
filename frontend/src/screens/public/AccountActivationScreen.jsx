@@ -344,10 +344,10 @@ export default function AccountActivationScreen() {
                     <span className="material-symbols-outlined text-on-secondary-container text-[20px]">corporate_fare</span>
                   </div>
                   <div className="flex flex-col min-w-0">
-                    <span className="font-label-lg text-body-md text-on-surface font-semibold truncate">
+                    <span className="font-label-lg text-body-md text-on-surface font-semibold">
                       Representing a School or Division?
                     </span>
-                    <span className="font-body-md text-body-md text-on-surface-variant truncate">
+                    <span className="font-body-md text-body-md text-on-surface-variant">
                       Deploy diagnostic AI models across your faculty.
                     </span>
                   </div>

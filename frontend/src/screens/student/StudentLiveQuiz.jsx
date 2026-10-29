@@ -299,18 +299,18 @@ export default function StudentLiveQuiz() {
                   <div className="rounded-xl overflow-hidden shadow-lg bg-inverse-surface flex flex-col">
                     {/* Terminal Tab Bar */}
                     <div className="px-4 py-2.5 bg-on-background flex items-center justify-between text-surface-container-high">
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-2 min-w-0">
                         <div className="flex gap-1.5">
                           <span className="w-3 h-3 rounded-full bg-error opacity-80 inline-block"></span>
                           <span className="w-3 h-3 rounded-full bg-tertiary-fixed-dim opacity-80 inline-block"></span>
                           <span className="w-3 h-3 rounded-full bg-secondary opacity-80 inline-block"></span>
                         </div>
-                        <span className="ml-2 font-mono text-xs tracking-wider text-outline-variant flex items-center gap-1">
+                        <span className="ml-2 min-w-0 truncate font-mono text-xs tracking-wider text-outline-variant flex items-center gap-1">
                           <span className="material-symbols-outlined text-[14px]">code</span> accumulator_bug.py
                         </span>
                       </div>
-                      <div className="flex items-center gap-3">
-                        <span className="font-label-sm text-label-sm text-outline-variant uppercase">Python 3.11</span>
+                      <div className="flex items-center gap-3 shrink-0">
+                        <span className="hidden sm:inline font-label-sm text-label-sm text-outline-variant uppercase">Python 3.11</span>
                         <button
                           onClick={handleCopyCode}
                           className="text-outline-variant hover:text-surface flex items-center gap-1 text-xs transition-colors"
