@@ -71,65 +71,6 @@ const CONCEPT_SCORES = [
   },
 ]
 
-const FLAGGED_STUDENTS = [
-  {
-    initials: 'MR',
-    id: 'CS-2024-001',
-    name: 'Miguel Ramos',
-    score: '58%',
-    scoreLabel: '58% · Off-by-one',
-    scoreColor: 'text-error',
-    detail: 'Infinite while loop on Lab 4; range indexing boundary mismatch',
-    status: 'Needs Help',
-    observation:
-      'Frequent off-by-one errors in while loops and array bounds. Recommend visualizer step-through.',
-    observationFil:
-      'Magandang pagkaunawa ni Miguel sa conditional branches at boolean operators. Ang tunay na hadlang ay nasa loops at sequence slicing — lalo na ang off-by-one errors kung saan hindi kasama ang upper bound ng range().',
-  },
-  {
-    initials: 'CD',
-    id: 'CS-2024-002',
-    name: 'Carlos Diaz',
-    score: '62%',
-    scoreLabel: '62% · Scope Error',
-    scoreColor: 'text-error',
-    detail: 'Variable scope confusion: modified global var inside local def',
-    status: 'Needs Help',
-    observation:
-      'UnboundLocalError in 3 function submissions. Needs review on local vs global scope.',
-    observationFil:
-      'May UnboundLocalError si Carlos sa 3 function submissions. Kailangan ng pagsusuri sa local vs global scope dahil binabago ang global accumulator sa loob ng local def.',
-  },
-  {
-    initials: 'JC',
-    id: 'CS-2024-003',
-    name: 'Jasmine Cruz',
-    score: '68%',
-    scoreLabel: '68% · Return vs Print',
-    scoreColor: 'text-tertiary',
-    detail: 'Confuses print() with return; automated test assertions failing',
-    status: 'Needs a Nudge',
-    observation:
-      'Returns None from functions because of print statements. Review test case assertions.',
-    observationFil:
-      'Nagpapabalik ng None si Jasmine sa mga functions dahil sa print statements. Suriin natin ang mga test case assertions.',
-  },
-  {
-    initials: 'PG',
-    id: 'CS-2024-004',
-    name: 'Paolo Garcia',
-    score: '69%',
-    scoreLabel: '69% · Indentation',
-    scoreColor: 'text-tertiary',
-    detail: 'Tab/Space IndentationError in nested conditional blocks',
-    status: 'Needs a Nudge',
-    observation:
-      'Rushed syntax submissions leading to recurring IndentationError and colon omissions.',
-    observationFil:
-      'Mga mabilisang syntax submission ni Paolo na may paulit-ulit na IndentationError at nawawalang colon sa nested blocks.',
-  },
-]
-
 const ROSTER_STUDENTS = [
   {
     initials: 'MR',
@@ -678,55 +619,7 @@ export default function TeacherDashboard() {
               </button>
             </div>
           </div>
-          {/* Right: Flagged for Coding Support (4 Flagged Students) (6 cols) */}
-          <div className="lg:col-span-6 bg-surface-container-lowest rounded-[20px] p-space-lg shadow-[0_4px_16px_rgba(91,75,219,0.08)] flex flex-col justify-between">
-            <div>
-              <div className="flex items-center justify-between mb-space-xs">
-                <div className="flex items-center gap-2">
-                  <span className="flex h-2.5 w-2.5 rounded-full bg-error animate-ping" />
-                  <h3 className="font-headline-sm text-headline-sm text-on-surface">Flagged for Coding Support</h3>
-                </div>
-                <span className="font-label-sm text-label-sm text-on-error-container bg-error-container px-2.5 py-0.5 rounded-full font-bold">4 Flagged (&lt;70%)</span>
-              </div>
-              <p className="font-body-sm text-body-sm text-on-surface-variant mb-space-md">AI-identified syntax &amp; logic misconceptions in latest lab submissions</p>
-              {/* 4 Student Alert Cards */}
-              <div className="flex flex-col gap-space-sm">
-                {FLAGGED_STUDENTS.map((student) => (
-                  <div className="p-space-sm rounded-xl bg-surface-container-low/60 hover:bg-surface-container-low transition-colors flex items-center justify-between gap-2" key={student.name}>
-                    <div className="flex items-center gap-3 min-w-0">
-                      <div className="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center font-bold text-on-surface text-xs shrink-0">{student.initials}</div>
-                      <div className="min-w-0">
-                        <div className="flex items-center gap-2">
-                          <span className="font-label-md text-label-md text-on-surface font-semibold truncate">{student.name}</span>
-                          <span className={`font-label-sm ${student.scoreColor} text-xs font-medium`}>{student.scoreLabel}</span>
-                        </div>
-                        <p className="font-body-sm text-body-sm text-on-surface-variant text-xs truncate max-w-xs">
-                          {student.detail}
-                        </p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-1.5 shrink-0">
-                      <button
-                        className="p-1.5 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container-lowest transition-colors"
-                        onClick={() => sendCodeHint(student.name)}
-                        title="Send Code Hint"
-                        type="button"
-                      >
-                        <span className="material-symbols-outlined text-[18px]">mail</span>
-                      </button>
-                      <button
-                        className="px-2.5 py-1 rounded-lg text-primary hover:bg-surface-container-lowest font-label-sm text-label-sm font-semibold transition-colors"
-                        onClick={() => openStudentModal(student)}
-                        type="button"
-                      >
-                        View
-                      </button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
+          {/* Right: Needs Attention (4 Flagged Students) (6 cols) */}
         </div>
         {/* ROW 4: Student Directory & Comprehensive Roster (Full 12 cols) */}
         <div className="bg-surface-container-lowest rounded-[20px] p-space-lg shadow-[0_4px_16px_rgba(91,75,219,0.08)] mb-space-lg">

@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 
 const NAV_ITEMS = [
+  { label: 'Dashboard', path: '/student/dashboard', dataPath: 'dashboard' },
   { label: 'My Activities', path: '/student/activities', dataPath: 'my-activities' },
   { label: 'Code Quiz & Exercises', path: '/student/quiz', dataPath: 'code-quiz-exercises' },
   { label: 'AI Feedback History', path: '/student/feedback', dataPath: 'ai-feedback-history' },

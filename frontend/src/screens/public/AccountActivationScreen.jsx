@@ -82,7 +82,7 @@ export default function AccountActivationScreen() {
   const isStudent = role === 'student';
 
   return (
-    <div className="bg-surface font-body-md text-on-surface min-h-screen flex flex-col justify-between antialiased selection:bg-primary-fixed selection:text-on-primary-fixed">
+    <div className="bg-surface font-body-md text-on-surface min-h-screen flex flex-col justify-between antialiased selection:bg-primary-fixed selection:text-on-primary-fixed overflow-x-hidden">
       <header className="w-full bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(91,75,219,0.04)]">
         <div className="max-w-[1120px] mx-auto px-margin-mobile md:px-margin h-20 flex items-center justify-between">
           <Link className="flex items-center gap-space-sm group" data-path="login" to="/">

@@ -25,12 +25,6 @@ export default function Sidebar({ open = false, onClose }) {
             className="flex items-center gap-space-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-xl"
             to="/"
           >
-            <img
-              alt="Aralytics Logo"
-              className="h-8 w-auto object-contain"
-              src="https://lh3.googleusercontent.com/aida/AEtjO1VelyySAEgiA142NuWHsKvQ65i96HOCC9KhYSGZcKACnRRt73_mslMJfisZG3V3COTDzed5gxKqirBft-ZFeXXIqgBlCsyPvMmcsW39-B7v6tLbk-V-kLNsILm5SmUoQJkOLH1bctN7I5aQj3my2-LW2C71trAdByhuJt1CSn903GrUwns4OAZSM1tMch8SFRJLFCUDe846k_q8UBOLOp2zbCxRV-JPKCcwDPPWMbsgfLMr1ppHerwgQCZx"
-              onError={(e) => (e.currentTarget.style.visibility = 'hidden')}
-            />
             <span className="font-headline-sm text-headline-sm text-primary tracking-tight">
               Aralytics
             </span>
@@ -66,10 +60,10 @@ export default function Sidebar({ open = false, onClose }) {
           />
           <div className="flex flex-col min-w-0">
             <span className="font-label-md text-label-md text-on-surface truncate">
-              Bb. Santos
+              Mr. Reyes
             </span>
             <span className="font-body-sm text-body-sm text-on-surface-variant truncate">
-              CS Instructor
+              High School CS
             </span>
           </div>
         </div>

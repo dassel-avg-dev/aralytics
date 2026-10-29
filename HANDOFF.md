@@ -1,6 +1,6 @@
 # HANDOFF.md — Aralytics Architecture & Continuation Guide
 
-> **Always read this file alongside [`LOG.md`](./LOG.md) and [`FILETREE.md`](./FILETREE.md) before touching any code.**
+> **Always read this file alongside [`SETUP.md`](./SETUP.md), [`NAVIGATION.md`](./NAVIGATION.md), [`LOG.md`](./LOG.md), and [`FILETREE.md`](./FILETREE.md) before touching any code.**
 
 ---
 

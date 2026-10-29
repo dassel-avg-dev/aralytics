@@ -5,6 +5,8 @@ Every directory and file in the repository, its responsibility, and which Stitch
 ```text
 aralytics/
 ├── .gitignore                              # Excludes node_modules, dist, .env*, editor junk, and root /screens/ + /fetch-screens.mjs
+├── SETUP.md                                # Developer quick-start, workspace commands, and default Student/Teacher credentials
+├── NAVIGATION.md                           # Frontend screen routes, navigation links, and backend /api/* endpoint map
 ├── HANDOFF.md                              # Architecture, design tokens, route map, Stitch -> React conversion rules
 ├── LOG.md                                  # Chronological append-only log of every agent action
 ├── FILETREE.md                             # This file — directory & file purpose map

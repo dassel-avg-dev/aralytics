@@ -3,12 +3,31 @@ import { Link, useNavigate } from 'react-router-dom';
 
 const CURRENT_YEAR = new Date().getFullYear();
 
+const DEFAULT_CREDENTIALS = {
+  student: {
+    identifier: 'miguel@school.edu.ph',
+    password: 'student123',
+  },
+  teacher: {
+    identifier: 'maria.santos@university.edu.ph',
+    password: 'teacher123',
+  },
+};
+
 export default function LoginScreen() {
   const navigate = useNavigate();
   const [role, setRole] = useState('student');
+  const [identifier, setIdentifier] = useState(DEFAULT_CREDENTIALS.student.identifier);
+  const [password, setPassword] = useState(DEFAULT_CREDENTIALS.student.password);
   const [showPassword, setShowPassword] = useState(false);
   const [authState, setAuthState] = useState('idle');
   const timersRef = useRef([]);
+
+  const handleRoleChange = (nextRole) => {
+    setRole(nextRole);
+    setIdentifier(DEFAULT_CREDENTIALS[nextRole].identifier);
+    setPassword(DEFAULT_CREDENTIALS[nextRole].password);
+  };
 
   useEffect(() => {
     const timers = timersRef.current;
@@ -37,7 +56,7 @@ export default function LoginScreen() {
   const isStudent = role === 'student';
 
   return (
-    <div className="bg-surface font-body-md text-on-surface min-h-screen flex flex-col justify-between antialiased selection:bg-primary-fixed selection:text-on-primary-fixed">
+    <div className="bg-surface font-body-md text-on-surface min-h-screen flex flex-col justify-between antialiased selection:bg-primary-fixed selection:text-on-primary-fixed overflow-x-hidden">
       <header className="w-full bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(91,75,219,0.04)]">
         <div className="max-w-[1120px] mx-auto px-margin-mobile md:px-margin h-20 flex items-center justify-between">
           <Link className="flex items-center gap-space-sm group" data-path="login" to="/">
@@ -92,7 +111,7 @@ export default function LoginScreen() {
                       : 'flex-1 py-2.5 px-3 rounded-lg font-label-lg text-[15px] font-medium transition-all flex items-center justify-center gap-space-xs text-on-surface-variant hover:text-on-surface'
                   }
                   id="btn-role-student"
-                  onClick={() => setRole('student')}
+                  onClick={() => handleRoleChange('student')}
                   type="button"
                 >
                   <span className="material-symbols-outlined text-[20px]">school</span>
@@ -105,7 +124,7 @@ export default function LoginScreen() {
                       : 'flex-1 py-2.5 px-3 rounded-lg font-label-lg text-[15px] font-medium transition-all flex items-center justify-center gap-space-xs text-on-surface-variant hover:text-on-surface'
                   }
                   id="btn-role-teacher"
-                  onClick={() => setRole('teacher')}
+                  onClick={() => handleRoleChange('teacher')}
                   type="button"
                 >
                   <span className="material-symbols-outlined text-[20px]">person_check</span>
@@ -135,6 +154,7 @@ export default function LoginScreen() {
                       autoComplete="username"
                       className="w-full bg-surface-container-low text-on-surface placeholder:text-outline/70 pl-11 pr-4 py-3.5 rounded-xl font-body-lg text-[15px] transition-all focus:bg-surface-container-lowest focus:outline-none focus:shadow-[0_0_0_3px_rgba(91,75,219,0.22)]"
                       id="identifier-input"
+                      onChange={(e) => setIdentifier(e.target.value)}
                       placeholder={
                         isStudent
                           ? 'e.g. s2024-9102 or miguel@school.edu.ph'
@@ -142,6 +162,7 @@ export default function LoginScreen() {
                       }
                       required
                       type="text"
+                      value={identifier}
                     />
                   </div>
                 </div>
@@ -161,9 +182,11 @@ export default function LoginScreen() {
                       autoComplete="current-password"
                       className="w-full bg-surface-container-low text-on-surface placeholder:text-outline/70 pl-11 pr-11 py-3.5 rounded-xl font-body-lg text-[15px] transition-all focus:bg-surface-container-lowest focus:outline-none focus:shadow-[0_0_0_3px_rgba(91,75,219,0.22)]"
                       id="password-input"
+                      onChange={(e) => setPassword(e.target.value)}
                       placeholder="Enter your security password"
                       required
                       type={showPassword ? 'text' : 'password'}
+                      value={password}
                     />
                     <button
                       aria-label="Toggle password visibility"

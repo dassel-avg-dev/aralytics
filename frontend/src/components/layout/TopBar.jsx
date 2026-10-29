@@ -1,9 +1,12 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 const PROFILE_URL =
   'https://lh3.googleusercontent.com/aida-public/AB6AXuChrfifem-pX-5-2ww20HzrO-M3nr7zLtmPi9Ix5-PCHl7pi5uQZlXPj6xHOAyG6JWBzxOozhXH5fuP6gRofSlFOKpUzMOpRg73l4PI5TaIX7ObErToVfnbzhJy2ghX0wDrjK6Lj3QfAiVzzaEcBSb7jWbHlaU0lIU4nC-1cCexq0ACsLAItVy1LwoUNeA06eShYWT0UaFkkl2Fbh-zjihrqjqhdUFLP2Zuz78Kyv-Wx6wEB5ZpfYTQrQ'
 
 export default function TopBar({ onMenu }) {
+  const [lang, setLang] = useState('EN')
+
   return (
     <header className="fixed top-0 left-0 lg:left-[250px] right-0 h-[72px] bg-surface-container-lowest/90 backdrop-blur-xl z-40 shadow-[0_1px_8px_rgba(91,75,219,0.06)]">
       <div className="h-[72px] px-space-lg flex items-center justify-between gap-space-md">
@@ -18,7 +21,7 @@ export default function TopBar({ onMenu }) {
           </button>
           <div className="flex items-center gap-space-xs bg-surface-container px-space-md py-space-xs rounded-full cursor-pointer hover:bg-surface-container-high transition-colors">
             <span className="font-label-md text-label-md text-on-surface hidden sm:block">
-              💻 CS 101: Intro to Python (42 students)
+              💻 CS 101: Intro to Python (Sec A · 42 students)
             </span>
             <span className="font-label-md text-label-md text-on-surface sm:hidden">
               CS 101
@@ -35,7 +38,7 @@ export default function TopBar({ onMenu }) {
             </span>
             <input
               className="w-full bg-surface-container-low text-on-surface placeholder:text-on-surface-variant font-body-sm text-body-sm pl-10 pr-4 py-2 rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-primary-container transition-all"
-              placeholder="Search student, quiz, topic..."
+              placeholder="Search student, assignment, syntax error..."
               type="text"
             />
           </div>
@@ -43,13 +46,23 @@ export default function TopBar({ onMenu }) {
         <div className="flex items-center gap-space-md">
           <div className="hidden md:flex items-center bg-surface-container-low p-1 rounded-full text-on-surface font-label-sm text-label-sm">
             <button
-              className="px-2 py-0.5 rounded-full bg-surface-container-lowest text-primary font-bold shadow-xs"
+              className={
+                lang === 'EN'
+                  ? 'px-2 py-0.5 rounded-full bg-surface-container-lowest text-primary font-bold shadow-xs transition-colors'
+                  : 'px-2 py-0.5 rounded-full text-on-surface-variant hover:text-on-surface transition-colors'
+              }
+              onClick={() => setLang('EN')}
               type="button"
             >
               EN
             </button>
             <button
-              className="px-2 py-0.5 rounded-full text-on-surface-variant hover:text-on-surface transition-colors"
+              className={
+                lang === 'FIL'
+                  ? 'px-2 py-0.5 rounded-full bg-surface-container-lowest text-primary font-bold shadow-xs transition-colors'
+                  : 'px-2 py-0.5 rounded-full text-on-surface-variant hover:text-on-surface transition-colors'
+              }
+              onClick={() => setLang('FIL')}
               type="button"
             >
               FIL
