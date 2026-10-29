@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import BrandLogo from '../../components/BrandLogo'
 
 const CURRENT_YEAR = new Date().getFullYear()
 
 export default function StudentDashboard() {
-  const [lang, setLang] = useState('EN')
   const [menuOpen, setMenuOpen] = useState(false)
 
   return (
@@ -12,18 +12,7 @@ export default function StudentDashboard() {
       <header className="fixed top-0 left-0 right-0 z-50 bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(91,75,219,0.06)]">
         <div className="h-20 max-w-[1120px] mx-auto px-gutter flex items-center justify-between gap-space-md">
           <div className="flex items-center gap-space-lg">
-            <Link
-              className="flex items-center gap-space-sm text-decoration-none focus:outline-none"
-              data-path="home"
-              to="/student/dashboard"
-            >
-              <div className="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center text-primary shadow-[0_2px_8px_rgba(91,75,219,0.12)]">
-                <span className="material-symbols-outlined text-[24px]">school</span>
-              </div>
-              <span className="font-headline-sm text-headline-sm text-primary tracking-tight font-extrabold">
-                Aralytics
-              </span>
-            </Link>
+            <BrandLogo to="/student/dashboard" />
             <nav
               className="hidden xl:flex items-center gap-space-xs"
               data-active-classes="bg-primary-container text-on-primary font-label-lg text-label-lg rounded-full px-space-md py-space-xs shadow-[0_2px_8px_rgba(91,75,219,0.15)]"
@@ -72,30 +61,6 @@ export default function StudentDashboard() {
             </button>
           </div>
           <div className="flex items-center gap-space-sm">
-            <div className="flex items-center p-0.5 bg-surface-container rounded-full">
-              <button
-                className={
-                  lang === 'EN'
-                    ? 'px-2.5 py-1 rounded-full font-label-md text-label-md bg-surface-container-lowest text-primary font-bold shadow-sm'
-                    : 'px-2.5 py-1 rounded-full font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors'
-                }
-                onClick={() => setLang('EN')}
-                type="button"
-              >
-                EN
-              </button>
-              <button
-                className={
-                  lang === 'FIL'
-                    ? 'px-2.5 py-1 rounded-full font-label-md text-label-md bg-surface-container-lowest text-primary font-bold shadow-sm'
-                    : 'px-2.5 py-1 rounded-full font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors'
-                }
-                onClick={() => setLang('FIL')}
-                type="button"
-              >
-                FIL
-              </button>
-            </div>
             <div className="hidden sm:flex items-center gap-space-xs bg-surface-container px-3 py-1.5 rounded-full">
               <span className="material-symbols-outlined text-[18px] text-tertiary-container">
                 local_fire_department
@@ -758,9 +723,7 @@ export default function StudentDashboard() {
       <footer className="w-full bg-surface-container-lowest mt-space-xl py-space-lg shadow-[0_-1px_8px_rgba(91,75,219,0.04)]">
         <div className="max-w-[1120px] mx-auto px-gutter flex flex-col md:flex-row items-center justify-between gap-space-md text-center md:text-left">
           <div className="flex items-center gap-space-xs">
-            <div className="w-6 h-6 rounded-full bg-primary-fixed flex items-center justify-center text-primary">
-              <span className="material-symbols-outlined text-[14px]">school</span>
-            </div>
+            <BrandLogo dotClassName="w-2.5 h-2.5" iconClassName="w-7 h-7" iconSize="text-[17px]" showName={false} to="/" />
             <span className="font-headline-sm text-headline-sm text-on-surface">Aralytics</span>
             <span className="font-body-sm text-body-sm text-on-surface-variant ml-space-xs">
               • Pagsulong sa Karunungan

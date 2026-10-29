@@ -79,3 +79,24 @@ Chronological log of steps taken during work sessions on this project, kept rega
     - Removed legacy `Flagged for Coding Support` right-hand card in Row 3 of `TeacherDashboard.jsx` to match `aralytics_teacher_desktop_dashboard/code.html` and `screen.png` 1:1.
     - Added `Dashboard` link to desktop `NAV_ITEMS` in `StudentDiagnosticReport.jsx` (`/student/feedback`) for header consistency across Student View screens.
 49. Verified `.gitignore` (added `.env` / `.env.*` ignore rules alongside `node_modules/`, `dist`, `.playwright-mcp/`, `/screens/`, `/fetch-screens.mjs`), checked `git status`, and committed all Playwright fixes and `SETUP.md` / `NAVIGATION.md` docs.
+
+---
+
+## Session 2026-10-29 (Playwright UI pass, branding, language removal)
+
+50. Started Vite on `http://localhost:5173` and captured full-page screenshots of all 13 routes at 1440×900, 1024×768, and 390×844 into `.playwright-mcp/audit/`, then compared them against `screens/stitch/*/screen.png`.
+51. Ran scripted layout checks on every route/viewport: page-level horizontal overflow, headings whose computed line-height was under 1.1× font-size, broken images, and clipped text. Found and fixed:
+    - `/login`: `Welcome to Aralytics` inherited the 20px body line-height at mobile, so its two lines overlapped the subtitle. Added `leading-[1.2]` + `text-balance` (and the same guard on `/register`).
+    - `/student/feedback`: mobile diagnostic accordion rows squeezed question titles into a ~80px column. Rows now wrap to a second line below `sm`, giving the title full width and keeping the badge/chevron on its own row.
+    - Teacher `/teacher/activities`: create-activity drawer's Topic/Section selects truncated their values side-by-side at 390px; they now stack below `sm`.
+52. Fixed tablet-width teacher layouts (1024–1279px) where the fixed 250px sidebar left too little room for `lg` grids:
+    - Teacher dashboard KPI/12-column rows, header, and directory header now switch at `xl`; table has `min-w-[760px]` with horizontal scroll.
+    - Roster header switches at `xl`, KPI cards use 2 columns through `md`, table has `min-w-[900px]`.
+    - Reports header, 4-up metrics, competency header, and telemetry grid switch at `xl`.
+    - Activities page header and generator button switch at `xl`.
+    - Settings 7/5 split switches at `xl`.
+    - `TopBar` search is hidden below `xl` instead of collapsing to a ~70px input at 1024.
+53. Removed every EN/FIL language control: `StudentDashboard.jsx` header toggle, teacher `TopBar.jsx` toggle, and the teacher student-modal “Teacher Note Language” switch (modal now always renders the English observation). Removed the unused `lang` state, `toggleModalLang`, `lang`/`observationFil` data, and the now-pointless “Language & Localization” settings tab. Verified no `EN`/`FIL` text remains in `frontend/src`.
+54. Created `frontend/src/components/BrandLogo.jsx` as the canonical brand lockup and replaced every hand-rolled header/footer logo with it: landing header + footer, login/register header + footer mark, all five student headers, student footer mark, and the teacher `Sidebar` (which previously had text only). Name styling now matches the landing page (`font-headline-sm`, `tracking-tight`, `text-on-surface`, `leading-none`) with the primary square + amber dot mark; removed the duplicated “Pilipinas AI” logo lockup from the student Activities nav and replaced that item with a normal Dashboard link.
+55. Re-ran Playwright across all 13 routes at 1440×900 and 390×844: zero page overflow, zero tight headings, zero broken images, zero `EN`/`FIL` text. Verified the teacher modal no longer has a language switch and Settings shows only Profile & Account, Classroom & Grading, and AI Diagnostic Model & Tone.
+56. Ran `npm --prefix frontend run lint` (clean) and `npm --prefix frontend run build` (clean; only the known >500 kB chunk warning). Updated `FILETREE.md` (BrandLogo, Sidebar/TopBar descriptions) and `HANDOFF.md` (brand lockup + teacher `xl` breakpoint rules).

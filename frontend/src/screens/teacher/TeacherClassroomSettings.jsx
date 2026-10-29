@@ -13,7 +13,6 @@ const TABS = [
   { id: 'profile', label: 'Profile & Account' },
   { id: 'classroom', label: 'Classroom & Grading' },
   { id: 'aral', label: 'AI Diagnostic Model & Tone' },
-  { id: 'localization', label: 'Language & Localization' },
 ]
 
 const DEFAULTS = {
@@ -164,9 +163,9 @@ export default function TeacherClassroomSettings() {
           })}
         </div>
         {/* MAIN GRID LAYOUT */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start">
+        <div className="grid grid-cols-1 xl:grid-cols-12 gap-space-lg items-start">
           {/* LEFT / PRIMARY COLUMN (7 Cols) */}
-          <div className="lg:col-span-7 flex flex-col gap-space-lg">
+          <div className="xl:col-span-7 flex flex-col gap-space-lg">
             {/* 1. AI TUTOR 'ARAL' PERSONA & FEEDBACK (Hero EdTech Card) */}
             <section className="bg-surface-container-lowest rounded-2xl p-space-lg shadow-[0_4px_20px_rgba(91,75,219,0.08)] relative overflow-hidden flex flex-col gap-space-md">
               <div className="absolute -right-20 -top-20 w-64 h-64 bg-primary-container/10 rounded-full blur-3xl pointer-events-none"></div>
@@ -282,7 +281,7 @@ export default function TeacherClassroomSettings() {
             {/* 2. AUTOMATED STUDENT NUDGES & REMINDERS */}
           </div>
           {/* RIGHT / SECONDARY COLUMN (5 Cols) */}
-          <div className="lg:col-span-5 flex flex-col gap-space-lg">
+          <div className="xl:col-span-5 flex flex-col gap-space-lg">
             {/* 3. TEACHER PROFILE & ADVISING ASSIGNMENT */}
             <section className="bg-surface-container-lowest rounded-2xl p-space-lg shadow-[0_4px_20px_rgba(91,75,219,0.08)] flex flex-col gap-space-md">
               <div className="flex items-center justify-between">

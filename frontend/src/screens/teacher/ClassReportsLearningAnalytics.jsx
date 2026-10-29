@@ -22,7 +22,7 @@ export default function ClassReportsLearningAnalytics() {
         <div className="absolute top-1/3 left-0 w-80 h-80 bg-secondary-container/10 rounded-full blur-3xl pointer-events-none -z-10"></div>
         {/* Header Section */}
         <div className="flex flex-col gap-space-lg mb-space-xl">
-          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-space-md">
+          <div className="flex flex-col xl:flex-row xl:items-end justify-between gap-space-md">
             <div className="max-w-2xl">
               <div className="inline-flex items-center gap-space-xs px-3 py-1 rounded-full bg-surface-container text-primary mb-space-xs">
                 <span className="material-symbols-outlined text-[16px]">terminal</span>
@@ -101,7 +101,7 @@ export default function ClassReportsLearningAnalytics() {
           </div>
         </div>
         {/* 4 High Impact Metric Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-space-md mb-space-xl">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-space-md mb-space-xl">
           {/* Class Mastery Rate */}
           <div className="bg-surface-container-lowest p-space-lg rounded-2xl shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
             <div className="flex items-start justify-between">
@@ -191,7 +191,7 @@ export default function ClassReportsLearningAnalytics() {
         </div>
         {/* Section 1: CS Competency Breakdown & Misconception Gaps */}
         <div className="bg-surface-container-lowest p-space-lg rounded-2xl shadow-sm mb-space-xl">
-          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md pb-space-md mb-space-md">
+          <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-space-md pb-space-md mb-space-md">
             <div>
               <div className="flex items-center gap-space-xs">
                 <span className="material-symbols-outlined text-primary text-[22px]">integration_instructions</span>
@@ -336,7 +336,7 @@ export default function ClassReportsLearningAnalytics() {
           </div>
         </div>
         {/* Section 2: Intervention Tracking & Student Growth Matrix */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-space-lg mb-space-xl">
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-space-lg mb-space-xl">
           {/* Left: Visual Comparison & Flagged Learner Trajectory (2 Cols) */}
           {/* Right: AI Diagnostic Engine Performance (PRD 5.1.4 & 6.6) */}
           <div className="bg-surface-container-lowest p-space-lg rounded-2xl shadow-sm flex flex-col justify-between">

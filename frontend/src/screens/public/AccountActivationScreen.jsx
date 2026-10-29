@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import BrandLogo from '../../components/BrandLogo';
 
 const CURRENT_YEAR = new Date().getFullYear();
 
@@ -85,16 +86,7 @@ export default function AccountActivationScreen() {
     <div className="bg-surface font-body-md text-on-surface min-h-screen flex flex-col justify-between antialiased selection:bg-primary-fixed selection:text-on-primary-fixed overflow-x-hidden">
       <header className="w-full bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(91,75,219,0.04)]">
         <div className="max-w-[1120px] mx-auto px-margin-mobile md:px-margin h-20 flex items-center justify-between">
-          <Link className="flex items-center gap-space-sm group" data-path="login" to="/">
-            <div className="w-10 h-10 rounded-xl bg-primary-container flex items-center justify-center shadow-[0_4px_16px_rgba(91,75,219,0.16)] relative">
-              <span className="material-symbols-outlined text-on-primary text-[22px]">school</span>
-            </div>
-            <div className="flex flex-col">
-              <div className="flex items-center gap-1.5">
-                <span className="font-headline-md text-headline-lg tracking-tight text-on-surface font-bold">Aralytics</span>
-              </div>
-            </div>
-          </Link>
+          <BrandLogo to="/" />
           <div className="flex items-center gap-space-lg">
             <a className="flex items-center gap-space-xs font-label-lg text-body-md text-on-surface-variant hover:text-primary transition-colors font-medium" data-path="support" href="#">
               <span className="material-symbols-outlined text-[20px]">help</span>
@@ -126,7 +118,7 @@ export default function AccountActivationScreen() {
                     Institutional Onboarding
                   </span>
                 </div>
-                <h1 className="font-display-lg text-[32px] sm:text-display-lg text-on-surface tracking-tight mb-space-xs">
+                <h1 className="font-display-lg text-[32px] leading-[1.2] sm:text-display-lg text-on-surface tracking-tight mb-space-xs text-balance">
                   Activate Your Account
                 </h1>
                 <p className="font-body-lg text-body-lg text-on-surface-variant max-w-[500px] text-center mb-space-lg leading-relaxed">
@@ -386,7 +378,7 @@ export default function AccountActivationScreen() {
       <footer className="w-full bg-surface-container-low/60 shadow-[0_-1px_8px_rgba(91,75,219,0.02)] py-space-lg">
         <div className="max-w-[1120px] mx-auto px-margin-mobile md:px-margin flex flex-col sm:flex-row items-center justify-between gap-space-md">
           <div className="flex items-center gap-space-sm text-on-surface-variant">
-            <span className="material-symbols-outlined text-primary text-[20px]">school</span>
+            <BrandLogo dotClassName="w-2.5 h-2.5" iconClassName="w-7 h-7" iconSize="text-[17px]" showName={false} to="/" />
             <span className="font-body-md text-body-md text-on-surface-variant">
               © {CURRENT_YEAR} Aralytics Platform. Empowering learners and educators nationwide.
             </span>

@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom'
 import { Link } from 'react-router-dom'
+import BrandLogo from '../BrandLogo'
 
 const NAV_ITEMS = [
   { path: '/teacher/dashboard', icon: 'dashboard', label: 'Dashboard' },
@@ -21,14 +22,7 @@ export default function Sidebar({ open = false, onClose }) {
     >
       <div className="flex flex-col">
         <div className="h-[72px] flex items-center px-space-lg gap-space-sm">
-          <Link
-            className="flex items-center gap-space-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-xl"
-            to="/"
-          >
-            <span className="font-headline-sm text-headline-sm text-primary tracking-tight">
-              Aralytics
-            </span>
-          </Link>
+          <BrandLogo to="/teacher/dashboard" />
         </div>
         <nav className="flex flex-col gap-space-xs px-space-md mt-space-sm">
           {NAV_ITEMS.map((item) => (

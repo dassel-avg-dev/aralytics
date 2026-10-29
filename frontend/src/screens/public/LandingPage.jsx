@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import BrandLogo from '../../components/BrandLogo';
 
 const CURRENT_YEAR = new Date().getFullYear();
 
@@ -14,15 +15,7 @@ export default function LandingPage() {
       <header className="fixed top-0 w-full z-50 bg-surface/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(91,75,219,0.06)]">
         <div className="h-20 max-w-[1120px] mx-auto px-margin-mobile lg:px-margin flex items-center justify-between gap-space-md">
           <div className="flex items-center gap-space-lg">
-            <Link className="flex items-center gap-space-sm group focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-xl" data-path="home" to="/">
-              <div className="relative w-10 h-10 rounded-xl bg-primary flex items-center justify-center shadow-[0_4px_16px_rgba(91,75,219,0.2)] transition-transform duration-200 group-hover:scale-105">
-                <span className="material-symbols-outlined text-tertiary-fixed text-[26px] select-none">school</span>
-                <div className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 rounded-full bg-tertiary-fixed border-2 border-surface"></div>
-              </div>
-              <div className="flex flex-col">
-                <span className="font-headline-sm text-headline-sm tracking-tight text-on-surface leading-none">Aralytics</span>
-              </div>
-            </Link>
+            <BrandLogo to="/" />
             <nav className="hidden lg:flex items-center gap-1" data-active-classes="bg-surface-container-high text-primary font-label-lg rounded-xl">
               <a className="px-3 py-2 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-label-lg text-label-lg" data-path="features" href="#">Features</a>
               <a className="px-3 py-2 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-label-lg text-label-lg" data-path="for-students" href="#">For Students</a>
@@ -689,7 +682,7 @@ export default function LandingPage() {
                 <div className="w-12 h-12 rounded-xl bg-primary text-on-primary flex items-center justify-center mx-auto mb-2">
                   <span className="material-symbols-outlined text-[28px]">terminal</span>
                 </div>
-                <h2 className="font-headline-lg text-headline-lg sm:text-[36px] text-on-surface font-bold tracking-tight">
+                <h2 className="font-headline-lg text-headline-lg sm:text-[36px] text-on-surface font-bold tracking-tight leading-tight">
                   Ready to transform coding education in your school?
                 </h2>
                 <p className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed max-w-xl mx-auto">
@@ -767,8 +760,7 @@ export default function LandingPage() {
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-space-lg pb-space-xl">
             <div className="col-span-2 lg:col-span-2 flex flex-col gap-space-sm pr-space-lg">
               <div className="flex items-center gap-space-sm">
-                <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center"><span className="material-symbols-outlined text-tertiary-fixed text-[22px]">terminal</span></div>
-                <span className="font-headline-sm text-headline-sm text-on-surface tracking-tight">Aralytics</span>
+                <BrandLogo iconClassName="w-9 h-9" iconSize="text-[22px]" nameClassName="" />
               </div>
               <p className="font-body-md text-body-md text-on-surface-variant max-w-sm mt-1">AI-powered diagnostic and feedback platform for computer science education, debugging mastery, and personalized coding guidance.</p>
               <div className="mt-space-sm inline-flex items-center gap-space-xs px-3 py-1.5 rounded-full bg-tertiary-fixed/30 text-tertiary font-label-sm text-label-sm w-fit">

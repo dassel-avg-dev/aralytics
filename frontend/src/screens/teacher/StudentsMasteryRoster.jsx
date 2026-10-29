@@ -181,7 +181,7 @@ export default function StudentsMasteryRoster() {
     <div className="flex flex-col w-full">
       <div className="px-space-lg py-space-xl max-w-[1280px] w-full mx-auto flex flex-col gap-space-xl">
         {/* Top Context & Header Action Band */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-space-md">
+        <div className="flex flex-col xl:flex-row xl:items-end justify-between gap-space-md">
           <div className="flex flex-col gap-space-xs">
             <div className="flex items-center gap-space-xs text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider">
               <span className="text-primary font-bold">Classroom Central</span>
@@ -210,7 +210,7 @@ export default function StudentsMasteryRoster() {
           </div>
         </div>
         {/* Overview Diagnostic KPI Ribbon (3 Cards with Visual Mastery Rings) */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-space-lg">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-space-lg">
           {/* High Performance / On Track */}
           <div className="bg-surface-container-lowest rounded-2xl p-space-lg shadow-sm flex items-center justify-between relative overflow-hidden group hover:shadow-md transition-shadow">
             <div className="flex flex-col gap-space-xs z-10">
@@ -334,7 +334,7 @@ export default function StudentsMasteryRoster() {
             {/* Roster Matrix Table Card */}
             <div className="bg-surface-container-lowest rounded-2xl shadow-sm overflow-hidden flex flex-col">
               <div className="overflow-x-auto">
-                <table className="w-full text-left border-collapse">
+                <table className="w-full min-w-[900px] text-left border-collapse">
                   <thead>
                     <tr className="bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider">
                       <th className="py-3 px-4">Student &amp; ID</th>

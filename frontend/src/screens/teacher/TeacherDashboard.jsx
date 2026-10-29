@@ -91,8 +91,6 @@ const ROSTER_STUDENTS = [
     modalStatus: 'Needs Help',
     observation:
       'Off-by-one errors in while loops & index out of range exceptions.',
-    observationFil:
-      'Nakakitaan si Miguel Ramos ng magandang pagkaunawa sa conditional branches. Ang hamon ay nasa off-by-one errors sa while loops at index out of range exceptions.',
   },
   {
     initials: 'CD',
@@ -113,8 +111,6 @@ const ROSTER_STUDENTS = [
     modalStatus: 'Needs Help',
     observation:
       'Variable scope confusion: attempting to modify global accumulator in local def.',
-    observationFil:
-      'May kalabuan si Carlos Diaz sa variable scope: binabago ang global accumulator sa loob ng local def. Kailangan ng pagsusuri sa local vs global scope.',
   },
   {
     initials: 'JC',
@@ -135,8 +131,6 @@ const ROSTER_STUDENTS = [
     modalStatus: 'Needs a Nudge',
     observation:
       'Return vs Print distinction tripping up automated pytest runs.',
-    observationFil:
-      'Nalilito si Jasmine Cruz sa pagitan ng return at print, kaya bumibigo ang mga automated pytest runs.',
   },
   {
     initials: 'PG',
@@ -157,8 +151,6 @@ const ROSTER_STUDENTS = [
     modalStatus: 'Needs a Nudge',
     observation:
       'Indentation and formatting errors on nested blocks.',
-    observationFil:
-      'Mga indentation at formatting error ni Paolo Garcia sa nested blocks.',
   },
   {
     initials: 'BM',
@@ -179,8 +171,6 @@ const ROSTER_STUDENTS = [
     modalStatus: 'On Track',
     observation:
       'Flawless recursion and algorithmic decomposition.',
-    observationFil:
-      'Perpekto ang recursion at algorithmic decomposition ni Bea Mendoza.',
   },
   {
     initials: 'LF',
@@ -201,8 +191,6 @@ const ROSTER_STUDENTS = [
     modalStatus: 'On Track',
     observation:
       'Clean function abstraction and good variable naming conventions.',
-    observationFil:
-      'Malinis ang function abstraction ni Luis Fernando at maganda ang variable naming conventions.',
   },
 ]
 
@@ -236,7 +224,6 @@ export default function TeacherDashboard() {
       ...student,
       status: student.status || student.modalStatus || 'On Track',
       score: typeof student.score === 'number' ? `${student.score}%` : student.score,
-      lang: 'en',
     })
   }
 
@@ -263,10 +250,6 @@ export default function TeacherDashboard() {
     }, 900)
   }
 
-  function toggleModalLang(lang) {
-    setModalStudent((s) => ({ ...s, lang }))
-  }
-
   const visibleConcepts = CONCEPT_SCORES.filter(
     (c) => masteryFilter === 'All' || c.category === masteryFilter
   )
@@ -281,7 +264,7 @@ export default function TeacherDashboard() {
     <div className="max-w-[1120px] mx-auto p-margin">
       <div className="flex flex-col w-full">
         {/* Top Greeting & Action Header */}
-        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-space-md mb-space-lg">
+        <div className="flex flex-col xl:flex-row xl:items-center xl:justify-between gap-space-md mb-space-lg">
           <div className="flex flex-col">
             <div className="flex items-center gap-space-xs mb-1">
               <span className="font-headline-lg text-headline-lg text-on-surface">Welcome back, Mr. Reyes!</span>
@@ -316,7 +299,7 @@ export default function TeacherDashboard() {
           </div>
         </div>
         {/* ROW 1: 4 Key Metric Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md mb-space-lg">{/* Stat 1: Cohort Test Pass Rate */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-space-md mb-space-lg">{/* Stat 1: Cohort Test Pass Rate */}
           <div className="bg-surface-container-lowest rounded-2xl p-space-md shadow-xs flex flex-col justify-between hover:shadow-sm transition-shadow">
             <div className="flex items-center justify-between mb-space-xs">
               <span className="font-label-md text-label-md text-on-surface-variant">Cohort Test Pass Rate</span>
@@ -391,9 +374,9 @@ export default function TeacherDashboard() {
           </div>
         </div>
         {/* ROW 2: Class Trajectory & Risk Distribution (8 cols + 4 cols) */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-space-lg mb-space-lg">
+        <div className="grid grid-cols-1 xl:grid-cols-12 gap-space-lg mb-space-lg">
           {/* Left: Score Trajectory Chart (8 cols) */}
-          <div className="lg:col-span-8 bg-surface-container-lowest rounded-[20px] p-space-lg shadow-[0_4px_16px_rgba(91,75,219,0.08)] flex flex-col justify-between">
+          <div className="xl:col-span-8 bg-surface-container-lowest rounded-[20px] p-space-lg shadow-[0_4px_16px_rgba(91,75,219,0.08)] flex flex-col justify-between">
             <div>
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm mb-space-md">
                 <div>
@@ -504,7 +487,7 @@ export default function TeacherDashboard() {
             </div>
           </div>
           {/* Right: Class Status Distribution Donut (4 cols) */}
-          <div className="lg:col-span-4 bg-surface-container-lowest rounded-[20px] p-space-lg shadow-[0_4px_16px_rgba(91,75,219,0.08)] flex flex-col justify-between">
+          <div className="xl:col-span-4 bg-surface-container-lowest rounded-[20px] p-space-lg shadow-[0_4px_16px_rgba(91,75,219,0.08)] flex flex-col justify-between">
             <div>
               <div className="flex items-center justify-between mb-space-xs">
                 <h3 className="font-headline-sm text-headline-sm text-on-surface">Status Distribution</h3>
@@ -572,9 +555,9 @@ export default function TeacherDashboard() {
           </div>
         </div>
         {/* ROW 3: Topic Mastery & Needs Attention Grid (6 cols + 6 cols) */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-space-lg mb-space-lg" id="needs-attention-section">
+        <div className="grid grid-cols-1 xl:grid-cols-12 gap-space-lg mb-space-lg" id="needs-attention-section">
           {/* Left: CS Concept Mastery (6 cols) */}
-          <div className="lg:col-span-6 bg-surface-container-lowest rounded-[20px] p-space-lg shadow-[0_4px_16px_rgba(91,75,219,0.08)] flex flex-col justify-between">
+          <div className="xl:col-span-6 bg-surface-container-lowest rounded-[20px] p-space-lg shadow-[0_4px_16px_rgba(91,75,219,0.08)] flex flex-col justify-between">
             <div>
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-space-md">
                 <div>
@@ -624,7 +607,7 @@ export default function TeacherDashboard() {
         {/* ROW 4: Student Directory & Comprehensive Roster (Full 12 cols) */}
         <div className="bg-surface-container-lowest rounded-[20px] p-space-lg shadow-[0_4px_16px_rgba(91,75,219,0.08)] mb-space-lg">
           {/* Header with Search & Filter Tabs */}
-          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md mb-space-md pb-space-sm">
+          <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-space-md mb-space-md pb-space-sm">
             <div>
               <div className="flex items-center gap-2">
                 <h3 className="font-headline-sm text-headline-sm text-on-surface">Student Directory &amp; Progress</h3>
@@ -668,7 +651,7 @@ export default function TeacherDashboard() {
           </div>
           {/* Table Container */}
           <div className="w-full overflow-x-auto">
-            <table className="w-full text-left font-body-sm text-body-sm">
+            <table className="w-full min-w-[760px] text-left font-body-sm text-body-sm">
               <thead>
                 <tr className="text-on-surface-variant bg-surface-container-low text-[12px] uppercase tracking-wider font-semibold">
                   <th className="py-3 px-4 rounded-l-xl">Learner Name &amp; ID</th>
@@ -775,14 +758,6 @@ export default function TeacherDashboard() {
                 <span className="material-symbols-outlined text-[20px]">close</span>
               </button>
             </div>
-            {/* Language Toggle for Diagnostic Notes */}
-            <div className="flex items-center justify-between bg-surface-container-low p-2 rounded-xl">
-              <span className="font-label-sm text-label-sm text-on-surface-variant font-semibold">Teacher Note Language:</span>
-              <div className="flex items-center bg-surface-container-lowest p-0.5 rounded-lg">
-                <button className={modalStudent.lang === 'en' ? 'px-2.5 py-0.5 rounded-md bg-primary-container text-on-primary font-label-sm text-label-sm font-bold' : 'px-2.5 py-0.5 rounded-md text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm'} onClick={() => toggleModalLang('en')} type="button">EN</button>
-                <button className={modalStudent.lang === 'fil' ? 'px-2.5 py-0.5 rounded-md bg-primary-container text-on-primary font-label-sm text-label-sm font-bold' : 'px-2.5 py-0.5 rounded-md text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm'} onClick={() => toggleModalLang('fil')} type="button">FIL</button>
-              </div>
-            </div>
             {/* AI Feedback Summary */}
             <div className="p-space-md rounded-xl bg-primary-fixed/25 flex flex-col gap-2">
               <div className="flex items-center gap-1.5 text-primary">
@@ -790,9 +765,7 @@ export default function TeacherDashboard() {
                 <span className="font-label-md text-label-md font-bold">Aralytics AI Diagnostic</span>
               </div>
               <p className="font-body-sm text-body-sm text-on-surface leading-relaxed">
-                {modalStudent.lang === 'fil'
-                  ? modalStudent.observationFil
-                  : `"${modalStudent.observation}"`}
+                {`"${modalStudent.observation}"`}
               </p>
             </div>
             {/* Performance Metrics Breakdown */}

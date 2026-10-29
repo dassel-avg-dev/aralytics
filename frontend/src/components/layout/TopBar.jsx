@@ -1,12 +1,9 @@
-import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 const PROFILE_URL =
   'https://lh3.googleusercontent.com/aida-public/AB6AXuChrfifem-pX-5-2ww20HzrO-M3nr7zLtmPi9Ix5-PCHl7pi5uQZlXPj6xHOAyG6JWBzxOozhXH5fuP6gRofSlFOKpUzMOpRg73l4PI5TaIX7ObErToVfnbzhJy2ghX0wDrjK6Lj3QfAiVzzaEcBSb7jWbHlaU0lIU4nC-1cCexq0ACsLAItVy1LwoUNeA06eShYWT0UaFkkl2Fbh-zjihrqjqhdUFLP2Zuz78Kyv-Wx6wEB5ZpfYTQrQ'
 
 export default function TopBar({ onMenu }) {
-  const [lang, setLang] = useState('EN')
-
   return (
     <header className="fixed top-0 left-0 lg:left-[250px] right-0 h-[72px] bg-surface-container-lowest/90 backdrop-blur-xl z-40 shadow-[0_1px_8px_rgba(91,75,219,0.06)]">
       <div className="h-[72px] px-space-lg flex items-center justify-between gap-space-md">
@@ -31,7 +28,7 @@ export default function TopBar({ onMenu }) {
             </span>
           </div>
         </div>
-        <div className="hidden md:flex items-center gap-space-md flex-1 max-w-md">
+        <div className="hidden xl:flex items-center gap-space-md flex-1 max-w-md">
           <div className="relative w-full">
             <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">
               search
@@ -44,30 +41,6 @@ export default function TopBar({ onMenu }) {
           </div>
         </div>
         <div className="flex items-center gap-space-md">
-          <div className="hidden md:flex items-center bg-surface-container-low p-1 rounded-full text-on-surface font-label-sm text-label-sm">
-            <button
-              className={
-                lang === 'EN'
-                  ? 'px-2 py-0.5 rounded-full bg-surface-container-lowest text-primary font-bold shadow-xs transition-colors'
-                  : 'px-2 py-0.5 rounded-full text-on-surface-variant hover:text-on-surface transition-colors'
-              }
-              onClick={() => setLang('EN')}
-              type="button"
-            >
-              EN
-            </button>
-            <button
-              className={
-                lang === 'FIL'
-                  ? 'px-2 py-0.5 rounded-full bg-surface-container-lowest text-primary font-bold shadow-xs transition-colors'
-                  : 'px-2 py-0.5 rounded-full text-on-surface-variant hover:text-on-surface transition-colors'
-              }
-              onClick={() => setLang('FIL')}
-              type="button"
-            >
-              FIL
-            </button>
-          </div>
           <button
             className="relative p-2 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors"
             title="Notifications"

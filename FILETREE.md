@@ -72,10 +72,11 @@ aralytics/
         ├── assets/                         # Bundled static assets (if needed by components)
         │
         ├── components/
+        │   ├── BrandLogo.jsx              # Canonical Aralytics lockup used across public/auth/student/teacher chrome (primary rounded-square school mark + amber dot + landing name styling)
         │   └── layout/                     # Shared Teacher application chrome
         │       ├── AppShell.jsx            # Fixed left Sidebar + sticky TopBar + <main class="lg:ml-[240px] flex-1 p-6 lg:p-space-xl max-w-[1600px]"> + mobile drawer
-        │       ├── Sidebar.jsx             # 240px fixed left nav (Dashboard, Students, Activities, Reports, Settings under /teacher/*) + G. Santos profile footer
-        │       └── TopBar.jsx              # 64px sticky glass header with mobile hamburger, Section 10-Rizal selector, search input, notifications, New Activity CTA
+        │       ├── Sidebar.jsx             # 250px fixed left nav (Dashboard, Students, Activities, Reports, Settings under /teacher/*) + Mr. Reyes profile footer
+        │       └── TopBar.jsx              # 72px sticky glass header with mobile hamburger, CS 101 course selector, xl+ search, notifications, New Activity CTA, profile
         │
         └── screens/                        # Screen-level route components separated by role (1:1 conversions of screens/stitch/*/code.html)
             ├── public/                     # Public & Authentication screens (standalone chrome)

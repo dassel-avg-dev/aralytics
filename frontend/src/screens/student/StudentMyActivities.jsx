@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import BrandLogo from '../../components/BrandLogo'
 
 export default function StudentMyActivities() {
   const [activeFilter, setActiveFilter] = useState('all')
@@ -13,20 +14,7 @@ export default function StudentMyActivities() {
       <header className="fixed top-0 left-0 right-0 w-full z-50 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(91,75,219,0.06)]">
         <div className="h-20 max-w-7xl mx-auto px-gutter flex items-center justify-between gap-space-md">
           <div className="flex items-center gap-space-lg">
-            <Link
-              className="flex items-center gap-space-xs group"
-              data-path="dashboard"
-              to="/student/dashboard"
-            >
-              <div className="relative w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-on-primary shadow-[0_4px_16px_rgba(91,75,219,0.2)] flex-shrink-0">
-                <span className="material-symbols-outlined text-[22px] text-white">school</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="font-headline-sm text-headline-sm text-on-surface tracking-tight font-extrabold">
-                  Aralytics
-                </span>
-              </div>
-            </Link>
+            <BrandLogo to="/student/dashboard" />
             <nav
               className="hidden xl:flex items-center gap-space-xs bg-surface-container-low/70 p-1.5 rounded-2xl"
               data-active-classes="bg-surface-container-high text-primary font-label-lg font-bold rounded-xl"
@@ -36,14 +24,7 @@ export default function StudentMyActivities() {
                 data-path="dashboard"
                 to="/student/dashboard"
               >
-                <div className="flex items-center gap-2">
-                  <span className="font-headline-sm text-headline-sm text-on-surface tracking-tight font-extrabold">
-                    Aralytics
-                  </span>
-                  <span className="px-2 py-0.5 rounded-full bg-primary-fixed text-primary font-label-sm text-label-sm font-bold tracking-wide">
-                    Pilipinas AI
-                  </span>
-                </div>
+                Dashboard
               </Link>
               <Link
                 aria-current="page"

@@ -20,7 +20,7 @@ export default function ActivitiesQuizManagement() {
     <div className="flex flex-col w-full">
       <div className="w-full max-w-[1120px] mx-auto px-space-md lg:px-space-lg py-space-lg">
         {/* Top Context & Header Action Suite */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-space-lg pb-space-lg">
+        <div className="flex flex-col xl:flex-row xl:items-end justify-between gap-space-lg pb-space-lg">
           <div className="flex flex-col gap-space-xs max-w-xl">
             <div className="flex items-center gap-space-xs">
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-high text-primary font-label-sm text-label-sm">
@@ -52,7 +52,7 @@ export default function ActivitiesQuizManagement() {
         </div>
         {/* AI Quick Generator Spotlight Banner (Warm Cream & Indigo Accent) */}
         <div className="relative overflow-hidden mb-space-xl p-space-lg rounded-[20px] bg-gradient-to-r from-surface-container-low via-surface-container-lowest to-surface-container shadow-sm">
-          <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-space-md">
+          <div className="relative z-10 flex flex-col xl:flex-row items-start xl:items-center justify-between gap-space-md">
             <div className="flex items-start gap-space-md max-w-2xl">
               <div className="w-12 h-12 rounded-[16px] bg-primary-container text-on-primary flex items-center justify-center shrink-0 shadow-sm">
                 <span className="material-symbols-outlined text-[26px]" style={{ fontVariationSettings: "'FILL' 1" }}>terminal</span>
@@ -67,7 +67,7 @@ export default function ActivitiesQuizManagement() {
                 </p>
               </div>
             </div>
-            <div className="flex items-center gap-space-sm w-full lg:w-auto justify-end">
+            <div className="flex items-center gap-space-sm w-full xl:w-auto justify-end">
               <button className="flex items-center gap-2 px-space-md py-2.5 rounded-[14px] bg-tertiary-fixed-dim text-on-surface font-label-lg text-label-lg hover:brightness-105 shadow-sm transition-all" type="button" onClick={() => showToast('Generating a 5-question coding drill for Python • Loops & Lists ✨')}>
                 <span className="material-symbols-outlined text-[18px]">bolt</span>
                 <span className="">Create Coding Drill</span>
@@ -402,7 +402,7 @@ export default function ActivitiesQuizManagement() {
                 <label className="font-label-md text-label-md text-on-surface">Activity Title</label>
                 <input className="w-full bg-surface-container-low text-on-surface placeholder:text-on-surface-variant font-body-md text-body-md px-4 py-3 rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-primary-container" placeholder="e.g. Unit Check: Linear Equations &amp; Graphs" type="text" />
               </div>
-              <div className="grid grid-cols-2 gap-space-sm">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-space-sm">
                 <div className="flex flex-col gap-1.5">
                   <label className="font-label-md text-label-md text-on-surface">Topic / Module</label>
                   <select className="w-full bg-surface-container-low text-on-surface font-body-md text-body-md px-4 py-3 rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-primary-container" defaultValue="Python Fundamentals">
