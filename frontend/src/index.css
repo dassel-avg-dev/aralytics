@@ -183,3 +183,43 @@
     display: none;
   }
 }
+
+/*
+  Global interaction polish (additive; screens keep their own Tailwind
+  focus/hover classes, which override these lower-specificity defaults).
+*/
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    -webkit-tap-highlight-color: transparent;
+  }
+  /* Keyboard focus ring everywhere the screens don't already style it */
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+  /* Soft text selection using the brand purple */
+  ::selection {
+    background-color: var(--color-primary);
+    color: var(--color-on-primary);
+  }
+  /* Gentle press feedback that any Tailwind utility can override */
+  :where(button, [role='button']):not(:disabled):active {
+    transform: scale(0.98);
+  }
+  /* Respect users who turn off motion */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    ::before,
+    ::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}

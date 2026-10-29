@@ -82,6 +82,17 @@ Chronological log of steps taken during work sessions on this project, kept rega
 
 ---
 
+## Session 2026-10-29 (Global visual/interaction polish pass)
+
+61. Clarified enhancement direction with the user; chose "Visual/UI polish pass" over data wiring, accessibility audit, or mock backend.
+62. Found the installed `ui-ux-pro-max` skill scripts/data missing (`scripts/` only contains `tests/`), so used its built-in priority-table defaults for focus visibility (P1), touch feedback (P2), and reduced motion (P7).
+63. Audited all 17 `frontend/src` files: 384 `hover:` / 404 transition mentions already exist from Stitch classes, but only 66 `focus` mentions and zero `prefers-reduced-motion` handling.
+64. Added one additive block to `frontend/src/index.css` (no screen edits, no layout change): global `:focus-visible` ring in brand purple `--color-primary`, soft `::selection` color, `-webkit-tap-highlight-color: transparent`, smooth `scroll-behavior`, gentle `scale(0.98)` press feedback on buttons via `:where()` (utilities override it), and a `prefers-reduced-motion: reduce` guard that kills animations/transitions/smooth scrolling. Obeyed the `*/`-in-CSS-comment rule.
+65. Verified: `npm --prefix frontend run lint` clean, `npm --prefix frontend run build` clean (only the known >500 kB chunk warning), and confirmed all new rules present in `dist/assets/*.css`.
+66. Playwright-verified on the dev server (port 3000): tab focus on `/teacher/dashboard` nav links shows the purple ring (`rgb(66,46,194)`), `scroll-behavior: smooth` applies, reduced-motion `@media` rule present in the served page; no 390px horizontal overflow after the change; screenshot `.playwright-mcp/polish-teacher-dashboard-1440.png` confirms visuals are unchanged (additive polish only). Initial stale-CSS confusion in the browser was resolved by a fresh navigation.
+
+---
+
 ## Session 2026-10-29 (Playwright UI pass, branding, language removal)
 
 50. Started Vite on `http://localhost:5173` and captured full-page screenshots of all 13 routes at 1440×900, 1024×768, and 390×844 into `.playwright-mcp/audit/`, then compared them against `screens/stitch/*/screen.png`.
