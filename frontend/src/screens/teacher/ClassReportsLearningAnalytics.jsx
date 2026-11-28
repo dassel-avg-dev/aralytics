@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { api, getStoredClasses, saveBlob } from '../../api/client'
 import { useApiResource } from '../../api/useApiResource'
 import { DataError, EmptyBlock, LoadingBlock } from '../../components/DataState'
+import Button from '../../components/ui/Button'
+import Card from '../../components/ui/Card'
 
 function formatPercent(value) {
   if (value === null || value === undefined) return '—'
@@ -83,36 +85,34 @@ export default function ClassReportsLearningAnalytics() {
               </p>
             </div>
             <div className="flex flex-wrap items-center gap-space-xs shrink-0">
-              <button
-                className="flex items-center gap-space-xs bg-surface-container hover:bg-surface-container-high text-on-surface px-4 py-2.5 rounded-xl font-label-lg text-label-lg shadow-sm transition-all disabled:opacity-60"
-                type="button"
-                onClick={() => runExport('csv')}
+              <Button
                 disabled={Boolean(exporting)}
+                onClick={() => runExport('csv')}
+                variant="secondary"
               >
                 <span className="material-symbols-outlined text-[18px] text-primary">
                   {exporting === 'csv' ? 'progress_activity' : 'table_chart'}
                 </span>
                 <span>{exporting === 'csv' ? 'Exporting…' : 'Export Roster CSV'}</span>
-              </button>
-              <button
-                className="flex items-center gap-space-xs bg-primary-container text-on-primary hover:bg-primary px-4 py-2.5 rounded-xl font-label-lg text-label-lg shadow-sm transition-all disabled:opacity-60"
-                type="button"
-                onClick={() => runExport('pdf')}
+              </Button>
+              <Button
                 disabled={Boolean(exporting)}
+                onClick={() => runExport('pdf')}
+                variant="primary"
               >
                 <span className="material-symbols-outlined text-[18px]">
                   {exporting === 'pdf' ? 'progress_activity' : 'file_download'}
                 </span>
                 <span>{exporting === 'pdf' ? 'Exporting…' : 'Download PDF Summary'}</span>
-              </button>
+              </Button>
             </div>
           </div>
           {classes.length > 0 && (
-            <div className="bg-surface-container-lowest p-space-sm rounded-2xl shadow-sm flex flex-wrap items-center gap-space-xs">
+            <Card className="p-space-sm flex flex-wrap items-center gap-space-xs" variant="elevated">
               <span className="material-symbols-outlined text-secondary text-[18px] ml-1">group</span>
               <select
                 aria-label="Class Selector"
-                className="bg-surface-container-low text-on-surface font-label-md text-label-md px-3 py-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-container cursor-pointer"
+                className="min-h-[44px] bg-surface-container-low text-on-surface font-label-md text-label-md px-3 py-2 rounded-xl border border-outline-variant/60 focus:outline-none focus:ring-2 focus:ring-primary cursor-pointer"
                 value={classId}
                 onChange={(event) => setClassId(event.target.value)}
               >
@@ -122,7 +122,7 @@ export default function ClassReportsLearningAnalytics() {
                   </option>
                 ))}
               </select>
-            </div>
+            </Card>
           )}
         </div>
 
@@ -134,13 +134,14 @@ export default function ClassReportsLearningAnalytics() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-space-md mb-space-xl">
           {metrics.map((metric) => (
-            <div
-              className="bg-surface-container-lowest p-space-lg rounded-2xl shadow-sm hover:shadow-md transition-shadow"
+            <Card
+              className="p-space-lg hover:shadow-md transition-shadow"
               key={metric.label}
+              variant="elevated"
             >
               <div className="flex items-start justify-between">
                 <span className="font-label-md text-label-md text-on-surface-variant">{metric.label}</span>
-                <span className="p-2 rounded-xl bg-primary-container/10 text-primary">
+                <span className="p-2 rounded-xl bg-primary-fixed text-primary">
                   <span className="material-symbols-outlined text-[20px]">{metric.icon}</span>
                 </span>
               </div>
@@ -150,11 +151,11 @@ export default function ClassReportsLearningAnalytics() {
                 </span>
                 <p className="font-body-sm text-body-sm text-on-surface-variant mt-1">{metric.note}</p>
               </div>
-            </div>
+            </Card>
           ))}
         </div>
 
-        <div className="bg-surface-container-lowest p-space-lg rounded-2xl shadow-sm mb-space-xl">
+        <Card className="p-space-lg mb-space-xl" variant="elevated">
           <div className="mb-space-md">
             <h2 className="font-headline-md text-headline-md text-on-surface">Concept Mastery</h2>
             <p className="font-body-md text-body-md text-on-surface-variant mt-1">
@@ -179,7 +180,7 @@ export default function ClassReportsLearningAnalytics() {
                     </div>
                     <div className="w-full h-3 bg-surface-container rounded-full overflow-hidden">
                       <div
-                        className={`h-full rounded-full ${pct >= 85 ? 'bg-[#22A06B]' : pct >= 70 ? 'bg-primary-container' : 'bg-tertiary-fixed-dim'}`}
+                        className={`h-full rounded-full ${pct >= 85 ? 'bg-status-ok' : pct >= 70 ? 'bg-primary-container' : 'bg-accent-yellow'}`}
                         style={{ width: `${pct}%` }}
                       />
                     </div>
@@ -188,9 +189,9 @@ export default function ClassReportsLearningAnalytics() {
               })}
             </div>
           )}
-        </div>
+        </Card>
 
-        <div className="bg-surface-container-lowest p-space-lg rounded-2xl shadow-sm">
+        <Card className="p-space-lg" variant="elevated">
           <div className="mb-space-md">
             <h2 className="font-headline-md text-headline-md text-on-surface">Needs Attention</h2>
             <p className="font-body-md text-body-md text-on-surface-variant mt-1">
@@ -237,7 +238,7 @@ export default function ClassReportsLearningAnalytics() {
               </table>
             </div>
           )}
-        </div>
+        </Card>
       </div>
     </div>
   )

@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { getSession } from './api/client'
 import Sidebar from './components/layout/Sidebar'
 import TopBar from './components/layout/TopBar'
+import StudentShell from './components/layout/StudentShell'
 // Public & auth
 import LandingPage from './screens/public/LandingPage'
 import LoginScreen from './screens/public/LoginScreen'
@@ -51,9 +52,15 @@ function AppShell({ children }) {
   const [navOpen, setNavOpen] = useState(false)
   const { pathname } = useLocation()
   const session = getSession()
-  const isTeacher = Boolean(session?.token && session?.user?.role === 'TEACHER')
+  const role = session?.token ? session?.user?.role : null
   const inTeacherApp =
-    isTeacher && (pathname.startsWith('/teacher/') || pathname === '/profile')
+    role === 'TEACHER' && (pathname.startsWith('/teacher/') || pathname === '/profile')
+  const inStudentApp =
+    role === 'STUDENT' && (pathname.startsWith('/student/') || pathname === '/profile')
+
+  if (inStudentApp) {
+    return <StudentShell>{children}</StudentShell>
+  }
 
   if (!inTeacherApp) return children
 

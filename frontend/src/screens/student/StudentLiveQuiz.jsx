@@ -1,15 +1,59 @@
 import { useEffect, useState } from 'react'
-import { Link, useSearchParams } from 'react-router-dom'
-import StudentHeader from '../../components/student/StudentHeader'
+import { useSearchParams } from 'react-router-dom'
 import { api } from '../../api/client'
 import { useApiResource } from '../../api/useApiResource'
 import { DataError, EmptyBlock, LoadingBlock } from '../../components/DataState'
+import Badge from '../../components/ui/Badge'
+import Button from '../../components/ui/Button'
+import Card from '../../components/ui/Card'
 
 function formatDue(value) {
   if (!value) return 'No due date'
   const date = new Date(value)
   if (Number.isNaN(date.getTime())) return 'No due date'
   return date.toLocaleDateString(undefined, { month: 'short', day: 'numeric' })
+}
+
+function QuestionStem({ text }) {
+  if (!text) return null
+  const fenceMatch = text.match(/```(?:\w+)?\n([\s\S]*?)```/)
+  if (fenceMatch) {
+    const before = text.slice(0, fenceMatch.index).trim()
+    const after = text.slice(fenceMatch.index + fenceMatch[0].length).trim()
+    const prompt = [before, after].filter(Boolean).join(' ')
+    return (
+      <div className="flex flex-col gap-3">
+        {prompt && (
+          <h2 id="quiz-question-title" className="font-headline-sm text-headline-sm font-bold text-on-surface">
+            {prompt}
+          </h2>
+        )}
+        <pre className="p-4 rounded-xl bg-ink text-inverse-on-surface font-mono text-sm leading-relaxed overflow-x-auto">
+          <code>{fenceMatch[1].trimEnd()}</code>
+        </pre>
+      </div>
+    )
+  }
+
+  const lines = text.split('\n')
+  if (lines.length > 1) {
+    return (
+      <div className="flex flex-col gap-3">
+        <h2 id="quiz-question-title" className="font-headline-sm text-headline-sm font-bold text-on-surface">
+          {lines[0]}
+        </h2>
+        <pre className="p-4 rounded-xl bg-ink text-inverse-on-surface font-mono text-sm leading-relaxed overflow-x-auto">
+          <code>{lines.slice(1).join('\n').trimEnd()}</code>
+        </pre>
+      </div>
+    )
+  }
+
+  return (
+    <h2 id="quiz-question-title" className="font-headline-sm text-headline-sm font-bold text-on-surface">
+      {text}
+    </h2>
+  )
 }
 
 export default function StudentLiveQuiz() {
@@ -92,251 +136,234 @@ export default function StudentLiveQuiz() {
   const secondsLabel = String(seconds % 60).padStart(2, '0')
 
   return (
-    <div className="bg-surface font-body-md text-on-surface antialiased min-h-screen flex flex-col">
-      <StudentHeader active="/student/quiz" />
-      <main className="w-full pt-20 bg-surface flex-1">
-        <div className="max-w-7xl mx-auto px-gutter py-space-lg flex flex-col gap-space-lg">
-          {!quizId && (
+    <div className="max-w-7xl mx-auto px-gutter py-space-lg flex flex-col gap-space-lg">
+      {!quizId && (
+        <div className="flex flex-col items-center gap-space-md">
+          <EmptyBlock
+            className="w-full"
+            icon="quiz"
+            title="Choose an activity first"
+            message="Open an activity from My Activities to start a quiz."
+          />
+          <Button to="/student/activities" variant="primary">
+            Browse My Activities
+          </Button>
+        </div>
+      )}
+      {quizId && quiz.loading && <LoadingBlock label="Loading your quiz…" />}
+      {quizId && quiz.error && <DataError error={quiz.error} onRetry={quiz.reload} />}
+
+      {quizId && quiz.data && (
+        <>
+          <Card className="p-space-lg flex flex-col md:flex-row md:items-center justify-between gap-space-md" variant="elevated">
+            <div className="flex flex-col gap-1">
+              <h1 className="font-headline-lg text-headline-lg text-on-surface font-extrabold">
+                {quiz.data.title}
+              </h1>
+              <p className="font-body-md text-body-md text-on-surface-variant">
+                {quiz.data.description || 'Answer every question, then submit.'}
+              </p>
+            </div>
+            <div className="flex flex-wrap items-center gap-2 shrink-0">
+              {quiz.data.className && (
+                <Badge dot={false} tone="on-track">
+                  {quiz.data.className}
+                </Badge>
+              )}
+              <Badge className="tabular-nums" dot={false} tone="neutral">
+                Due {formatDue(quiz.data.dueDate)}
+              </Badge>
+              {!submitted && (
+                <Badge aria-label="Elapsed time" className="tabular-nums" dot={false} tone="nudge">
+                  <span aria-hidden="true" className="material-symbols-outlined text-[14px]">
+                    schedule
+                  </span>
+                  {minutes}m {secondsLabel}s
+                </Badge>
+              )}
+            </div>
+          </Card>
+
+          {submitted && (
+            <Card className="p-space-lg bg-status-ok-tint border-status-ok/30 flex flex-col sm:flex-row sm:items-center justify-between gap-space-md" variant="subtle">
+              <div>
+                <h2 className="font-headline-sm text-headline-sm font-bold text-secondary">Submitted</h2>
+                <p className="font-body-md text-body-md text-on-surface tabular-nums">
+                  Score: {Number(result?.score ?? quiz.data.score ?? 0).toFixed(1)}% ·{' '}
+                  Feedback: {result?.feedbackStatus || quiz.data.feedbackStatus || 'PENDING'}
+                </p>
+              </div>
+              <Button to={feedbackHref} variant="primary">
+                View AI Feedback
+              </Button>
+            </Card>
+          )}
+
+          {actionError && (
+            <DataError error={actionError} onRetry={() => setActionError(null)} />
+          )}
+
+          {!submitted && questions.length > 0 && question && (
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start">
+              <Card className="lg:col-span-8 p-space-lg flex flex-col gap-space-md" variant="elevated">
+                <div className="flex items-center justify-between gap-2">
+                  <span className="font-label-md text-label-md text-on-surface-variant tabular-nums">
+                    Question {current + 1} of {questions.length}
+                  </span>
+                  <span className="font-label-sm text-label-sm text-on-surface-variant tabular-nums">
+                    {question.points} {question.points === 1 ? 'point' : 'points'}
+                    {savingId === question.id && ' · Saving…'}
+                  </span>
+                </div>
+                <QuestionStem text={question.text} />
+                <div
+                  aria-labelledby="quiz-question-title"
+                  className="flex flex-col gap-2.5"
+                  role="radiogroup"
+                >
+                  {question.options.map((option) => {
+                    const selected = answers[question.id] === option.key
+                    return (
+                      <button
+                        key={option.key}
+                        aria-checked={selected}
+                        className={
+                          selected
+                            ? 'flex items-center gap-3 text-left px-4 py-3 min-h-[44px] rounded-xl border-2 border-primary bg-primary-fixed/40 font-body-md text-body-md text-on-surface transition-all cursor-pointer'
+                            : 'flex items-center gap-3 text-left px-4 py-3 min-h-[44px] rounded-xl border border-outline-variant/60 bg-surface-container-low hover:bg-surface-container font-body-md text-body-md text-on-surface transition-all cursor-pointer'
+                        }
+                        onClick={() => chooseOption(option.key)}
+                        role="radio"
+                        type="button"
+                      >
+                        <span
+                          className={
+                            selected
+                              ? 'w-8 h-8 rounded-lg bg-primary text-on-primary font-mono text-sm font-bold flex items-center justify-center shrink-0'
+                              : 'w-8 h-8 rounded-lg bg-surface-container-lowest border border-outline-variant/60 text-primary font-mono text-sm font-bold flex items-center justify-center shrink-0'
+                          }
+                        >
+                          {option.key}
+                        </span>
+                        <span className="flex-1">{option.text}</span>
+                      </button>
+                    )
+                  })}
+                </div>
+                {question.concepts?.length > 0 && (
+                  <div className="flex flex-wrap gap-2">
+                    {question.concepts.map((concept) => (
+                      <Badge key={concept} dot={false} tone="neutral">
+                        #{concept}
+                      </Badge>
+                    ))}
+                  </div>
+                )}
+                <div className="flex items-center justify-between gap-2 pt-2">
+                  <Button
+                    disabled={current === 0}
+                    onClick={() => setCurrent((value) => Math.max(0, value - 1))}
+                    variant="secondary"
+                  >
+                    Previous
+                  </Button>
+                  {current < questions.length - 1 ? (
+                    <Button
+                      onClick={() => setCurrent((value) => Math.min(questions.length - 1, value + 1))}
+                      variant="primary"
+                    >
+                      Next Question
+                    </Button>
+                  ) : (
+                    <Button
+                      disabled={submitting || answeredCount === 0}
+                      onClick={submit}
+                      variant="primary"
+                    >
+                      {submitting ? 'Submitting…' : 'Submit Quiz'}
+                    </Button>
+                  )}
+                </div>
+              </Card>
+
+              <Card className="lg:col-span-4 p-space-lg flex flex-col gap-space-md" variant="elevated">
+                <div className="flex items-center justify-between">
+                  <h3 className="font-headline-sm text-headline-sm font-bold text-on-surface">
+                    Progress Navigator
+                  </h3>
+                  <span className="font-label-md text-label-md text-primary font-bold tabular-nums">
+                    {answeredCount}/{questions.length}
+                  </span>
+                </div>
+                <div
+                  aria-label="Quiz completion progress"
+                  aria-valuemax={questions.length}
+                  aria-valuemin={0}
+                  aria-valuenow={answeredCount}
+                  className="w-full h-2 rounded-full bg-surface-container overflow-hidden"
+                  role="progressbar"
+                >
+                  <div
+                    className="h-full rounded-full bg-primary transition-all"
+                    style={{ width: `${(answeredCount / questions.length) * 100}%` }}
+                  />
+                </div>
+                <div className="grid grid-cols-5 gap-2">
+                  {questions.map((item, index) => (
+                    <button
+                      key={item.id}
+                      aria-current={index === current ? 'step' : undefined}
+                      aria-label={`Question ${index + 1}${
+                        index === current
+                          ? ' (current)'
+                          : answers[item.id]
+                            ? ' (answered)'
+                            : ' (unanswered)'
+                      }`}
+                      className={
+                        index === current
+                          ? 'h-11 rounded-xl bg-primary text-on-primary font-label-sm text-label-sm font-bold tabular-nums cursor-pointer'
+                          : answers[item.id]
+                            ? 'h-11 rounded-xl bg-status-ok-tint text-secondary font-label-sm text-label-sm font-bold tabular-nums cursor-pointer'
+                            : 'h-11 rounded-xl bg-surface-container text-on-surface-variant font-label-sm text-label-sm tabular-nums cursor-pointer hover:bg-surface-container-high'
+                      }
+                      onClick={() => setCurrent(index)}
+                      type="button"
+                    >
+                      {index + 1}
+                    </button>
+                  ))}
+                </div>
+                <Button
+                  className="w-full"
+                  disabled={submitting || answeredCount === 0}
+                  onClick={submit}
+                  variant="primary"
+                >
+                  {submitting ? 'Submitting…' : `Submit ${answeredCount} Answer${answeredCount === 1 ? '' : 's'}`}
+                </Button>
+                <p className="font-body-sm text-body-sm text-on-surface-variant">
+                  Answers save as you go. You can submit with unanswered questions, but they score zero.
+                </p>
+              </Card>
+            </div>
+          )}
+
+          {!submitted && questions.length === 0 && (
             <div className="flex flex-col items-center gap-space-md">
               <EmptyBlock
                 className="w-full"
                 icon="quiz"
-                title="Choose an activity first"
-                message="Open an activity from My Activities to start a quiz."
+                title="This quiz has no questions"
+                message="Ask your teacher to add questions and publish it again."
               />
-              <Link
-                className="px-5 py-2.5 rounded-xl bg-primary text-on-primary font-label-lg text-label-lg font-bold hover:bg-primary-container transition-colors"
-                to="/student/activities"
-              >
-                Browse My Activities
-              </Link>
+              <Button to="/student/activities" variant="primary">
+                Back to My Activities
+              </Button>
             </div>
           )}
-          {quizId && quiz.loading && <LoadingBlock label="Loading your quiz…" />}
-          {quizId && quiz.error && <DataError error={quiz.error} onRetry={quiz.reload} />}
-
-          {quizId && quiz.data && (
-            <>
-              <section className="flex flex-col md:flex-row md:items-center justify-between gap-space-md bg-surface-container-lowest p-space-lg rounded-2xl shadow-sm">
-                <div className="flex flex-col gap-1">
-                  <h1 className="font-headline-lg text-headline-lg text-on-surface font-extrabold">
-                    {quiz.data.title}
-                  </h1>
-                  <p className="font-body-md text-body-md text-on-surface-variant">
-                    {quiz.data.description || 'Answer every question, then submit.'}
-                  </p>
-                </div>
-                <div className="flex flex-wrap items-center gap-2 shrink-0">
-                  {quiz.data.className && (
-                    <span className="px-3 py-1.5 rounded-xl bg-surface-container text-primary font-label-md text-label-md font-semibold">
-                      {quiz.data.className}
-                    </span>
-                  )}
-                  <span className="px-3 py-1.5 rounded-xl bg-surface-container-low font-label-md text-label-md tabular-nums">
-                    Due {formatDue(quiz.data.dueDate)}
-                  </span>
-                  {!submitted && (
-                    <span
-                      aria-label="Elapsed time"
-                      className="px-3 py-1.5 rounded-xl bg-tertiary-fixed text-on-tertiary-fixed font-label-md text-label-md font-bold tabular-nums"
-                    >
-                      {minutes}m {secondsLabel}s
-                    </span>
-                  )}
-                </div>
-              </section>
-
-              {submitted && (
-                <section className="rounded-2xl bg-secondary-container text-on-secondary-container p-space-lg shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-space-md">
-                  <div>
-                    <h2 className="font-headline-sm text-headline-sm font-bold">Submitted</h2>
-                    <p className="font-body-md text-body-md tabular-nums">
-                      Score: {Number(result?.score ?? quiz.data.score ?? 0).toFixed(1)}% ·{' '}
-                      Feedback: {result?.feedbackStatus || quiz.data.feedbackStatus || 'PENDING'}
-                    </p>
-                  </div>
-                  <Link
-                    className="px-5 py-2.5 rounded-xl bg-primary text-on-primary font-label-lg text-label-lg font-bold hover:bg-primary-container transition-all"
-                    to={feedbackHref}
-                  >
-                    View AI Feedback
-                  </Link>
-                </section>
-              )}
-
-              {actionError && (
-                <DataError error={actionError} onRetry={() => setActionError(null)} />
-              )}
-
-              {!submitted && questions.length > 0 && question && (
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start">
-                  <section className="lg:col-span-8 bg-surface-container-lowest rounded-2xl p-space-lg shadow-sm flex flex-col gap-space-md">
-                    <div className="flex items-center justify-between gap-2">
-                      <span className="font-label-md text-label-md text-on-surface-variant tabular-nums">
-                        Question {current + 1} of {questions.length}
-                      </span>
-                      <span className="font-label-sm text-label-sm text-on-surface-variant tabular-nums">
-                        {question.points} {question.points === 1 ? 'point' : 'points'}
-                        {savingId === question.id && ' · Saving…'}
-                      </span>
-                    </div>
-                    <h2
-                      id="quiz-question-title"
-                      className="font-headline-sm text-headline-sm font-bold text-on-surface"
-                    >
-                      {question.text}
-                    </h2>
-                    <div
-                      aria-labelledby="quiz-question-title"
-                      className="flex flex-col gap-2"
-                      role="radiogroup"
-                    >
-                      {question.options.map((option) => {
-                        const selected = answers[question.id] === option.key
-                        return (
-                          <button
-                            key={option.key}
-                            aria-checked={selected}
-                            className={
-                              selected
-                                ? 'text-left px-4 py-3 rounded-xl border-2 border-primary bg-primary-container/10 ring-1 ring-primary/20 font-body-md text-body-md transition-all'
-                                : 'text-left px-4 py-3 rounded-xl border-2 border-transparent bg-surface-container-low hover:bg-surface-container font-body-md text-body-md transition-all'
-                            }
-                            onClick={() => chooseOption(option.key)}
-                            role="radio"
-                            type="button"
-                          >
-                            <span className="font-bold text-primary mr-2">{option.key}.</span>
-                            {option.text}
-                          </button>
-                        )
-                      })}
-                    </div>
-                    {question.concepts?.length > 0 && (
-                      <div className="flex flex-wrap gap-2">
-                        {question.concepts.map((concept) => (
-                          <span
-                            key={concept}
-                            className="px-2.5 py-1 rounded-lg bg-surface-container text-on-surface-variant font-label-sm text-label-sm"
-                          >
-                            #{concept}
-                          </span>
-                        ))}
-                      </div>
-                    )}
-                    <div className="flex items-center justify-between gap-2 pt-2">
-                      <button
-                        className="px-4 py-2.5 rounded-xl bg-surface-container-low hover:bg-surface-container font-label-md text-label-md font-semibold transition-all disabled:opacity-40"
-                        disabled={current === 0}
-                        onClick={() => setCurrent((value) => Math.max(0, value - 1))}
-                        type="button"
-                      >
-                        Previous
-                      </button>
-                      {current < questions.length - 1 ? (
-                        <button
-                          className="px-5 py-2.5 rounded-xl bg-primary-container text-on-primary font-label-md text-label-md font-bold hover:bg-primary transition-all"
-                          onClick={() => setCurrent((value) => Math.min(questions.length - 1, value + 1))}
-                          type="button"
-                        >
-                          Next Question
-                        </button>
-                      ) : (
-                        <button
-                          className="px-5 py-2.5 rounded-xl bg-primary text-on-primary font-label-lg text-label-lg font-bold hover:bg-primary-container transition-all disabled:opacity-40"
-                          disabled={submitting || answeredCount === 0}
-                          onClick={submit}
-                          type="button"
-                        >
-                          {submitting ? 'Submitting…' : 'Submit Quiz'}
-                        </button>
-                      )}
-                    </div>
-                  </section>
-
-                  <aside className="lg:col-span-4 bg-surface-container-lowest rounded-2xl p-space-lg shadow-sm flex flex-col gap-space-md">
-                    <div className="flex items-center justify-between">
-                      <h3 className="font-headline-sm text-headline-sm font-bold text-on-surface">
-                        Progress
-                      </h3>
-                      <span className="font-label-md text-label-md text-primary font-bold tabular-nums">
-                        {answeredCount}/{questions.length}
-                      </span>
-                    </div>
-                    <div
-                      aria-label="Quiz completion progress"
-                      aria-valuemax={questions.length}
-                      aria-valuemin={0}
-                      aria-valuenow={answeredCount}
-                      className="w-full h-2 rounded-full bg-surface-container overflow-hidden"
-                      role="progressbar"
-                    >
-                      <div
-                        className="h-full rounded-full bg-primary transition-all"
-                        style={{ width: `${(answeredCount / questions.length) * 100}%` }}
-                      />
-                    </div>
-                    <div className="grid grid-cols-5 gap-1.5">
-                      {questions.map((item, index) => (
-                        <button
-                          key={item.id}
-                          aria-current={index === current ? 'step' : undefined}
-                          aria-label={`Question ${index + 1}${
-                            index === current
-                              ? ' (current)'
-                              : answers[item.id]
-                                ? ' (answered)'
-                                : ' (unanswered)'
-                          }`}
-                          className={
-                            index === current
-                              ? 'h-9 rounded-lg bg-primary text-on-primary font-label-sm text-label-sm font-bold tabular-nums'
-                              : answers[item.id]
-                                ? 'h-9 rounded-lg bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-bold tabular-nums'
-                                : 'h-9 rounded-lg bg-surface-container text-on-surface-variant font-label-sm text-label-sm tabular-nums'
-                          }
-                          onClick={() => setCurrent(index)}
-                          type="button"
-                        >
-                          {index + 1}
-                        </button>
-                      ))}
-                    </div>
-                    <button
-                      className="w-full py-2.5 rounded-xl bg-surface-container-high hover:bg-surface-container-highest text-primary font-label-lg text-label-lg font-bold transition-all disabled:opacity-40"
-                      disabled={submitting || answeredCount === 0}
-                      onClick={submit}
-                      type="button"
-                    >
-                      {submitting ? 'Submitting…' : `Submit ${answeredCount} Answer${answeredCount === 1 ? '' : 's'}`}
-                    </button>
-                    <p className="font-body-sm text-body-sm text-on-surface-variant">
-                      Answers save as you go. You can submit with unanswered questions, but they score zero.
-                    </p>
-                  </aside>
-                </div>
-              )}
-
-              {!submitted && questions.length === 0 && (
-                <div className="flex flex-col items-center gap-space-md">
-                  <EmptyBlock
-                    className="w-full"
-                    icon="quiz"
-                    title="This quiz has no questions"
-                    message="Ask your teacher to add questions and publish it again."
-                  />
-                  <Link
-                    className="px-5 py-2.5 rounded-xl bg-primary text-on-primary font-label-lg text-label-lg font-bold hover:bg-primary-container transition-colors"
-                    to="/student/activities"
-                  >
-                    Back to My Activities
-                  </Link>
-                </div>
-              )}
-            </>
-          )}
-        </div>
-      </main>
+        </>
+      )}
     </div>
   )
 }

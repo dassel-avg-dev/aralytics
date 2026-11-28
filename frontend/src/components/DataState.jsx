@@ -65,14 +65,14 @@ export function describeApiError(error) {
 
 const TONE_CLASSES = {
   error: {
-    wrapper: 'bg-error-container/40 border-error/20 text-on-surface',
-    icon: 'bg-error-container text-error',
+    wrapper: 'bg-danger-tint/70 border-error/25 text-on-surface',
+    icon: 'bg-danger-tint text-error',
     title: 'text-error',
   },
   warning: {
-    wrapper: 'bg-tertiary-fixed/40 border-tertiary/20 text-on-surface',
-    icon: 'bg-tertiary-fixed text-on-tertiary-fixed',
-    title: 'text-tertiary',
+    wrapper: 'bg-warn-tint/80 border-warn/25 text-on-surface',
+    icon: 'bg-warn-tint text-warn',
+    title: 'text-warn',
   },
 }
 
@@ -103,7 +103,7 @@ export function DataError({ error, onRetry, className = '' }) {
       </div>
       {onRetry && (
         <button
-          className="inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl bg-surface-container-lowest text-on-surface font-label-md text-label-md font-semibold hover:bg-surface-container transition-colors shrink-0 shadow-sm cursor-pointer"
+          className="inline-flex items-center justify-center gap-1.5 min-h-[44px] px-4 py-2 rounded-xl bg-surface-container-lowest border border-outline-variant/60 text-on-surface font-label-md text-label-md font-semibold hover:bg-surface-container transition-colors shrink-0 shadow-sm cursor-pointer"
           onClick={onRetry}
           type="button"
         >

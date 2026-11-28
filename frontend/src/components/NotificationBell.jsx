@@ -20,7 +20,7 @@ function timeAgo(value) {
  */
 export default function NotificationBell({
   role = 'student',
-  buttonClassName = 'relative p-2 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors cursor-pointer',
+  buttonClassName = 'relative min-w-[44px] min-h-[44px] rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-on-surface flex items-center justify-center transition-colors cursor-pointer',
 }) {
   const [open, setOpen] = useState(false)
   const [state, setState] = useState({ loading: true, error: null, items: [] })
@@ -93,16 +93,16 @@ export default function NotificationBell({
           />
           <div
             aria-label="Notifications"
-            className="absolute right-0 mt-2 w-80 max-w-[calc(100vw-2rem)] rounded-2xl bg-surface-container-lowest shadow-xl border border-outline-variant/30 z-50 overflow-hidden"
+            className="absolute right-0 mt-2 w-80 max-w-[calc(100vw-2rem)] rounded-2xl bg-surface-container-lowest shadow-xl border border-outline-variant/60 z-50 overflow-hidden"
             role="region"
           >
-            <div className="flex items-center justify-between px-4 py-3 border-b border-outline-variant/30">
+            <div className="flex items-center justify-between px-4 py-2.5 border-b border-outline-variant/60">
               <span className="font-label-lg text-label-lg font-bold text-on-surface">
                 Notifications
               </span>
               <button
                 aria-label="Refresh notifications"
-                className="w-7 h-7 rounded-lg text-on-surface-variant hover:bg-surface-container flex items-center justify-center transition-colors cursor-pointer disabled:opacity-50"
+                className="min-w-[44px] min-h-[44px] -mr-2 rounded-xl text-on-surface-variant hover:bg-surface-container flex items-center justify-center transition-colors cursor-pointer disabled:opacity-50"
                 disabled={state.loading}
                 onClick={load}
                 title="Refresh"

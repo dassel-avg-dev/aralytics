@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom'
-import StudentHeader from '../../components/student/StudentHeader'
 import { api, getStoredUser } from '../../api/client'
 import { useApiResource } from '../../api/useApiResource'
 import { DataError, EmptyBlock, LoadingBlock } from '../../components/DataState'
+import Badge from '../../components/ui/Badge'
+import Button from '../../components/ui/Button'
+import Card from '../../components/ui/Card'
 
 const CURRENT_YEAR = new Date().getFullYear()
 
@@ -28,17 +30,12 @@ function formatRelative(value) {
 
 function masteryMeta(pct) {
   if (pct >= 85) {
-    return { pill: 'Mastered', pillClass: 'text-secondary', bar: 'bg-secondary', text: 'text-secondary' }
+    return { pill: 'Mastered', tone: 'mastered', bar: 'bg-status-ok', text: 'text-secondary' }
   }
   if (pct >= 70) {
-    return { pill: 'On Track', pillClass: 'text-primary', bar: 'bg-primary', text: 'text-primary' }
+    return { pill: 'On Track', tone: 'on-track', bar: 'bg-primary', text: 'text-primary' }
   }
-  return {
-    pill: 'Needs Nudge',
-    pillClass: 'text-tertiary',
-    bar: 'bg-tertiary-fixed-dim',
-    text: 'text-tertiary',
-  }
+  return { pill: 'Needs Nudge', tone: 'nudge', bar: 'bg-accent-yellow', text: 'text-warn' }
 }
 
 function conceptIcon(concept) {
@@ -95,116 +92,81 @@ export default function StudentDashboard() {
     (dashboard.loading && !dashboard.data) || (activities.loading && !activities.data)
 
   return (
-    <div className="bg-background font-body-md text-on-surface min-h-screen flex flex-col">
-      <StudentHeader active="/student/dashboard" />
-      <main className="w-full pt-20 bg-background max-w-7xl mx-auto px-gutter flex-1">
-        <div className="flex flex-col w-full pb-16">
-          {(dashboard.loading || activities.loading) && (
-            <div className="pt-6">
-              <LoadingBlock label="Loading your dashboard from Aralytics…" />
+    <div className="max-w-7xl mx-auto px-gutter py-space-lg flex flex-col gap-space-lg">
+      {(dashboard.loading || activities.loading) && (
+        <LoadingBlock label="Loading your dashboard from Aralytics…" />
+      )}
+      {(dashboard.error || activities.error) && (
+        <DataError
+          error={dashboard.error || activities.error}
+          onRetry={() => {
+            dashboard.reload()
+            activities.reload()
+          }}
+        />
+      )}
+      {!isInitialLoading && (
+        <>
+          {/* Greeting Header & Compact Metric Pills */}
+          <section className="flex flex-col lg:flex-row lg:items-end justify-between gap-space-md">
+            <div>
+              <h1 className="font-headline-lg text-headline-lg text-on-surface tracking-tight font-extrabold">
+                Kumusta, {firstName}!
+              </h1>
+              <p className="font-body-lg text-body-lg text-on-surface-variant mt-1">
+                Ready for your next coding drill? You have{' '}
+                <span className="font-bold text-on-surface tabular-nums">
+                  {pendingActivities.length}
+                </span>{' '}
+                assigned {pendingActivities.length === 1 ? 'activity' : 'activities'} waiting.
+              </p>
             </div>
-          )}
-          {(dashboard.error || activities.error) && (
-            <div className="pt-6">
-              <DataError
-                error={dashboard.error || activities.error}
-                onRetry={() => {
-                  dashboard.reload()
-                  activities.reload()
-                }}
-              />
+            <div className="flex flex-wrap items-center gap-2.5">
+              <div className="inline-flex items-center gap-2 bg-surface-container-lowest border border-outline-variant/60 px-3.5 py-2 rounded-xl min-h-[44px]">
+                <span aria-hidden="true" className="material-symbols-outlined text-[18px] text-primary">
+                  assignment_turned_in
+                </span>
+                <span className="font-label-md text-label-md text-on-surface font-semibold tabular-nums">
+                  {completedCount}/{assignedCount} Completed
+                </span>
+              </div>
+              <div className="inline-flex items-center gap-2 bg-warn-tint border border-warn/20 px-3.5 py-2 rounded-xl min-h-[44px]">
+                <span aria-hidden="true" className="material-symbols-outlined text-[18px] text-warn">
+                  local_fire_department
+                </span>
+                <span className="font-label-md text-label-md text-warn font-semibold tabular-nums">
+                  {streakDays} {streakDays === 1 ? 'Day' : 'Days'} Streak
+                </span>
+              </div>
+              <Button
+                size="md"
+                to={priorityActivity ? `/student/quiz?id=${priorityActivity.id}` : '/student/activities'}
+                variant="primary"
+              >
+                <span aria-hidden="true" className="material-symbols-outlined text-[18px]">
+                  play_circle
+                </span>
+                <span>Quick Drill</span>
+              </Button>
             </div>
-          )}
-          {!isInitialLoading && (
-            <>
-              {/* Top Greeting & Motivation Banner Section */}
-              <section className="w-full pt-6 pb-4">
-                <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-space-md">
-                  <div>
-                    <h1 className="font-headline-lg text-headline-lg text-on-surface tracking-tight font-extrabold">
-                      Kumusta, {firstName}!
-                    </h1>
-                    <p className="font-body-lg text-body-lg text-on-surface-variant mt-1">
-                      Ready for your next coding drill today? You have{' '}
-                      <span className="font-bold text-on-surface tabular-nums">
-                        {pendingActivities.length}
-                      </span>{' '}
-                      assigned {pendingActivities.length === 1 ? 'activity' : 'activities'} waiting.
-                    </p>
-                  </div>
-                  {/* Quick Student Metric Badges */}
-                  <div className="flex flex-wrap items-center gap-2 sm:gap-3">
-                    <div className="flex items-center gap-2 bg-surface-container-lowest px-4 py-2 rounded-xl shadow-sm">
-                      <span
-                        aria-hidden="true"
-                        className="material-symbols-outlined text-[18px] text-primary"
-                      >
-                        assignment_turned_in
-                      </span>
-                      <span className="font-label-md text-label-md text-on-surface font-semibold tabular-nums">
-                        {completedCount}/{assignedCount} Completed
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-2 bg-surface-container-lowest px-4 py-2 rounded-xl shadow-sm">
-                      <span
-                        aria-hidden="true"
-                        className="material-symbols-outlined text-[18px] text-tertiary-container"
-                      >
-                        local_fire_department
-                      </span>
-                      <span className="font-label-md text-label-md text-on-surface font-semibold tabular-nums">
-                        {streakDays} {streakDays === 1 ? 'Day' : 'Days'}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-                {/* Streak Urgency Banner */}
-                <div className="mt-5 w-full bg-surface-container-lowest rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-sm">
-                  <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-xl bg-surface-container text-error flex items-center justify-center shrink-0">
-                      <span aria-hidden="true" className="material-symbols-outlined text-[20px]">
-                        crisis_alert
-                      </span>
-                    </div>
-                    <div>
-                      <p className="font-label-lg text-label-lg text-on-surface font-bold">
-                        {streakDays > 0 ? `${streakDays}-Day Streak Active` : 'Start your streak today'}
-                      </p>
-                      <p className="font-body-sm text-body-sm text-on-surface-variant">
-                        {streakDays > 0
-                          ? 'Complete 1 drill today to keep your streak alive.'
-                          : 'Complete your first drill today to start a new streak.'}
-                      </p>
-                    </div>
-                  </div>
-                  <Link
-                    className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-primary text-on-primary font-label-md text-label-md font-semibold hover:bg-primary-container transition-colors shrink-0"
-                    to={priorityActivity ? `/student/quiz?id=${priorityActivity.id}` : '/student/activities'}
-                  >
-                    <span aria-hidden="true" className="material-symbols-outlined text-[18px]">
-                      play_circle
-                    </span>
-                    <span>Quick Drill</span>
-                  </Link>
-                </div>
-              </section>
-          {/* Main Bento Grid (Hero Priority Drill 8 cols + Aral AI Coach 4 cols) */}
-          <section className="grid grid-cols-1 lg:grid-cols-12 gap-space-lg mt-3">
-            <div className="lg:col-span-7 xl:col-span-8 bg-surface-container-lowest rounded-2xl p-6 shadow-sm flex flex-col justify-between">
+          </section>
+
+          {/* Main 8/4 Bento Grid */}
+          <section className="grid grid-cols-1 lg:grid-cols-12 gap-space-lg">
+            <Card className="lg:col-span-7 xl:col-span-8 p-6 flex flex-col justify-between" variant="elevated">
               <div>
                 {priorityActivity ? (
                   <>
                     <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
-                      <div className="flex items-center gap-2">
-                        <span className="text-primary font-label-sm text-label-sm font-semibold">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <Badge tone={priorityActivity.status === 'REMEDIAL' ? 'help' : 'on-track'}>
+                          {priorityActivity.status === 'REMEDIAL' ? 'Remedial Drill' : 'Assigned Activity'}
+                        </Badge>
+                        <span className="text-on-surface-variant font-label-md text-label-md font-semibold">
                           {priorityActivity.topic || priorityActivity.className || 'Python Programming'}
                         </span>
-                        <span className="text-on-surface-variant text-[11px]">•</span>
-                        <span className="text-secondary font-label-sm text-label-sm font-bold">
-                          {priorityActivity.status === 'REMEDIAL' ? 'Remedial Drill' : 'Assigned Activity'}
-                        </span>
                       </div>
-                      <span className="text-on-surface-variant font-label-sm text-label-sm">
+                      <span className="text-on-surface-variant font-label-sm text-label-sm tabular-nums">
                         Due {formatDue(priorityActivity.dueDate)}
                       </span>
                     </div>
@@ -213,7 +175,9 @@ export default function StudentDashboard() {
                         {priorityActivity.title}
                       </h2>
                       <div className="w-11 h-11 rounded-xl bg-surface-container text-primary flex items-center justify-center shrink-0">
-                        <span className="material-symbols-outlined text-[24px]">data_object</span>
+                        <span aria-hidden="true" className="material-symbols-outlined text-[24px]">
+                          data_object
+                        </span>
                       </div>
                     </div>
                     <p className="font-body-md text-body-md text-on-surface-variant mt-2 leading-relaxed max-w-2xl">
@@ -261,41 +225,44 @@ export default function StudentDashboard() {
                 )}
               </div>
               <div className="pt-3 flex flex-wrap items-center gap-3">
-                <Link
-                  className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-primary text-on-primary font-label-lg text-label-lg font-bold hover:bg-primary-container transition-colors shadow-sm"
+                <Button
+                  size="md"
                   to={priorityActivity ? `/student/quiz?id=${priorityActivity.id}` : '/student/activities'}
+                  variant="primary"
                 >
-                  <span className="">{priorityActivity ? 'Start Quiz Now' : 'View Activities'}</span>
-                  <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
-                </Link>
-                <Link
-                  className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-surface-container text-on-surface font-label-md text-label-md font-medium hover:bg-surface-container-high transition-colors"
-                  to="/student/activities"
-                >
-                  <span className="material-symbols-outlined text-[18px]">info</span>
-                  <span className="">Preview Details</span>
-                </Link>
+                  <span>{priorityActivity ? 'Start Quiz Now' : 'View Activities'}</span>
+                  <span aria-hidden="true" className="material-symbols-outlined text-[18px]">
+                    arrow_forward
+                  </span>
+                </Button>
+                <Button size="md" to="/student/activities" variant="secondary">
+                  <span aria-hidden="true" className="material-symbols-outlined text-[18px]">
+                    info
+                  </span>
+                  <span>Preview Details</span>
+                </Button>
               </div>
-            </div>
-            <div className="lg:col-span-5 xl:col-span-4 bg-surface-container-lowest rounded-2xl p-6 shadow-sm flex flex-col justify-between">
+            </Card>
+
+            <Card className="lg:col-span-5 xl:col-span-4 p-6 flex flex-col justify-between" variant="elevated">
               <div>
-                <div className="flex items-center justify-between pb-3">
+                <div className="flex items-center justify-between gap-2 pb-3">
                   <div className="flex items-center gap-2.5">
                     <div className="w-9 h-9 rounded-xl bg-primary-fixed flex items-center justify-center text-primary">
-                      <span className="material-symbols-outlined text-[20px]">smart_toy</span>
+                      <span aria-hidden="true" className="material-symbols-outlined text-[20px]">
+                        smart_toy
+                      </span>
                     </div>
                     <div>
                       <h3 className="font-headline-sm text-headline-sm text-on-surface font-bold">
                         Aral Coach AI
                       </h3>
-                      <p className="font-body-sm text-body-sm text-on-surface-variant text-[11px]">
+                      <p className="font-body-sm text-body-sm text-on-surface-variant">
                         {recentScore ? `Latest: ${recentScore.quizTitle}` : 'Live mastery summary'}
                       </p>
                     </div>
                   </div>
-                  <span className="font-label-sm text-label-sm text-primary font-bold">
-                    Diagnostic
-                  </span>
+                  <Badge tone="ai">Diagnostic</Badge>
                 </div>
                 <div className="p-3.5 rounded-xl bg-surface-container-low mt-2">
                   <p className="font-body-sm text-body-sm text-on-surface leading-relaxed">
@@ -308,8 +275,8 @@ export default function StudentDashboard() {
                   </p>
                 </div>
                 <div className="space-y-2 mt-3">
-                  <div className="p-2.5 rounded-lg bg-surface-container flex items-center gap-2">
-                    <span className="material-symbols-outlined text-secondary text-[16px]">
+                  <div className="p-2.5 rounded-xl bg-surface-container flex items-center gap-2">
+                    <span aria-hidden="true" className="material-symbols-outlined text-status-ok text-[16px]">
                       check_circle
                     </span>
                     <span className="font-body-sm text-body-sm text-on-surface">
@@ -318,8 +285,8 @@ export default function StudentDashboard() {
                         : 'No mastery evidence yet'}
                     </span>
                   </div>
-                  <div className="p-2.5 rounded-lg bg-surface-container flex items-center gap-2">
-                    <span className="material-symbols-outlined text-tertiary text-[16px]">
+                  <div className="p-2.5 rounded-xl bg-surface-container flex items-center gap-2">
+                    <span aria-hidden="true" className="material-symbols-outlined text-warn text-[16px]">
                       lightbulb
                     </span>
                     <span className="font-body-sm text-body-sm text-on-surface">
@@ -328,33 +295,35 @@ export default function StudentDashboard() {
                   </div>
                 </div>
               </div>
-              <div className="mt-4 pt-2 flex flex-col gap-1.5">
-                <Link
-                  className="w-full inline-flex items-center justify-center gap-2 py-2.5 rounded-xl bg-surface-container text-primary font-label-md text-label-md font-bold hover:bg-surface-container-high transition-colors"
+              <div className="mt-4 pt-2 flex flex-col gap-2">
+                <Button
+                  className="w-full"
+                  size="md"
                   to={priorityActivity ? `/student/quiz?id=${priorityActivity.id}` : '/student/activities'}
+                  variant="secondary"
                 >
-                  <span className="material-symbols-outlined text-[18px]">terminal</span>
-                  <span className="">
+                  <span aria-hidden="true" className="material-symbols-outlined text-[18px]">
+                    terminal
+                  </span>
+                  <span>
                     {weakestConcept ? `Practice ${weakestConcept.concept}` : 'Find a practice activity'}
                   </span>
-                </Link>
-                <Link
-                  className="w-full text-center py-1 text-on-surface-variant hover:text-primary font-label-sm text-label-sm transition-colors"
-                  to="/student/feedback"
-                >
+                </Button>
+                <Button className="w-full" size="sm" to="/student/feedback" variant="ghost">
                   View All Feedback
-                </Link>
+                </Button>
               </div>
-            </div>
+            </Card>
           </section>
-          {/* Subject Mastery & Progress Overview Section */}
-          <section className="mt-10">
+
+          {/* Concept Mastery Grid */}
+          <section className="mt-2">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-5">
               <div>
                 <div className="flex items-center gap-2">
-                  <span className="w-2.5 h-2.5 rounded-full bg-primary"></span>
+                  <span className="w-2.5 h-2.5 rounded-full bg-primary" />
                   <h2 className="font-headline-md text-headline-md text-on-surface font-extrabold tracking-tight">
-                    Subject Mastery Breakdown
+                    Concept Mastery Breakdown
                   </h2>
                 </div>
                 <p className="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
@@ -362,32 +331,34 @@ export default function StudentDashboard() {
                 </p>
               </div>
               <Link
-                className="inline-flex items-center gap-1 font-label-lg text-label-lg text-primary hover:text-primary-container transition-colors font-bold self-start sm:self-auto"
+                className="inline-flex items-center gap-1 font-label-lg text-label-lg text-primary hover:text-primary-container transition-colors font-bold self-start sm:self-auto min-h-[44px]"
                 to="/student/progress"
               >
-                <span className="">View CS Skill Matrix</span>
-                <span className="material-symbols-outlined text-[18px]">chevron_right</span>
+                <span>View CS Skill Matrix</span>
+                <span aria-hidden="true" className="material-symbols-outlined text-[18px]">
+                  chevron_right
+                </span>
               </Link>
             </div>
-            {/* 4 Mastery Cards Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
               {conceptMastery.slice(0, 4).map((concept) => {
                 const meta = masteryMeta(concept.pct)
                 const iconColor =
-                  concept.pct >= 85 ? 'text-secondary' : concept.pct >= 70 ? 'text-primary' : 'text-tertiary'
+                  concept.pct >= 85 ? 'text-secondary' : concept.pct >= 70 ? 'text-primary' : 'text-warn'
                 return (
-                  <div
-                    className="bg-surface-container-lowest rounded-2xl p-5 shadow-sm flex flex-col justify-between"
+                  <Card
                     key={concept.conceptId ?? concept.concept}
+                    className="p-5 flex flex-col justify-between"
+                    variant="elevated"
                   >
                     <div>
-                      <div className="flex items-center justify-between mb-3">
+                      <div className="flex items-center justify-between gap-2 mb-3">
                         <div className={`w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center ${iconColor}`}>
-                          <span aria-hidden="true" className="material-symbols-outlined text-[18px]">{conceptIcon(concept.concept)}</span>
+                          <span aria-hidden="true" className="material-symbols-outlined text-[18px]">
+                            {conceptIcon(concept.concept)}
+                          </span>
                         </div>
-                        <span className={`px-2 py-0.5 rounded-full bg-surface-container font-label-sm text-label-sm font-semibold ${meta.pillClass}`}>
-                          {meta.pill}
-                        </span>
+                        <Badge tone={meta.tone}>{meta.pill}</Badge>
                       </div>
                       <span className="font-body-sm text-body-sm text-on-surface-variant">
                         {conceptCategory(concept.concept)}
@@ -401,7 +372,9 @@ export default function StudentDashboard() {
                         <span className="font-body-sm text-body-sm text-on-surface-variant">
                           Mastery
                         </span>
-                        <span className={`font-label-lg text-label-lg font-bold tabular-nums ${meta.text}`}>{concept.pct}%</span>
+                        <span className={`font-label-lg text-label-lg font-bold tabular-nums ${meta.text}`}>
+                          {concept.pct}%
+                        </span>
                       </div>
                       <div
                         aria-label={`${concept.concept} mastery`}
@@ -411,13 +384,13 @@ export default function StudentDashboard() {
                         className="w-full h-2 rounded-full bg-surface-container overflow-hidden"
                         role="progressbar"
                       >
-                        <div className={`h-full rounded-full ${meta.bar}`} style={{ width: `${concept.pct}%` }}></div>
+                        <div className={`h-full rounded-full ${meta.bar}`} style={{ width: `${concept.pct}%` }} />
                       </div>
-                      <p className="font-body-sm text-body-sm text-on-surface-variant mt-2 text-[11px]">
+                      <p className="font-body-sm text-body-sm text-on-surface-variant mt-2">
                         Updated {formatRelative(concept.lastUpdated)}
                       </p>
                     </div>
-                  </div>
+                  </Card>
                 )
               })}
               {conceptMastery.length === 0 && (
@@ -431,46 +404,52 @@ export default function StudentDashboard() {
               )}
             </div>
           </section>
-          {/* Two-Column Bottom Section (Learning Path & Gamification) */}
-          <section className="grid grid-cols-1 lg:grid-cols-12 gap-space-lg mt-10">
-            {/* Left Column: Learning Path & Upcoming Quizzes (6 cols) */}
-            <div className="lg:col-span-6 bg-surface-container-lowest rounded-2xl p-6 flex flex-col justify-between shadow-sm">
+
+          {/* Recent Activities & Milestones */}
+          <section className="grid grid-cols-1 lg:grid-cols-12 gap-space-lg">
+            <Card className="lg:col-span-6 p-6 flex flex-col justify-between" variant="elevated">
               <div>
-                <div className="flex items-center justify-between pb-4 border-b border-surface-container-high mb-4">
+                <div className="flex items-center justify-between pb-4 border-b border-outline-variant/60 mb-4">
                   <div className="flex items-center gap-2.5">
                     <div className="w-9 h-9 rounded-xl bg-primary-fixed flex items-center justify-center text-primary">
-                      <span className="material-symbols-outlined text-[20px]">
+                      <span aria-hidden="true" className="material-symbols-outlined text-[20px]">
                         calendar_month
                       </span>
                     </div>
                     <div>
                       <h3 className="font-headline-sm text-headline-sm text-on-surface font-extrabold">
-                        Your Learning Path
+                        Recent Activities
                       </h3>
                       <p className="font-body-sm text-body-sm text-on-surface-variant">
                         Upcoming coding drills assigned by your mentors
                       </p>
                     </div>
                   </div>
-                  <span className="font-label-sm text-label-sm text-primary font-bold bg-surface-container px-2.5 py-1 rounded-full">
-                    {pendingActivities.length} Assigned
-                  </span>
+                  <Badge tone="on-track">{pendingActivities.length} Assigned</Badge>
                 </div>
                 <div className="space-y-3.5">
                   {pendingActivities.slice(0, 2).map((activity, index) => (
                     <div
-                      className="p-4 rounded-2xl bg-surface-container-low hover:bg-surface-container transition-colors flex flex-col sm:flex-row sm:items-center justify-between gap-3"
                       key={activity.id}
+                      className="p-4 rounded-2xl bg-surface-container-low hover:bg-surface-container transition-colors flex flex-col sm:flex-row sm:items-center justify-between gap-3"
                     >
                       <div className="flex items-start gap-3">
-                        <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 mt-0.5 ${index === 0 ? 'bg-secondary-fixed/40 text-secondary' : 'bg-primary-fixed text-primary'}`}>
-                          <span className="material-symbols-outlined text-[20px]">
+                        <div
+                          className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 mt-0.5 ${
+                            index === 0 ? 'bg-status-ok-tint text-secondary' : 'bg-primary-fixed text-primary'
+                          }`}
+                        >
+                          <span aria-hidden="true" className="material-symbols-outlined text-[20px]">
                             {index === 0 ? 'terminal' : 'data_object'}
                           </span>
                         </div>
                         <div>
-                          <div className="flex items-center gap-2">
-                            <span className={`font-label-sm text-label-sm font-bold ${index === 0 ? 'text-secondary' : 'text-primary'}`}>
+                          <div className="flex flex-wrap items-center gap-2">
+                            <span
+                              className={`font-label-sm text-label-sm font-bold ${
+                                index === 0 ? 'text-secondary' : 'text-primary'
+                              }`}
+                            >
                               {activity.topic || activity.className || 'Python 101'}
                             </span>
                             <span className="text-on-surface-variant text-[11px]">•</span>
@@ -485,21 +464,27 @@ export default function StudentDashboard() {
                           <h4 className="font-label-lg text-label-lg text-on-surface font-extrabold mt-0.5">
                             {activity.title}
                           </h4>
-                          <div className="flex items-center gap-2 text-on-surface-variant font-body-sm text-body-sm mt-1">
-                            <span className="material-symbols-outlined text-[14px]">schedule</span>
-                            <span className="">Due {formatDue(activity.dueDate)}</span>
-                            <span className="">•</span>
-                            <span className="">{activity.questionCount} questions</span>
+                          <div className="flex items-center gap-2 text-on-surface-variant font-body-sm text-body-sm mt-1 tabular-nums">
+                            <span aria-hidden="true" className="material-symbols-outlined text-[14px]">
+                              schedule
+                            </span>
+                            <span>Due {formatDue(activity.dueDate)}</span>
+                            <span>•</span>
+                            <span>{activity.questionCount} questions</span>
                           </div>
                         </div>
                       </div>
-                      <Link
-                        className="inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl bg-surface-container-lowest text-primary font-label-md text-label-md font-bold shadow-sm hover:bg-primary hover:text-on-primary transition-all self-start sm:self-auto shrink-0"
+                      <Button
+                        className="self-start sm:self-auto shrink-0"
+                        size="md"
                         to={`/student/quiz?id=${activity.id}`}
+                        variant="secondary"
                       >
-                        <span className="">Start</span>
-                        <span className="material-symbols-outlined text-[16px]">chevron_right</span>
-                      </Link>
+                        <span>Start</span>
+                        <span aria-hidden="true" className="material-symbols-outlined text-[16px]">
+                          chevron_right
+                        </span>
+                      </Button>
                     </div>
                   ))}
                   {pendingActivities.length === 0 && (
@@ -509,33 +494,33 @@ export default function StudentDashboard() {
                   )}
                 </div>
               </div>
-              <div className="mt-5 pt-4 border-t border-surface-container-high flex items-center justify-between">
+              <div className="mt-5 pt-4 border-t border-outline-variant/60 flex items-center justify-between gap-2">
                 <span className="font-body-sm text-body-sm text-on-surface-variant">
                   Looking for older activities?
                 </span>
                 <Link
-                  className="font-label-md text-label-md text-primary font-bold hover:underline"
+                  className="inline-flex items-center font-label-md text-label-md text-primary font-bold hover:underline min-h-[44px]"
                   to="/student/activities"
                 >
                   View All Completed Drills →
                 </Link>
               </div>
-            </div>
-            {/* Right Column: Gamification & Weekly Milestones (6 cols) */}
-            <div className="lg:col-span-6 bg-surface-container-lowest rounded-2xl p-6 flex flex-col justify-between shadow-sm">
+            </Card>
+
+            <Card className="lg:col-span-6 p-6 flex flex-col justify-between" variant="elevated">
               <div>
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-2">
-                    <span className="material-symbols-outlined text-primary text-[20px]">
+                    <span aria-hidden="true" className="material-symbols-outlined text-primary text-[20px]">
                       emoji_events
                     </span>
                     <h3 className="font-headline-sm text-headline-sm text-on-surface font-bold">
                       Milestones
                     </h3>
                   </div>
-                  <span className="font-label-sm text-label-sm text-on-surface-variant font-medium">
+                  <Badge tone="neutral" dot={false}>
                     Week 14
-                  </span>
+                  </Badge>
                 </div>
                 <div className="p-4 rounded-xl bg-surface-container-low flex items-center gap-4">
                   <div className="relative w-14 h-14 shrink-0 flex items-center justify-center">
@@ -557,12 +542,14 @@ export default function StudentDashboard() {
                         r="30"
                         stroke="currentColor"
                         strokeDasharray="188.4"
-                        strokeDashoffset={188.4 * (1 - (assignedCount ? Math.min(completedCount, assignedCount) / assignedCount : 0))}
+                        strokeDashoffset={
+                          188.4 * (1 - (assignedCount ? Math.min(completedCount, assignedCount) / assignedCount : 0))
+                        }
                         strokeLinecap="round"
                         strokeWidth="6"
                       />
                     </svg>
-                    <span className="absolute font-label-md text-label-md text-on-surface font-bold">
+                    <span className="absolute font-label-md text-label-md text-on-surface font-bold tabular-nums">
                       {Math.min(completedCount, assignedCount)}/{assignedCount}
                     </span>
                   </div>
@@ -584,13 +571,13 @@ export default function StudentDashboard() {
                     <span className="font-label-md text-label-md text-on-surface font-semibold">
                       Recent Badges
                     </span>
-                    <span className="font-body-sm text-body-sm text-on-surface-variant text-[11px]">
+                    <span className="font-body-sm text-body-sm text-on-surface-variant">
                       12 total
                     </span>
                   </div>
                   <div className="grid grid-cols-3 gap-3">
                     <div className="p-3 rounded-xl bg-surface-container-low flex flex-col items-center text-center">
-                      <span className="material-symbols-outlined text-tertiary text-[22px] mb-1">
+                      <span aria-hidden="true" className="material-symbols-outlined text-warn text-[22px] mb-1">
                         local_fire_department
                       </span>
                       <span className="font-label-sm text-label-sm text-on-surface font-semibold leading-tight">
@@ -598,7 +585,7 @@ export default function StudentDashboard() {
                       </span>
                     </div>
                     <div className="p-3 rounded-xl bg-surface-container-low flex flex-col items-center text-center">
-                      <span className="material-symbols-outlined text-primary text-[22px] mb-1">
+                      <span aria-hidden="true" className="material-symbols-outlined text-primary text-[22px] mb-1">
                         bug_report
                       </span>
                       <span className="font-label-sm text-label-sm text-on-surface font-semibold leading-tight">
@@ -606,7 +593,7 @@ export default function StudentDashboard() {
                       </span>
                     </div>
                     <div className="p-3 rounded-xl bg-surface-container-low flex flex-col items-center text-center">
-                      <span className="material-symbols-outlined text-secondary text-[22px] mb-1">
+                      <span aria-hidden="true" className="material-symbols-outlined text-secondary text-[22px] mb-1">
                         bolt
                       </span>
                       <span className="font-label-sm text-label-sm text-on-surface font-semibold leading-tight">
@@ -616,35 +603,30 @@ export default function StudentDashboard() {
                   </div>
                 </div>
               </div>
-              <div className="mt-5 pt-3 border-t border-surface-container-high flex items-center justify-between">
+              <div className="mt-5 pt-3 border-t border-outline-variant/60 flex items-center justify-between gap-2">
                 <span className="font-body-sm text-body-sm text-on-surface-variant">
                   Next: Python Master II
                 </span>
                 <Link
-                  className="font-label-sm text-label-sm text-primary font-bold hover:underline"
+                  className="inline-flex items-center font-label-sm text-label-sm text-primary font-bold hover:underline min-h-[44px]"
                   to="/student/progress"
                 >
                   All Badges →
                 </Link>
               </div>
-            </div>
+            </Card>
           </section>
-            </>
-          )}
-        </div>
-      </main>
-      <footer className="w-full bg-surface-container-lowest mt-space-xl py-space-lg shadow-[0_-1px_8px_rgba(91,75,219,0.04)]">
-        <div className="max-w-7xl mx-auto px-gutter flex flex-col md:flex-row items-center justify-between gap-space-md text-center md:text-left">
-          <div className="flex items-center gap-space-xs">
+
+          <footer className="pt-6 border-t border-outline-variant/60 flex flex-col md:flex-row items-center justify-between gap-space-md text-center md:text-left">
             <span className="font-body-sm text-body-sm text-on-surface-variant">
               Pagsulong sa Karunungan
             </span>
-          </div>
-          <p className="font-body-sm text-body-sm text-on-surface-variant">
-            © {CURRENT_YEAR} Aralytics Learning Platform. All rights reserved.
-          </p>
-        </div>
-      </footer>
+            <p className="font-body-sm text-body-sm text-on-surface-variant">
+              © {CURRENT_YEAR} Aralytics Learning Platform. All rights reserved.
+            </p>
+          </footer>
+        </>
+      )}
     </div>
   )
 }

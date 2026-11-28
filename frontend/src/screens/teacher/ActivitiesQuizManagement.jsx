@@ -2,6 +2,9 @@ import { useEffect, useRef, useState } from 'react'
 import { api, getStoredClasses } from '../../api/client'
 import { useApiResource } from '../../api/useApiResource'
 import { DataError, EmptyBlock, LoadingBlock } from '../../components/DataState'
+import Badge from '../../components/ui/Badge'
+import Button from '../../components/ui/Button'
+import Card from '../../components/ui/Card'
 
 const STATUS_FILTERS = [
   { value: 'all', label: 'All' },
@@ -10,10 +13,10 @@ const STATUS_FILTERS = [
   { value: 'CLOSED', label: 'Closed' },
 ]
 
-const STATUS_META = {
-  PUBLISHED: 'bg-secondary-container text-on-secondary-container',
-  DRAFT: 'bg-tertiary-fixed text-on-tertiary-fixed',
-  CLOSED: 'bg-surface-container-high text-on-surface-variant',
+const STATUS_TONE = {
+  PUBLISHED: 'mastered',
+  DRAFT: 'nudge',
+  CLOSED: 'neutral',
 }
 
 const OPTION_KEYS = ['A', 'B', 'C', 'D']
@@ -215,14 +218,10 @@ export default function ActivitiesQuizManagement() {
               Create a draft, add questions, then publish it to notify enrolled students.
             </p>
           </div>
-          <button
-            className="flex items-center gap-2 px-space-lg py-2.5 rounded-[14px] bg-primary-container text-on-primary font-label-lg text-label-lg shadow-md hover:bg-primary transition-all shrink-0"
-            onClick={openCreate}
-            type="button"
-          >
+          <Button className="shrink-0" onClick={openCreate} variant="primary">
             <span className="material-symbols-outlined text-[18px]">add</span>
             <span>Create Activity</span>
-          </button>
+          </Button>
         </div>
 
         <div className="flex items-center p-1 rounded-full bg-surface-container gap-1 overflow-x-auto w-fit max-w-full" role="group" aria-label="Filter activities by status">
@@ -230,7 +229,7 @@ export default function ActivitiesQuizManagement() {
             <button
               key={filter.value}
               aria-pressed={status === filter.value}
-              className={`px-space-md py-1.5 rounded-full font-label-md text-label-md transition-colors shrink-0 ${
+              className={`min-h-[44px] px-space-md py-1.5 rounded-full font-label-md text-label-md transition-colors shrink-0 ${
                 status === filter.value
                   ? 'bg-surface-container-lowest text-primary shadow-xs font-semibold'
                   : 'text-on-surface-variant hover:text-on-surface'
@@ -254,24 +253,21 @@ export default function ActivitiesQuizManagement() {
         )}
 
         {!activities.loading && !activities.error && list.length > 0 && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-space-lg">
+          <div className="grid grid-cols-1 xl:grid-cols-2 gap-space-lg">
             {list.map((activity) => (
-              <article
+              <Card
                 key={activity.id}
-                className="flex flex-col justify-between rounded-[20px] bg-surface-container-lowest p-space-lg shadow-sm hover:shadow-md transition-all gap-space-md"
+                className="flex flex-col justify-between p-space-lg hover:shadow-md transition-all gap-space-md"
+                variant="elevated"
               >
                 <div className="flex flex-col gap-space-sm">
                   <div className="flex flex-wrap items-center justify-between gap-2">
-                    <span className="px-2.5 py-1 rounded-full bg-surface-container text-primary font-label-sm text-label-sm">
+                    <Badge dot={false} tone="on-track">
                       {activity.className || `Class #${activity.classId}`}
-                    </span>
-                    <span
-                      className={`px-2.5 py-1 rounded-full font-label-sm text-label-sm font-bold ${
-                        STATUS_META[activity.status] || STATUS_META.CLOSED
-                      }`}
-                    >
+                    </Badge>
+                    <Badge tone={STATUS_TONE[activity.status] || 'neutral'}>
                       {activity.status}
-                    </span>
+                    </Badge>
                   </div>
                   <div>
                     <h2 className="font-headline-sm text-headline-sm text-on-surface">
@@ -304,7 +300,7 @@ export default function ActivitiesQuizManagement() {
                 <div className="flex items-center justify-between gap-space-sm">
                   <button
                     aria-label={`Edit ${activity.title}`}
-                    className="p-2 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors disabled:opacity-40"
+                    className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors disabled:opacity-40"
                     disabled={activity.status !== 'DRAFT'}
                     onClick={() => openEdit(activity)}
                     title="Edit draft details"
@@ -313,22 +309,21 @@ export default function ActivitiesQuizManagement() {
                     <span className="material-symbols-outlined text-[20px]">edit_note</span>
                   </button>
                   {activity.status === 'DRAFT' ? (
-                    <button
-                      className="flex items-center gap-1.5 px-space-md py-2 rounded-[14px] bg-primary-container text-on-primary font-label-md text-label-md hover:bg-primary transition-all shadow-xs disabled:opacity-50"
+                    <Button
                       disabled={busyId === activity.id}
                       onClick={() => publish(activity)}
-                      type="button"
+                      variant="primary"
                     >
                       <span>{busyId === activity.id ? 'Publishing…' : 'Publish Activity'}</span>
                       <span className="material-symbols-outlined text-[16px]">send</span>
-                    </button>
+                    </Button>
                   ) : (
                     <span className="font-label-sm text-label-sm text-on-surface-variant">
                       {activity.status === 'PUBLISHED' ? 'Visible to students' : 'Closed'}
                     </span>
                   )}
                 </div>
-              </article>
+              </Card>
             ))}
           </div>
         )}
@@ -352,7 +347,7 @@ export default function ActivitiesQuizManagement() {
                 </h2>
                 <button
                   aria-label="Close drawer"
-                  className="p-2 rounded-xl text-on-surface-variant hover:bg-surface-container"
+                  className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl text-on-surface-variant hover:bg-surface-container"
                   onClick={closeDrawer}
                   type="button"
                 >
@@ -523,21 +518,12 @@ export default function ActivitiesQuizManagement() {
             </div>
 
             <div className="pt-space-lg flex items-center justify-end gap-space-sm">
-              <button
-                className="px-space-md py-2.5 rounded-[14px] bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-container-high transition-colors"
-                onClick={closeDrawer}
-                type="button"
-              >
+              <Button onClick={closeDrawer} variant="secondary">
                 Cancel
-              </button>
-              <button
-                className="px-space-lg py-2.5 rounded-[14px] bg-primary-container text-on-primary font-label-md text-label-md hover:bg-primary transition-all shadow-md disabled:opacity-50"
-                disabled={saving}
-                onClick={submitForm}
-                type="button"
-              >
+              </Button>
+              <Button disabled={saving} onClick={submitForm} variant="primary">
                 {saving ? 'Saving…' : drawer.mode === 'create' ? 'Save Draft' : 'Save Changes'}
-              </button>
+              </Button>
             </div>
           </div>
         </div>

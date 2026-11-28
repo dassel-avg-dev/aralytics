@@ -21,14 +21,14 @@ export default function BrandLogo({
       to={to}
     >
       <div
-        className={`relative ${iconClassName} rounded-xl bg-primary flex items-center justify-center text-on-primary shadow-[0_4px_16px_rgba(91,75,219,0.2)] transition-transform duration-200 group-hover:scale-105 shrink-0`}
+        className={`relative ${iconClassName} rounded-xl bg-primary flex items-center justify-center text-on-primary shadow-[0_4px_16px_rgba(66,46,194,0.2)] transition-transform duration-200 group-hover:scale-105 shrink-0`}
       >
-        <span aria-hidden="true" className={`material-symbols-outlined text-tertiary-fixed ${iconSize} select-none`}>
+        <span aria-hidden="true" className={`material-symbols-outlined text-accent-yellow ${iconSize} select-none`}>
           school
         </span>
         <span
           aria-hidden="true"
-          className={`absolute -bottom-0.5 -right-0.5 ${dotClassName} rounded-full bg-tertiary-fixed border-2 border-surface`}
+          className={`absolute -bottom-0.5 -right-0.5 ${dotClassName} rounded-full bg-accent-yellow border-2 border-surface`}
         ></span>
       </div>
       {showName && (

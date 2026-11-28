@@ -7,11 +7,13 @@
 ## 1. Project Overview
 
 **Aralytics** (also branded **Aralytics Pilipinas AI**) is a Philippine CS / Python coding classroom and diagnostic analytics platform. The repository combines a Spring Boot 3.4.13 + PostgreSQL 16 REST API in `backend/` (`http://localhost:8080`, see [`../backend/README.md`](../backend/README.md)) with a React 19 + Vite 8 + Tailwind CSS v4 SPA in `frontend/` (`http://localhost:3000`) organized into three role-separated views:
-1. **Public & Authentication View** (`frontend/src/screens/public/`):
+1. **Public & Authentication View** (`frontend/src/screens/public/` + `frontend/src/screens/shared/`):
    - Public Marketing Landing Page (`/`)
    - Unified Student / Teacher Login (`/login`)
    - Institutional Key & Account Activation (`/register`)
-2. **Student View** (`frontend/src/screens/student/`, routes under `/student/*`):
+   - Password Reset Request (`/forgot-password`) & Reset (`/reset-password`)
+   - Role-Mismatch 403 Access Denied (`/forbidden`) & User Profile (`/profile`)
+2. **Student View** (`frontend/src/screens/student/`, routes under `/student/*`, wrapped in `StudentShell`):
    - Student Portal Home / Dashboard (`/student/dashboard`)
    - Student Assigned Coding Activities (`/student/activities`)
    - Student Live Quiz & Situational Code Scenario Arena (`/student/quiz`)
@@ -24,7 +26,7 @@
    - Cohort Reports & Learning Analytics (`/teacher/reports`)
    - Teacher Classroom Settings (`/teacher/settings`)
 
-The UI is converted 1:1 from 13 Google Stitch HTML exports located in `screens/stitch/` (gitignored via `/screens/` in `.gitignore`) into a modular React 19 + Vite 8 + Tailwind CSS v4 Single-Page Application inside `frontend/`.
+The UI originated from 13 Google Stitch HTML exports in `screens/stitch/` (gitignored via `/screens/` in `.gitignore`) and was redesigned into the **Warm Editorial EdTech v2** system across 17 routed screens in `frontend/`.
 
 ---
 
@@ -32,11 +34,11 @@ The UI is converted 1:1 from 13 Google Stitch HTML exports located in `screens/s
 
 | Layer | Package / Version | Notes |
 |---|---|---|
-| Framework | `react@^19.2.4`, `react-dom@^19.2.4` | Functional components + hooks only |
-| Routing | `react-router-dom@^7.14.1` | `<BrowserRouter>` in `frontend/src/main.jsx`, `<Routes>` in `frontend/src/App.jsx` |
-| Styling | `tailwindcss@^4.2.2`, `@tailwindcss/vite@^4.2.2` | Configured via `@theme` block in `frontend/src/index.css` (no `tailwind.config.js`) |
-| Bundler | `vite@^8.0.0`, `@vitejs/plugin-react@^6.0.0` | Dev server on `http://localhost:3000` |
-| Linter | `oxlint@^1.51.0` | `npm run lint` (`oxlint`) inside `frontend/` |
+| Framework | `react@^19.3.1`, `react-dom@^19.3.1` | Functional components + hooks only |
+| Routing | `react-router-dom@^7.18.4` | `<BrowserRouter>` in `frontend/src/main.jsx`, `<Routes>` in `frontend/src/App.jsx` |
+| Styling | `tailwindcss@^4.3.3`, `@tailwindcss/vite@^4.3.3` | Configured via `@theme` block in `frontend/src/index.css` (no `tailwind.config.js`) |
+| Bundler | `vite@^8.3.4`, `@vitejs/plugin-react@^6.1.2` | Dev server on `http://localhost:3000` |
+| Linter | `oxlint@^1.88.0` | `npm run lint` (`oxlint`) inside `frontend/` |
 | Backend API | Spring Boot `3.4.13` (Java 21, Maven wrapper) | Stateless HS256 JWT (`jjwt@0.12.7`), RFC 7807 errors, port `8080` |
 | Database | PostgreSQL `16` + Flyway (`ddl-auto: validate`) | `aralytics` (`dev,seed`: `V1` + `V2`) and `aralytics_prod` (`prod`: `V1` only) |
 
@@ -61,19 +63,26 @@ A single root `.env` (copied from `.env.example`) controls both backend and fron
 
 ## 3. Design System Tokens (`frontend/src/index.css`)
 
-All Stitch exports share the "Warm Editorial EdTech" Material-3-inspired palette and typography defined inside `@theme` in `frontend/src/index.css`:
+All Stitch exports share the "Warm Editorial EdTech v2" Material-3-inspired palette and typography defined inside `@theme` in `frontend/src/index.css`:
 
 - **Colors**:
-  - Primary (Indigo): `--color-primary: #422ec2`, `--color-primary-container: #5b4bdb`, `--color-primary-fixed: #e4dfff`, `--color-primary-fixed-dim: #c6c0ff`, `--color-on-primary-fixed: #150066`, `--color-on-primary-fixed-variant: #3e28be`
+  - Primary (Indigo): `--color-primary: #422ec2`, `--color-primary-container: #5b4bdb`, `--color-primary-fixed: #e9e6ff`, `--color-primary-fixed-dim: #c6c0ff`, `--color-on-primary-fixed: #150066`, `--color-on-primary-fixed-variant: #3e28be`
   - Secondary (Emerald): `--color-secondary: #006b5f`, `--color-secondary-container: #6df5e1`, `--color-secondary-fixed: #71f8e4`, `--color-on-secondary-container: #006f64`, `--color-on-secondary-fixed: #00201c`
-  - Tertiary (Amber/Gold): `--color-tertiary: #5f4700`, `--color-tertiary-container: #7d5e00`, `--color-tertiary-fixed: #ffdf9a`, `--color-tertiary-fixed-dim: #f4bf32`, `--color-on-tertiary-fixed: #251a00`, `--color-on-tertiary-fixed-variant: #5a4300`
-  - Error (Crimson): `--color-error: #ba1a1a`, `--color-error-container: #ffdad6`, `--color-on-error-container: #93000a`
-  - Surfaces (Cool Lavender-Tint White): `--color-background: #fbf8ff`, `--color-surface: #fbf8ff`, `--color-surface-bright: #fbf8ff`, `--color-surface-dim: #d5d7fe`, `--color-surface-container-lowest: #ffffff`, `--color-surface-container-low: #f4f2ff`, `--color-surface-container: #edecff`, `--color-surface-container-high: #e6e6ff`, `--color-surface-container-highest: #dfe0ff`, `--color-on-surface: #151936`, `--color-on-surface-variant: #474554`, `--color-outline: #787586`, `--color-outline-variant: #c8c4d7`
+  - Semantic Status: `--color-status-ok: #1d8a5a`, `--color-status-ok-tint: #ddf5e8`, `--color-warn: #5f4700` (WCAG AA >=7:1 on `#ffefd1`), `--color-warn-tint: #ffefd1`, `--color-accent-yellow: #ffc93c`, `--color-error: #ba1a1a`, `--color-danger-tint: #fde4e5`
+  - Surfaces (Warm Cream): `--color-background: #fff9f0`, `--color-surface: #fff9f0`, `--color-surface-bright: #fff9f0`, `--color-surface-container-lowest: #ffffff`, `--color-surface-container-low: #f6f1ea`, `--color-surface-container: #f0ebf8`, `--color-surface-container-high: #e7e2f8`, `--color-surface-container-highest: #ddd7f5`, `--color-on-surface: #181b33`, `--color-on-surface-variant: #4e526e`, `--color-outline: #70748e`, `--color-outline-variant: #ddd6cc`
 - **Fonts** (loaded in `frontend/index.html`):
   - `--font-headline`: `'Nunito Sans', sans-serif` (tokens `--font-display-lg`, `--font-headline-lg/md/sm`, `--font-metric-number`)
-  - `--font-body`: `'Inter', sans-serif` (`--font-body-lg/md/sm`)
-  - `--font-label`: `'Inter', sans-serif` (`--font-label-lg/md/sm`)
+  - `--font-body`: `'Source Sans 3', sans-serif` (`--font-body-lg/md/sm`)
+  - `--font-label`: `'Source Sans 3', sans-serif` (`--font-label-lg/md/sm`)
   - `--font-mono`: `'JetBrains Mono', monospace`
+- **Shared UI Primitives** (`frontend/src/components/ui/`):
+  - `Button` (`variant`: `primary|secondary|accent|ghost|danger`, `size`: `sm|md|lg`, `to` for `<Link>`)
+  - `Badge` (`tone`: `neutral|mastered|on-track|nudge|help|ai`, `dot`)
+  - `Card` (`variant`: `elevated|tinted|subtle`)
+  - `Avatar` (`name`, `size`: `sm|md|lg` — deterministic initials circle)
+- **Layout Shells**:
+  - `StudentShell` (`frontend/src/components/layout/StudentShell.jsx`) wraps `/student/*` and Student `/profile` in `App.jsx`.
+  - `AppShell` (`Sidebar` + `TopBar`) wraps `/teacher/*` and Teacher `/profile` in `App.jsx`.
 - **Radii** (`@theme` overrides):
   - `--radius-sm: 4px`, `--radius-DEFAULT: 8px`, `--radius-md: 8px`, `--radius-lg: 12px`, `--radius-xl: 16px`, `--radius-2xl: 20px`, `--radius-3xl: 24px`, `--radius-full: 9999px`
 - **Custom Spacing** (`@theme`):
@@ -101,12 +110,12 @@ All Stitch exports share the "Warm Editorial EdTech" Material-3-inspired palette
 | `/forgot-password` | `frontend/src/screens/public/ForgotPasswordScreen.jsx` | — | Standalone (Auth Header + Card + Footer) |
 | `/reset-password` | `frontend/src/screens/public/ResetPasswordScreen.jsx` | — | Standalone (Auth Header + Card + Footer) |
 | `/forbidden` | `frontend/src/screens/shared/ForbiddenScreen.jsx` | — | Standalone (Brand Header + 403 Card + Centered Footer) |
-| `/profile` | `frontend/src/screens/shared/ProfileScreen.jsx` | — | Role-aware (`AppShell` for Teacher, `StudentHeader` for Student) |
-| `/student/dashboard` | `frontend/src/screens/student/StudentDashboard.jsx` | `screens/stitch/portal/code.html` | Standalone (Student Portal Header + Mobile Nav + Footer) |
-| `/student/activities` | `frontend/src/screens/student/StudentMyActivities.jsx` | `screens/stitch/aralytics_student_my_activities/code.html` | Standalone (Student Activities Header + Mobile Nav + Footer) |
-| `/student/quiz` | `frontend/src/screens/student/StudentLiveQuiz.jsx` | `screens/stitch/aralytics_student_live_quiz_code_scenario/code.html` | Standalone (Student Quiz Header + Sticky Submit Footer) |
-| `/student/feedback` | `frontend/src/screens/student/StudentDiagnosticReport.jsx` | `screens/stitch/aralytics_instant_ai_feedback_diagnostic_report/code.html` | Standalone (Student Feedback Header + Practice Modal + Footer) |
-| `/student/progress` | `frontend/src/screens/student/StudentProgressHistory.jsx` | `screens/stitch/aralytics_student_feedback_history_progress/code.html` | Standalone (Student Progress Header + Diagnostic Modal + Footer) |
+| `/profile` | `frontend/src/screens/shared/ProfileScreen.jsx` | — | Role-aware (`AppShell` for Teacher, `StudentShell` for Student) |
+| `/student/dashboard` | `frontend/src/screens/student/StudentDashboard.jsx` | `screens/stitch/portal/code.html` | `StudentShell` |
+| `/student/activities` | `frontend/src/screens/student/StudentMyActivities.jsx` | `screens/stitch/aralytics_student_my_activities/code.html` | `StudentShell` |
+| `/student/quiz` | `frontend/src/screens/student/StudentLiveQuiz.jsx` | `screens/stitch/aralytics_student_live_quiz_code_scenario/code.html` | `StudentShell` |
+| `/student/feedback` | `frontend/src/screens/student/StudentDiagnosticReport.jsx` | `screens/stitch/aralytics_instant_ai_feedback_diagnostic_report/code.html` | `StudentShell` |
+| `/student/progress` | `frontend/src/screens/student/StudentProgressHistory.jsx` | `screens/stitch/aralytics_student_feedback_history_progress/code.html` | `StudentShell` |
 | `/teacher/dashboard` | `frontend/src/screens/teacher/TeacherDashboard.jsx` | `screens/stitch/aralytics_teacher_desktop_dashboard/code.html` | `AppShell` (`Sidebar` + `TopBar`) |
 | `/teacher/students` | `frontend/src/screens/teacher/StudentsMasteryRoster.jsx` | `screens/stitch/aralytics_students_mastery_roster/code.html` | `AppShell` (`Sidebar` + `TopBar`) |
 | `/teacher/activities` | `frontend/src/screens/teacher/ActivitiesQuizManagement.jsx` | `screens/stitch/aralytics_activities_quiz_management/code.html` | `AppShell` (`Sidebar` + `TopBar`) |
@@ -124,20 +133,20 @@ All Stitch exports share the "Warm Editorial EdTech" Material-3-inspired palette
 
 ---
 
-## 5. Layout Architecture (`AppShell` vs Standalone)
+## 5. Layout Architecture (`AppShell` vs `StudentShell` vs Standalone)
 
-- **Teacher View Screens** (`/teacher/dashboard`, `/teacher/students`, `/teacher/activities`, `/teacher/reports`, `/teacher/settings`) share the 250px fixed left `<aside>` (`Sidebar.jsx`) and 72px fixed `<header>` (`TopBar.jsx`). `AppShell` in `frontend/src/App.jsx` renders both, plus a mobile backdrop/drawer (`lg:hidden`), and wraps children in `<div className="lg:pl-[250px]"><main className="relative pt-[72px] bg-surface min-h-screen">{children}</main></div>`.
+- **Teacher View Screens** (`/teacher/dashboard`, `/teacher/students`, `/teacher/activities`, `/teacher/reports`, `/teacher/settings`, and teacher `/profile`) share the 250px fixed left `<aside>` (`Sidebar.jsx`) and 72px fixed `<header>` (`TopBar.jsx`). `AppShell` in `frontend/src/App.jsx` renders both, plus a mobile backdrop/drawer (`lg:hidden`), and wraps children in `<div className="lg:pl-[250px]"><main className="relative pt-[72px] bg-surface min-h-screen">{children}</main></div>`.
   - Therefore, the 5 teacher screen components in `frontend/src/screens/teacher/` render **only the inner content of `<main>`** (from the Page Header `<div>` through the end of `<main>`), plus any screen-specific modals/drawers.
-- **Public & Auth Screens** (`/`, `/login`, `/register` in `frontend/src/screens/public/`) and **Student View Screens** (`/student/*` in `frontend/src/screens/student/`) use their own standalone headers and footers from their respective Stitch exports and bypass `AppShell` in `frontend/src/App.jsx`. Each Student View screen preserves its exact Stitch top navigation bar while wiring all links to `/student/*` and `/login` and providing a responsive `xl:hidden` hamburger menu for smaller screens.
+- **Student View Screens** (`/student/dashboard`, `/student/activities`, `/student/quiz`, `/student/feedback`, `/student/progress`, and student `/profile`) are wrapped in `StudentShell` (`frontend/src/components/layout/StudentShell.jsx`) inside `frontend/src/App.jsx`, which renders the shared 72px top bar (`Home`, `Activities`, `Quiz`, `Feedback`, `Progress`, horizontal from `lg+` with a `<lg` slide-down mobile drawer, `NotificationBell`, `Avatar`, and Sign Out) and `<main className="w-full pt-[72px] bg-surface min-h-screen">`.
+- **Public & Auth Screens** (`/`, `/login`, `/register`, `/forgot-password`, `/reset-password`) and `/forbidden` use standalone headers and footers and bypass `AppShell` and `StudentShell`.
 
 ---
 
 ## 6. Rules for Modifying or Adding Screens
 
-1. **Preserve Stitch Fidelity**: Keep all exact copy, statistics, Filipino/English code-switching examples (`Kumusta, Miguel!`, `G. Santos`, `Maria Clara R.`, `Juan Dela Cruz`), SVG illustrations, and Tailwind classes from `screens/stitch/*/code.html`.
+1. **Use Warm Editorial EdTech v2 Tokens & Primitives**: Reuse `Button`, `Badge`, `Card`, and `Avatar` from `frontend/src/components/ui/` and semantic theme tokens from `frontend/src/index.css` rather than raw hex colors. Keep WCAG AA text contrast (`>= 4.5:1`) and `>= 44px` interactive tap targets.
 2. **React/JSX Cleanliness**:
-   - Convert `class` -> `className`, `for` -> `htmlFor`, `tabindex` -> `tabIndex`, SVG `stroke-width` -> `strokeWidth`, `stroke-dasharray` -> `strokeDasharray`, `stroke-dashoffset` -> `strokeDashoffset`, `stroke-linecap` -> `strokeLinecap`, `fill-rule` -> `fillRule`, `clip-rule` -> `clipRule`.
-   - Convert inline `<script>` handlers (`onclick="..."`, `onsubmit="..."`) into idiomatic React `useState` state and event handlers. Never use `window.alert` or `window.confirm`.
+   - Convert inline handlers into idiomatic React `useState` state and event handlers. Never use `window.alert` or `window.confirm`.
    - Always clean up `setTimeout` / `setInterval` timers on unmount via `useEffect` + `useRef`.
-3. **Resilient Remote Avatars**: Any external `lh3.googleusercontent.com` `<img>` must include `onError={(e) => { e.currentTarget.style.visibility = 'hidden'; }}` inside a styled fallback container so offline/blocked requests degrade gracefully.
+3. **Initials Avatars**: Use `<Avatar name={...} />` (`frontend/src/components/ui/Avatar.jsx`) instead of external `lh3.googleusercontent.com` image URLs so offline/blocked environments render cleanly.
 4. **Update Documentation**: Every time you complete a change, append an entry to [`LOG.md`](./LOG.md) and update [`FILETREE.md`](./FILETREE.md) + [`HANDOFF.md`](./HANDOFF.md) if routes, files, or architecture changed.

@@ -1,6 +1,6 @@
 # FILETREE.md — Aralytics Directory & File Purpose Map
 
-Every directory and file in the repository, its responsibility, and which Stitch screen export (if any) it implements. Keep this file updated whenever a file is added, renamed, or deleted.
+Every directory and file in the repository, its responsibility, and which route or design reference it implements. Keep this file updated whenever a file is added, renamed, or deleted.
 
 ```text
 aralytics/
@@ -14,7 +14,7 @@ aralytics/
 │   ├── SETUP.md                            # Developer quick-start, workspace commands, and default Student/Teacher credentials
 │   ├── NAVIGATION.md                       # Frontend screen routes, navigation links, and backend /api/* endpoint map
 │   ├── PRD.md                              # Product requirements; distinguishes MVP scope from planned post-MVP work
-│   ├── HANDOFF.md                          # Architecture, design tokens, route map, Stitch -> React conversion rules
+│   ├── HANDOFF.md                          # Architecture, Warm Editorial EdTech v2 design tokens, route map, and layout rules
 │   ├── LOG.md                              # Chronological append-only log of project changes
 │   ├── FILETREE.md                         # This file — directory & file purpose map
 │   ├── requirements.md                     # Requirements index + MVP scope summary
@@ -101,7 +101,7 @@ aralytics/
 │           └── screen.png                  # Visual reference screenshot
 │
 └── frontend/                               # React 19 + Vite 8 + Tailwind CSS v4 Frontend Application
-    ├── index.html                          # Vite HTML entry; tab title "Aralytics | AI Learning Analytics"; loads Google Fonts (Nunito Sans, Inter) + Material Symbols Outlined
+    ├── index.html                          # Vite HTML entry; tab title "Aralytics | AI Learning Analytics"; loads Google Fonts (Nunito Sans, Source Sans 3, JetBrains Mono) + Material Symbols Outlined
     ├── package.json                        # Dependencies: react 19, react-dom 19, react-router-dom 7, @tailwindcss/vite 4, vite 8, oxlint
     ├── package-lock.json                   # Locked dependency tree
     ├── vite.config.js                      # Vite 8 config (@vitejs/plugin-react, @tailwindcss/vite, envDir: '..', VITE_APP_ENV from root ENV)
@@ -114,8 +114,8 @@ aralytics/
     │
     └── src/                                # Application source code
         ├── main.jsx                        # React root mount wrapped in <BrowserRouter>
-        ├── App.jsx                         # Route table + conditional AppShell wrapper (Teacher View routes in AppShell; Public & Student View standalone)
-        ├── index.css                       # Tailwind v4 @import + @theme token block (colors, fonts, radii, spacing) + .material-symbols-outlined + .custom-scrollbar
+        ├── App.jsx                         # Route table + role-aware shell wrappers (Teacher routes in AppShell, Student routes in StudentShell, Public standalone)
+        ├── index.css                       # Tailwind v4 @import + @theme token block (Warm Editorial EdTech v2) + thin 6px scrollbar + .material-symbols-outlined
         │
         ├── api/                            # REST client (client.js) and data-fetching hook (useApiResource.js)
         ├── assets/                         # Bundled static assets (if needed by components)
@@ -124,13 +124,17 @@ aralytics/
         │   ├── BrandLogo.jsx               # Canonical Aralytics header lockup used across public/auth/student/teacher chrome (primary rounded-square school mark + amber dot + landing name styling); never used in footers
         │   ├── DataState.jsx               # Shared DataError (RFC 7807 / 401 / 403 / 501), LoadingBlock, EmptyBlock UI
         │   ├── NotificationBell.jsx        # In-app notification bell dropdown wired to /api/*/notifications
-        │   ├── student/
-        │   │   └── StudentHeader.jsx       # Shared Student portal top navigation bar + mobile drawer
-        │   └── layout/                     # Shared Teacher application chrome (composed by AppShell in App.jsx)
-        │       ├── Sidebar.jsx             # 250px fixed left nav (Dashboard, Students, Activities, Reports, Settings under /teacher/*) + profile footer
-        │       └── TopBar.jsx              # 72px sticky glass header with mobile hamburger, course selector, xl+ search, notifications, New Activity CTA, profile
+        │   ├── ui/                         # Shared Warm Editorial EdTech v2 primitives
+        │   │   ├── Avatar.jsx              # Deterministic initials circle replacing external avatar URLs
+        │   │   ├── Badge.jsx               # WCAG AA status pill (neutral, mastered, on-track, nudge, help, ai)
+        │   │   ├── Button.jsx              # Polymorphic button/Link primitive with >=44px md/lg tap targets
+        │   │   └── Card.jsx                # Rounded 20px surface container (elevated, tinted, subtle)
+        │   └── layout/                     # Shared Student & Teacher application chrome (composed in App.jsx)
+        │       ├── Sidebar.jsx             # 250px fixed left nav (Dashboard, Students, Activities, Reports, Settings under /teacher/*) + Avatar profile footer
+        │       ├── StudentShell.jsx        # Shared Student top-bar shell (Home, Activities, Quiz, Feedback, Progress) + lg+ nav + mobile drawer
+        │       └── TopBar.jsx              # 72px sticky glass header with mobile hamburger, stored class pill, notifications, New Activity CTA, Avatar profile
         │
-        └── screens/                        # Screen-level route components separated by role (1:1 conversions of screens/stitch/*/code.html)
+        └── screens/                        # Screen-level route components separated by role (Warm Editorial EdTech v2)
             ├── public/                     # Public & Authentication screens (standalone chrome)
             │   ├── LandingPage.jsx         # Route: /                   <- screens/stitch/landing_page/code.html
             │   ├── LoginScreen.jsx         # Route: /login              <- screens/stitch/aralytics_login/code.html
@@ -139,8 +143,8 @@ aralytics/
             │   └── ResetPasswordScreen.jsx # Route: /reset-password
             ├── shared/
             │   ├── ForbiddenScreen.jsx     # Route: /forbidden          (403 role-mismatch / access-denied page)
-            │   └── ProfileScreen.jsx       # Route: /profile            (Teacher AppShell or StudentHeader)
-            ├── student/                    # Student View screens (standalone top navbar wired to /student/*)
+            │   └── ProfileScreen.jsx       # Route: /profile            (Teacher AppShell or StudentShell)
+            ├── student/                    # Student View screens (wrapped in StudentShell)
             │   ├── StudentDashboard.jsx    # Route: /student/dashboard  <- screens/stitch/portal/code.html
             │   ├── StudentMyActivities.jsx # Route: /student/activities <- screens/stitch/aralytics_student_my_activities/code.html
             │   ├── StudentLiveQuiz.jsx     # Route: /student/quiz       <- screens/stitch/aralytics_student_live_quiz_code_scenario/code.html

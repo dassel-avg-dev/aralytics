@@ -1,21 +1,24 @@
 import { useState } from 'react'
-import StudentHeader from '../../components/student/StudentHeader'
-import { api, getStoredUser } from '../../api/client'
+import Avatar from '../../components/ui/Avatar'
+import Badge from '../../components/ui/Badge'
+import Button from '../../components/ui/Button'
+import Card from '../../components/ui/Card'
+import { api } from '../../api/client'
 import { useApiResource } from '../../api/useApiResource'
 import { DataError, LoadingBlock } from '../../components/DataState'
 
 const FIELD =
-  'w-full px-4 py-2.5 rounded-xl bg-surface-container-low border border-outline-variant/40 font-body-md text-body-md text-on-surface placeholder:text-outline focus:bg-surface-container-lowest focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all'
+  'w-full px-4 py-2.5 rounded-xl bg-surface-container-low border border-outline-variant/50 font-body-md text-body-md text-on-surface placeholder:text-outline focus:bg-surface-container-lowest focus:outline-none focus:ring-2 focus:ring-primary/25 focus:border-primary transition-all'
 
 function Notice({ notice }) {
   if (!notice) return null
   const error = notice.tone === 'error'
   return (
     <div
-      className={`rounded-xl px-space-md py-space-sm font-label-md text-label-md font-semibold flex items-center gap-2 ${
+      className={`rounded-xl px-4 py-3 font-label-md text-label-md font-semibold flex items-center gap-2 ${
         error
-          ? 'bg-error-container text-on-error-container'
-          : 'bg-secondary-container text-on-secondary-container'
+          ? 'bg-danger-tint text-error border border-error/20'
+          : 'bg-status-ok-tint text-secondary border border-secondary/20'
       }`}
       role={error ? 'alert' : 'status'}
     >
@@ -28,8 +31,6 @@ function Notice({ notice }) {
 }
 
 export default function ProfileScreen() {
-  const isTeacher = getStoredUser()?.role === 'TEACHER'
-  const Shell = isTeacher ? 'div' : 'main'
   const profile = useApiResource(() => api.auth.profile(), [])
   const user = profile.data?.user
 
@@ -87,155 +88,160 @@ export default function ProfileScreen() {
   }
 
   return (
-    <div className={isTeacher ? 'bg-surface' : 'bg-surface min-h-screen flex flex-col'}>
-      {!isTeacher && <StudentHeader />}
-      <Shell className={isTeacher ? 'w-full' : 'w-full pt-20 flex-1'}>
-        <div className="max-w-[1120px] mx-auto px-space-md lg:px-space-xl py-space-lg flex flex-col gap-space-lg">
-          <div className="flex flex-col gap-space-xs">
-            <h1 className="font-headline-lg text-headline-lg text-on-surface">My Profile</h1>
-            <p className="font-body-md text-body-md text-on-surface-variant">
-              View your account details and keep your sign-in information up to date.
-            </p>
-          </div>
+    <div className="max-w-[1120px] mx-auto px-4 lg:px-8 py-6 flex flex-col gap-6">
+      <div className="flex flex-col gap-1">
+        <h1 className="font-headline-lg text-headline-lg text-on-surface">My Profile</h1>
+        <p className="font-body-md text-body-md text-on-surface-variant">
+          View your account details and keep your sign-in information up to date.
+        </p>
+      </div>
 
-          {profile.loading && <LoadingBlock label="Loading your profile…" />}
-          {profile.error && <DataError error={profile.error} onRetry={profile.reload} />}
+      {profile.loading && <LoadingBlock label="Loading your profile…" />}
+      {profile.error && <DataError error={profile.error} onRetry={profile.reload} />}
 
-          {user && (
-            <div className="grid grid-cols-1 xl:grid-cols-12 gap-space-lg items-start">
-              <section className="xl:col-span-7 bg-surface-container-lowest rounded-2xl p-space-lg shadow-[0_4px_20px_rgba(91,75,219,0.08)] flex flex-col gap-space-md">
-                <h2 className="font-headline-sm text-headline-sm text-on-surface">Account Details</h2>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-space-sm">
-                  {[
-                    ['Email', user.email],
-                    ['Role', user.role === 'TEACHER' ? 'Teacher' : 'Student'],
-                    ['School', user.schoolName || '—'],
-                  ].map(([label, value]) => (
-                    <div key={label} className="flex flex-col gap-0.5 rounded-xl bg-surface-container-low px-4 py-3">
-                      <span className="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wide">
-                        {label}
-                      </span>
-                      <span className="font-body-md text-body-md text-on-surface font-medium break-words">
-                        {value}
-                      </span>
-                    </div>
-                  ))}
+      {user && (
+        <div className="grid grid-cols-1 xl:grid-cols-12 gap-6 items-start">
+          <Card variant="elevated" className="xl:col-span-7 p-6 flex flex-col gap-5">
+            <div className="flex items-center justify-between gap-4 pb-4 border-b border-outline-variant/40">
+              <div className="flex items-center gap-3.5 min-w-0">
+                <Avatar name={user.fullName || user.username} size="lg" />
+                <div className="min-w-0">
+                  <h2 className="font-headline-sm text-headline-sm text-on-surface truncate">
+                    {user.fullName || user.username}
+                  </h2>
+                  <p className="font-body-sm text-body-sm text-on-surface-variant truncate">
+                    {user.email}
+                  </p>
                 </div>
-
-                <form className="flex flex-col gap-space-sm pt-space-xs border-t border-surface-container-high/50" onSubmit={saveProfile}>
-                  <label className="flex flex-col gap-1">
-                    <span className="font-label-md text-label-md text-on-surface">Full Name</span>
-                    <input
-                      className={FIELD}
-                      maxLength={160}
-                      onChange={(event) => {
-                        setFullNameDraft(event.target.value)
-                        if (profileNotice) setProfileNotice(null)
-                      }}
-                      required
-                      value={fullName}
-                    />
-                  </label>
-                  <label className="flex flex-col gap-1">
-                    <span className="font-label-md text-label-md text-on-surface">Username</span>
-                    <input
-                      className={FIELD}
-                      maxLength={64}
-                      onChange={(event) => {
-                        setUsernameDraft(event.target.value)
-                        if (profileNotice) setProfileNotice(null)
-                      }}
-                      required
-                      value={username}
-                    />
-                  </label>
-                  <Notice notice={profileNotice} />
-                  <button
-                    className="self-start mt-1 flex items-center gap-space-xs bg-primary-container hover:bg-primary text-on-primary px-space-lg py-2.5 rounded-xl font-label-lg text-label-lg shadow-[0_4px_16px_rgba(91,75,219,0.24)] transition-all disabled:opacity-50"
-                    disabled={savingProfile}
-                    type="submit"
-                  >
-                    <span className="material-symbols-outlined text-[20px]">save</span>
-                    {savingProfile ? 'Saving…' : 'Save Profile'}
-                  </button>
-                </form>
-              </section>
-
-              <section className="xl:col-span-5 bg-surface-container-lowest rounded-2xl p-space-lg shadow-[0_4px_20px_rgba(91,75,219,0.08)] flex flex-col gap-space-md">
-                <div className="flex items-center justify-between gap-2">
-                  <h2 className="font-headline-sm text-headline-sm text-on-surface">Change Password</h2>
-                  <button
-                    aria-pressed={showPasswords}
-                    className="inline-flex items-center gap-1 text-on-surface-variant hover:text-primary font-label-sm text-label-sm font-medium transition-colors"
-                    onClick={() => setShowPasswords((prev) => !prev)}
-                    type="button"
-                  >
-                    <span className="material-symbols-outlined text-[18px]">
-                      {showPasswords ? 'visibility_off' : 'visibility'}
-                    </span>
-                    <span>{showPasswords ? 'Hide' : 'Show'}</span>
-                  </button>
-                </div>
-                <form className="flex flex-col gap-space-sm" onSubmit={savePassword}>
-                  <label className="flex flex-col gap-1">
-                    <span className="font-label-md text-label-md text-on-surface">
-                      Current Password
-                    </span>
-                    <input
-                      autoComplete="current-password"
-                      className={FIELD}
-                      onChange={(event) => setCurrentPassword(event.target.value)}
-                      required
-                      type={showPasswords ? 'text' : 'password'}
-                      value={currentPassword}
-                    />
-                  </label>
-                  <label className="flex flex-col gap-1">
-                    <span className="font-label-md text-label-md text-on-surface">New Password</span>
-                    <input
-                      autoComplete="new-password"
-                      className={FIELD}
-                      maxLength={72}
-                      minLength={8}
-                      onChange={(event) => setNewPassword(event.target.value)}
-                      required
-                      type={showPasswords ? 'text' : 'password'}
-                      value={newPassword}
-                    />
-                    <span className="font-body-sm text-body-sm text-on-surface-variant">
-                      8–72 characters with at least one number.
-                    </span>
-                  </label>
-                  <label className="flex flex-col gap-1">
-                    <span className="font-label-md text-label-md text-on-surface">
-                      Confirm New Password
-                    </span>
-                    <input
-                      autoComplete="new-password"
-                      className={FIELD}
-                      maxLength={72}
-                      minLength={8}
-                      onChange={(event) => setConfirmPassword(event.target.value)}
-                      required
-                      type={showPasswords ? 'text' : 'password'}
-                      value={confirmPassword}
-                    />
-                  </label>
-                  <Notice notice={passwordNotice} />
-                  <button
-                    className="self-start mt-1 flex items-center gap-space-xs bg-primary-container hover:bg-primary text-on-primary px-space-lg py-2.5 rounded-xl font-label-lg text-label-lg shadow-[0_4px_16px_rgba(91,75,219,0.24)] transition-all disabled:opacity-50"
-                    disabled={savingPassword}
-                    type="submit"
-                  >
-                    <span className="material-symbols-outlined text-[20px]">lock_reset</span>
-                    {savingPassword ? 'Updating…' : 'Update Password'}
-                  </button>
-                </form>
-              </section>
+              </div>
+              <Badge tone={user.role === 'TEACHER' ? 'mastered' : 'on-track'}>
+                {user.role === 'TEACHER' ? 'Teacher' : 'Student'}
+              </Badge>
             </div>
-          )}
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              {[
+                ['Email', user.email],
+                ['Role', user.role === 'TEACHER' ? 'Teacher' : 'Student'],
+                ['School', user.schoolName || '—'],
+              ].map(([label, value]) => (
+                <div key={label} className="flex flex-col gap-0.5 rounded-xl bg-surface-container-low px-4 py-3">
+                  <span className="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wide">
+                    {label}
+                  </span>
+                  <span className="font-body-md text-body-md text-on-surface font-medium break-words">
+                    {value}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            <form className="flex flex-col gap-4 pt-2 border-t border-outline-variant/40" onSubmit={saveProfile}>
+              <label className="flex flex-col gap-1">
+                <span className="font-label-md text-label-md font-semibold text-on-surface">Full Name</span>
+                <input
+                  autoComplete="name"
+                  className={FIELD}
+                  maxLength={160}
+                  onChange={(event) => {
+                    setFullNameDraft(event.target.value)
+                    if (profileNotice) setProfileNotice(null)
+                  }}
+                  required
+                  value={fullName}
+                />
+              </label>
+              <label className="flex flex-col gap-1">
+                <span className="font-label-md text-label-md font-semibold text-on-surface">Username</span>
+                <input
+                  autoComplete="username"
+                  className={FIELD}
+                  maxLength={64}
+                  onChange={(event) => {
+                    setUsernameDraft(event.target.value)
+                    if (profileNotice) setProfileNotice(null)
+                  }}
+                  required
+                  value={username}
+                />
+              </label>
+              <Notice notice={profileNotice} />
+              <Button className="self-start" disabled={savingProfile} type="submit" variant="primary">
+                <span className="material-symbols-outlined text-[20px]">save</span>
+                {savingProfile ? 'Saving…' : 'Save Profile'}
+              </Button>
+            </form>
+          </Card>
+
+          <Card variant="elevated" className="xl:col-span-5 p-6 flex flex-col gap-5">
+            <div className="flex items-center justify-between gap-2">
+              <h2 className="font-headline-sm text-headline-sm text-on-surface">Change Password</h2>
+              <Button
+                aria-pressed={showPasswords}
+                onClick={() => setShowPasswords((prev) => !prev)}
+                size="sm"
+                variant="ghost"
+              >
+                <span className="material-symbols-outlined text-[18px]">
+                  {showPasswords ? 'visibility_off' : 'visibility'}
+                </span>
+                <span>{showPasswords ? 'Hide' : 'Show'}</span>
+              </Button>
+            </div>
+            <form className="flex flex-col gap-4" onSubmit={savePassword}>
+              <label className="flex flex-col gap-1">
+                <span className="font-label-md text-label-md font-semibold text-on-surface">
+                  Current Password
+                </span>
+                <input
+                  autoComplete="current-password"
+                  className={FIELD}
+                  onChange={(event) => setCurrentPassword(event.target.value)}
+                  required
+                  type={showPasswords ? 'text' : 'password'}
+                  value={currentPassword}
+                />
+              </label>
+              <label className="flex flex-col gap-1">
+                <span className="font-label-md text-label-md font-semibold text-on-surface">New Password</span>
+                <input
+                  autoComplete="new-password"
+                  className={FIELD}
+                  maxLength={72}
+                  minLength={8}
+                  onChange={(event) => setNewPassword(event.target.value)}
+                  required
+                  type={showPasswords ? 'text' : 'password'}
+                  value={newPassword}
+                />
+                <span className="font-body-sm text-body-sm text-on-surface-variant">
+                  8–72 characters with at least one number.
+                </span>
+              </label>
+              <label className="flex flex-col gap-1">
+                <span className="font-label-md text-label-md font-semibold text-on-surface">
+                  Confirm New Password
+                </span>
+                <input
+                  autoComplete="new-password"
+                  className={FIELD}
+                  maxLength={72}
+                  minLength={8}
+                  onChange={(event) => setConfirmPassword(event.target.value)}
+                  required
+                  type={showPasswords ? 'text' : 'password'}
+                  value={confirmPassword}
+                />
+              </label>
+              <Notice notice={passwordNotice} />
+              <Button className="self-start" disabled={savingPassword} type="submit" variant="primary">
+                <span className="material-symbols-outlined text-[20px]">lock_reset</span>
+                {savingPassword ? 'Updating…' : 'Update Password'}
+              </Button>
+            </form>
+          </Card>
         </div>
-      </Shell>
+      )}
     </div>
   )
 }

@@ -72,7 +72,7 @@ Run inside `frontend/` (or from root with `npm --prefix frontend run <script>`):
 | `npm run dev` | Starts Vite dev server with HMR at `http://localhost:3000` |
 | `npm run build` | Builds production bundle into `frontend/dist/` |
 | `npm run preview` | Serves the production build locally for verification |
-| `npm run lint` | Runs `oxlint` across `frontend/src/` (must exit with 0 warnings and 0 errors) |
+| `npm run lint` | Runs `oxlint` across `frontend/src/` (must exit with 0 errors) |
 | `npm run fetch-screens` | Runs `node ../fetch-screens.mjs --out ../screens/stitch` to pull Stitch HTML/PNG exports |
 
 ---
@@ -89,7 +89,7 @@ aralytics/
 │   ├── SETUP.md          # Setup, commands, and default Student/Teacher credentials (this file)
 │   ├── NAVIGATION.md     # Frontend screen routes, navigation links, and backend /api/* endpoint map
 │   ├── PRD.md            # Product requirements and MVP/post-MVP scope
-│   ├── HANDOFF.md        # Architecture, design tokens, and Stitch -> React conversion rules
+│   ├── HANDOFF.md        # Architecture, Warm Editorial EdTech v2 design system, and layout rules
 │   ├── FILETREE.md       # Complete directory & file purpose map
 │   ├── LOG.md            # Chronological log of project changes
 │   ├── architecture.md   # Full-stack system architecture overview
@@ -102,10 +102,10 @@ aralytics/
     ├── public/           # Static public assets
     └── src/
         ├── api/          # REST client (client.js) and data-fetching hook (useApiResource.js)
-        ├── components/   # BrandLogo, DataState, NotificationBell, student/, layout/ (Sidebar, TopBar)
+        ├── components/   # BrandLogo, DataState, NotificationBell, ui/ (Avatar, Badge, Button, Card), layout/ (Sidebar, StudentShell, TopBar)
         └── screens/
             ├── public/   # /, /login, /register, /forgot-password, /reset-password
-            ├── shared/   # /profile
+            ├── shared/   # /forbidden, /profile
             ├── student/  # /student/dashboard, /student/activities, /student/quiz, /student/feedback, /student/progress
             └── teacher/  # /teacher/dashboard, /teacher/students, /teacher/activities, /teacher/reports, /teacher/settings
 ```

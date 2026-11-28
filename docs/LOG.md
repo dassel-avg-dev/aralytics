@@ -201,3 +201,11 @@ Chronological log of steps taken during work sessions on this project, kept rega
 ## Session 2026-11-26 (Backend branch documentation sync)
 
 104. Switched to `feat/backend-migrated` and audited backend controllers, security, persistence, and tests against project docs. Updated `backend/README.md` (removed outdated "40% milestone" framing; added forgot/reset-password, profile, pilot-inquiry, notifications, feedback history, practice-drill, teacher settings, CSV/PDF reports, `AuthRateLimiter` + `429`, `PilotInquiryIT`, `ReportServiceTest`, durable `QUIZ_DRAFT` persistence, and exact 6 deferred `501` teacher routes), `docs/architecture.md` (replaced stale "frontend-only prototype" description with full-stack React + Spring Boot + PostgreSQL 16 architecture), `docs/NAVIGATION.md` (added `/forgot-password`, `/reset-password`, `/profile` and aligned implemented vs `501` API matrix), `docs/SETUP.md` (fixed `docs/` and `backend/` paths in Repository Structure and added 403 `/forbidden` testing steps), `docs/FILETREE.md` (added missing backend services/controllers/tests, `postman/`, and `frontend/src/api/` + shared components; removed nonexistent `AppShell.jsx`), and `README.md` doc descriptions.
+
+
+---
+
+## Session 2026-11-28 (Warm Editorial EdTech v2 Frontend Redesign)
+
+105. Implemented Warm Editorial EdTech v2 across `frontend/` on branch `frontend`: updated `index.html` (`Nunito Sans`, `Source Sans 3`, `JetBrains Mono`) and `src/index.css` (Warm Cream `#fff9f0` canvas, Indigo `#422ec2`, WCAG AA status tokens, thin 6px scrollbar); added `src/components/ui/` (`Button`, `Badge`, `Card`, `Avatar`) and `src/components/layout/StudentShell.jsx` wired in `App.jsx`; removed `StudentHeader.jsx`, external `lh3.googleusercontent.com` URLs, and `TopBar` unwired search/duplicate logout; redesigned all 17 public, shared, student, and teacher screens; verified via `oxlint` (0 errors), `vite build`, `impeccable detect`, and Playwright 17-route desktop/mobile audit.
+106. Synced technical documentation (`README.md`, `docs/HANDOFF.md`, `docs/architecture.md`, `docs/NAVIGATION.md`, `docs/SETUP.md`, `docs/FILETREE.md`, `frontend/tests/README.md`, and `docs/LOG.md`) with the 17-screen Warm Editorial EdTech v2 frontend, `StudentShell`, `components/ui/*` primitives, and `/forbidden` route.

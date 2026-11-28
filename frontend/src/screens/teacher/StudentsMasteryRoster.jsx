@@ -2,10 +2,14 @@ import { useEffect, useRef, useState } from 'react'
 import { api, getStoredClasses, saveBlob } from '../../api/client'
 import { useApiResource } from '../../api/useApiResource'
 import { DataError, EmptyBlock, LoadingBlock } from '../../components/DataState'
+import Avatar from '../../components/ui/Avatar'
+import Badge from '../../components/ui/Badge'
+import Button from '../../components/ui/Button'
+import Card from '../../components/ui/Card'
 
-const pillActive = 'px-3 py-1.5 rounded-full bg-primary-container text-on-primary font-bold shadow-xs whitespace-nowrap'
-const pillIdle = 'px-3 py-1.5 rounded-full bg-surface-container text-on-surface-variant hover:bg-surface-container-high transition-colors whitespace-nowrap flex items-center gap-1'
-const rowActionBtn = 'p-1.5 rounded-lg hover:bg-surface-container transition-colors'
+const pillActive = 'min-h-[44px] px-3.5 py-1.5 rounded-full bg-primary text-on-primary font-bold shadow-xs whitespace-nowrap flex items-center gap-1'
+const pillIdle = 'min-h-[44px] px-3.5 py-1.5 rounded-full bg-surface-container text-on-surface-variant hover:bg-surface-container-high transition-colors whitespace-nowrap flex items-center gap-1'
+const rowActionBtn = 'min-w-[44px] min-h-[44px] inline-flex items-center justify-center rounded-lg hover:bg-surface-container transition-colors'
 const iconFill = { fontVariationSettings: "'FILL' 1" }
 
 const ROSTER_PAGE_SIZE = 7
@@ -14,21 +18,21 @@ const DEFAULT_THRESHOLD = 70
 const STATUS_META = {
   high: {
     label: 'High Mastery',
-    pill: 'bg-secondary-container text-on-secondary-container',
-    text: 'text-secondary',
-    dot: 'bg-secondary',
+    tone: 'mastered',
+    text: 'text-status-ok',
+    dot: 'bg-status-ok',
     icon: 'check_circle',
   },
   practice: {
     label: 'Needs Practice',
-    pill: 'bg-tertiary-fixed text-on-tertiary-fixed',
-    text: 'text-tertiary',
-    dot: 'bg-tertiary-fixed-dim',
+    tone: 'nudge',
+    text: 'text-warn',
+    dot: 'bg-accent-yellow',
     icon: 'schedule',
   },
   struggling: {
     label: 'Needs Help',
-    pill: 'bg-error-container text-on-error-container',
+    tone: 'help',
     text: 'text-error',
     dot: 'bg-error',
     icon: 'warning',
@@ -69,14 +73,14 @@ function formatWhen(value) {
 }
 
 function masteryBarClass(pct) {
-  if (pct >= 85) return 'bg-secondary'
-  if (pct >= 70) return 'bg-tertiary-fixed-dim'
+  if (pct >= 85) return 'bg-status-ok'
+  if (pct >= 70) return 'bg-accent-yellow'
   return 'bg-error'
 }
 
 function masteryTextClass(pct) {
-  if (pct >= 85) return 'text-secondary font-bold'
-  if (pct >= 70) return 'text-tertiary font-bold'
+  if (pct >= 85) return 'text-status-ok font-bold'
+  if (pct >= 70) return 'text-warn font-bold'
   return 'text-error font-bold'
 }
 
@@ -250,18 +254,18 @@ export default function StudentsMasteryRoster() {
           </div>
           {/* Action Buttons */}
           <div className="flex flex-wrap items-center gap-space-sm">
-            <button className="flex items-center gap-space-xs px-space-md py-2.5 rounded-xl bg-surface-container-lowest text-on-surface hover:bg-surface-container-high transition-all shadow-sm font-label-md text-label-md" onClick={handleExportCsv} title="Download spreadsheet of student records" type="button">
+            <Button onClick={handleExportCsv} title="Download spreadsheet of student records" variant="secondary">
               <span className="material-symbols-outlined text-[18px] text-on-surface-variant">download</span>
-              <span className="">Export Masterlist (CSV)</span>
-            </button>
-            <button className="flex items-center gap-space-xs px-space-md py-2.5 rounded-xl bg-surface-container text-primary hover:bg-surface-container-high transition-all font-label-md text-label-md" onClick={() => notify('Batch nudge is not available in this version.')} title="Broadcast nudge to filtered group" type="button">
-              <span className="material-symbols-outlined text-[18px]">forward_to_inbox</span>
-              <span className="">Batch Nudge / Message</span>
-            </button>
-            <button className="flex items-center gap-space-xs px-space-md py-2.5 rounded-xl bg-primary-container text-on-primary hover:bg-primary transition-all shadow-md font-label-md text-label-md" onClick={() => notify('Student enrollment is not available in this version.')} title="Enroll new learner" type="button">
+              <span>Export Masterlist (CSV)</span>
+            </Button>
+            <Button onClick={() => notify('Batch nudge is not available in this version.')} title="Broadcast nudge to filtered group" variant="secondary">
+              <span className="material-symbols-outlined text-[18px] text-primary">forward_to_inbox</span>
+              <span>Batch Nudge / Message</span>
+            </Button>
+            <Button onClick={() => notify('Student enrollment is not available in this version.')} title="Enroll new learner" variant="primary">
               <span className="material-symbols-outlined text-[18px]">person_add</span>
-              <span className="">+ Add Student</span>
-            </button>
+              <span>+ Add Student</span>
+            </Button>
           </div>
         </div>
 
@@ -281,17 +285,17 @@ export default function StudentsMasteryRoster() {
         {/* Overview Diagnostic KPI Ribbon (3 Cards with Visual Mastery Rings) */}
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-space-lg">
           {/* High Performance / On Track */}
-          <div className="bg-surface-container-lowest rounded-2xl p-space-lg shadow-sm flex items-center justify-between relative overflow-hidden group hover:shadow-md transition-shadow">
+          <Card className="p-space-lg flex items-center justify-between relative overflow-hidden group hover:shadow-md transition-shadow" variant="elevated">
             <div className="flex flex-col gap-space-xs z-10">
               <div className="flex items-center gap-1.5">
-                <span className="inline-block w-2.5 h-2.5 rounded-full bg-secondary"></span>
+                <span className="inline-block w-2.5 h-2.5 rounded-full bg-status-ok"></span>
                 <span className="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">High Mastery</span>
               </div>
               <div className="flex items-baseline gap-space-xs mt-1">
                 <span className="font-metric-number text-metric-number text-on-surface tabular-nums">{counts.high}</span>
                 <span className="font-label-md text-label-md text-on-surface-variant">students</span>
               </div>
-              <div className="flex items-center gap-1 font-body-sm text-body-sm text-secondary font-medium">
+              <div className="flex items-center gap-1 font-body-sm text-body-sm text-status-ok font-medium">
                 <span className="material-symbols-outlined text-[16px]">trending_up</span>
                 <span className="tabular-nums">{counts.all ? Math.round((counts.high / counts.all) * 100) : 0}% of class · ≥85% mastery</span>
               </div>
@@ -300,23 +304,23 @@ export default function StudentsMasteryRoster() {
             <div aria-hidden="true" className="relative w-20 h-20 shrink-0 flex items-center justify-center">
               <svg className="w-full h-full -rotate-90" viewBox="0 0 36 36">
                 <path className="text-surface-container" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" strokeWidth="3.5"></path>
-                <path className="text-secondary" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" strokeDasharray={`${counts.all ? Math.round((counts.high / counts.all) * 100) : 0}, 100`} strokeLinecap="round" strokeWidth="3.5"></path>
+                <path className="text-status-ok" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" strokeDasharray={`${counts.all ? Math.round((counts.high / counts.all) * 100) : 0}, 100`} strokeLinecap="round" strokeWidth="3.5"></path>
               </svg>
               <span className="absolute font-headline-sm text-headline-sm text-on-surface tabular-nums">{counts.all ? Math.round((counts.high / counts.all) * 100) : 0}%</span>
             </div>
-          </div>
+          </Card>
           {/* Needs a Nudge */}
-          <div className="bg-surface-container-lowest rounded-2xl p-space-lg shadow-sm flex items-center justify-between relative overflow-hidden group hover:shadow-md transition-shadow">
+          <Card className="p-space-lg flex items-center justify-between relative overflow-hidden group hover:shadow-md transition-shadow" variant="elevated">
             <div className="flex flex-col gap-space-xs z-10">
               <div className="flex items-center gap-1.5">
-                <span className="inline-block w-2.5 h-2.5 rounded-full bg-tertiary-fixed-dim"></span>
+                <span className="inline-block w-2.5 h-2.5 rounded-full bg-accent-yellow"></span>
                 <span className="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Needs Practice</span>
               </div>
               <div className="flex items-baseline gap-space-xs mt-1">
                 <span className="font-metric-number text-metric-number text-on-surface tabular-nums">{counts.practice}</span>
                 <span className="font-label-md text-label-md text-on-surface-variant">students</span>
               </div>
-              <div className="flex items-center gap-1 font-body-sm text-body-sm text-tertiary font-medium">
+              <div className="flex items-center gap-1 font-body-sm text-body-sm text-warn font-medium">
                 <span className="material-symbols-outlined text-[16px]">info</span>
                 <span className="tabular-nums">{counts.all ? Math.round((counts.practice / counts.all) * 100) : 0}% of class · Approaching the {threshold}% threshold</span>
               </div>
@@ -325,13 +329,13 @@ export default function StudentsMasteryRoster() {
             <div aria-hidden="true" className="relative w-20 h-20 shrink-0 flex items-center justify-center">
               <svg className="w-full h-full -rotate-90" viewBox="0 0 36 36">
                 <path className="text-surface-container" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" strokeWidth="3.5"></path>
-                <path className="text-tertiary-fixed-dim" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" strokeDasharray={`${counts.all ? Math.round((counts.practice / counts.all) * 100) : 0}, 100`} strokeLinecap="round" strokeWidth="3.5"></path>
+                <path className="text-accent-yellow" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" strokeDasharray={`${counts.all ? Math.round((counts.practice / counts.all) * 100) : 0}, 100`} strokeLinecap="round" strokeWidth="3.5"></path>
               </svg>
               <span className="absolute font-headline-sm text-headline-sm text-on-surface tabular-nums">{counts.all ? Math.round((counts.practice / counts.all) * 100) : 0}%</span>
             </div>
-          </div>
+          </Card>
           {/* Needs Immediate Intervention */}
-          <div className="bg-surface-container-lowest rounded-2xl p-space-lg shadow-sm flex items-center justify-between relative overflow-hidden group hover:shadow-md transition-shadow">
+          <Card className="p-space-lg flex items-center justify-between relative overflow-hidden group hover:shadow-md transition-shadow" variant="elevated">
             <div className="flex flex-col gap-space-xs z-10">
               <div className="flex items-center gap-1.5">
                 <span className="inline-block w-2.5 h-2.5 rounded-full bg-error"></span>
@@ -354,7 +358,7 @@ export default function StudentsMasteryRoster() {
               </svg>
               <span className="absolute font-headline-sm text-headline-sm text-error tabular-nums">{counts.all ? Math.round((counts.struggling / counts.all) * 100) : 0}%</span>
             </div>
-          </div>
+          </Card>
         </div>
 
         {/* Main Workspace: Left Matrix (70%) + Right Focus Drawer (30%) */}
@@ -362,16 +366,16 @@ export default function StudentsMasteryRoster() {
           {/* Student Roster & Matrix Table Area (xl:col-span-8) */}
           <div className="xl:col-span-8 flex flex-col gap-space-md">
             {/* Filter and Search Bar Control Tray */}
-            <div className="bg-surface-container-lowest p-space-md rounded-2xl shadow-sm flex flex-col gap-space-md">
+            <Card className="p-space-md flex flex-col gap-space-md" variant="elevated">
               <div className="flex flex-col md:flex-row gap-space-sm items-center justify-between">
                 <div className="relative w-full md:max-w-md">
                   <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">search</span>
-                  <input aria-label="Filter students by name, email, or topic" className="w-full bg-surface-container-low text-on-surface placeholder:text-on-surface-variant font-body-sm text-body-sm pl-10 pr-4 py-2.5 rounded-xl border-none focus:outline-none focus:ring-2 focus:ring-primary-container transition-all" placeholder="Filter by student name, email, or topic..." type="text" value={query} onChange={(e) => setQuery(e.target.value)} />
+                  <input aria-label="Filter students by name, email, or topic" className="min-h-[44px] w-full bg-surface-container-low text-on-surface placeholder:text-on-surface-variant font-body-sm text-body-sm pl-10 pr-4 py-2.5 rounded-xl border border-outline-variant/60 focus:outline-none focus:ring-2 focus:ring-primary transition-all" placeholder="Filter by student name, email, or topic..." type="text" value={query} onChange={(e) => setQuery(e.target.value)} />
                 </div>
                 {/* Subject selector dropdown */}
                 <div className="w-full md:w-auto flex items-center gap-space-xs self-stretch md:self-auto">
                   <label className="font-label-sm text-label-sm text-on-surface-variant whitespace-nowrap" htmlFor="subjectSelect">Topic Focus:</label>
-                  <select className="bg-surface-container-low text-on-surface font-label-md text-label-md px-3 py-2 rounded-xl border-none focus:outline-none focus:ring-2 focus:ring-primary-container w-full md:w-auto cursor-pointer" id="subjectSelect" value={subject} onChange={(e) => setSubject(e.target.value)}>
+                  <select className="min-h-[44px] bg-surface-container-low text-on-surface font-label-md text-label-md px-3 py-2 rounded-xl border border-outline-variant/60 focus:outline-none focus:ring-2 focus:ring-primary w-full md:w-auto cursor-pointer" id="subjectSelect" value={subject} onChange={(e) => setSubject(e.target.value)}>
                     <option value="all">All Coding Units (Holistic)</option>
                     {conceptOptions.map((concept) => (
                       <option key={concept} value={concept}>{concept}</option>
@@ -383,11 +387,11 @@ export default function StudentsMasteryRoster() {
               <div className="flex items-center gap-2 overflow-x-auto pb-1 text-label-sm font-label-sm" role="group" aria-label="Filter roster by mastery status">
                 <button aria-pressed={activeFilter === 'all'} className={activeFilter === 'all' ? pillActive : pillIdle} onClick={() => setActiveFilter('all')} type="button">All ({counts.all})</button>
                 <button aria-pressed={activeFilter === 'high'} className={activeFilter === 'high' ? pillActive : pillIdle} onClick={() => setActiveFilter('high')} type="button">
-                  <span className="w-2 h-2 rounded-full bg-secondary"></span>
+                  <span className="w-2 h-2 rounded-full bg-status-ok"></span>
                   High Mastery ({counts.high})
                 </button>
                 <button aria-pressed={activeFilter === 'practice'} className={activeFilter === 'practice' ? pillActive : pillIdle} onClick={() => setActiveFilter('practice')} type="button">
-                  <span className="w-2 h-2 rounded-full bg-tertiary-fixed-dim"></span>
+                  <span className="w-2 h-2 rounded-full bg-accent-yellow"></span>
                   Needs Practice ({counts.practice})
                 </button>
                 <button aria-pressed={activeFilter === 'struggling'} className={activeFilter === 'struggling' ? pillActive : pillIdle} onClick={() => setActiveFilter('struggling')} type="button">
@@ -395,10 +399,10 @@ export default function StudentsMasteryRoster() {
                   Struggling ({counts.struggling})
                 </button>
               </div>
-            </div>
+            </Card>
 
             {/* Roster Matrix Table Card */}
-            <div className="bg-surface-container-lowest rounded-2xl shadow-sm overflow-hidden flex flex-col">
+            <Card className="overflow-hidden flex flex-col" variant="elevated">
               <div className="overflow-x-auto">
                 <table className="w-full min-w-[900px] text-left border-collapse">
                   <thead>
@@ -426,9 +430,11 @@ export default function StudentsMasteryRoster() {
                           <td className="py-3.5 px-4">
                             <div className="flex items-center gap-3">
                               <div className="relative">
-                                <div className={`w-9 h-9 rounded-full bg-surface-container text-on-surface flex items-center justify-center font-bold text-xs ${isSelected ? 'ring-2 ring-primary-container' : ''}`}>
-                                  {student.initials}
-                                </div>
+                                <Avatar
+                                  className={isSelected ? 'ring-2 ring-primary' : ''}
+                                  name={student.fullName}
+                                  size="md"
+                                />
                                 <span className={`absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full ${meta.dot} ring-2 ring-surface-container-lowest`} />
                               </div>
                               <div className="flex flex-col min-w-0">
@@ -438,7 +444,7 @@ export default function StudentsMasteryRoster() {
                             </div>
                           </td>
                           <td className="py-3.5 px-3 whitespace-nowrap">
-                            <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full font-label-sm text-label-sm font-bold ${meta.pill}`}>{meta.label}</span>
+                            <Badge tone={meta.tone}>{meta.label}</Badge>
                           </td>
                           <td className="py-3.5 px-3">
                             <span className={`font-headline-sm text-headline-sm font-extrabold tabular-nums ${meta.text}`}>{student.score}%</span>
@@ -527,35 +533,33 @@ export default function StudentsMasteryRoster() {
                   <span className="text-xs tabular-nums">{counts.struggling} learners below the {threshold}% intervention threshold</span>
                 </div>
                 <div className="flex items-center gap-1 font-label-md text-label-md">
-                  <button className="px-2.5 py-1 rounded-lg bg-surface-container text-on-surface-variant disabled:opacity-50" disabled={currentPage === 1} onClick={() => setPage((value) => Math.max(1, value - 1))} type="button">Previous</button>
+                  <button className="min-h-[44px] px-3 py-1 rounded-lg bg-surface-container text-on-surface-variant disabled:opacity-50" disabled={currentPage === 1} onClick={() => setPage((value) => Math.max(1, value - 1))} type="button">Previous</button>
                   {pageNumbers.map((pageNumber) => (
-                    <button key={pageNumber} aria-current={pageNumber === currentPage ? 'page' : undefined} className={pageNumber === currentPage ? 'px-3 py-1 rounded-lg bg-primary-container text-on-primary font-bold tabular-nums' : 'px-3 py-1 rounded-lg hover:bg-surface-container text-on-surface tabular-nums'} onClick={() => setPage(pageNumber)} type="button">{pageNumber}</button>
+                    <button key={pageNumber} aria-current={pageNumber === currentPage ? 'page' : undefined} className={pageNumber === currentPage ? 'min-w-[44px] min-h-[44px] px-3 py-1 rounded-lg bg-primary text-on-primary font-bold tabular-nums' : 'min-w-[44px] min-h-[44px] px-3 py-1 rounded-lg hover:bg-surface-container text-on-surface tabular-nums'} onClick={() => setPage(pageNumber)} type="button">{pageNumber}</button>
                   ))}
-                  <button className="px-2.5 py-1 rounded-lg bg-surface-container text-on-surface hover:bg-surface-container-high transition-colors disabled:opacity-50" disabled={currentPage === totalPages} onClick={() => setPage((value) => Math.min(totalPages, value + 1))} type="button">Next</button>
+                  <button className="min-h-[44px] px-3 py-1 rounded-lg bg-surface-container text-on-surface hover:bg-surface-container-high transition-colors disabled:opacity-50" disabled={currentPage === totalPages} onClick={() => setPage((value) => Math.min(totalPages, value + 1))} type="button">Next</button>
                 </div>
               </div>
-            </div>
+            </Card>
           </div>
 
           {/* Right Focus Drawer / Student Deep-Dive Panel (xl:col-span-4) */}
           <div className="xl:col-span-4 flex flex-col gap-space-md">
             {selectedStudent ? (
-              <div className="bg-surface-container-lowest rounded-2xl p-space-lg shadow-sm flex flex-col gap-space-md relative overflow-hidden">
+              <Card className="p-space-lg flex flex-col gap-space-md relative overflow-hidden" variant="elevated">
                 {/* Card Header & Status */}
                 <div className="flex items-start justify-between gap-space-sm">
-                  <div className="flex items-center gap-3">
-                    <div className="w-14 h-14 rounded-2xl bg-primary-container text-on-primary flex items-center justify-center font-bold text-lg ring-2 ring-primary-container shadow-sm">
-                      {selectedStudent.initials}
-                    </div>
-                    <div className="flex flex-col">
+                  <div className="flex items-center gap-3 min-w-0">
+                    <Avatar name={selectedStudent.fullName} size="lg" />
+                    <div className="flex flex-col min-w-0">
                       <div className="flex items-center gap-1.5">
-                        <h3 className="font-headline-sm text-headline-sm text-on-surface">{selectedStudent.fullName}</h3>
+                        <h3 className="font-headline-sm text-headline-sm text-on-surface truncate">{selectedStudent.fullName}</h3>
                       </div>
-                      <span className="font-body-sm text-body-sm text-on-surface-variant">{selectedStudent.completedCount} completed · {selectedStudent.email}</span>
+                      <span className="font-body-sm text-body-sm text-on-surface-variant truncate">{selectedStudent.completedCount} completed · {selectedStudent.email}</span>
                       <span className="font-label-sm text-label-sm text-primary font-semibold">ID: STU-{selectedStudent.studentId}</span>
                     </div>
                   </div>
-                  <span className={`inline-flex items-center px-2.5 py-1 rounded-full font-label-sm text-label-sm ${selectedStudent.statusMeta.pill} font-bold`}>{selectedStudent.statusMeta.label}</span>
+                  <Badge tone={selectedStudent.statusMeta.tone}>{selectedStudent.statusMeta.label}</Badge>
                 </div>
 
                 {detail.loading && <LoadingBlock label="Loading student diagnostic…" />}
@@ -598,19 +602,19 @@ export default function StudentsMasteryRoster() {
 
                 {/* Direct Teacher Action Callout */}
                 <div className="flex flex-col gap-2">
-                  <button className="w-full flex items-center justify-center gap-space-xs py-2.5 rounded-xl bg-tertiary-fixed text-on-tertiary-fixed font-label-lg text-label-lg hover:bg-tertiary-fixed-dim transition-colors shadow-sm" onClick={() => notify('Remedial quiz assignment is not available in this version.')} type="button">
+                  <Button className="w-full" onClick={() => notify('Remedial quiz assignment is not available in this version.')} variant="accent">
                     <span className="material-symbols-outlined text-[18px]">code</span>
-                    <span className="">Assign Remedial Coding Quiz</span>
-                  </button>
+                    <span>Assign Remedial Coding Quiz</span>
+                  </Button>
                   <div className="grid grid-cols-2 gap-2">
-                    <button className="flex items-center justify-center gap-1 py-2 rounded-xl bg-surface-container text-primary font-label-md text-label-md hover:bg-surface-container-high transition-colors" onClick={() => notify('Student chat is not available in this version.')} type="button">
-                      <span className="material-symbols-outlined text-[16px]">chat_bubble_outline</span>
-                      <span className="">Student Chat</span>
-                    </button>
-                    <button className="flex items-center justify-center gap-1 py-2 rounded-xl bg-surface-container text-on-surface font-label-md text-label-md hover:bg-surface-container-high transition-colors" onClick={() => notify('The coding sandbox is not available in this version.')} type="button">
+                    <Button onClick={() => notify('Student chat is not available in this version.')} variant="secondary">
+                      <span className="material-symbols-outlined text-[16px] text-primary">chat_bubble_outline</span>
+                      <span>Student Chat</span>
+                    </Button>
+                    <Button onClick={() => notify('The coding sandbox is not available in this version.')} variant="secondary">
                       <span className="material-symbols-outlined text-[16px]">terminal</span>
-                      <span className="">Open Sandbox</span>
-                    </button>
+                      <span>Open Sandbox</span>
+                    </Button>
                   </div>
                 </div>
 
@@ -623,24 +627,24 @@ export default function StudentsMasteryRoster() {
                     </label>
                     <span className="text-[11px] text-on-surface-variant font-label-sm">Local only</span>
                   </div>
-                  <textarea className="w-full bg-surface-container-low text-on-surface placeholder:text-on-surface-variant font-body-sm text-body-sm p-3 rounded-xl border-none focus:outline-none focus:ring-2 focus:ring-primary-container transition-all resize-none" id="teacherPrivateNote" placeholder="Confidential observations on code trace capability, debug sessions..." rows={3} value={note} onChange={(e) => setNote(e.target.value)}></textarea>
+                  <textarea className="w-full bg-surface-container-low text-on-surface placeholder:text-on-surface-variant font-body-sm text-body-sm p-3 rounded-xl border border-outline-variant/60 focus:outline-none focus:ring-2 focus:ring-primary transition-all resize-none" id="teacherPrivateNote" placeholder="Confidential observations on code trace capability, debug sessions..." rows={3} value={note} onChange={(e) => setNote(e.target.value)}></textarea>
                   <div className="flex items-center justify-between mt-1">
                     <span className="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
                       <span className="material-symbols-outlined text-[14px]">sync_problem</span>
                       {savedLabel}
                     </span>
-                    <button className="px-3 py-1.5 rounded-lg bg-primary-container text-on-primary font-label-sm text-label-sm hover:bg-primary transition-colors shadow-xs" onClick={() => { setSavedLabel('Saved locally — not synced'); notify('Private notes are not persisted by the 40% backend.') }} type="button">
+                    <Button onClick={() => { setSavedLabel('Saved locally — not synced'); notify('Private notes are not persisted by the 40% backend.') }} variant="primary">
                       Save Note
-                    </button>
+                    </Button>
                   </div>
                 </div>
-              </div>
+              </Card>
             ) : (
               <EmptyBlock icon="person_search" title="Select a learner" message="Choose a row in the roster to open the diagnostic deep-dive." />
             )}
 
             {/* Weekly Intervention Tracker Widget */}
-            <div className="bg-surface-container-lowest rounded-2xl p-space-md shadow-sm flex flex-col gap-space-sm">
+            <Card className="p-space-md flex flex-col gap-space-sm" variant="elevated">
               <div className="flex items-center justify-between">
                 <h4 className="font-label-lg text-label-lg text-on-surface font-bold flex items-center gap-1.5">
                   <span className="material-symbols-outlined text-[18px] text-secondary">checklist</span>
@@ -649,12 +653,12 @@ export default function StudentsMasteryRoster() {
                 <span className="font-label-sm text-label-sm text-on-surface-variant">{activeLearners} / {counts.all} Active</span>
               </div>
               <div className="w-full bg-surface-container h-2 rounded-full overflow-hidden">
-                <div className="bg-secondary h-full rounded-full" style={{ width: `${activePercent}%` }}></div>
+                <div className="bg-status-ok h-full rounded-full" style={{ width: `${activePercent}%` }}></div>
               </div>
               <p className="font-body-sm text-body-sm text-on-surface-variant">
                 {activePercent}% of enrolled learners have completed at least one published activity this cycle.
               </p>
-            </div>
+            </Card>
           </div>
         </div>
       </div>

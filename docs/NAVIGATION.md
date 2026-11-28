@@ -8,13 +8,17 @@
 
 ```mermaid
 flowchart TD
-    subgraph Public ["Public & Auth (frontend/src/screens/public/)"]
+    subgraph Public ["Public, Auth & Shared (screens/public/, screens/shared/)"]
         LP["/ (LandingPage)"]
         LG["/login (LoginScreen)"]
         RG["/register (AccountActivationScreen)"]
+        FP["/forgot-password (ForgotPasswordScreen)"]
+        RP["/reset-password (ResetPasswordScreen)"]
+        PR["/profile (ProfileScreen)"]
+        FB["/forbidden (ForbiddenScreen)"]
     end
 
-    subgraph Student ["Student View (frontend/src/screens/student/)"]
+    subgraph Student ["Student View (frontend/src/screens/student/ in StudentShell)"]
         SD["/student/dashboard (StudentDashboard)"]
         SA["/student/activities (StudentMyActivities)"]
         SQ["/student/quiz (StudentLiveQuiz)"]
@@ -67,6 +71,7 @@ flowchart TD
 | `/register` | `frontend/src/screens/public/AccountActivationScreen.jsx` | `screens/stitch/aralytics_account_registration_activation/code.html` | `POST /api/auth/verify-key`<br>`POST /api/auth/activate` | Validate school code + access key and activate account |
 | `/forgot-password` | `frontend/src/screens/public/ForgotPasswordScreen.jsx` | — | `POST /api/auth/forgot-password` | Request a short-lived password-reset token/email |
 | `/reset-password` | `frontend/src/screens/public/ResetPasswordScreen.jsx` | — | `POST /api/auth/reset-password` | Consume reset token and set a new password |
+| `/forbidden` | `frontend/src/screens/shared/ForbiddenScreen.jsx` | — | — *(client-side RBAC guard)* | Render 403 access-denied view on role-mismatched routes |
 | `/profile` | `frontend/src/screens/shared/ProfileScreen.jsx` | — | `GET /api/auth/profile`<br>`PUT /api/auth/profile`<br>`PUT /api/auth/profile/password` | View/update user profile details and change password |
 
 ---
@@ -104,16 +109,17 @@ All Teacher View screens are wrapped in `AppShell` (`Sidebar.jsx` + `TopBar.jsx`
 1. **`/` (`LandingPage.jsx`)**
    - Header Brand Logo → `/`
    - Header / Mobile Drawer `Log In` → `/login`
-   - Header `Start Free Classroom Pilot` → `#pilot-signup`
-   - Hero `Next Coding Drill` → `/student/quiz`
-   - Product Preview Tab (`For Students`): `Preview Student Coding App` / `Simulan Na →` → `/student/dashboard`
-   - Product Preview Tab (`For CS Teachers`): `Request Teacher CS Sandbox` / `Push Drill` → `/teacher/dashboard`
-   - Footer links → `/teacher/dashboard`, `/student/dashboard`, `/student/quiz`
+   - Header `Request School Pilot` → `#pilot-signup`
+   - Hero `Activate School Key` → `/register`
+   - Hero `Explore Live Demo` → Interactive walkthrough modal (links to `/login` and `#pilot-signup`)
+   - Interactive Sample Classroom Preview (Option A/B/C Python loop-bounds diagnostic with live Aral Coach hint)
+   - Ecosystem WAI-ARIA tabs (`For Students` / `For CS Teachers`) → `/login`
 
 2. **`/login` (`LoginScreen.jsx`)**
    - Header Brand Logo → `/`
-   - Role Switcher (`Student` vs `Teacher / Educator`) → Pre-fills default credentials (`miguel@school.edu.ph` / `maria.santos@university.edu.ph`)
-   - Submit (`Sign In to Aralytics`) → `/student/dashboard` (when `role === 'student'`) or `/teacher/dashboard` (when `role === 'teacher'`)
+   - Role Switcher (`Student` vs `Teacher / Educator`) → Pre-fills default dev credentials (`miguel@school.edu.ph` / `maria.santos@university.edu.ph`) when `ENV=development`
+   - Submit (`Sign In to Aralytics`) → `/student/dashboard` or `/teacher/dashboard` based on backend-returned role
+   - `Forgot password?` → `/forgot-password`
    - `Activate issued account / key` → `/register`
 
 3. **`/register` (`AccountActivationScreen.jsx`)**
@@ -126,40 +132,39 @@ All Teacher View screens are wrapped in `AppShell` (`Sidebar.jsx` + `TopBar.jsx`
 
 ### 3.2 Student View Screens (`frontend/src/screens/student/`)
 
-All 5 Student View screens include a top navigation bar (plus responsive `xl:hidden` mobile hamburger drawer) wired to:
-- **Dashboard / Brand Logo** → `/student/dashboard`
-- **My Activities / Quizzes** → `/student/activities`
-- **Live Quiz / Code Scenario** → `/student/quiz`
-- **AI Feedback / Diagnostic Report** → `/student/feedback`
-- **My Progress & Skills** → `/student/progress`
-- **Sign Out / Logout** → `/login`
+All 5 Student View screens share `StudentShell.jsx` (`frontend/src/components/layout/StudentShell.jsx`), providing horizontal navigation from `lg+` (`1024px+`) and a `<lg` mobile drawer:
+- **Brand Logo / `Home`** → `/student/dashboard`
+- **`Activities`** → `/student/activities`
+- **`Quiz`** → `/student/quiz`
+- **`Feedback`** → `/student/feedback`
+- **`Progress`** → `/student/progress`
+- **Profile `Avatar`** → `/profile`
+- **Sign Out** → `/login`
 
 Additional in-screen CTAs:
 - **`/student/dashboard`**:
-  - `Quick Drill`, `Start Quiz Now`, and Learning Path `Start` buttons → `/student/quiz`
-  - `Preview Details`, `View All Completed Drills →` → `/student/activities`
-  - `Practice While Loops (5m)`, `View All Feedback` → `/student/feedback`
-  - `View CS Skill Matrix`, `All Badges →` → `/student/progress`
+  - `Quick Drill`, `Start Quiz Now` → `/student/quiz`
+  - `View Activities` → `/student/activities`
+  - `Open Diagnostic Report` → `/student/feedback`
+  - `View Progress History` → `/student/progress`
 - **`/student/activities`**:
-  - Urgent banner `Go to Assessment`, `Start Activity`, `Start Remedial Drill`, `View Details` → `/student/quiz`
-  - Completed card `Review Feedback` → `/student/feedback`
-  - `Preview Syllabus`, `Q2 Target`, `65% Complete` → `/student/progress`
+  - `Start Quiz` / `Continue` → `/student/quiz`
+  - `View Diagnostic Report` → `/student/feedback`
 - **`/student/quiz`**:
-  - `Save & Exit` → `/student/activities`
-  - `Finish & Submit Quiz` → `/student/feedback`
+  - `Browse My Activities` → `/student/activities`
+  - `Submit` / `View AI Feedback` → `/student/feedback`
 - **`/student/feedback`**:
-  - `Practice Similar Questions (3 Items)` → Opens interactive Practice Drill Modal (`+15 XP` on completion)
-  - `Back to My Activities` → `/student/activities`
-  - `View Full Progress History` → `/student/progress`
+  - `View Quiz` → `/student/quiz`
+  - `View Progress & Feedback History` → `/student/progress`
+  - `Start Practice Drill` → Renders 3-question drill inline
 - **`/student/progress`**:
-  - `Start AI Practice Drill`, `Practice 3 Similar Questions`, `Start 5-Min Trace Drill` → `/student/quiz`
-  - `View Full Diagnostic Report` → Opens Diagnostic Report Modal (`loops` / `trace`)
+  - `View Report` → `/student/feedback`
 
 ---
 
 ### 3.3 Teacher View Screens (`frontend/src/screens/teacher/`)
 
-All 5 Teacher View screens share `AppShell.jsx`:
+All 5 Teacher View screens share `AppShell` in `frontend/src/App.jsx`:
 - **Left `Sidebar.jsx` navigation**:
   - Brand Logo (`Aralytics`) → `/`
   - `Dashboard` → `/teacher/dashboard`
@@ -167,9 +172,12 @@ All 5 Teacher View screens share `AppShell.jsx`:
   - `Activities` → `/teacher/activities`
   - `Reports` → `/teacher/reports`
   - `Settings` → `/teacher/settings`
-  - Profile Footer (`G. Santos` logout button) → `/login`
+  - Profile Footer (`Maria Santos` / `Avatar`) → `/profile` (Sign Out → `/login`)
 - **Top `TopBar.jsx` actions**:
+  - Stored class pill (`getStoredClasses()`)
+  - `NotificationBell`
   - `New Activity` CTA button → `/teacher/activities`
+  - Profile `Avatar` → `/profile`
 
 ---
 

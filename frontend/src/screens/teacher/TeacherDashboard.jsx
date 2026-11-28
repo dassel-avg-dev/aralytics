@@ -2,16 +2,20 @@ import { useEffect, useRef, useState } from 'react'
 import { api, getStoredClasses, getStoredUser, saveBlob } from '../../api/client'
 import { useApiResource } from '../../api/useApiResource'
 import { DataError, LoadingBlock } from '../../components/DataState'
+import Avatar from '../../components/ui/Avatar'
+import Badge from '../../components/ui/Badge'
+import Button from '../../components/ui/Button'
+import Card from '../../components/ui/Card'
 
 const FILTER_TAB_ACTIVE =
-  'px-3 py-1 rounded-lg bg-surface-container-lowest text-primary font-label-sm text-label-sm font-bold shadow-xs transition-all'
+  'min-h-[44px] px-3 py-1.5 rounded-lg bg-surface-container-lowest text-primary font-label-sm text-label-sm font-bold shadow-xs transition-all'
 const FILTER_TAB_IDLE =
-  'px-3 py-1 rounded-lg text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm transition-all'
+  'min-h-[44px] px-3 py-1.5 rounded-lg text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm transition-all'
 
 const MASTERY_PILL_ACTIVE =
-  'px-2.5 py-1 rounded-full bg-primary-container text-on-primary font-label-sm text-label-sm font-bold'
+  'min-h-[44px] px-3.5 py-1.5 rounded-full bg-primary text-on-primary font-label-sm text-label-sm font-bold'
 const MASTERY_PILL_IDLE =
-  'px-2.5 py-1 rounded-full bg-surface-container text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm'
+  'min-h-[44px] px-3.5 py-1.5 rounded-full bg-surface-container text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm'
 
 const MASTERY_FILTERS = [
   { value: 'All', label: 'All' },
@@ -31,20 +35,23 @@ const STATUS_META = {
   'on-track': {
     label: 'On Track (≥70%)',
     modal: 'On Track',
-    color: 'text-[#22A06B]',
-    dot: 'bg-[#22A06B]',
-    bar: 'bg-[#22A06B]',
+    tone: 'mastered',
+    color: 'text-status-ok',
+    dot: 'bg-status-ok',
+    bar: 'bg-status-ok',
   },
   'needs-nudge': {
     label: 'Needs Nudge (<75%)',
     modal: 'Needs a Nudge',
-    color: 'text-tertiary',
-    dot: 'bg-[#F4BF32]',
-    bar: 'bg-tertiary-fixed-dim',
+    tone: 'nudge',
+    color: 'text-warn',
+    dot: 'bg-accent-yellow',
+    bar: 'bg-accent-yellow',
   },
   'needs-help': {
     label: 'Needs Help (<70%)',
     modal: 'Needs Help',
+    tone: 'help',
     color: 'text-error',
     dot: 'bg-error',
     bar: 'bg-error',
@@ -74,14 +81,14 @@ function conceptVisual(concept, index) {
   } else if (/syntax|error|debug|variable|data type/.test(key)) {
     icon = 'bug_report'
     category = 'Syntax'
-    iconColor = 'text-tertiary'
+    iconColor = 'text-warn'
   }
 
   if (pct >= 80) {
-    barColor = 'bg-[#22A06B]'
+    barColor = 'bg-status-ok'
   } else if (pct < 70) {
-    iconColor = 'text-tertiary'
-    barColor = 'bg-tertiary-fixed-dim'
+    iconColor = 'text-warn'
+    barColor = 'bg-accent-yellow'
   }
 
   return {
@@ -90,7 +97,7 @@ function conceptVisual(concept, index) {
     name,
     category,
     pct,
-    pctColor: pct >= 80 ? 'text-[#22A06B]' : pct >= 70 ? 'text-primary' : 'text-tertiary',
+    pctColor: pct >= 80 ? 'text-status-ok' : pct >= 70 ? 'text-primary' : 'text-warn',
     barColor,
   }
 }
@@ -144,6 +151,7 @@ function mapRosterItem(item, threshold, section) {
     trend: 'Stable',
     trendColor: 'text-on-surface-variant',
     statusValue,
+    statusTone: status.tone,
     statusLabel: status.label,
     statusColor: status.color,
     statusDot: status.dot,
@@ -278,9 +286,9 @@ export default function TeacherDashboard() {
   )
 
   const statusDistribution = [
-    { value: 'on-track', color: '#22A06B', label: 'On Track' },
-    { value: 'needs-nudge', color: '#F4BF32', label: 'Needs a Nudge' },
-    { value: 'needs-help', color: '#BA1A1A', label: 'Needs Help' },
+    { value: 'on-track', strokeClass: 'stroke-status-ok', dotClass: 'bg-status-ok', label: 'On Track' },
+    { value: 'needs-nudge', strokeClass: 'stroke-accent-yellow', dotClass: 'bg-accent-yellow', label: 'Needs a Nudge' },
+    { value: 'needs-help', strokeClass: 'stroke-error', dotClass: 'bg-error', label: 'Needs Help' },
   ]
   const distributionTotal = statusCounts.all
   const distributionCircumference = 2 * Math.PI * 38
@@ -326,32 +334,29 @@ export default function TeacherDashboard() {
               <span className="material-symbols-outlined text-primary text-[18px] mr-1.5">calendar_today</span>
               <span className="font-label-md text-label-md">Unit 4: Loops &amp; Functions (Week 6)</span>
             </div>
-            <button
-              className="inline-flex items-center gap-1.5 bg-surface-container-lowest px-space-md py-2 rounded-xl shadow-sm text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors disabled:opacity-60"
+            <Button
               disabled={Boolean(exporting)}
               onClick={() => runExport('csv')}
-              type="button"
+              variant="secondary"
             >
               <span className="material-symbols-outlined text-[18px]">download</span>
-              <span className="font-label-md text-label-md">{exporting === 'csv' ? 'Exporting…' : 'Export Lab CSV'}</span>
-            </button>
-            <button
-              className="inline-flex items-center gap-1.5 bg-surface-container-lowest px-space-md py-2 rounded-xl shadow-sm text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors disabled:opacity-60"
+              <span>{exporting === 'csv' ? 'Exporting…' : 'Export Lab CSV'}</span>
+            </Button>
+            <Button
               disabled={Boolean(exporting)}
               onClick={() => runExport('pdf')}
-              type="button"
+              variant="secondary"
             >
               <span className="material-symbols-outlined text-[18px]">picture_as_pdf</span>
-              <span className="font-label-md text-label-md">{exporting === 'pdf' ? 'Exporting…' : 'Export PDF'}</span>
-            </button>
-            <button
-              className="inline-flex items-center gap-1.5 bg-primary-container text-on-primary px-space-md py-2 rounded-xl shadow-md hover:bg-primary transition-all"
+              <span>{exporting === 'pdf' ? 'Exporting…' : 'Export PDF'}</span>
+            </Button>
+            <Button
               onClick={() => showToast(`Generating AI code diagnostics for ${classLabel}.`)}
-              type="button"
+              variant="primary"
             >
               <span className="material-symbols-outlined text-[18px]">auto_awesome</span>
-              <span className="font-label-md text-label-md">Run AI Code Diagnostics</span>
-            </button>
+              <span>Run AI Code Diagnostics</span>
+            </Button>
           </div>
         </div>
         {(dashboard.loading || roster.loading) && (
@@ -369,7 +374,7 @@ export default function TeacherDashboard() {
         )}
         {/* ROW 1: 4 Key Metric Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-space-md mb-space-lg">{/* Stat 1: Cohort Test Pass Rate */}
-          <div className="bg-surface-container-lowest rounded-2xl p-space-md shadow-xs flex flex-col justify-between hover:shadow-sm transition-shadow">
+          <Card className="p-space-md flex flex-col justify-between hover:shadow-sm transition-shadow" variant="elevated">
             <div className="flex items-center justify-between mb-space-xs">
               <span className="font-label-md text-label-md text-on-surface-variant">Cohort Test Pass Rate</span>
               <div className="w-7 h-7 rounded-full bg-surface-container-low flex items-center justify-center text-primary">
@@ -380,14 +385,14 @@ export default function TeacherDashboard() {
               <span className="font-metric-number text-metric-number text-on-surface tracking-tight tabular-nums">{formatMetric(dashboard.data?.classAverage)}</span>
             </div>
             <div className="flex items-center gap-1.5 text-body-sm">
-              <span className="inline-flex items-center font-label-sm text-[#22A06B] font-semibold">
+              <span className="inline-flex items-center font-label-sm text-status-ok font-semibold">
                 <span className="material-symbols-outlined text-[14px] mr-0.5">groups</span>{studentCount}
               </span>
               <span className="text-on-surface-variant font-body-sm">learners in this cohort</span>
             </div>
-          </div>
+          </Card>
           {/* Stat 2: Lab Submissions */}
-          <div className="bg-surface-container-lowest rounded-2xl p-space-md shadow-xs flex flex-col justify-between hover:shadow-sm transition-shadow">
+          <Card className="p-space-md flex flex-col justify-between hover:shadow-sm transition-shadow" variant="elevated">
             <div className="flex items-center justify-between mb-space-xs">
               <span className="font-label-md text-label-md text-on-surface-variant">Lab Submissions</span>
               <div className="w-7 h-7 rounded-full bg-surface-container-low flex items-center justify-center text-secondary">
@@ -399,14 +404,14 @@ export default function TeacherDashboard() {
               <span className="font-body-sm text-body-sm text-on-surface-variant tabular-nums">({studentCount} learners)</span>
             </div>
             <div className="flex items-center gap-1.5 text-body-sm">
-              <span className="inline-flex items-center font-label-sm text-[#22A06B] font-semibold">
+              <span className="inline-flex items-center font-label-sm text-status-ok font-semibold">
                 <span className="material-symbols-outlined text-[14px] mr-0.5">check_circle</span>Submitted
               </span>
               <span className="text-on-surface-variant font-body-sm truncate">published activity completion</span>
             </div>
-          </div>
+          </Card>
           {/* Stat 3: Flagged for Intervention */}
-          <div className="bg-surface-container-lowest rounded-2xl p-space-md shadow-xs flex flex-col justify-between hover:shadow-sm transition-shadow">
+          <Card className="p-space-md flex flex-col justify-between hover:shadow-sm transition-shadow" variant="elevated">
             <div className="flex items-center justify-between mb-space-xs">
               <span className="font-label-md text-label-md text-on-surface-variant">Flagged for Intervention</span>
               <div className="w-7 h-7 rounded-full bg-surface-container-low flex items-center justify-center text-error">
@@ -423,12 +428,12 @@ export default function TeacherDashboard() {
                 Review Bugs <span className="material-symbols-outlined text-[14px]">arrow_forward</span>
               </a>
             </div>
-          </div>
+          </Card>
           {/* Stat 4: Active Coding Time & Streak */}
-          <div className="bg-surface-container-lowest rounded-2xl p-space-md shadow-xs flex flex-col justify-between hover:shadow-sm transition-shadow">
+          <Card className="p-space-md flex flex-col justify-between hover:shadow-sm transition-shadow" variant="elevated">
             <div className="flex items-center justify-between mb-space-xs">
               <span className="font-label-md text-label-md text-on-surface-variant">Cohort Learners</span>
-              <div className="w-7 h-7 rounded-full bg-surface-container-low flex items-center justify-center text-tertiary">
+              <div className="w-7 h-7 rounded-full bg-surface-container-low flex items-center justify-center text-warn">
                 <span className="material-symbols-outlined text-[16px]">timer</span>
               </div>
             </div>
@@ -438,14 +443,14 @@ export default function TeacherDashboard() {
             </div>
             <div className="flex items-center justify-between text-body-sm text-on-surface-variant">
               <span className="truncate max-w-[130px]">{statusCounts['on-track']} on track</span>
-              <span className="font-label-sm text-label-sm text-tertiary font-semibold">{statusCounts['needs-help']} flagged</span>
+              <span className="font-label-sm text-label-sm text-warn font-semibold">{statusCounts['needs-help']} flagged</span>
             </div>
-          </div>
+          </Card>
         </div>
         {/* ROW 2: Class Trajectory & Risk Distribution (8 cols + 4 cols) */}
         <div className="grid grid-cols-1 xl:grid-cols-12 gap-space-lg mb-space-lg">
           {/* Left: Score Trajectory (8 cols) — no benchmark series endpoint exists yet */}
-          <div className="xl:col-span-8 bg-surface-container-lowest rounded-[20px] p-space-lg shadow-[0_4px_16px_rgba(91,75,219,0.08)] flex flex-col justify-between">
+          <Card className="xl:col-span-8 p-space-lg flex flex-col justify-between" variant="elevated">
             <div>
               <div className="mb-space-md">
                 <h3 className="font-headline-sm text-headline-sm text-on-surface">Coding Benchmark Scores Over Time</h3>
@@ -459,9 +464,9 @@ export default function TeacherDashboard() {
                 </p>
               </div>
             </div>
-          </div>
+          </Card>
           {/* Right: Class Status Distribution Donut (4 cols) */}
-          <div className="xl:col-span-4 bg-surface-container-lowest rounded-[20px] p-space-lg shadow-[0_4px_16px_rgba(91,75,219,0.08)] flex flex-col justify-between">
+          <Card className="xl:col-span-4 p-space-lg flex flex-col justify-between" variant="elevated">
             <div>
               <div className="flex items-center justify-between mb-space-xs">
                 <h3 className="font-headline-sm text-headline-sm text-on-surface">Status Distribution</h3>
@@ -472,16 +477,16 @@ export default function TeacherDashboard() {
               <div className="relative flex items-center justify-center my-2">
                 <svg aria-label={`Cohort status distribution: ${studentCount} learners`} className="w-44 h-44 -rotate-90" role="img" viewBox="0 0 100 100">
                   {/* Background circle ring */}
-                  <circle cx="50" cy="50" fill="none" r="38" stroke="#EDECFF" strokeWidth="12" />
+                  <circle className="stroke-surface-container" cx="50" cy="50" fill="none" r="38" strokeWidth="12" />
                   {/* Live risk segments derived from /api/teacher/students */}
                   {distributionSegments.map((segment) => (
                     <circle
                       key={segment.value}
+                      className={segment.strokeClass}
                       cx="50"
                       cy="50"
                       fill="none"
                       r="38"
-                      stroke={segment.color}
                       strokeDasharray={segment.dasharray}
                       strokeDashoffset={segment.dashoffset}
                       strokeLinecap="round"
@@ -502,10 +507,7 @@ export default function TeacherDashboard() {
                     key={segment.value}
                   >
                     <div className="flex items-center gap-2">
-                      <span
-                        className="w-2.5 h-2.5 rounded-full"
-                        style={{ backgroundColor: segment.color }}
-                      />
+                      <span className={`w-2.5 h-2.5 rounded-full ${segment.dotClass}`} />
                       <span className="font-label-md text-label-md text-on-surface">
                         {segment.label}
                       </span>
@@ -527,12 +529,12 @@ export default function TeacherDashboard() {
                 <span className="font-bold text-primary">AI Code Insight:</span> Off-by-one errors in nested <code className="bg-primary-fixed/50 px-1 py-0.5 rounded text-xs">range(len(...))</code> and variable shadowing were the common root causes for 3 of the 4 flagged students.
               </p>
             </div>
-          </div>
+          </Card>
         </div>
-        {/* ROW 3: Topic Mastery & Needs Attention Grid (6 cols + 6 cols) */}
+        {/* ROW 3: Topic Mastery */}
         <div className="grid grid-cols-1 xl:grid-cols-12 gap-space-lg mb-space-lg" id="needs-attention-section">
-          {/* Left: CS Concept Mastery (6 cols) */}
-          <div className="xl:col-span-6 bg-surface-container-lowest rounded-[20px] p-space-lg shadow-[0_4px_16px_rgba(91,75,219,0.08)] flex flex-col justify-between">
+          {/* Left: CS Concept Mastery (12 cols) */}
+          <Card className="xl:col-span-12 p-space-lg flex flex-col justify-between" variant="elevated">
             <div>
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-space-md">
                 <div>
@@ -584,11 +586,11 @@ export default function TeacherDashboard() {
                 <span className="material-symbols-outlined text-[16px]">add_circle</span> Assign 15m Loop &amp; Indexing Drill
               </button>
             </div>
-          </div>
+          </Card>
           {/* Right: Needs Attention (4 Flagged Students) (6 cols) */}
         </div>
         {/* ROW 4: Student Directory & Comprehensive Roster (Full 12 cols) */}
-        <div className="bg-surface-container-lowest rounded-[20px] p-space-lg shadow-[0_4px_16px_rgba(91,75,219,0.08)] mb-space-lg">
+        <Card className="p-space-lg mb-space-lg" variant="elevated">
           {/* Header with Search & Filter Tabs */}
           <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-space-md mb-space-md pb-space-sm">
             <div>
@@ -604,7 +606,7 @@ export default function TeacherDashboard() {
                 <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">search</span>
                 <input
                   aria-label="Filter students by name"
-                  className="w-full bg-surface-container-low text-on-surface placeholder:text-on-surface-variant font-body-sm text-body-sm pl-9 pr-3 py-1.5 rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-primary-container"
+                  className="min-h-[44px] w-full bg-surface-container-low text-on-surface placeholder:text-on-surface-variant font-body-sm text-body-sm pl-9 pr-3 py-1.5 rounded-xl border border-outline-variant/60 focus:outline-none focus:ring-2 focus:ring-primary"
                   onChange={(e) => setStudentSearch(e.target.value)}
                   placeholder="Filter by student name..."
                   type="text"
@@ -612,7 +614,7 @@ export default function TeacherDashboard() {
                 />
               </div>
               {/* Filter Pill Tabs */}
-              <div className="flex items-center bg-surface-container p-1 rounded-xl" role="group" aria-label="Filter directory by mastery status">
+              <div className="flex items-center bg-surface-container p-1 rounded-xl overflow-x-auto max-w-full" role="group" aria-label="Filter directory by mastery status">
                 {rosterFilters.map((f) => (
                   <button
                     aria-pressed={rosterFilter === f.value}
@@ -625,13 +627,14 @@ export default function TeacherDashboard() {
                   </button>
                 ))}
               </div>
-              <button
-                className="inline-flex items-center gap-1 bg-surface-container-low px-3 py-1.5 rounded-xl text-on-surface-variant hover:text-primary transition-colors font-label-sm text-label-sm"
+              <Button
+                className="min-h-[44px]"
                 onClick={() => runExport('csv')}
-                type="button"
+                size="sm"
+                variant="secondary"
               >
                 <span className="material-symbols-outlined text-[16px]">file_download</span> Export
-              </button>
+              </Button>
             </div>
           </div>
           {/* Table Container */}
@@ -653,7 +656,7 @@ export default function TeacherDashboard() {
                   <tr className="hover:bg-surface-container-low/50 transition-colors" key={s.id}>
                     <td className="py-3.5 px-4">
                       <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 rounded-full bg-surface-container text-on-surface flex items-center justify-center font-bold text-xs shrink-0">{s.initials}</div>
+                        <Avatar name={s.name} size="sm" />
                         <div>
                           <span className="font-label-md text-label-md text-on-surface font-semibold block">{s.name}</span>
                           <span className="font-label-sm text-label-sm text-on-surface-variant tabular-nums">{s.id}</span>
@@ -673,16 +676,14 @@ export default function TeacherDashboard() {
                       {s.trend}
                     </td>
                     <td className="py-3.5 px-4">
-                      <span className={`inline-flex items-center gap-1.5 font-label-sm text-label-sm ${s.statusColor} font-medium`}>
-                        <span className={`w-1.5 h-1.5 rounded-full ${s.statusDot}`} /> {s.statusLabel}
-                      </span>
+                      <Badge tone={s.statusTone}>{s.statusLabel}</Badge>
                     </td>
                     <td className="py-3.5 px-3 text-on-surface-variant font-label-sm text-label-sm tabular-nums">{s.lastActive}</td>
                     <td className="py-3.5 px-4 text-right">
                       <div className="inline-flex items-center gap-1">
                         <button
                           aria-label={`${s.mailTitle} to ${s.name}`}
-                          className="p-1.5 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors"
+                          className="min-w-[44px] min-h-[44px] inline-flex items-center justify-center rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors"
                           onClick={() => sendCodeHint(s.name)}
                           title={s.mailTitle}
                           type="button"
@@ -690,7 +691,7 @@ export default function TeacherDashboard() {
                           <span className="material-symbols-outlined text-[18px]">mail</span>
                         </button>
                         <button
-                          className="px-2.5 py-1 rounded-lg text-primary hover:bg-surface-container font-label-sm text-label-sm font-semibold transition-colors"
+                          className="min-h-[44px] px-3 py-1 rounded-lg text-primary hover:bg-surface-container font-label-sm text-label-sm font-semibold transition-colors"
                           onClick={() => openStudentModal(s)}
                           type="button"
                         >
@@ -726,7 +727,7 @@ export default function TeacherDashboard() {
             <div className="flex items-center gap-1">
               <button
                 aria-label="Previous page"
-                className="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-on-surface-variant hover:text-on-surface disabled:opacity-50"
+                className="min-w-[44px] min-h-[44px] rounded-lg bg-surface-container flex items-center justify-center text-on-surface-variant hover:text-on-surface disabled:opacity-50"
                 disabled={currentPage <= 1}
                 onClick={() => setPage((value) => Math.max(1, value - 1))}
                 type="button"
@@ -738,8 +739,8 @@ export default function TeacherDashboard() {
                   aria-current={pageNumber === currentPage ? 'page' : undefined}
                   className={
                     pageNumber === currentPage
-                      ? 'w-8 h-8 rounded-lg bg-primary-container text-on-primary font-label-sm text-label-sm font-bold tabular-nums'
-                      : 'w-8 h-8 rounded-lg text-on-surface-variant hover:bg-surface-container font-label-sm text-label-sm tabular-nums'
+                      ? 'min-w-[44px] min-h-[44px] rounded-lg bg-primary text-on-primary font-label-sm text-label-sm font-bold tabular-nums'
+                      : 'min-w-[44px] min-h-[44px] rounded-lg text-on-surface-variant hover:bg-surface-container font-label-sm text-label-sm tabular-nums'
                   }
                   key={pageNumber}
                   onClick={() => setPage(pageNumber)}
@@ -750,7 +751,7 @@ export default function TeacherDashboard() {
               ))}
               <button
                 aria-label="Next page"
-                className="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-on-surface hover:text-primary disabled:opacity-50 disabled:hover:text-on-surface"
+                className="min-w-[44px] min-h-[44px] rounded-lg bg-surface-container flex items-center justify-center text-on-surface hover:text-primary disabled:opacity-50 disabled:hover:text-on-surface"
                 disabled={currentPage >= totalPages}
                 onClick={() => setPage((value) => Math.min(totalPages, value + 1))}
                 type="button"
@@ -759,7 +760,7 @@ export default function TeacherDashboard() {
               </button>
             </div>
           </div>
-        </div>
+        </Card>
       </div>
       {/* INTERACTIVE MODAL / DETAIL PREVIEW: Student Diagnostic Drilldown */}
       {modalStudent && (
@@ -772,22 +773,22 @@ export default function TeacherDashboard() {
           }}
           role="dialog"
         >
-          <div className="bg-surface-container-lowest rounded-[24px] max-w-lg w-full p-space-lg shadow-[0_20px_40px_rgba(31,35,64,0.16)] flex flex-col gap-space-md relative transform transition-transform duration-200 scale-100">
+          <div className="bg-surface-container-lowest rounded-[24px] border border-outline-variant/60 max-w-lg w-full p-space-lg shadow-[0_20px_40px_rgba(31,35,64,0.16)] flex flex-col gap-space-md relative transform transition-transform duration-200 scale-100">
             {/* Modal Header */}
             <div className="flex items-start justify-between pb-space-sm">
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-full bg-primary-container text-on-primary flex items-center justify-center font-bold text-base shadow-sm">
-                  {modalStudent.name.split(' ').map((n) => n[0]).join('')}
-                </div>
+                <Avatar name={modalStudent.name} size="lg" />
                 <div>
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 flex-wrap">
                     <h3 className="font-headline-sm text-headline-sm text-on-surface" id="student-modal-title">{modalStudent.name}</h3>
-                    <span className={`px-2 py-0.5 rounded-full font-label-sm text-label-sm font-bold ${modalStudent.status.includes('Help') ? 'bg-[#FDE4E5] text-[#E5484D]' : modalStudent.status.includes('Nudge') ? 'bg-[#FFEFD1] text-[#B8740B]' : 'bg-[#DDF5E8] text-[#22A06B]'}`}>{modalStudent.status}</span>
+                    <Badge tone={modalStudent.status.includes('Help') ? 'help' : modalStudent.status.includes('Nudge') ? 'nudge' : 'mastered'}>
+                      {modalStudent.status}
+                    </Badge>
                   </div>
-                  <p className="font-body-sm text-body-sm text-on-surface-variant">CS 101: Intro to Python · Student ID: {modalStudent.id}</p>
+                  <p className="font-body-sm text-body-sm text-on-surface-variant">{classLabel} · Student ID: {modalStudent.id}</p>
                 </div>
               </div>
-              <button aria-label="Close modal" className="w-8 h-8 rounded-full bg-surface-container hover:bg-surface-container-high flex items-center justify-center text-on-surface-variant hover:text-on-surface" onClick={closeStudentModal} type="button">
+              <button aria-label="Close modal" className="min-w-[44px] min-h-[44px] rounded-full bg-surface-container hover:bg-surface-container-high flex items-center justify-center text-on-surface-variant hover:text-on-surface" onClick={closeStudentModal} type="button">
                 <span className="material-symbols-outlined text-[20px]">close</span>
               </button>
             </div>
@@ -805,7 +806,7 @@ export default function TeacherDashboard() {
             <div className="grid grid-cols-3 gap-2 text-center">
               <div className="p-2.5 bg-surface-container rounded-xl">
                 <span className="font-label-sm text-label-sm text-on-surface-variant block">Recent Score</span>
-                <span className={`font-headline-sm text-headline-sm tabular-nums ${modalStudent.status.includes('Help') ? 'text-error' : modalStudent.status.includes('Nudge') ? 'text-tertiary' : 'text-[#22A06B]'} font-bold`}>{modalStudent.score}</span>
+                <span className={`font-headline-sm text-headline-sm tabular-nums ${modalStudent.status.includes('Help') ? 'text-error' : modalStudent.status.includes('Nudge') ? 'text-warn' : 'text-status-ok'} font-bold`}>{modalStudent.score}</span>
               </div>
               <div className="p-2.5 bg-surface-container rounded-xl">
                 <span className="font-label-sm text-label-sm text-on-surface-variant block">Avg Duration</span>
@@ -820,7 +821,7 @@ export default function TeacherDashboard() {
             <div className="flex flex-col gap-1.5">
               <label className="font-label-sm text-label-sm text-on-surface font-semibold" htmlFor="teacherQuickNote">Send Code Hint / Feedback to Student Lab Console:</label>
               <textarea
-                className="w-full bg-surface-container-low text-on-surface placeholder:text-on-surface-variant font-body-sm text-body-sm p-3 rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-primary-container"
+                className="w-full bg-surface-container-low text-on-surface placeholder:text-on-surface-variant font-body-sm text-body-sm p-3 rounded-xl border border-outline-variant/60 focus:outline-none focus:ring-2 focus:ring-primary"
                 id="teacherQuickNote"
                 placeholder="e.g. Remember that range(start, stop) stops before reaching 'stop'! Try printing your loop variable inside each iteration..."
                 rows={2}
@@ -828,13 +829,13 @@ export default function TeacherDashboard() {
             </div>
             {/* Modal Footer Controls */}
             <div className="flex items-center justify-end gap-space-xs pt-space-xs">
-              <button className="px-space-md py-2 rounded-xl text-on-surface-variant hover:bg-surface-container font-label-md text-label-md font-semibold transition-colors" onClick={closeStudentModal} type="button">
+              <Button onClick={closeStudentModal} variant="secondary">
                 Cancel
-              </button>
-              <button className="inline-flex items-center gap-1.5 px-space-md py-2 rounded-xl bg-primary text-on-primary font-label-md text-label-md font-bold hover:bg-primary-container transition-colors shadow-sm" onClick={sendTeacherNote} type="button">
+              </Button>
+              <Button onClick={sendTeacherNote} variant="primary">
                 <span className="material-symbols-outlined text-[18px]">send</span>
-                <span className="">Send Encouragement</span>
-              </button>
+                <span>Send Encouragement</span>
+              </Button>
             </div>
           </div>
         </div>
@@ -843,7 +844,7 @@ export default function TeacherDashboard() {
       {toast && (
         <div className="fixed bottom-6 right-6 z-50 transform translate-y-0 opacity-100 transition-all duration-300 pointer-events-none" role="status" aria-live="polite">
           <div className="bg-inverse-surface text-inverse-on-surface px-space-md py-3 rounded-xl shadow-xl flex items-center gap-2">
-            <span className="material-symbols-outlined text-[#71F8E4] text-[20px]">check_circle</span>
+            <span className="material-symbols-outlined text-secondary-fixed text-[20px]">check_circle</span>
             <span className="font-label-md text-label-md">{toast}</span>
           </div>
         </div>

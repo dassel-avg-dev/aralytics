@@ -11,7 +11,7 @@
   --color-primary-container: #5b4bdb;
   --color-on-primary: #ffffff;
   --color-on-primary-container: #e0dbff;
-  --color-primary-fixed: #e4dfff;
+  --color-primary-fixed: #e9e6ff;
   --color-primary-fixed-dim: #c6c0ff;
   --color-on-primary-fixed: #150066;
   --color-on-primary-fixed-variant: #3e28be;
@@ -41,31 +41,31 @@
   --color-error-container: #ffdad6;
   --color-on-error-container: #93000a;
 
-  --color-surface: #fbf8ff;
-  --color-on-surface: #151936;
-  --color-surface-dim: #d5d7fe;
-  --color-surface-bright: #fbf8ff;
-  --color-surface-variant: #dfe0ff;
-  --color-on-surface-variant: #474554;
+  --color-surface: #fff9f0;
+  --color-on-surface: #181b33;
+  --color-surface-dim: #e7e2f8;
+  --color-surface-bright: #fff9f0;
+  --color-surface-variant: #ddd7f5;
+  --color-on-surface-variant: #4e526e;
   --color-surface-container-lowest: #ffffff;
-  --color-surface-container-low: #f4f2ff;
-  --color-surface-container: #edecff;
-  --color-surface-container-high: #e6e6ff;
-  --color-surface-container-highest: #dfe0ff;
+  --color-surface-container-low: #f6f1ea;
+  --color-surface-container: #f0ebf8;
+  --color-surface-container-high: #e7e2f8;
+  --color-surface-container-highest: #ddd7f5;
 
   --color-inverse-surface: #2a2e4c;
   --color-inverse-on-surface: #f0efff;
 
-  --color-outline: #787586;
-  --color-outline-variant: #c8c4d7;
+  --color-outline: #70748e;
+  --color-outline-variant: #ddd6cc;
 
-  --color-background: #fbf8ff;
-  --color-on-background: #151936;
+  --color-background: #fff9f0;
+  --color-on-background: #181b33;
 
-  /* Functional / status colors from DESIGN.md Color Rules */
-  --color-status-ok: #22a06b;
+  /* Functional / status colors */
+  --color-status-ok: #1d8a5a;
   --color-status-ok-tint: #ddf5e8;
-  --color-warn: #b8740b;
+  --color-warn: #5f4700;
   --color-warn-tint: #ffefd1;
   --color-danger: #e5484d;
   --color-danger-tint: #fde4e5;
@@ -73,9 +73,9 @@
   --color-info: #3b82f6;
   --color-info-tint: #e0edff;
   --color-accent-yellow: #ffc93c;
-  --color-ink: #1f2340;
-  --color-slate: #5c6182;
-  --color-lavender-ash: #e8e4f3;
+  --color-ink: #181b33;
+  --color-slate: #4e526e;
+  --color-lavender-ash: #e7e2f8;
   --color-cream: #fff9f0;
 
   /* ── Typography ─────────────────────────────────────────── */
@@ -85,12 +85,13 @@
   --font-headline-md: "Nunito Sans", sans-serif;
   --font-headline-sm: "Nunito Sans", sans-serif;
   --font-metric-number: "Nunito Sans", sans-serif;
-  --font-body-lg: "Inter", sans-serif;
-  --font-body-md: "Inter", sans-serif;
-  --font-body-sm: "Inter", sans-serif;
-  --font-label-lg: "Inter", sans-serif;
-  --font-label-md: "Inter", sans-serif;
-  --font-label-sm: "Inter", sans-serif;
+  --font-body-lg: "Source Sans 3", sans-serif;
+  --font-body-md: "Source Sans 3", sans-serif;
+  --font-body-sm: "Source Sans 3", sans-serif;
+  --font-label-lg: "Source Sans 3", sans-serif;
+  --font-label-md: "Source Sans 3", sans-serif;
+  --font-label-sm: "Source Sans 3", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
 
   --text-display-lg: 40px;
   --text-display-lg--line-height: 48px;
@@ -185,9 +186,21 @@
   main > :last-child {
     margin-bottom: 0 !important;
   }
-  /* Design system hides native scrollbars (matches reference screens) */
+  /* Subtle thin scrollbar */
+  html {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-outline-variant) transparent;
+  }
   ::-webkit-scrollbar {
-    display: none;
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--color-outline-variant);
+    border-radius: 9999px;
   }
 }
 

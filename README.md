@@ -16,25 +16,32 @@ Students learning to code often receive feedback that is generic or arrives too 
 - **Teacher — Mr. Reyes, 35**: CS/coding teacher who creates activities, reviews class and individual results, identifies students below a mastery threshold, and targets personal intervention.
 - **School Administrator — Dr. Santos, 50**: principal or academic lead who evaluates learning outcomes, teacher workload, student privacy, and subscription value; a buyer and provisioning stakeholder, not a separate in-product role.
 
-## Features (13 screens)
+## Features (17 screens)
 
 ### Public & Auth (`frontend/src/screens/public/`)
 
 | Route | Purpose |
 |---|---|
-| `/` | Product landing page and pilot inquiry entry point |
+| `/` | Product landing page, interactive Python diagnostic preview, and pilot inquiry entry point |
 | `/login` | Student/Teacher demo login |
 | `/register` | Institution-code and issued-key account activation flow UI |
-| `/forbidden` | Custom 403 access-denied page for role-mismatched routes |
-| `/profile` | Authenticated user profile and password settings |
+| `/forgot-password` | Request a short-lived password-reset link |
+| `/reset-password` | Set a new password from a reset token |
 
-### Student View (`frontend/src/screens/student/`)
+### Shared (`frontend/src/screens/shared/`)
 
 | Route | Purpose |
 |---|---|
-| `/student/dashboard` | Student home: assigned work, streak/XP, learning overview |
+| `/forbidden` | Custom 403 access-denied page for role-mismatched routes |
+| `/profile` | Authenticated user profile and password settings (role-aware `StudentShell` / `AppShell`) |
+
+### Student View (`frontend/src/screens/student/`, shared `StudentShell` layout)
+
+| Route | Purpose |
+|---|---|
+| `/student/dashboard` | Student home: assigned work, streak, concept mastery, and Aral Coach summary |
 | `/student/activities` | Assigned, remedial, upcoming, and completed activities |
-| `/student/quiz` | Live quiz / coding scenario and answer selection |
+| `/student/quiz` | Live quiz / coding scenario with durable answer drafts |
 | `/student/feedback` | Diagnostic report and practice-drill UI |
 | `/student/progress` | Feedback history and progress analytics |
 
@@ -53,7 +60,7 @@ Students learning to code often receive feedback that is generic or arrives too 
 | Layer | Package / Version | Notes |
 |---|---|---|
 | Framework | `react@^19`, `react-dom@^19` | Functional components + hooks only |
-| Routing | `react-router-dom@^7` | SPA with 13 routes in `frontend/src/App.jsx` |
+| Routing | `react-router-dom@^7` | SPA with 17 routes in `frontend/src/App.jsx` |
 | Build tool | `vite@^8` | Dev server at `http://localhost:3000` |
 | Styling | `tailwindcss@^4` + `@tailwindcss/vite` | Tokens configured via `@theme` in `frontend/src/index.css` |
 | Linter | `oxlint` | `npm run lint` inside `frontend/` |
@@ -78,7 +85,7 @@ with an adapter stub that falls back to it. See [backend/README.md](./backend/RE
 | [docs/team-roles.md](./docs/team-roles.md) | Team roles and responsibilities |
 | [CONTRIBUTING.md](./CONTRIBUTING.md) | Contribution guidelines and branch conventions |
 | [docs/NAVIGATION.md](./docs/NAVIGATION.md) | Screen routes, navigation graph, and `/api/*` endpoint map (implemented vs 501) |
-| [docs/HANDOFF.md](./docs/HANDOFF.md) | Architecture, design tokens, backend/frontend commands, and Stitch-to-React rules |
+| [docs/HANDOFF.md](./docs/HANDOFF.md) | Warm Editorial EdTech v2 design system, shared UI primitives, and layout rules |
 | [docs/FILETREE.md](./docs/FILETREE.md) | Complete directory and file purpose map |
 | [docs/LOG.md](./docs/LOG.md) | Chronological append-only log of project changes |
 
@@ -160,11 +167,9 @@ Work targets `main`; create branches as `feature/<issue>-<short-name>` for new w
 
 | Name | Role |
 |---|---|
-| Dassel Bacaltos | Frontend Deveoper |
+| Dassel Bacaltos | Frontend Developer |
 | James Dela Peña | Backend Developer |
 | Kharl Christian Tumamak | DevOps |
-
-_Add team members here._
 
 ## Task Board
 

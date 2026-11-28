@@ -2,6 +2,10 @@ import { useEffect, useState } from 'react'
 import { api, getStoredClasses, getStoredUser } from '../../api/client'
 import { useApiResource } from '../../api/useApiResource'
 import { DataError, LoadingBlock } from '../../components/DataState'
+import Avatar from '../../components/ui/Avatar'
+import Badge from '../../components/ui/Badge'
+import Button from '../../components/ui/Button'
+import Card from '../../components/ui/Card'
 
 const TONES = [
   { value: 'FORMAL', title: 'Formal', desc: 'Measured, academic English with complete sentences.' },
@@ -59,20 +63,20 @@ export default function TeacherClassroomSettings() {
               and AI feedback.
             </p>
           </div>
-          <button
-            className="flex items-center gap-space-xs bg-primary-container hover:bg-primary text-on-primary px-space-lg py-2.5 rounded-xl font-label-lg text-label-lg shadow-[0_4px_16px_rgba(91,75,219,0.24)] transition-all disabled:opacity-50 shrink-0"
+          <Button
+            className="shrink-0"
             disabled={saving || settings.loading}
             onClick={save}
-            type="button"
+            variant="primary"
           >
             <span className="material-symbols-outlined text-[20px]">save</span>
             <span>{saving ? 'Saving…' : 'Save Settings'}</span>
-          </button>
+          </Button>
         </div>
 
         {saved && (
           <div
-            className="rounded-xl bg-secondary-container text-on-secondary-container px-space-md py-space-sm font-label-md text-label-md font-semibold"
+            className="rounded-xl bg-status-ok-tint text-secondary border border-status-ok/20 px-space-md py-space-sm font-label-md text-label-md font-semibold"
             role="status"
             aria-live="polite"
           >
@@ -85,9 +89,9 @@ export default function TeacherClassroomSettings() {
 
         {!settings.loading && !settings.error && (
           <div className="grid grid-cols-1 xl:grid-cols-12 gap-space-lg items-start">
-            <section className="xl:col-span-7 bg-surface-container-lowest rounded-2xl p-space-lg shadow-[0_4px_20px_rgba(91,75,219,0.08)] flex flex-col gap-space-md">
+            <Card className="xl:col-span-7 p-space-lg flex flex-col gap-space-md" variant="elevated">
               <div className="flex items-center gap-space-sm">
-                <div className="w-10 h-10 rounded-xl bg-primary-container text-on-primary flex items-center justify-center shadow-sm">
+                <div className="w-10 h-10 rounded-xl bg-primary text-on-primary flex items-center justify-center shadow-sm">
                   <span className="material-symbols-outlined text-[24px]">terminal</span>
                 </div>
                 <div>
@@ -107,8 +111,10 @@ export default function TeacherClassroomSettings() {
                       key={option.value}
                       aria-checked={selected}
                       className={
-                        'text-left p-space-md rounded-xl transition-all flex items-start justify-between gap-space-sm ' +
-                        (selected ? 'bg-surface-container-high shadow-md' : 'bg-surface-container-low hover:bg-surface-container-high')
+                        'min-h-[44px] text-left p-space-md rounded-xl border transition-all flex items-start justify-between gap-space-sm ' +
+                        (selected
+                          ? 'bg-surface-container-high border-primary/30 shadow-xs'
+                          : 'bg-surface-container-low border-outline-variant/60 hover:bg-surface-container-high')
                       }
                       onClick={() => setTone(option.value)}
                       role="radio"
@@ -136,23 +142,26 @@ export default function TeacherClassroomSettings() {
                   )
                 })}
               </div>
-            </section>
+            </Card>
 
             <div className="xl:col-span-5 flex flex-col gap-space-lg">
-              <section className="bg-surface-container-lowest rounded-2xl p-space-lg shadow-[0_4px_20px_rgba(91,75,219,0.08)] flex flex-col gap-space-md">
+              <Card className="p-space-lg flex flex-col gap-space-md" variant="elevated">
                 <div className="flex items-center justify-between">
                   <h2 className="font-headline-sm text-headline-sm text-on-surface">Profile &amp; Cohorts</h2>
                 </div>
-                <div className="flex flex-col p-space-md rounded-xl bg-surface-container-low gap-1">
-                  <span className="font-headline-sm text-headline-sm text-on-surface">
-                    {user?.fullName || 'Teacher'}
-                  </span>
-                  <span className="font-body-sm text-body-sm text-on-surface-variant">
-                    {user?.email || ''}
-                  </span>
-                  <span className="font-label-sm text-label-sm text-primary font-bold">
-                    {user?.schoolName || 'Aralytics'}
-                  </span>
+                <div className="flex items-center gap-space-sm p-space-md rounded-xl bg-surface-container-low">
+                  <Avatar name={user?.fullName || 'Teacher'} size="lg" />
+                  <div className="flex flex-col min-w-0">
+                    <span className="font-headline-sm text-headline-sm text-on-surface truncate">
+                      {user?.fullName || 'Teacher'}
+                    </span>
+                    <span className="font-body-sm text-body-sm text-on-surface-variant truncate">
+                      {user?.email || ''}
+                    </span>
+                    <span className="font-label-sm text-label-sm text-primary font-bold">
+                      {user?.schoolName || 'Aralytics'}
+                    </span>
+                  </div>
                 </div>
                 <div className="flex flex-col gap-2">
                   <span className="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">
@@ -169,15 +178,15 @@ export default function TeacherClassroomSettings() {
                       className="flex items-center justify-between p-2.5 rounded-xl bg-surface-container-low"
                     >
                       <span className="font-label-md text-label-md text-on-surface">{clazz.name}</span>
-                      <span className="bg-secondary-container text-on-secondary-container px-2.5 py-0.5 rounded-full font-label-sm text-label-sm font-semibold">
+                      <Badge dot={false} tone="mastered">
                         #{clazz.id}
-                      </span>
+                      </Badge>
                     </div>
                   ))}
                 </div>
-              </section>
+              </Card>
 
-              <section className="bg-surface-container-lowest rounded-2xl p-space-lg shadow-[0_4px_20px_rgba(91,75,219,0.08)] flex flex-col gap-space-md">
+              <Card className="p-space-lg flex flex-col gap-space-md" variant="elevated">
                 <div>
                   <h2 className="font-headline-sm text-headline-sm text-on-surface">
                     Remedial Intervention Threshold
@@ -188,12 +197,12 @@ export default function TeacherClassroomSettings() {
                 </div>
                 <div className="flex items-center justify-between">
                   <label className="font-body-sm text-body-sm text-on-surface-variant" htmlFor="intervention-threshold">Threshold</label>
-                  <span className="font-headline-sm text-headline-sm text-primary font-bold bg-surface-container-lowest px-3 py-1 rounded-lg shadow-xs tabular-nums">
+                  <span className="font-headline-sm text-headline-sm text-primary font-bold bg-surface-container-low px-3 py-1 rounded-lg border border-outline-variant/60 tabular-nums">
                     {threshold}%
                   </span>
                 </div>
                 <input
-                  className="w-full accent-primary cursor-pointer"
+                  className="w-full min-h-[44px] accent-primary cursor-pointer"
                   id="intervention-threshold"
                   max="100"
                   min="0"
@@ -206,7 +215,7 @@ export default function TeacherClassroomSettings() {
                   <span>0% (Permissive)</span>
                   <span>100% (Strict)</span>
                 </div>
-              </section>
+              </Card>
             </div>
           </div>
         )}
