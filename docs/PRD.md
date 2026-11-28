@@ -1,7 +1,7 @@
 # Aralytics - Product Requirements Document (PRD)
 
-**Version:** 2.1
-**Date:** November 25, 2026
+**Version:** 2.2
+**Date:** November 28, 2026
 **Author:** James Benedict De la Peña, Dassel Bacaltos, Kharl Christian Tumamak
 **Status:** MVP Core Complete (Should-Have extensions implemented except live LLM)
 
@@ -81,7 +81,7 @@ The database accurately reflects the ERD: `SCHOOL`, `USER`, `SUBSCRIPTION`, `CLA
 ### 6.1. Must-Have (MVP) - **STATUS: IMPLEMENTED (Frontend + Backend)**
 
 #### 6.1.1. User Authentication & Account Management
-- **Fixed System Access:** No public self-registration. Accounts are provisioned via Institution Code (`STJUDE-MNL-2025`) and issued Access Keys (`KEY-8821-PY` / `FAC-2025-DEPED`).
+- **2-Step Institutional Account Activation (`FR-AUTH-03`):** No public self-registration. Onboarding on `/register` is split into two steps: Step 1 (`1. Verify Key`) validates an Institution Code (`STJUDE-MNL-2025`) and role-specific Access Key / Faculty PIN (`KEY-8821-PY` / `FAC-2025-DEPED`) via `POST /api/auth/verify-key`, issuing a 15-minute single-use activation token and rendering a Verified School Banner (`schoolName`, `institutionCode`); Step 2 (`2. Set Credentials`) collects full name, email, password (with strength indicator), and Philippine Data Privacy Act (RA 10173) consent via `POST /api/auth/activate` before creating the account and starting a JWT session. Dev-only `"Fill Demo Key"` / `"Fill Demo Profile"` helpers are stripped from production builds (`IS_PROD`).
 - **Role-Based Access Control (RBAC):** Students can only see their own data; teachers can only see data for their assigned classes. Wrong-role route navigation renders the `/forbidden` (403) screen.
 - **JWT Sessions:** Secure, stateless login returning a Bearer token, with password reset and profile management.
 

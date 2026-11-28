@@ -10,7 +10,7 @@
 1. **Public & Authentication View** (`frontend/src/screens/public/` + `frontend/src/screens/shared/`):
    - Public Marketing Landing Page (`/`)
    - Unified Student / Teacher Login (`/login`)
-   - Institutional Key & Account Activation (`/register`)
+   - 2-Step Institutional Key & Account Activation (`/register`)
    - Password Reset Request (`/forgot-password`) & Reset (`/reset-password`)
    - Role-Mismatch 403 Access Denied (`/forbidden`) & User Profile (`/profile`)
 2. **Student View** (`frontend/src/screens/student/`, routes under `/student/*`, wrapped in `StudentShell`):
@@ -49,8 +49,8 @@ The UI originated from 13 Google Stitch HTML exports in `screens/stitch/` (gitig
 
 ### Backend Commands & Environment Switching
 A single root `.env` (copied from `.env.example`) controls both backend and frontend via `ENV`, isolating `dev,seed` (`aralytics` DB) from `prod` (`aralytics_prod` DB) so switching modes never triggers Flyway `V2` validation conflicts:
-- **`ENV=development` (default)**: backend runs `dev,seed` on `aralytics` (Swagger UI + demo accounts); Vite `npm run dev` enables demo login pre-fill and seeded activation hints.
-- **`ENV=production`**: backend runs `prod` on `aralytics_prod` (schema-only, Swagger off, `ProductionConfigGuard` requires `JWT_SECRET` >= 32 bytes); Vite strips demo credentials and seeded activation hints.
+- **`ENV=development` (default)**: backend runs `dev,seed` on `aralytics` (Swagger UI + demo accounts); Vite `npm run dev` enables demo login pre-fill, seeded activation hints, and dev-only activation demo autofill (`Fill Demo Key` / `Fill Demo Profile`).
+- **`ENV=production`**: backend runs `prod` on `aralytics_prod` (schema-only, Swagger off, `ProductionConfigGuard` requires `JWT_SECRET` >= 32 bytes); Vite strips demo credentials, seeded activation hints, and activation demo autofill.
 - **Docker Compose (run from repo root — reads root `.env` automatically)**:
   - `docker compose up -d` — start PostgreSQL 16 + backend (`--build` rebuilds after Java edits)
   - `docker compose up -d postgres` — start PostgreSQL 16 container (`aralytics-postgres` on `:5432`); fresh volumes auto-create `aralytics` and `aralytics_prod` via `backend/docker/postgres-init.sql` (if you have a pre-existing `postgres_data` volume, run `docker exec aralytics-postgres psql -U postgres -c "CREATE DATABASE aralytics_prod;"` once)

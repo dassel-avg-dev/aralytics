@@ -48,7 +48,7 @@ When `ENV=development` (and not a production `vite build`), `/login` pre-fills d
 
 ### Account Activation & Registration (`/register`)
 
-When testing the institutional onboarding flow on `/register`, the backend must be running with `ENV=development` (which activates `dev,seed` on `aralytics`). Seeded institution/key hints appear in development only and are hidden in `ENV=production` / `vite build`. The screen calls `POST /api/auth/verify-key` then `POST /api/auth/activate`, and asks for full name and email in addition to the fields below.
+When testing the 2-step institutional onboarding flow on `/register` (`1. Verify Key` -> Verified School Banner -> `2. Set Credentials`), the backend must be running with `ENV=development` (which activates `dev,seed` on `aralytics`). Seeded institution/key hints and dev-only `"Fill Demo Key"` / `"Fill Demo Profile"` autofill buttons appear in development only and are omitted in `ENV=production` / `vite build`. Step 1 calls `POST /api/auth/verify-key` to validate the Institution Code and Access Key / Faculty PIN, then Step 2 calls `POST /api/auth/activate` with full name, email, password, and RA 10173 consent.
 
 | Role | School / Institution Code | Issued Access Key / PIN | Password Requirement | Redirects To |
 |---|---|---|---|---|

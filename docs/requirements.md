@@ -1,7 +1,7 @@
 # Aralytics — Requirements Index
 
-**Version:** 1.1
-**Date:** 2026-11-25
+**Version:** 1.2
+**Date:** 2026-11-28
 
 This document is a pointer, not a duplicate source of truth. It exists so the
 `docs/` folder has a requirements entry and can also note how requirement changes
@@ -18,7 +18,7 @@ requirements, and roadmap. If this index and `PRD.md` ever disagree, `PRD.md` wi
 ## MVP scope summary
 
 - Provisioned role-based login for Student and Teacher; role-based access enforced server-side and via `/forbidden` (FR-AUTH-01/02).
-- Account activation via institution code and issued access key; no unrestricted self-sign-up (FR-AUTH-03).
+- 2-step account activation: verify institution code and issued access key -> Verified School Banner -> set credentials; no unrestricted self-sign-up (FR-AUTH-03).
 - Student portal showing assigned and completed activities with status, scores, and submitted-answer review (FR-STU-01..03).
 - Teacher-authored quiz engine: multiple-choice and situational/code-scenario questions, with assignment, submission, and answer retention (FR-ACT-01..05).
 - Teacher dashboard and roster with class KPIs, per-student detail, and a configurable intervention threshold defaulting to 70% (FR-TCH-01..03).
@@ -37,4 +37,4 @@ Implementation status per capability is in [./PRD.md](./PRD.md) sections 6.1–6
 
 ---
 
-Requirements status as of 2026-11-25: PRD v2.1
+Requirements status as of 2026-11-28: PRD v2.2
