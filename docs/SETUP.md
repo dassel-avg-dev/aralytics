@@ -95,8 +95,7 @@ aralytics/
 │   ├── architecture.md   # Full-stack system architecture overview
 │   ├── requirements.md   # Requirements index and MVP scope summary
 │   └── team-roles.md     # Team roster and role descriptions
-├── backend/              # Spring Boot 3.4.13 / Java 21 REST API + Flyway PostgreSQL 16 migrations
-├── postman/              # Postman collection and workspace globals for API testing
+├── backend/              # Spring Boot 3.4.13 / Java 21 REST API + Flyway PostgreSQL 16 migrations + postman/
 ├── screens/              # Raw Stitch HTML + PNG reference exports (gitignored)
 └── frontend/             # React 19 + Vite 8 + Tailwind CSS v4 SPA
     ├── public/           # Static public assets

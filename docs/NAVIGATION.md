@@ -35,9 +35,8 @@ flowchart TD
     end
 
     LP -->|"Log In"| LG
-    LP -->|"Preview Student App"| SD
-    LP -->|"Next Coding Drill"| SQ
-    LP -->|"Request Teacher Sandbox"| TD
+    LP -->|"Activate School Key"| RG
+    LP -->|"Explore Live Demo"| LG
 
     LG -->|"Activate issued key"| RG
     LG -->|"Sign In (Student)"| SD
@@ -68,7 +67,7 @@ flowchart TD
 |---|---|---|---|---|
 | `/` | `frontend/src/screens/public/LandingPage.jsx` | `screens/stitch/landing_page/code.html` | `POST /api/public/pilot-inquiry` | Submit and persist school/classroom pilot inquiry |
 | `/login` | `frontend/src/screens/public/LoginScreen.jsx` | `screens/stitch/aralytics_login/code.html` | `POST /api/auth/login`<br>`POST /api/auth/logout`<br>`GET /api/auth/me` | Authenticate Student or Teacher credentials and return stateless JWT + role |
-| `/register` | `frontend/src/screens/public/AccountActivationScreen.jsx` | `screens/stitch/aralytics_account_registration_activation/code.html` | `POST /api/auth/verify-key`<br>`POST /api/auth/activate` | Validate school code + access key and activate account |
+| `/register` | `frontend/src/screens/public/AccountActivationScreen.jsx` | `screens/stitch/aralytics_account_registration_activation/code.html` | `POST /api/auth/verify-key`<br>`POST /api/auth/activate` | 2-step onboarding: validate school code + access key (Step 1) and set credentials to activate account (Step 2) |
 | `/forgot-password` | `frontend/src/screens/public/ForgotPasswordScreen.jsx` | — | `POST /api/auth/forgot-password` | Request a short-lived password-reset token/email |
 | `/reset-password` | `frontend/src/screens/public/ResetPasswordScreen.jsx` | — | `POST /api/auth/reset-password` | Consume reset token and set a new password |
 | `/forbidden` | `frontend/src/screens/shared/ForbiddenScreen.jsx` | — | — *(client-side RBAC guard)* | Render 403 access-denied view on role-mismatched routes |
@@ -124,9 +123,24 @@ All Teacher View screens are wrapped in `AppShell` (`Sidebar.jsx` + `TopBar.jsx`
 
 3. **`/register` (`AccountActivationScreen.jsx`)**
    - Header Brand Logo → `/`
-   - Submit (`Complete Registration & Sign In` / `Set Up Faculty Account`) → `/student/dashboard` (when `role === 'student'`) or `/teacher/dashboard` (when `role === 'educator'`)
-   - `Inquire` → `/#pilot-signup`
+   - Step 1 (`1. Verify Key`): Role toggle (`Student Activation` / `Teacher / School Setup`), institution code + access key/PIN (`Verify Key & Continue` → Step 2); dev-only `Fill Demo Key` button (stripped in prod)
+   - Step 2 (`2. Set Credentials`): Verified School Banner + `Change key` back button, full name, email, password + strength meter, RA 10173 consent, dev-only `Fill Demo Profile` button (stripped in prod)
+   - Submit (`Complete Registration & Sign In` / `Set Up Faculty Account`) → `/student/dashboard` (student) or `/teacher/dashboard` (teacher)
+   - `Inquire` / `Terms of Service` / `Lost Registration Key?` / `Help & Support` → `/#pilot-signup`
    - `Sign in` → `/login`
+
+4. **`/forgot-password` (`ForgotPasswordScreen.jsx`)**
+   - Submit email (`POST /api/auth/forgot-password`) → shows reset confirmation state
+   - Back to Sign In → `/login`
+
+5. **`/reset-password` (`ResetPasswordScreen.jsx`)**
+   - Set new password using `?token=...` (`POST /api/auth/reset-password`) → link to `/login`
+
+6. **`/forbidden` (`ForbiddenScreen.jsx`)**
+   - Role-mismatch 403 guard rendered by `RequireAuth` with `Go to My Dashboard`, `Go Back`, and `Switch Account` → `/login` (or `Sign In` / `Back to Home` when signed out)
+
+7. **`/profile` (`ProfileScreen.jsx`)**
+   - Role-aware (`StudentShell` for Student, `AppShell` for Teacher); updates profile details (`PUT /api/auth/profile`) and password (`PUT /api/auth/profile/password`)
 
 ---
 

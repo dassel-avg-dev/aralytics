@@ -11,7 +11,7 @@
 
 Aralytics is an AI-powered learning platform designed to address the critical issue of generic and delayed feedback in coding education. By providing personalized, immediate feedback to students learning to code, Aralytics aims to boost learner engagement, motivation, and academic performance. The platform empowers teachers with a diagnostic dashboard to monitor student progress and intervene effectively, making personalized education scalable even in large classes. 
 
-**Current State:** The project has moved from a purely visual frontend prototype to a functional full-stack application. The foundational backend (Authentication, Database, Quiz Engine, and Mock AI Diagnostic Feedback) is live and tested. This document defines the requirements for completing the remaining features (the "60%").
+**Current State:** All Must-Have MVP requirements and Should-Have extensions (reporting exports, persistent settings, in-app notifications, progress history & practice drills, and the deterministic Mock AI Diagnostic Engine) are implemented and verified; live local LLM integration and pilot school onboarding remain post-MVP.
 
 ---
 
@@ -71,8 +71,8 @@ Students learning to code often receive generic feedback that arrives too late t
 - **State Management:** React Hooks (Local State + Context for Auth)
 - **API Client:** Native `fetch` (Wired to `http://localhost:8080/api`)
 
-### 5.3. Database Schema (15 Tables)
-The database accurately reflects the ERD: `SCHOOL`, `USER`, `SUBSCRIPTION`, `CLASS`, `ENROLLMENT`, `QUIZ`, `QUESTION`, `SUBMISSION`, `ANSWER`, `FEEDBACK`, `CONCEPT`, `FEEDBACK_CONCEPT`, `PROGRESS_RECORD`, `NOTIFICATION`, and the additive `QUESTION_CONCEPT` (for tagging concepts to specific questions).
+### 5.3. Database Schema (19 Tables)
+The PostgreSQL schema in `V1__init_postgres.sql` covers the 15-table ERD (`SCHOOL`, `APP_USER` [replacing reserved `USER`], `SUBSCRIPTION`, `CLASS`, `ENROLLMENT`, `QUIZ`, `QUESTION`, `SUBMISSION`, `ANSWER`, `FEEDBACK`, `CONCEPT`, `FEEDBACK_CONCEPT`, `PROGRESS_RECORD`, `NOTIFICATION`, and `QUESTION_CONCEPT`) plus 4 operational tables (`QUIZ_DRAFT`, `TEACHER_SETTINGS`, `PASSWORD_RESET_TOKEN`, and `PILOT_INQUIRY`).
 
 ---
 
@@ -108,7 +108,7 @@ The database accurately reflects the ERD: `SCHOOL`, `USER`, `SUBSCRIPTION`, `CLA
 #### 6.2.2. Persistent Settings (FR-SET) - **✅ DONE**
 - Teachers must be able to adjust the intervention threshold (e.g., from 70% to 75%).
 - Teachers must be able to set their preferred feedback tone (e.g., Formal English vs. Conversational).
-- **Implementation:** `TEACHER_SETTINGS` table (Flyway `V4__teacher_settings.sql`) behind `GET`/`PUT /api/teacher/settings`.
+- **Implementation:** `TEACHER_SETTINGS` table (Flyway `V1__init_postgres.sql`; legacy MySQL `V4__teacher_settings.sql` archived under `db/migration_mysql_legacy/`) behind `GET`/`PUT /api/teacher/settings`.
 
 #### 6.2.3. Notifications & Reminders (FR-NOT) - **✅ DONE**
 - The system must send in-app notifications for upcoming due dates and completion milestones.
@@ -148,14 +148,14 @@ The database accurately reflects the ERD: `SCHOOL`, `USER`, `SUBSCRIPTION`, `CLA
 - **US-01 (Done):** As a student, I want to log in with my credentials so I can access my assigned coding activities.
 - **US-03 (Done):** As a student, I want to see a list of my pending coding activities so I know what to work on next.
 - **US-06 (Done):** As a student, after I submit my quiz, I want to receive feedback that tells me exactly which concepts I got wrong.
-- **US-09 (Pending):** As a student, I want to receive a reminder the day before an activity is due.
-- **US-11 (Pending):** As a student, I want to review the feedback I received on past quizzes.
+- **US-09 (Done):** As a student, I receive in-app notifications for published activities and completion milestones via `NotificationService` & `NotificationBell` *(scheduled day-before email reminders remain post-MVP)*.
+- **US-11 (Done):** As a student, I can review the feedback I received on past quizzes on `/student/progress`.
 
 ### 8.2. Teacher User Stories
 - **US-02 (Done):** As a teacher, I want to log in with my credentials so I can manage my classes.
 - **US-04 (Done):** As a teacher, I want to create a multiple-choice quiz and assign it to my class.
 - **US-07 (Done):** As a teacher, I want to see a list of students who scored below 70% so I can schedule a remedial session.
-- **US-10 (Pending):** As a teacher, I want to see a graph showing the average class score over the semester.
+- **US-10 (Done):** As a teacher, I can view cohort analytics and export CSV/PDF reports on `/teacher/reports` *(semester-over-semester trend charts remain post-MVP)*.
 
 ---
 
@@ -185,4 +185,4 @@ The database accurately reflects the ERD: `SCHOOL`, `USER`, `SUBSCRIPTION`, `CLA
 
 1. **LLM Hosting:** Will the local AI model be hosted via a Python microservice, or will we use a Java-native ONNX runtime?
 2. **Frontend Auth:** Where should the JWT be stored on the frontend? (Currently using `localStorage`, but should we move to HTTP-only cookies for XSS protection in production?)
-3. **Reports:** Should CSV exports happen on the server (Java) or the client (React)?
+3. **School Activation Key Provisioning:** Will school-issued student/faculty activation keys continue to be provisioned out-of-band in `SCHOOL`, or should we add a teacher/admin self-service invite-code rotation UI? *(Note: CSV/PDF report exports are already resolved server-side via `ReportService`.)*

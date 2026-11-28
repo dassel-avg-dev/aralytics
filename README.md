@@ -4,7 +4,7 @@ AI-powered diagnostic feedback and mastery analytics for Python / CS classrooms 
 
 ## Summary
 
-Aralytics is an AI-supported coding education platform that gives students personalized diagnostic feedback on quizzes and coding scenarios, and gives teachers class dashboards, mastery rosters, and learning analytics. The **core Must-Have MVP is fully implemented** (fixed-key account activation, stateless JWT auth with `/forbidden` RBAC handling, teacher activity authoring, the student quiz lifecycle with durable drafts, deterministic scoring, and student/teacher dashboards), along with Should-Have extensions (notifications, persistent teacher settings, progress history and practice drills, CSV/PDF report exports, and the deterministic mock diagnostic engine — with live LLM integration remaining post-MVP). See [docs/PRD.md](./docs/PRD.md) for the product scope and [backend/README.md](./backend/README.md) for the API surface.
+Aralytics is an AI-supported coding education platform that gives students personalized diagnostic feedback on quizzes and coding scenarios, and gives teachers class dashboards, mastery rosters, and learning analytics. The **core Must-Have MVP is fully implemented** (2-step fixed-key account activation, stateless JWT auth with `/forbidden` RBAC handling, teacher activity authoring, the student quiz lifecycle with durable drafts, deterministic scoring, and student/teacher dashboards), along with Should-Have extensions (notifications, persistent teacher settings, progress history and practice drills, CSV/PDF report exports, and the deterministic mock diagnostic engine — with live LLM integration remaining post-MVP). See [docs/PRD.md](./docs/PRD.md) for the product scope and [backend/README.md](./backend/README.md) for the API surface.
 
 ## Problem
 
@@ -24,7 +24,7 @@ Students learning to code often receive feedback that is generic or arrives too 
 |---|---|
 | `/` | Product landing page, interactive Python diagnostic preview, and pilot inquiry entry point |
 | `/login` | Student/Teacher demo login |
-| `/register` | Institution-code and issued-key account activation flow UI |
+| `/register` | 2-step institutional onboarding (Step 1: Verify Key, Step 2: Set Credentials) |
 | `/forgot-password` | Request a short-lived password-reset link |
 | `/reset-password` | Set a new password from a reset token |
 
@@ -123,7 +123,7 @@ npm run lint    # oxlint across frontend/src/
 npm run build   # production bundle into frontend/dist/
 ```
 
-When `ENV=development` during `npm run dev`, the login screen pre-fills the seeded demo credentials (student `miguel@school.edu.ph` / `student123`, teacher `maria.santos@university.edu.ph` / `teacher123`) and authenticates against the real API. They come from the local `seed` profile only — when `ENV=production` or building with `vite build`, demo credentials and seeded activation hints are omitted. See [docs/SETUP.md](./docs/SETUP.md).
+When `ENV=development` during `npm run dev`, the login screen pre-fills the seeded demo credentials (student `miguel@school.edu.ph` / `student123`, teacher `maria.santos@university.edu.ph` / `teacher123`) and `/register` offers dev-only `"Fill Demo Key"` / `"Fill Demo Profile"` helpers, authenticating against the real API. They come from the local `seed` profile only — when `ENV=production` or building with `vite build`, demo credentials, autofill helpers, and seeded activation hints are omitted. See [docs/SETUP.md](./docs/SETUP.md).
 
 ### Backend (`ENV=development` vs `ENV=production`)
 
@@ -171,7 +171,6 @@ Work targets `main`; create branches as `feature/<issue>-<short-name>` for new w
 | James Dela Peña | Backend Developer |
 | Kharl Christian Tumamak | DevOps |
 
-## Task Board
+## Repository
 
-- Repository: https://github.com/dassel-avg-dev/aralytics
-- Task board: _Paste GitHub Projects / task board link here._
+- https://github.com/dassel-avg-dev/aralytics

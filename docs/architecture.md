@@ -55,7 +55,7 @@ Derived from `HANDOFF.md` section 4. Core routes only; `App.jsx` also defines ba
 |---|---|---|
 | `/` | `frontend/src/screens/public/LandingPage.jsx` | Standalone (public marketing header + footer) |
 | `/login` | `frontend/src/screens/public/LoginScreen.jsx` | Standalone (auth header + split card + footer) |
-| `/register` | `frontend/src/screens/public/AccountActivationScreen.jsx` | Standalone (auth header + split card + footer) |
+| `/register` | `frontend/src/screens/public/AccountActivationScreen.jsx` | Standalone (auth header + 2-step card + footer) |
 | `/forgot-password` | `frontend/src/screens/public/ForgotPasswordScreen.jsx` | Standalone (auth header + card + footer) |
 | `/reset-password` | `frontend/src/screens/public/ResetPasswordScreen.jsx` | Standalone (auth header + card + footer) |
 | `/forbidden` | `frontend/src/screens/shared/ForbiddenScreen.jsx` | Standalone (brand header + 403 card + footer) |
@@ -104,4 +104,4 @@ The app uses a three-mode layout split in `frontend/src/App.jsx`:
 ## Testing Pointer
 
 - **Backend**: `.\mvnw.cmd -B verify` runs `MockDiagnosticEngineTest`, `ReportServiceTest`, `AuthFlowIT`, `PilotInquiryIT`, `QuizLifecycleIT`, `AuthorizationIT`, `SubmitIdempotencyIT`, and Docker-gated `EndToEndPostgresTest`.
-- **Frontend**: E2E/visual checks via Playwright MCP against `http://localhost:3000`; unit test runner is not chosen yet. See [`../frontend/tests/README.md`](../frontend/tests/README.md).
+- **Frontend**: E2E/visual checks via Playwright CLI / MCP against `http://localhost:3000`; unit test runner is not chosen yet. See [`../frontend/tests/README.md`](../frontend/tests/README.md).

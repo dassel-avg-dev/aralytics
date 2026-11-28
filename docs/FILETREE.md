@@ -4,7 +4,7 @@ Every directory and file in the repository, its responsibility, and which route 
 
 ```text
 aralytics/
-├── .gitignore                              # Excludes node_modules, dist, .env*, editor junk, and root /screens/ + /fetch-screens.mjs
+├── .gitignore                              # Excludes node_modules, dist, .env*, /screens/, /screenshots/, /fetch-screens.mjs, /graphify-out/, AGENTS.md, .impeccable/
 ├── .env.example                            # Unified root env template (ENV=development|production + backend, DB, mail, AI, and VITE_*)
 ├── docker-compose.yml                      # PostgreSQL 16 (healthcheck) + backend API on :8080 (reads root .env)
 ├── check-env.ps1                           # Windows preflight check (Java 21+, Node 20+, frontend deps, Postgres :5432)
@@ -33,9 +33,11 @@ aralytics/
 │   │   ├── application.yml                 # Base config: datasource, JPA, Flyway, JWT/activation/CORS properties, health-only Actuator
 │   │   ├── application-dev.yml             # Dev profile: dev seed + Swagger UI + debug logging
 │   │   ├── application-prod.yml            # Prod profile: migrations only, Swagger disabled
+│   │   ├── application-seed.yml            # Opt-in demo seed profile (refused in prod)
 │   │   ├── db/migration/V1__init_postgres.sql        # PostgreSQL baseline schema (19 tables)
 │   │   ├── db/seed/V2__seed_dev_postgres.sql         # Demo school/users/class/activities/submission/feedback
 │   │   └── db/migration_mysql_legacy/                # Preserved MySQL V1-V7/V9 history, not on Flyway classpath
+│   ├── postman/                            # Postman collection (Auth, Student, Teacher endpoints) and testing guide
 │   ├── src/main/java/ph/aralytics/backend/
 │   │   ├── AralyticsApplication.java        # Spring Boot entry point
 │   │   ├── ai/                             # DiagnosticEngine.java (seam), MockDiagnosticEngine.java (default), LlmDiagnosticEngine.java (ai-profile stub)
@@ -55,7 +57,6 @@ aralytics/
 │       └── resources/
 │           ├── application-test.yml                  # H2 PostgreSQL-mode datasource, Hibernate create-drop, Flyway off
 │           └── data.sql                              # H2-compatible seed (app_user, plain JSON options, identity restarts)
-├── postman/                                # Postman collection (Auth, Student, Teacher endpoints) and workspace globals
 ├── fetch-screens.mjs                       # Script to fetch Stitch HTML + screenshots into screens/stitch/ (gitignored)
 │
 ├── screens/                                # RAW STITCH EXPORTS (gitignored via /screens/; reference only — never imported at runtime)

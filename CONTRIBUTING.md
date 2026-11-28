@@ -4,7 +4,7 @@ This document defines the enforced workflow for this repository. All contributor
 
 ## Getting Started
 
-Prerequisites per `SETUP.md`: Node.js v20.x or later (v22.x recommended), npm v10.x or later, Git v2.40+.
+Prerequisites per `docs/SETUP.md`: JDK 21+, PostgreSQL 16 (or Docker), Node.js v20.x or later (v22.x recommended), npm v10.x or later, Git v2.40+.
 
 ```powershell
 # Install frontend dependencies
@@ -20,10 +20,12 @@ npm --prefix frontend run dev
 npm --prefix frontend run lint
 
 npm --prefix frontend run build
+
+cd backend; .\mvnw.cmd -B verify
 ```
 
 
-Both `lint` and `build` must pass with zero errors before a branch can be merged into `main`.
+Frontend `lint` + `build` and backend `verify` must pass with zero errors before a branch can be merged into `main`.
 
 ## Branch Naming
 
@@ -31,7 +33,7 @@ Use `main` for stable code; `feature/<issue>-<short-name>` for features; `fix/<i
 
 ## Commits
 
-- Write descriptive imperative summaries: state what the commit does and why (e.g., "Add filter controls to students roster so teachers can isolate students below the mastery threshold").
+- Use **Conventional Commits** (`feat(scope): ...`, `fix(scope): ...`, `docs(scope): ...`, `chore(scope): ...`) with descriptive imperative summaries explaining what the commit does and why.
 - Reference the issue number when applicable (e.g., `(#12)`).
 - Never mix unrelated work: do not commit commented-out code dumps, console/log noise, or files unrelated to the change in the same commit.
 
@@ -52,5 +54,5 @@ The `main` branch is protected: force-push and direct-push are disabled by the r
 
 ## Documentation Upkeep
 
-- Any change that adds or renames files, or changes routes, must update `FILETREE.md` (file map) and `LOG.md` (chronological change log) in the same PR.
-- UI changes must follow `HANDOFF.md` conventions: React 19 functional components with hooks only, Tailwind v4 theme tokens defined in `frontend/src/index.css`, and Google Material Symbols icons.
+- Any change that adds or renames files, or changes routes, must update `docs/FILETREE.md` (file map), `docs/LOG.md` (chronological change log), and `docs/HANDOFF.md` / `docs/SETUP.md` as applicable in the same PR.
+- UI changes must follow `docs/HANDOFF.md` conventions: React 19 functional components with hooks only, Tailwind v4 theme tokens defined in `frontend/src/index.css`, and Google Material Symbols icons.

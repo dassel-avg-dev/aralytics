@@ -2,18 +2,13 @@
 
 Defines the working roles for the Aralytics project team. Assign one primary role per member (members may share a role where noted). Responsibilities below are the minimum expectations; roles can be adjusted as the project evolves.
 
-_Status: Team roster to be filled in._
-
 ## Team Members
 
 | Member | Role | GitHub handle | Responsibilities |
 |---|---|---|---|
-| _ | _ | _ | _ |
-| _ | _ | _ | _ |
-| _ | _ | _ | _ |
-| _ | _ | _ | _ |
-| _ | _ | _ | _ |
-| _ | _ | _ | _ |
+| Dassel Bacaltos | Frontend Developer & Project Lead | `@dassel-avg-dev` | React 19 + Vite 8 + Tailwind CSS v4 frontend (17 screens), Warm Editorial EdTech v2 design system, repository coordination, PR reviews |
+| James Benedict De la Peña | Backend Developer | `TBD` | Spring Boot 3.4.13 REST API, PostgreSQL 16 + Flyway schema (19 tables), JWT/RBAC security, DiagnosticEngine seam, integration tests |
+| Kharl Christian Tumamak | DevOps | `TBD` | Docker Compose, PostgreSQL containerization, unified `.env` environment setup, CI/deployment readiness |
 
 ## Role Archetypes
 
@@ -23,11 +18,11 @@ Owns the repository itself and the project's day-to-day coordination: repo setti
 
 ### Frontend Developer(s)
 
-Owns the React 19 + Vite 8 + Tailwind CSS v4 app in `frontend/`, building and maintaining the 13 routed screens (public/auth, student, teacher) per `HANDOFF.md`: React 19 functional components + hooks, Tailwind v4 theme tokens in `frontend/src/index.css`, Material Symbols icons, and responsive behavior. Keeps screens consistent with the design system and passes lint/build before every PR.
+Owns the React 19 + Vite 8 + Tailwind CSS v4 app in `frontend/`, building and maintaining the 17 routed screens (public/auth, shared, student, teacher) per `HANDOFF.md`: React 19 functional components + hooks, Tailwind v4 theme tokens in `frontend/src/index.css`, Material Symbols icons, and responsive behavior. Keeps screens consistent with the design system and passes lint/build before every PR.
 
 ### Backend & AI Engineer
 
-Owns the planned backend work defined in `PRD.md`: secure server-side authentication with role-based access, the data model for classes/activities/attempts, and the locally hosted coding-education diagnostic model that returns scores, concept tags, and supportive feedback within the performance targets. Also owns model evaluation, fallback/retry behavior, and privacy compliance (RA 10173) for any student data.
+Owns the Spring Boot 3.4.13 + PostgreSQL 16 backend defined in `PRD.md` and `backend/README.md`: secure server-side authentication with role-based access, the data model for classes/activities/attempts/reports/settings, the deterministic `MockDiagnosticEngine` (and future locally hosted `LlmDiagnosticEngine`), fallback/retry behavior, and privacy compliance (RA 10173) for any student data.
 
 ### QA & Documentation
 
